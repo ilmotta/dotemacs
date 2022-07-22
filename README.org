@@ -1,0 +1,4 @@
+* DotEmacs
+
+Feel free to grab anything from this repository. It's Emacs Lisp all the way
+down!
