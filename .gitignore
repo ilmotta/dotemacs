@@ -1,0 +1,11 @@
+**/*.elc
+*.data
+eshell/
+server
+session.*
+.local/
+eln-cache/
+lisp/loaddefs.el
+
+# Ignore flycheck temporary files.
+*/**/.flycheck_*
