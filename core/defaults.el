@@ -425,9 +425,9 @@ If this function returns true then the buffer can be killed."
 ;; Don't allow certain buffers to be killed.
 (add-hook 'kill-buffer-query-functions #'my/protect-buffer)
 
-;; Avoid problems with crontabs, diffs, etc.
-(setq require-final-newline 'visit-save
-      mode-require-final-newline 'visit-save)
+;; Avoid problems with crontabs, diffs, etc. A value of t means only add a
+;; newline when the file is about to be saved.
+(setq mode-require-final-newline t)
 
 ;; Changes all yes/no questions to y/n type.
 (setq use-short-answers t)
