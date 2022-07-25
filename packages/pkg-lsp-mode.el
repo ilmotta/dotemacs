@@ -56,9 +56,16 @@ spanning over multiple lines."
   :hook (lsp-completion-mode-hook . pkg-lsp-mode/setup-completion)
   :hook (lsp-mode-hook . pkg-lsp-mode/disable-eldoc-h)
   :hook ((typescript-mode-hook rjsx-mode-hook js-mode-hook) . pkg-lsp-mode/lsp-mode-h)
-  ;; :hook (clojure-mode-hook . pkg-lsp-mode/setup-clojure-h)
+  :hook (clojure-mode-hook . pkg-lsp-mode/setup-clojure-h)
 
   :init
+  ;; The `lsp-keymap-prefix' does not work as one would think. We need to remove
+  ;; the prefix keybinding and define a new one.
+  (let ((prefix (kbd "C-c C-l")))
+    (setq lsp-keymap-prefix prefix)
+    (define-key lsp-mode-map (kbd "s-l") nil)
+    (define-key lsp-mode-map prefix lsp-command-map))
+
   (my/general-mode-def
     :keymaps 'lsp-mode-map
     "c f r" #'lsp-find-references
@@ -145,9 +152,6 @@ spanning over multiple lines."
 
   ;; If non-nil, log all messages to and from the language server to *lsp-log*.
   (setq lsp-log-io nil)
-
-  ;; TODO: LSP still takes over the s-l keybinding.
-  (setq lsp-keymap-prefix nil)
 
 ;;; Javascript configuration.
 
