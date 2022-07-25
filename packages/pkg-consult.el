@@ -27,7 +27,9 @@ perform the completion directly in the original buffer."
 (defun pkg-consult/ripgrep-dwim ()
   "Search with rg using symbol at point as initial input."
   (interactive)
-  (funcall #'consult-ripgrep default-directory (thing-at-point 'symbol)))
+  (if-let ((proj (project-current)))
+      (funcall #'consult-ripgrep (project-root proj) (thing-at-point 'symbol))
+    (funcall #'consult-ripgrep default-directory (thing-at-point 'symbol))))
 
 (my/package consult
   :straight (:host github :repo "minad/consult" :branch "main")
