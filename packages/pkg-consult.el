@@ -24,6 +24,11 @@ perform the completion directly in the original buffer."
            #'completion--in-region)
          args))
 
+(defun pkg-consult/ripgrep-dwim ()
+  "Search with rg using symbol at point as initial input."
+  (interactive)
+  (funcall #'consult-ripgrep default-directory (thing-at-point 'symbol)))
+
 (my/package consult
   :straight (:host github :repo "minad/consult" :branch "main")
   :defer t
@@ -59,7 +64,8 @@ perform the completion directly in the original buffer."
 
   (general-def
     :keymaps 'project-prefix-map
-    "s s" #'consult-ripgrep)
+    "s s" #'consult-ripgrep
+    "s ." #'pkg-consult/ripgrep-dwim)
 
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
