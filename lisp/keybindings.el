@@ -74,4 +74,13 @@
   [remap xref-find-references] #'pkg-xref/find-references-dwim
   [remap xref-find-definitions] #'pkg-xref/find-definitions)
 
+;;; Window
+
+(general-def
+  :keymaps 'my/keys-mode-map
+  :states '(normal insert emacs visual)
+  :prefix my/leader
+  :non-normal-prefix "C-x"
+  "w" #'pkg-emacs/window-command-map)
+
 (provide 'keybindings)

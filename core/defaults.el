@@ -819,7 +819,7 @@ reuse the same window whenever possible."
     (define-key map (kbd "l")   #'evil-window-right)
     (define-key map (kbd "o")   #'delete-other-windows)
     (define-key map (kbd "q")   #'evil-quit)
-    (define-key map (kbd "r")   #'winner-undo)
+    (define-key map (kbd "u")   #'winner-undo)
     (define-key map (kbd "s")   #'pkg-window/split-window-below)
     (define-key map (kbd "v")   #'pkg-window/split-window-right)
     (define-key map (kbd "|")   #'evil-window-set-width)
