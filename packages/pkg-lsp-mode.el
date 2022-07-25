@@ -101,7 +101,7 @@ spanning over multiple lines."
   (setq lsp-enable-imenu t)
   (setq lsp-enable-indentation t)
   (setq lsp-enable-links nil)
-  (setq lsp-enable-on-type-formatting t)
+  (setq lsp-enable-on-type-formatting nil)
   (setq lsp-enable-relative-indentation t)
   (setq lsp-enable-snippet nil)
   (setq lsp-enable-symbol-highlighting t)
