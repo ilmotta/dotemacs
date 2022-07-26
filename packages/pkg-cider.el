@@ -25,12 +25,20 @@
 
 (defun pkg-cider/setup-clojure-h ()
   "Disable certain LSP features when `cider-mode' is enabled."
+  ;; There are multiple issues related to CIDER completion functions. I could
+  ;; only get a working and performant auto-completion when `completion-styles'
+  ;; is set to its default value.
+  ;;
+  ;; https://github.com/clojure-emacs/cider/issues/3006
+  ;; https://github.com/clojure-emacs/cider/issues/3019
+  ;; https://github.com/minad/corfu/issues/8
+  (setq-local completion-styles '(basic partial-completion emacs22))
+
   (when (bound-and-true-p lsp-mode)
     ;; Prefer CIDER completion when enabled.
     (if (bound-and-true-p cider-mode)
         (setq-local lsp-enable-completion-at-point nil)
       (setq-local lsp-enable-completion-at-point t))))
-
 
 (defun pkg-cider/-update-last-test (ns var)
   "Update the last test by setting NS and VAR."
