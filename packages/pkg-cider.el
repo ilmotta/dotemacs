@@ -294,6 +294,17 @@ INSPECT-FN-NAME, otherwise eval as usual."
   ;; connection to REPL.
   (setq cider-repl-pop-to-buffer-on-connect nil)
 
+  ;; Although I visually prefer to see debug keys in the minibuffer, it doesn't
+  ;; work properly, e.g. eldoc replaces them.
+  (setq cider-debug-prompt 'overlay)
+
+  ;; TODO: fix keybindings for evil.
+  ;;
+  ;; Evil-collection does support keybindings for CIDER debug, but it doesn't
+  ;; work for me.
+  ;;
+  ;; (setq cider-debug-prompt-commands ...)
+
   ;; Do not save the file on load. Eval is one thing, saving a file is another
   ;; with potential side-effects. This is specially important when developing
   ;; with hot reload (e.g. Shadow CLJS). ELisp also doesn't save the file when
