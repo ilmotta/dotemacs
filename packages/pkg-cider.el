@@ -61,7 +61,7 @@
   (concat "(let [res    " form "]"
           "  (cond"
           "    (satisfies? IDeref res)"
-          "    (deref res)"
+          "    (" inspect-fn-name "(deref res))"
 
           "    (.-then res)"
           "    (-> res"
