@@ -1,5 +1,15 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
+;;; Process
+
+(general-def
+  :keymaps 'my/keys-mode-map
+  :states '(normal insert emacs visual)
+  :prefix my/leader
+  :non-normal-prefix my/non-normal-prefix
+  "o m" #'proced
+  "o p" #'list-processes)
+
 ;;; Buffer/file
 
 (general-def
