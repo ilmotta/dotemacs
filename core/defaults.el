@@ -860,6 +860,9 @@ reuse the same window whenever possible."
       `((,(rx "*Proced*")
          (display-buffer-reuse-window
           display-buffer-same-window))
+        (,(rx "*Process List*")
+         (display-buffer-reuse-window
+          display-buffer-same-window))
         (,(rx "*Help*")
          (display-buffer-reuse-window
           display-buffer-same-window))
