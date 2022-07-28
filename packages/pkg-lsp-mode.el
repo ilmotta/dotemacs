@@ -61,10 +61,11 @@ spanning over multiple lines."
   :init
   ;; The `lsp-keymap-prefix' does not work as one would think. We need to remove
   ;; the prefix keybinding and define a new one.
-  (let ((prefix (kbd "C-c C-l")))
-    (setq lsp-keymap-prefix prefix)
-    (define-key lsp-mode-map (kbd "s-l") nil)
-    (define-key lsp-mode-map prefix lsp-command-map))
+  (setq lsp-keymap-prefix "C-c C-l")
+  (general-def
+    :keymaps 'lsp-mode-map
+    "s-l" nil
+    "C-c C-l" '(:keymap lsp-command-map))
 
   (my/general-mode-def
     :keymaps 'lsp-mode-map
