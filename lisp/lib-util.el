@@ -493,12 +493,14 @@ symbolic links."
                (concat link-root ".aspell.conf") replace)
     (u/symlink (concat target-root "editorconfig")
                (concat link-root ".editorconfig") replace)
-    (u/symlink (concat target-root "gitconfig")
+    (u/symlink (concat target-root "git/gitconfig")
                (concat link-root ".gitconfig") replace)
+    (u/symlink (concat target-root "git/gitignore")
+               (concat link-root ".gitignore") replace)
 
-    (u/symlink (concat target-root "emacs.d")
+    (u/symlink "~/data/repos/dotemacs/"
                (concat link-root ".config/emacs") replace)
-    (u/symlink (concat target-root "emacs.d")
+    (u/symlink "~/data/repos/dotemacs/"
                (concat link-root ".emacs.d") replace)
 
     ;; Enable if reading e-mail in Emacs.
