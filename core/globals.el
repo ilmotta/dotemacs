@@ -39,6 +39,7 @@
     inferior-emacs-lisp-mode
     inferior-lisp-mode
     inferior-scheme-mode
+    lisp-data-mode
     lisp-interaction-mode
     lisp-mode
     scheme-interaction-mode
@@ -47,8 +48,8 @@
 
 (defconst my/lisp-modes-maps
   (mapcar (lambda (mode)
-             (intern (concat (symbol-name mode) "-map")))
-           my/lisp-modes))
+            (intern (concat (symbol-name mode) "-map")))
+          my/lisp-modes))
 
 (defconst my/lisp-modes-hooks
   (mapcar (lambda (mode)
