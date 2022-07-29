@@ -157,6 +157,7 @@
  pkg-ace-window
  pkg-browse-at-remote
  pkg-command-log-mode
+ pkg-consult-dir
  pkg-daemons
  pkg-deadgrep
  pkg-devdocs-lookup
