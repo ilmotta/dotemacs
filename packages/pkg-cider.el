@@ -190,6 +190,29 @@ INSPECT-FN-NAME, otherwise eval as usual."
   (interactive)
   (cider-interactive-eval "(user/stop)"))
 
+;;;###autoload
+(defun pkg-cider/shadow-watch-compile ()
+  "Trigger a recompile for all running builds.
+
+This command is specially useful in Shadow-CLJS projects that
+have {:devtools {:autobuild false}}. This configuration is often
+desirable in cases where hot-reloading is not reliable and/or is
+too expensive. Some people save files multiple times per minute,
+for example."
+  (interactive)
+  (cider-map-repls
+   :clj
+   (lambda (connection)
+     (let ((form "(shadow.cljs.devtools.api/watch-compile-all!)"))
+       (cider--prep-interactive-eval form connection)
+       (cider-nrepl-request:eval form
+                                 (lambda (_response))
+                                 (cider-current-ns)
+                                 nil
+                                 nil
+                                 nil
+                                 connection)))))
+
 ;;; Package
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
@@ -217,6 +240,10 @@ INSPECT-FN-NAME, otherwise eval as usual."
 
 ;;;; Keybindings
   :init
+  (my/general-mode-def
+    :keymaps '(clojurescript-mode-map)
+    "SPC" #'pkg-cider/shadow-watch-compile)
+
   (my/general-mode-def
     :keymaps '(clojure-mode-map)
     ;; Application
