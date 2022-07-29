@@ -108,7 +108,7 @@ perform the completion directly in the original buffer."
    consult-outline
    :preview-key 'any
 
-   ;; When fast scrolling a low debounce, such as 100ms will prevent needlessly
+   ;; Fast scrolling with a low debounce (e.g. 100ms) will prevent needlessly
    ;; previewing buffers.
    consult-buffer
    :preview-key (append '(:debounce 0.1) consult-preview-key))
