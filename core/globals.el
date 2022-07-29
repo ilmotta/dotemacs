@@ -53,8 +53,8 @@
 
 (defconst my/lisp-modes-hooks
   (mapcar (lambda (mode)
-             (intern (concat (symbol-name mode) "-hook")))
-           my/lisp-modes))
+            (intern (concat (symbol-name mode) "-hook")))
+          my/lisp-modes))
 
 ;;; Variables
 
