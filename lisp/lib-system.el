@@ -215,6 +215,29 @@ that resolves to the PID string."
            (expand-file-name (format "/tmp/%s.pid" (make-temp-name "twistd-")))
            (file-truename directory))))
 
+;;;; Nix
+
+(defhof lib/--nix-packages
+  (lib-util/memoize-ttl
+   :ttl-ms (* 1000 3600)
+   :f (lambda ()
+        (with-temp-buffer
+          (let* ((_ (call-process-shell-command "nix-env -f \"<nixpkgs>\" -qaP" nil (buffer-name)))
+                 (pkgs (thread-last (split-string (buffer-string) "\n" nil "\n")
+                                    (seq-map #'string-trim)
+                                    (seq-map (lambda (line)
+                                               (replace-regexp-in-string (rx (one-or-more whitespace)) " | " line))))))
+            pkgs)))))
+
+;;;###autoload
+(defun lib/nix-packages ()
+  "List all known Nix packages."
+  (interactive)
+  (with-temp-buffer
+    (let* ((pkgs (lib/--nix-packages))
+           (pkg (completing-read "Nix pkgs: " pkgs nil t)))
+      pkg)))
+
 ;;;; File system
 
 ;;;###autoload

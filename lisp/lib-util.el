@@ -11,6 +11,12 @@ possible, but fallback `display-buffer-same-window'."
                                               display-buffer-same-window))))
     ,@body))
 
+(defmacro defhof (name fn-factory)
+  `(progn
+     (defvar ,name ,fn-factory)
+     (fset ',name ,name)
+     (declare-function ,name nil)))
+
 (defmacro delq! (elt list &optional fetcher)
   "`delq' ELT from LIST in-place.
 
@@ -117,6 +123,18 @@ code of the process and OUTPUT is its stdout output."
       (set-process-sentinel process sentinel))))
 
 ;;; Utilities
+
+(cl-defun u/memoize-ttl (&key f (ttl-ms 10000))
+  (let ((cached nil)
+        (called-at nil))
+    (lambda (&rest args)
+      (if (and called-at (<= (- (* 1000 (ts-unix (ts-now)))
+                                (* 1000 (ts-unix called-at)))
+                             ttl-ms))
+          cached
+        (setq cached (apply f args))
+        (setq called-at (ts-now))
+        cached))))
 
 (defun u/uuid ()
   "Generate UUID."
