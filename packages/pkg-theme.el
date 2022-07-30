@@ -214,8 +214,11 @@ theme is loaded in order to correctly update all faces."
 (add-hook 'after-init-hook #'pkg-theme/load)
 
 (general-def
-  :keymaps 'my/keys-mode-map
-  "C-x t >" #'pkg-theme/cycle-dark-light)
+  :keymaps '(my/keys-mode-map)
+  :states '(normal visual insert emacs)
+  :prefix my/leader
+  :non-normal-prefix my/non-normal-prefix
+  "x t t" #'pkg-theme/cycle-dark-light)
 
 ;; Advice after the theme is first loaded because `pkg-theme/load-advice' calls
 ;; `customize-save-variable' which is pretty slow.
