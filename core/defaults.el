@@ -225,6 +225,10 @@
 (define-key my/keys-mode-map (kbd "s-f") #'project-find-file)
 (define-key my/keys-mode-map (kbd "s-s") #'save-buffer)
 
+;; Useful when xkboptions are set to "ctrl:swap_lalt_lctl_lwin", because
+;; C-g becomes too cumbersome to type on traditional qwerty layouts.
+(define-key my/keys-mode-map (kbd "s-g") #'my/escape)
+
 (defvar pkg-emacs/file-command-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "%")   #'query-replace-regexp)
