@@ -55,6 +55,7 @@
  ("evil" . "0e501d17c5dc2944f23fe5046b030d0c641665c5")
  ("evil-cleverparens" . "8c45879d49bfa6d4e414b6c1df700a4a51cbb869")
  ("evil-collection" . "ae35410851b91f88acecba60fa1066e69742bf27")
+ ("evil-matchit" . "296cc6580b990dec41893bdb08d8294ded4cb91b")
  ("evil-nerd-commenter" . "63baf2d1c796edd11bbec5fe1dee711173d4155d")
  ("evil-org-mode" . "0d10ff7bb9a3a93d25cd91018b17f0a052b335f3")
  ("evil-smartparens" . "026d4a3cfce415a4dfae1457f871b385386e61d3")

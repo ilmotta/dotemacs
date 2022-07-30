@@ -131,6 +131,7 @@ understand standard input."
           (TeX-mode . latexindent)
           (tuareg-mode . ocamlformat)
           (typescript-mode . prettier)
+          (typescript-tsx-mode . prettier)
           (web-mode . prettier)
           (yaml-mode . prettier)))
 

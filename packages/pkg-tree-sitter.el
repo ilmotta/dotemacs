@@ -15,12 +15,12 @@
           typescript-mode-hook) . tree-sitter-hl-mode)
 
   :init
-  (define-derived-mode tsx-mode typescript-mode
+  (define-derived-mode typescript-tsx-mode typescript-mode
     "TypeScript TSX")
 
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . tsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode))
 
   :config
-  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-mode . tsx)))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
 
 (provide 'pkg-tree-sitter)

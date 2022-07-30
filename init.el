@@ -85,6 +85,7 @@
  pkg-dumb-jump
  pkg-emmet-mode
  pkg-evil-cleverparens
+ pkg-evil-matchit
  pkg-evil-nerd-commenter
  pkg-evil-smartparens
  pkg-evil-surround
