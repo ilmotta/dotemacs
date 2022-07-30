@@ -94,3 +94,16 @@
   "w" #'pkg-emacs/window-command-map)
 
 (provide 'keybindings)
+;;; Super shortcuts
+
+(general-def
+  :keymaps 'my/keys-mode-map
+  "s-f" #'project-find-file
+  "s-g" #'magit-status
+  "s-i" #'execute-extended-command
+  "s-n" #'org-roam-node-find
+  "s-p" #'project-switch-project
+  "s-s" #'save-buffer
+  "s-u" #'switch-to-buffer
+  "s-U" #'project-switch-to-buffer
+  "s-w" #'delete-window)
