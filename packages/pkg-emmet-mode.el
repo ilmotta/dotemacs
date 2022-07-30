@@ -12,6 +12,7 @@
   :straight t
   :defer t
   :hook (js-mode-hook . pkg-emmet-mode/setup)
+  :hook (typescript-tsx-mode-hook . emmet-mode)
   :init
   (when (bound-and-true-p evil-mode)
     (general-def
