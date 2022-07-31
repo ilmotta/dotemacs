@@ -53,6 +53,7 @@ spanning over multiple lines."
   :load-path (lambda ()
                (concat (straight--repos-dir "lsp-mode") (file-name-as-directory "clients")))
 
+  :hook (go-mode-hook . lsp-deferred)
   :hook (lsp-completion-mode-hook . pkg-lsp-mode/setup-completion)
   :hook (lsp-mode-hook . pkg-lsp-mode/disable-eldoc-h)
   :hook ((typescript-mode-hook rjsx-mode-hook js-mode-hook) . pkg-lsp-mode/lsp-mode-h)
