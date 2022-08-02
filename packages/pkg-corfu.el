@@ -42,7 +42,7 @@
   ;; Auto-completion on Eshell is annoying.
   :hook (eshell-mode-hook . pkg-corfu/disable-auto-complete)
 
-  :hook (after-init-hook . corfu-global-mode)
+  :hook (after-init-hook . global-corfu-mode)
 
   :init
   (general-def
