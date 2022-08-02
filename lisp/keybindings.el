@@ -106,4 +106,6 @@
   "s-s" #'save-buffer
   "s-u" #'switch-to-buffer
   "s-U" #'project-switch-to-buffer
-  "s-w" #'delete-window)
+  "s-w" #'delete-window
+  "s-;" #'pkg-window/split-window-right
+  "s-'" #'pkg-window/split-window-below)
