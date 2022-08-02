@@ -131,6 +131,9 @@
 ;; deleted directory.
 (setq dired-clean-confirm-killing-deleted-buffers nil)
 
+(when (version= "29.0.50" emacs-version)
+  (setq dired-free-space nil))
+
 ;;;; Config
 
 (add-hook 'dired-mode-hook #'pkg-dired/setup-mode-h)
