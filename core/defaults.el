@@ -220,6 +220,9 @@
 (define-key my/keys-mode-map (kbd "C-c e P s") #'lib-util/profiler-start)
 (define-key my/keys-mode-map (kbd "C-c e P k") #'lib-util/profiler-stop)
 
+(when (version= "29.0.50" emacs-version)
+  (define-key my/keys-mode-map (kbd "C-x <f5>") #'restart-emacs))
+
 (defvar pkg-emacs/file-command-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "%")   #'query-replace-regexp)
