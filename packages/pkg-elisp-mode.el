@@ -249,6 +249,17 @@ around point."
   (call-interactively #'eval-buffer)
   (message "Evaluated '%s'." (buffer-name)))
 
+;;;###autoload
+(defun pkg-elisp-mode/eval-defun-2nd-symbol ()
+  "Eval 2nd symbol starting from the beginning of defun.
+
+This is particularly useful to evaluate the value of a var."
+  (interactive)
+  (save-excursion
+    (beginning-of-defun)
+    (forward-symbol 2)
+    (call-interactively #'eval-last-sexp)))
+
 ;;;; Package
 
 ;; Although this checker is very useful for certain kinds of projects
@@ -277,6 +288,7 @@ around point."
   "e p b" #'pp-buffer
   "e p p" #'pp-eval-last-sexp
   "e r"   #'eval-region
+  "e 2"   #'pkg-elisp-mode/eval-defun-2nd-symbol
   ;; Help
   "h ."   #'helpful-at-point
   "h a a" #'apropos

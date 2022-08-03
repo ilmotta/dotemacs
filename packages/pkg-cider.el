@@ -162,6 +162,17 @@ INSPECT-FN-NAME, otherwise eval as usual."
         (cider-interactive-eval around-form)))))
 
 ;;;###autoload
+(defun pkg-cider/eval-defun-2nd-symbol ()
+  "Eval 2nd symbol starting from the beginning of defun.
+
+This is particularly useful to evaluate the value of a var."
+  (interactive)
+  (save-excursion
+    (beginning-of-defun)
+    (forward-symbol 2)
+    (call-interactively #'cider-eval-last-sexp)))
+
+;;;###autoload
 (defun pkg-cider/eval-special-form-tap ()
   "Eval form around point as a promise and resolves/rejects with
 `tap>', otherwise eval as usual."
@@ -268,6 +279,7 @@ for example."
     "e p p" #'cider-pprint-eval-last-sexp
     "e r"   #'cider-eval-region
     "e u"   #'cider-undef
+    "e 2"   #'pkg-cider/eval-defun-2nd-symbol
     ;; Help
     "h ."   #'cider-doc
     "h a a" #'cider-apropos
