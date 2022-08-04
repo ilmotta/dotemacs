@@ -7,7 +7,7 @@
 ;;; Code:
 
 (my/package xclip
-  :if (and (display-graphic-p) (not my/android?))
+  :if (and (not (display-graphic-p)) (not my/android?))
   :straight t
   :demand t
   :config
