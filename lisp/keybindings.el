@@ -99,7 +99,7 @@
 (general-def
   :keymaps 'my/keys-mode-map
   "s-f" #'project-find-file
-  "s-g" #'magit-status
+  "s-m" #'magit-status
   "s-i" #'execute-extended-command
   "s-n" #'org-roam-node-find
   "s-p" #'project-switch-project
