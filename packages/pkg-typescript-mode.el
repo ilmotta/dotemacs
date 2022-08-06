@@ -3,6 +3,7 @@
 (my/package typescript-mode
   :straight t
   :defer t
+  :hook (typescript-mode-hook . electric-pair-local-mode)
   :init
   (setq typescript-indent-level 2)
   (setq typescript-expr-indent-offset 0))

@@ -159,12 +159,6 @@
       eldoc-minor-mode-string nil
       eldoc-echo-area-use-multiline-p nil)
 
-;;; Electric pair
-
-(add-hook 'js-mode-hook #'electric-pair-local-mode)
-(add-hook 'typescript-mode-hook #'electric-pair-local-mode)
-(add-hook 'ruby-mode-hook #'electric-pair-local-mode)
-
 ;;; Eshell
 ;;;; Faces
 

@@ -5,6 +5,7 @@
   :defer t
 
   :hook (js-mode-hook . js2-minor-mode)
+  :hook (js2-minor-mode-hook . electric-pair-local-mode)
 
   :init
   (general-def
