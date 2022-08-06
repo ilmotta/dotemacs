@@ -28,6 +28,12 @@
 
 (setq bookmark-set-fringe-mark t)
 
+;;; Compilation
+
+;; Don't ask for the compilation command in the minibuffer. I often prefer to
+;; set this variable in a directory locals file.
+(setq compilation-read-command nil)
+
 ;;; Diff
 
 (setq diff-default-read-only t)
