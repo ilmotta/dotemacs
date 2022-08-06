@@ -141,7 +141,6 @@
  ("synosaurus" . "14d34fc92a77c3a916b4d58400424c44ae99cd81")
  ("terraform-mode" . "e560caaa9d9a11b0868adf6d9dcae5ebb5055730")
  ("themes" . "5f96ee83e9734587bf3e8ec61d4f067b43d9c26e")
- ("tide" . "4cf6a0d89da7f946565a425a632ee2410a40c7da")
  ("timer-revert" . "615c91dec8b440d2b9b7c725dd733d7432564e45")
  ("transient" . "cc887ebe3fa85a3642d937efe2ff882b356da9c0")
  ("trashed" . "ddf5830730544435a068f2dc9ac75a81ea69df1d")

@@ -127,7 +127,6 @@
  pkg-plantuml-mode
  pkg-rust-mode
  pkg-terraform-mode
- pkg-tide
  pkg-tree-sitter
  pkg-tree-sitter-langs
  pkg-typescript-mode
