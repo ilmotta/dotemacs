@@ -66,7 +66,7 @@
     "<return>" #'pkg-corfu/return-handler)
 
   (setq corfu-auto t)
-  (setq corfu-auto-delay 0.15)
+  (setq corfu-auto-delay 0.06)
   (setq corfu-auto-prefix 2)
   (setq corfu-bar-width 0.50)
   (setq corfu-count 12)
