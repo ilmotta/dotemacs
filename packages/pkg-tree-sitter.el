@@ -5,6 +5,7 @@
   :straight t
   :defer t
   :hook ((css-mode-hook
+          go-mode-hook
           java-mode-hook
           js-mode-hook
           json-mode-hook
