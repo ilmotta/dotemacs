@@ -194,6 +194,34 @@ eshell buffer."
 
 ;;;; Private
 
+(defcustom pkg-eshell/buffer-name-separator " • "
+  "String used to separate `eshell-buffer-name' and the current
+working directory (`default-directory')."
+  :type 'string
+  :group 'eshell)
+
+(defun pkg-eshell/last-input ()
+  (when (and eshell-last-input-start eshell-last-input-end)
+    (let ((input (string-trim-right (buffer-substring-no-properties eshell-last-input-start eshell-last-input-end))))
+      (if (string-blank-p input)
+          nil
+        input))))
+
+(defun pkg-eshell/rename-buffer-with-command ()
+  "Rename current eshell buffer with last input."
+  (when-let ((last-input (pkg-eshell/last-input)))
+    (let* ((separator pkg-eshell/buffer-name-separator)
+           (separator-regexp (rx (literal separator)
+                                 (group (one-or-more not-newline))
+                                 line-end))
+           (current-name (buffer-name))
+           (new-name (if (string-match-p separator-regexp current-name)
+                         (replace-regexp-in-string separator-regexp
+                                                   (concat separator last-input)
+                                                   current-name)
+                       (concat current-name separator last-input))))
+      (rename-buffer new-name))))
+
 (defun pkg-eshell/-buffers ()
   (ring-elements pkg-eshell/buffers))
 
@@ -517,6 +545,7 @@ eshell buffer."
 
 (add-hook 'eshell-mode-hook #'pkg-eshell/init-h)
 (add-hook 'eshell-exit-hook #'pkg-eshell/cleanup-h)
+(add-hook 'eshell-post-command-hook #'pkg-eshell/rename-buffer-with-command)
 
 ;;; Image dired
 
