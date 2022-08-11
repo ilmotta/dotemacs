@@ -111,7 +111,7 @@ perform the completion directly in the original buffer."
    ;; Fast scrolling with a low debounce (e.g. 100ms) will prevent needlessly
    ;; previewing buffers.
    consult-buffer
-   :preview-key (append '(:debounce 0.1) consult-preview-key))
+   :preview-key (append '(:debounce 0.05) consult-preview-key))
 
   (advice-add #'consult-line :around #'pkg-consult/-consult-line)
   (advice-add #'consult-outline :around #'pkg-consult/-consult-outline))
