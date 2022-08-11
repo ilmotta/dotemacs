@@ -9,7 +9,7 @@ to customize the section. There's probably a better way, but this
 works fine."
   (doom-modeline-def-modeline 'main
     '(bar workspace-name window-number matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
-    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
+    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker time))
 
   (doom-modeline-def-modeline 'minimal
     '(bar matches buffer-info-simple)
@@ -96,11 +96,10 @@ works fine."
         doom-modeline-buffer-modification-icon t
         doom-modeline-icon (display-graphic-p)
         doom-modeline-irc nil
-        doom-modeline-major-mode-icon nil
+        doom-modeline-major-mode-icon t
         doom-modeline-minor-modes nil
         doom-modeline-modal-icon nil
-        doom-modeline-unicode-fallback nil
-        doom-modeline-workspace-name nil)
+        doom-modeline-unicode-fallback nil)
 
   :config
   (pkg-doom-modeline/define-sections)
