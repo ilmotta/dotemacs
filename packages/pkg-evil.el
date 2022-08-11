@@ -57,6 +57,23 @@
   (setq evil-kbd-macro-suppress-motion-error t)
   (setq evil-move-beyond-eol t) ; Recommended by the evil-cleverparens package.
 
+  ;; Let the modeline display the current modal state.
+  (setq evil-emacs-state-message nil
+        evil-insert-state-message nil
+        evil-motion-state-message nil
+        evil-normal-state-message nil
+        evil-operator-state-message nil
+        evil-replace-state-message nil
+        evil-visual-state-message nil)
+
+  (setq evil-emacs-state-tag "E"
+        evil-insert-state-tag "I"
+        evil-motion-state-tag "M"
+        evil-normal-state-tag "N"
+        evil-operator-state-tag "O"
+        evil-replace-state-tag "R"
+        evil-visual-state-tag "V")
+
   ;; More vim-like behavior.
   (setq evil-symbol-word-search t)
   (setq evil-want-C-u-scroll t) ; Moved the universal arg to <leader> u
