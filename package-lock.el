@@ -156,7 +156,6 @@
  ("with-editor" . "cfcbc2731e402b9169c0dc03e89b5b57aa988502")
  ("wordnut" . "feac531404041855312c1a046bde7ea18c674915")
  ("xclip" . "4772beb5579e13910c89c482a2e41271253c646b")
- ("xref" . "feb30d284d45e4904501d65b515069a1e365e07a")
  ("xterm-color" . "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
  ("yaml-mode" . "535273d5a1eb76999d20afbcf4d9f056d8ffd2da")
  ("yaml.el" . "73fde9d8fbbaf2596449285df9eb412ae9dd74d9")

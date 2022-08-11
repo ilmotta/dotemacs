@@ -78,12 +78,6 @@
   "C-c G r" #'lib-media/google-tts-read-region
   "C-c G d" #'lib-media/google-tts-dictate-region)
 
-;;; Xref
-
-(general-def
-  [remap xref-find-references] #'pkg-xref/find-references-dwim
-  [remap xref-find-definitions] #'pkg-xref/find-definitions)
-
 ;;; Window
 
 (general-def

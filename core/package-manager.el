@@ -33,6 +33,7 @@
         timeclock
         tramp
         vterm ; Installed via NixOS
+        xref
         winner))
 
 ;; Files that can be discarded should live in the local directory.

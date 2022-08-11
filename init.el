@@ -44,6 +44,10 @@
  pkg-magit
  pkg-xclip)
 
+;;; Built-in packages
+(my/with-packages
+ pkg-xref)
+
 ;;; Completion systems
 (my/with-packages
  pkg-consult
