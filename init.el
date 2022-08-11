@@ -133,6 +133,7 @@
  pkg-terraform-mode
  pkg-tree-sitter
  pkg-tree-sitter-langs
+ pkg-tsi
  pkg-typescript-mode
  pkg-vimrc-mode
  pkg-web-mode

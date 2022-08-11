@@ -147,6 +147,7 @@
  ("tree-sitter-langs" . "deb2d8674be8f777ace50e15c7c041aeddb1d0b2")
  ("treemacs" . "39bc43bcd24afe206b96aa7364e8b6a0907984d3")
  ("ts.el" . "3fee71ceefac71ba55eb34829d7e94bb3df37cee")
+ ("tsi.el" . "eb26ee20437576eefc62a61616bfdc5bda25caae")
  ("typescript.el" . "acd8d7995204c1faf14383b8236e57f4da380ecf")
  ("use-package" . "0ad5d9d5d8a61517a207ab04bf69e71c081149eb")
  ("vertico" . "e4e0babaf8a6d8d8fe7c84036180f9700ae7befd")
