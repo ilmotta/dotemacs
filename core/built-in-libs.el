@@ -892,6 +892,7 @@ automatically switch to it."
       tab-bar-close-last-tab-choice nil ; Do nothing and show a message.
       tab-bar-close-tab-select 'recent
       tab-bar-new-tab-to 'right
+      tab-bar-new-button-show nil
       tab-bar-new-tab-choice t      ; Start a new tab with the current buffer.
       tab-bar-position nil          ; Show above the tool bar.
       tab-bar-show nil              ; Always keep the tab bar hidden.
