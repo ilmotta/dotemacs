@@ -834,6 +834,9 @@ reuse the same window whenever possible."
 
 ;;;; Init
 
+;; Leave the window configuration alone, i.e. don't try to even window sizes.
+(setq even-window-sizes nil)
+
 (setq window-combination-resize t)
 (setq even-window-sizes 'height-only)
 (setq switch-to-buffer-in-dedicated-window 'pop)
@@ -845,43 +848,51 @@ reuse the same window whenever possible."
 ;; This is the default action used by display-buffer if no other actions are
 ;; specified or all fail, before falling back on
 ;; display-buffer-fallback-action.
+;;
+;; Perspective.el is one such package that recommends users to stop the whole
+;; window madness, where carefully created window configurations are destroyed
+;; by calling commands like `project-compile'. To bring a bit more sanity to
+;; window management, I prefer to reuse existing windows whenever possible, and
+;; otherwise use the current window to display the buffer in question.
+;;
+;; It also means I don't need to carefully craft `display-buffer-alist'.
 (setq display-buffer-base-action
       '((display-buffer-reuse-window
-         display-buffer--maybe-same-window
-         display-buffer--maybe-pop-up-frame-or-window
-         display-buffer-in-previous-window
-         display-buffer-below-selected
-         display-buffer-at-bottom
-         display-buffer-pop-up-frame)))
+         display-buffer-same-window)
 
-(setq display-buffer-alist
-      `((,(rx "*Proced*")
-         (display-buffer-reuse-window
-          display-buffer-same-window))
-        (,(rx "*Process List*")
-         (display-buffer-reuse-window
-          display-buffer-same-window))
-        (,(rx "*Help*")
-         (display-buffer-reuse-window
-          display-buffer-same-window))
-        (,(rx "*helpful" (one-or-more not-newline))
-         (display-buffer-reuse-window
-          display-buffer-same-window))
-        (,(rx line-start "magit: ")
-         (display-buffer-reuse-window
-          display-buffer-same-window))
-        (,(rx "*"
-           (zero-or-more not-newline)
-           (or "eshell" "shell" "term" "vterm")
-           (zero-or-more not-newline))
-         (display-buffer-reuse-mode-window
-          display-buffer-below-selected))
-        (,(rx "*Embark Actions*")
-         (display-buffer-reuse-mode-window
-          display-buffer-at-bottom)
-         (window-height . fit-window-to-buffer)
-         (window-parameters . ((no-other-window . t)
-                               (mode-line-format . none))))))
+        ;; Seach all frames for a reusable window.
+        (reusable-frames . t)))
+
+;; Left here as a reference for future needs.
+;;
+;; (setq display-buffer-alist
+;;       `((,(rx "*Proced*")
+;;          (display-buffer-reuse-window
+;;           display-buffer-same-window))
+;;         (,(rx "*Process List*")
+;;          (display-buffer-reuse-window
+;;           display-buffer-same-window))
+;;         (,(rx "*Help*")
+;;          (display-buffer-reuse-window
+;;           display-buffer-same-window))
+;;         (,(rx "*helpful" (one-or-more not-newline))
+;;          (display-buffer-reuse-window
+;;           display-buffer-same-window))
+;;         (,(rx line-start "magit: ")
+;;          (display-buffer-reuse-window
+;;           display-buffer-same-window))
+;;         ;; (,(rx "*"
+;;         ;;    (zero-or-more not-newline)
+;;         ;;    (or "eshell" "shell" "term" "vterm")
+;;         ;;    (zero-or-more not-newline))
+;;         ;;  (display-buffer-reuse-mode-window
+;;         ;;   display-buffer-below-selected))
+;;         (,(rx "*Embark Actions*")
+;;          (display-buffer-reuse-mode-window
+;;           display-buffer-at-bottom)
+;;          (window-height . fit-window-to-buffer)
+;;          (window-parameters . ((no-other-window . t)
+;;                                (mode-line-format . none))))))
 
 ;;;; Config
 
