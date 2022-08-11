@@ -20,7 +20,7 @@ works fine."
     '(objed-state misc-info battery irc-buffers debug minor-modes input-method indent-info buffer-encoding major-mode process))
 
   (doom-modeline-def-modeline 'project
-    '(bar window-number buffer-default-directory)
+    '(bar workspace-name window-number buffer-default-directory)
     '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
 
   (doom-modeline-def-modeline 'dashboard
@@ -28,7 +28,7 @@ works fine."
     '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
 
   (doom-modeline-def-modeline 'vcs
-    '(bar window-number matches buffer-info buffer-position parrot selection-info)
+    '(bar workspace-name window-number matches buffer-info buffer-position parrot selection-info)
     '(misc-info battery irc mu4e gnus github debug minor-modes buffer-encoding major-mode process))
 
   (doom-modeline-def-modeline 'package
@@ -52,7 +52,7 @@ works fine."
     '(misc-info major-mode process vcs))
 
   (doom-modeline-def-modeline 'org-src
-    '(bar window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
+    '(bar workspace-name window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
     '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
 
 (defun pkg-doom-modeline/setup-mode ()
