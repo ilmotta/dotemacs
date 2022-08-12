@@ -26,7 +26,7 @@ Also disable certain LSP features when `cider-mode' is enabled."
       (setq-local lsp-enable-completion-at-point nil)
     (setq-local lsp-enable-completion-at-point t))
 
-  (lsp))
+  (lsp-deferred))
 
 (defun pkg-lsp-mode/disable-eldoc-h ()
   "Disable eldoc because typed signatures are too verbose, often
@@ -39,7 +39,7 @@ spanning over multiple lines."
 (defun pkg-lsp-mode/lsp-mode-h ()
   "Avoid enabling LSP in certain buffers."
   (unless (member (f-filename (buffer-file-name)) '("package-lock.json"))
-    (call-interactively #'lsp)))
+    (lsp-deferred)))
 
 ;; Language Server Protocol Mode (lsp-mode) aims to provide IDE-like experience
 ;; by providing optional integration with the most popular Emacs packages like
