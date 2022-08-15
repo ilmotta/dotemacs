@@ -207,7 +207,7 @@ working directory (`default-directory')."
           nil
         input))))
 
-(defun pkg-eshell/rename-buffer-with-command ()
+(defun pkg-eshell/rename-buffer-with-last-input ()
   "Rename current eshell buffer with last input."
   (when-let ((last-input (pkg-eshell/last-input)))
     (let* ((separator pkg-eshell/buffer-name-separator)
@@ -215,11 +215,11 @@ working directory (`default-directory')."
                                  (group (one-or-more not-newline))
                                  line-end))
            (current-name (buffer-name))
-           (new-name (if (string-match-p separator-regexp current-name)
-                         (replace-regexp-in-string separator-regexp
-                                                   (concat separator last-input)
-                                                   current-name)
-                       (concat current-name separator last-input))))
+           (new-name (generate-new-buffer-name (if (string-match-p separator-regexp current-name)
+                                                   (replace-regexp-in-string separator-regexp
+                                                                             (concat separator last-input)
+                                                                             current-name)
+                                                 (concat current-name separator last-input)))))
       (rename-buffer new-name))))
 
 (defun pkg-eshell/-buffers ()
@@ -545,7 +545,7 @@ working directory (`default-directory')."
 
 (add-hook 'eshell-mode-hook #'pkg-eshell/init-h)
 (add-hook 'eshell-exit-hook #'pkg-eshell/cleanup-h)
-(add-hook 'eshell-post-command-hook #'pkg-eshell/rename-buffer-with-command)
+(add-hook 'eshell-post-command-hook #'pkg-eshell/rename-buffer-with-last-input)
 
 ;;; Image dired
 
