@@ -120,6 +120,12 @@
 
 ;;;; Processes
 
+(defun lib/set-no-process-query-on-exit ()
+  "Don't ask for confirmation to exit the process' buffer."
+  (let ((proc (get-buffer-process (current-buffer))))
+    (when (processp proc)
+      (set-process-query-on-exit-flag proc nil))))
+
 (defun lib/promise-start-process-shell-command (cmd)
   "Run CMD in a subprocess. Returns a promise resolving to the command output."
   (promise-new (lambda (resolve reject)
