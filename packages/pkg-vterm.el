@@ -1,10 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
 (my/package vterm
-  :if (executable-find "vterm")
+  :unless my/android?
   :straight t
   :defer t
-  :commands (vterm vterm-other-window)
 
   :hook (vterm-mode-hook . lib-system/set-no-process-query-on-exit)
 
