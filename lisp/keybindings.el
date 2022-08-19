@@ -35,9 +35,7 @@
   "C-y" #'yank
   "C-a" #'eshell-bol
   "C-e" #'move-end-of-line
-  "C-l" #'pkg-eshell/clear
-  "C-j" #'eshell-next-matching-input-from-input
-  "C-k" #'eshell-previous-matching-input-from-input)
+  "C-l" #'pkg-eshell/clear)
 
 (general-def
   :keymaps 'eshell-mode-map
