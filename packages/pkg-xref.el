@@ -68,8 +68,8 @@ respects display buffer actions."
 
   :init
   (general-def
-    [remap xref-find-references] #'pkg-xref/find-references-dwim
-    [remap xref-find-definitions] #'pkg-xref/find-definitions)
+    [remap xref-find-references] '(pkg-xref/find-references-dwim :properties (:jump t))
+    [remap xref-find-definitions] '(pkg-xref/find-definitions :properties (:jump t)))
 
   (setq xref-search-program 'ripgrep)
   (setq xref-auto-jump-to-first-definition nil)
