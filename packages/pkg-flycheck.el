@@ -2,7 +2,7 @@
 
 (defun pkg-flycheck/list-errors ()
   (interactive)
-  (lib-util/toggle-buffer "*Flycheck errors*" #'flycheck-list-errors))
+  (lib-util/toggle-buffer flycheck-error-list-buffer #'flycheck-list-errors))
 
 (defun my/use-eslint-from-node-modules ()
   "Use local eslint from node_modules before global.
