@@ -542,12 +542,11 @@ gtts-cli.")
       (message "Google TTS command: '%s'" cmd)
       (start-process-shell-command "google-tts" nil cmd))))
 
-(defun lib/google-tts-preprocess-region ()
-  (let ((region (buffer-substring-no-properties (region-beginning) (region-end))))
-    (with-temp-buffer
-      (insert region)
-      (lib-util/unfill-dwim (point-min) (point-max))
-      (buffer-string))))
+(defun lib/google-tts-preprocess (region)
+  (with-temp-buffer
+    (insert region)
+    (lib-util/unfill-dwim (point-min) (point-max))
+    (buffer-string)))
 
 (defun lib/google-tts-choose-language ()
   (interactive)
@@ -564,10 +563,12 @@ SPEED and DELAY."
   (interactive)
   (cl-assert (use-region-p) nil "No region selected")
   (pcase-let ((`(_ ,language-tag) (lib/google-tts-choose-language))
-              (delay (or delay 0)))
+              (delay (or delay 0))
+              (region  (buffer-substring-no-properties (region-beginning) (region-end))))
     (run-with-timer delay nil (lambda ()
+                                (message "after %s" (buffer-substring-no-properties (region-beginning) (region-end)))
                                 (thread-first
-                                  (lib/google-tts-preprocess-region)
+                                  (lib/google-tts-preprocess region)
                                   (lib/google-tts-read-string language-tag speed))))))
 
 ;;;###autoload
