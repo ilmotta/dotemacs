@@ -95,7 +95,6 @@ spanning over multiple lines."
   ;; Common feature toggles. Some can be disabled via specific LSP language
   ;; variables, others would need to be set with buffer local variables based on
   ;; the major mode in question.
-  (setq lsp-completion-enable t)
   (setq lsp-auto-configure t)
   (setq lsp-enable-dap-auto-configure t)
   (setq lsp-enable-file-watchers nil)
@@ -136,15 +135,6 @@ spanning over multiple lines."
         lsp-signature-render-documentation nil
         lsp-signature-function #'lsp-lv-message)
 
-  ;; The CAPF back-end provides a bridge to the standard
-  ;; `completion-at-point-functions` facility, and thus works with any major
-  ;; mode that defines a proper completion function.
-  (setq lsp-completion-provider :capf)
-
-  ;; Taken from the Corfu documentation.
-  (with-eval-after-load 'corfu
-    (setq lsp-completion-provider :none))
-
   ;; The default is 10s.
   (setq lsp-response-timeout 5)
 
@@ -154,6 +144,25 @@ spanning over multiple lines."
 
   ;; If non-nil, log all messages to and from the language server to *lsp-log*.
   (setq lsp-log-io nil)
+
+  ;; If you want to aggressively disable warn/info logs, set this to nil.
+  ;; (setq lsp--show-message nil)
+
+;;; Completion
+  (setq lsp-completion-enable nil)
+
+  ;; Workaround, set this to :none, otherwise lsp-mode will display an
+  ;; unnecessary warning saying it could not find company-mode.
+  (setq lsp-completion-provider :none)
+  (when lsp-completion-enable
+    ;; The CAPF back-end provides a bridge to the standard
+    ;; `completion-at-point-functions` facility, and thus works with any major
+    ;; mode that defines a proper completion function.
+    (setq lsp-completion-provider :capf)
+
+    ;; Taken from the Corfu documentation.
+    (with-eval-after-load 'corfu
+      (setq lsp-completion-provider :none)))
 
 ;;; Javascript configuration.
 
