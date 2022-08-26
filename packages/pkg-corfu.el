@@ -1,13 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
-(defun pkg-corfu/disable-auto-complete ()
-  (setq-local corfu-auto nil))
+;;; Code:
 
-(defun pkg-corfu/return-handler ()
-  (interactive)
-  (if (derived-mode-p 'eshell-mode)
-      (call-interactively #'corfu-insert)
-    (call-interactively #'newline)))
+(defun pkg-corfu/disable-auto-complete ()
+  "Disable auto-complete for the current buffer."
+  (setq-local corfu-auto nil))
 
 (defun pkg-corfu/quit ()
   (interactive)
@@ -39,9 +36,6 @@
   :straight (:host github :repo "minad/corfu")
   :defer t
 
-  ;; Auto-completion on Eshell is annoying.
-  :hook (eshell-mode-hook . pkg-corfu/disable-auto-complete)
-
   :hook (after-init-hook . global-corfu-mode)
 
   :init
@@ -65,7 +59,9 @@
     "<escape>" #'pkg-corfu/quit
     "<return>" #'pkg-corfu/return-handler)
 
-  (setq corfu-auto t)
+  (setq corfu-excluded-modes '(eshell-mode))
+
+  (setq corfu-auto nil)
   (setq corfu-auto-delay 0.06)
   (setq corfu-auto-prefix 2)
   (setq corfu-bar-width 0.50)
@@ -73,7 +69,7 @@
   (setq corfu-cycle nil)
   (setq corfu-echo-documentation 0.25)
   (setq corfu-left-margin-width 0.5)
-  (setq corfu-max-width 50)
+  (setq corfu-max-width 60)
   (setq corfu-min-width 50)
   (setq corfu-preselect-first t)
   (setq corfu-preview-current nil)

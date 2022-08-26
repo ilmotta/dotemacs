@@ -23,8 +23,10 @@ Also disable certain LSP features when `cider-mode' is enabled."
 
   ;; Prefer CIDER completion when enabled.
   (if (bound-and-true-p cider-mode)
-      (setq-local lsp-enable-completion-at-point nil)
-    (setq-local lsp-enable-completion-at-point t))
+      (setq-local lsp-enable-completion-at-point nil
+                  lsp-completion-enable nil)
+    (setq-local lsp-enable-completion-at-point t
+                lsp-completion-enable t))
 
   (lsp-deferred))
 
@@ -149,20 +151,21 @@ spanning over multiple lines."
   ;; (setq lsp--show-message nil)
 
 ;;; Completion
-  (setq lsp-completion-enable nil)
+  ;; LSP completion is enabled by default, but some major modes might require
+  ;; setting this option to nil (e.g. CIDER already provides autocompletion).
+  (setq lsp-completion-enable t)
 
-  ;; Workaround, set this to :none, otherwise lsp-mode will display an
+  ;; If you need, set this to :none, otherwise lsp-mode will display an
   ;; unnecessary warning saying it could not find company-mode.
-  (setq lsp-completion-provider :none)
-  (when lsp-completion-enable
-    ;; The CAPF back-end provides a bridge to the standard
-    ;; `completion-at-point-functions` facility, and thus works with any major
-    ;; mode that defines a proper completion function.
-    (setq lsp-completion-provider :capf)
+  ;;
+  ;; The CAPF back-end provides a bridge to the standard
+  ;; `completion-at-point-functions' facility, and thus works with any major
+  ;; mode that defines a proper completion function.
+  (setq lsp-completion-provider :capf)
 
-    ;; Taken from the Corfu documentation.
-    (with-eval-after-load 'corfu
-      (setq lsp-completion-provider :none)))
+  ;; Taken from the Corfu documentation.
+  (with-eval-after-load 'corfu
+    (setq lsp-completion-provider :none))
 
 ;;; Javascript configuration.
 
