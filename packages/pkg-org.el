@@ -476,6 +476,11 @@ unless the ID property already exists."
         '(("flat"  "\\flat" nil "" "" "266D" "♭")
           ("sharp" "\\sharp" nil "" "" "266F" "♯")))
 
+  ;; Allow multiline Org emphasis markup. Default is just one newline.
+  ;; http://emacs.stackexchange.com/a/13828/115
+  (setcar (nthcdr 4 org-emphasis-regexp-components) 5)
+  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+
   (advice-add #'org-backward-heading-same-level :after #'pkg-org/recenter)
   (advice-add #'org-forward-heading-same-level :after #'pkg-org/recenter)
 
