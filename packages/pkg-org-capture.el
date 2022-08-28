@@ -11,19 +11,19 @@
   (file-truename (format "~/data/repos/notes/%s.org" (pkg-org-capture/note-id))))
 
 (defvar pkg-org-capture/template-note
-  (string-join (list ":PROPERTIES:"
-                     ":ID: %(lib-util/uuid)"
-                     ":END:"
-                     "#+SETUPFILE: setup.org"
-                     "#+TITLE: Note%?\n")
+  (string-join (list ":properties:"
+                     ":id: %(lib-util/uuid)"
+                     ":end:"
+                     "#+setupfile: setup.org"
+                     "#+title: Note%?\n")
                "\n"))
 
 (defvar pkg-org-capture/template-todo
   (string-join (list "* TODO %^{Description}"
-                     ":PROPERTIES:"
-                     ":ID: %(lib-util/uuid)"
-                     ":CREATED: %T"
-                     ":END:")
+                     ":properties:"
+                     ":id: %(lib-util/uuid)"
+                     ":created: %T"
+                     ":end:")
                "\n"))
 
 ;;; Package

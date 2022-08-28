@@ -629,7 +629,7 @@ symbolic links."
       (org-mode)
       (insert (orgtbl-to-table.el benchmarks nil) "|")
       (goto-char (point-min))
-      (insert "#+TITLE: Start-up Report\n\n")
+      (insert "#+title: Start-up Report\n\n")
       (pop-to-buffer buf))))
 
 ;;;###autoload
