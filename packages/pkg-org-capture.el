@@ -1,27 +1,30 @@
 ;;; -*- lexical-binding: t; -*-
-;;; Templates
 
-(defun my/org-capture--task-templates ()
-  `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
-     entry (file "~/data/repos/notes/20200827220222.org")
-     "* TODO %^{Description}\n:PROPERTIES:\n:ID: %(org-id-new)\n:CREATED: %T\n:END:"
-     :immediate-finish t)))
+;;; Utilities
 
-(defun my/note-id ()
+(defun pkg-org-capture/note-id ()
   (format-time-string my/note-id-time-string (current-time) "UTC0"))
 
-(defun my/org-capture--note-templates ()
-  `(("n" ,(concat (all-the-icons-faicon "sticky-note" :v-adjust -0.1) " Note")
-     plain
-     (file (lambda () (format "~/data/repos/notes/%s.org" (my/note-id))))
-     ,(concat
-       ":PROPERTIES:\n"
-       ":ID: " (lib-util/uuid) "\n"
-       ":END:\n"
-       "#+SETUPFILE: setup.org\n#+TITLE: Note%?\n")
-     :immediate-finish t
-     :jump-to-captured t
-     :no-save t)))
+;;; Templates
+
+(defun pkg-org-capture/note-new-path ()
+  (file-truename (format "~/data/repos/notes/%s.org" (pkg-org-capture/note-id))))
+
+(defvar pkg-org-capture/template-note
+  (string-join (list ":PROPERTIES:"
+                     ":ID: %(lib-util/uuid)"
+                     ":END:"
+                     "#+SETUPFILE: setup.org"
+                     "#+TITLE: Note%?\n")
+               "\n"))
+
+(defvar pkg-org-capture/template-todo
+  (string-join (list "* TODO %^{Description}"
+                     ":PROPERTIES:"
+                     ":ID: %(lib-util/uuid)"
+                     ":CREATED: %T"
+                     ":END:")
+               "\n"))
 
 ;;; Package
 
@@ -38,7 +41,17 @@
   :config
   (with-eval-after-load 'all-the-icons
     (setq org-capture-templates
-          (append (my/org-capture--task-templates)
-                  (my/org-capture--note-templates)))))
+          (append
+           `(("n" ,(concat (all-the-icons-faicon "sticky-note" :v-adjust -0.1) " Note")
+              plain
+              (file pkg-org-capture/note-new-path)
+              ,pkg-org-capture/template-note
+              :immediate-finish t
+              :jump-to-captured t
+              :no-save t))
+           `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
+              entry (file "~/data/repos/notes/20200827220222.org")
+              ,pkg-org-capture/template-todo
+              :immediate-finish t))))))
 
 (provide 'pkg-org-capture)
