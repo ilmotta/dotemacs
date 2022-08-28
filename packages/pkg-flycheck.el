@@ -53,6 +53,14 @@
   (setq flycheck-highlighting-mode 'symbols)
 
   :config
+  (add-to-list 'display-buffer-alist
+               `(,(rx (literal flycheck-error-list-buffer))
+                 (display-buffer-in-side-window)
+                 (window-height . 0.33)
+                 (side . bottom)
+                 (slot . 0)
+                 (body-function . select-window)))
+
   (delq 'new-line flycheck-check-syntax-automatically)
 
   ;; Flycheck slow when opening JS files while waiting for eslint.

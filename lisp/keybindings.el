@@ -54,12 +54,6 @@
   "o s v" #'pkg-eshell/split-right
   "o s s" #'pkg-eshell/split-below)
 
-(general-def
-  :keymaps 'override
-  :states '(insert normal)
-  "C-'" #'pkg-eshell/project-toggle
-  "C-<dead-acute>" #'pkg-eshell/project-toggle)
-
 ;;; Project
 
 (general-def

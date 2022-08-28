@@ -96,6 +96,15 @@ If it's on a prompt, copy the input, otherwise copy the output."
     :states '(normal)
     [remap evil-beginning-of-line] #'vterm-beginning-of-line
     "C-k" #'vterm-previous-prompt
-    "C-j" #'vterm-next-prompt))
+    "C-j" #'vterm-next-prompt)
+
+  :config
+  (add-to-list 'display-buffer-alist
+               `(,(rx line-start "*vterm" (zero-or-more not-newline) line-end)
+                 (display-buffer-in-side-window)
+                 (window-width . 0.5)
+                 (side . right)
+                 (slot . 0)
+                 (body-function . select-window))))
 
 (provide 'pkg-vterm)

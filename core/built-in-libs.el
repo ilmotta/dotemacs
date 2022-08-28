@@ -547,6 +547,14 @@ working directory (`default-directory')."
 (add-hook 'eshell-exit-hook #'pkg-eshell/cleanup-h)
 (add-hook 'eshell-post-command-hook #'pkg-eshell/rename-buffer-with-last-input)
 
+(add-to-list 'display-buffer-alist
+             `(,(rx line-start "*eshell" (zero-or-more not-newline) line-end)
+               (display-buffer-in-side-window)
+               (window-width . 0.5)
+               (side . right)
+               (slot . 0)
+               (body-function . select-window)))
+
 ;;; Image dired
 
 (setq image-dired-thumb-size 150

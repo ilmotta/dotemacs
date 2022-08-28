@@ -172,6 +172,7 @@
  pkg-hnreader
  pkg-openwith
  pkg-pdf-tools
+ pkg-popper
  pkg-speed-type
  pkg-sudo-edit
  pkg-svg-clock

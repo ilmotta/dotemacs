@@ -863,6 +863,9 @@ reuse the same window whenever possible."
         ;; Seach all frames for a reusable window.
         (reusable-frames . t)))
 
+;; This user's configuration is very useful as a reference to how `display-buffer-alist' can be used.
+;; https://github.com/karthink/.emacs.d/blob/905e9e8f7866954adb31d217fb35cc895c8fcba4/lisp/setup-windows.el
+;;
 ;; Left here as a reference for future needs.
 ;;
 ;; (setq display-buffer-alist

@@ -120,6 +120,7 @@
  ("php-mode" . "ca6ae67dab6a8646316d62d400a37dd96d8de3f6")
  ("pkg-info" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
  ("plantuml-mode" . "ea45a13707abd2a70df183f1aec6447197fc9ccc")
+ ("popper" . "d7560f18350faaee8362aee16481268de3cc6457")
  ("popup-el" . "c65905aa1a3ac32d1dbc8c1060605621e6143f80")
  ("posframe" . "0d23bc5f7cfac00277d83ae7ba52c48685bcbc68")
  ("project" . "2e8da1b811d5213bd143d9d036bf7ea14741a1ae")
