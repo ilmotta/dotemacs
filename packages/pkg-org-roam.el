@@ -59,6 +59,14 @@
                                                (propertize "${tags:15}" 'face 'org-tag)))
 
   :config
+  (add-to-list 'display-buffer-alist
+               `(,(rx (literal org-roam-buffer))
+                 (display-buffer-in-side-window)
+                 (window-width . 0.33)
+                 (side . right)
+                 (slot . 0)
+                 (window-parameters . ((no-delete-other-windows . t)))))
+
   (cl-defmethod org-roam-node-pkg-org-roam/file-title ((node org-roam-node))
     "Returns the node file title, unless it's the same as the node
 title, in which case it returns an empty string."
