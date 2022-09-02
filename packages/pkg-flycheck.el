@@ -45,12 +45,12 @@
 
   ;; If set to nil, do not indicate errors and warnings, but just highlight them
   ;; according to `flycheck-highlighting-mode'.
-  (setq flycheck-indication-mode nil)
+  (setq flycheck-indication-mode 'left-fringe)
 
   ;; Do not highlight errors at all. However, errors will still be reported in
   ;; the mode line and in error message popups,and indicated according to
   ;; flycheck-indication-mode.
-  (setq flycheck-highlighting-mode 'symbols)
+  (setq flycheck-highlighting-mode nil)
 
   :config
   (add-to-list 'display-buffer-alist
