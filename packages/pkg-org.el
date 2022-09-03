@@ -258,6 +258,7 @@ unless the ID property already exists."
 
   ;; Pre-load modules.
   (require 'org-agenda)
+  (require 'org-tempo)
 
 ;;;; Baseline
 

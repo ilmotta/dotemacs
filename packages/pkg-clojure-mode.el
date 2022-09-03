@@ -1,5 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Variables
+
+(defvar-local pkg-clojure/tempo-tags nil)
+
+;;; Functions
+
 (defun pkg-clojure-mode/outline-minor-mode-h ()
   (when (derived-mode-p 'clojure-mode)
     (setq-local outline-regexp my/outline-regex-lisp)))
@@ -12,34 +18,44 @@ file and call `re-frame-jump-to-reg' if symbol at point is a
 keyword, otherwise use normal `cider-find-dwim'. In case CIDER
 mode is not enabled it tries to use LSP to find the definition."
   (interactive)
-  (cond
-    ;; Prefer CIDER to find definitions
-    ((bound-and-true-p cider-mode)
-     (let* ((keyword (cider-symbol-at-point 'look-back)))
-       (cond
-         ((and (fboundp 're-frame-jump-to-reg)
-               (derived-mode-p 'clojurescript-mode)
-               (or (string-match-p (rx line-start
-                                       (repeat 1 2 ":")
-                                       (group (one-or-more (not "/"))) "/"
-                                       (group (one-or-more not-newline))
-                                       line-end)
-                                   keyword)
-                   (string-match-p (rx line-start
-                                       (repeat 1 2 ":")
-                                       (group (one-or-more (not "/")))
-                                       line-end)
-                                   keyword)))
-          (re-frame-jump-to-reg))
-         (t (cider-find-dwim keyword)))
-       (recenter)))
+  (cond ((bound-and-true-p cider-mode) ; Prefer CIDER to find definitions
+         (let ((keyword (cider-symbol-at-point 'look-back)))
+           (cond ((and (fboundp 're-frame-jump-to-reg)
+                       (derived-mode-p 'clojurescript-mode)
+                       (or (string-match-p (rx line-start
+                                               (repeat 1 2 ":")
+                                               (group (one-or-more (not "/"))) "/"
+                                               (group (one-or-more not-newline))
+                                               line-end)
+                                           keyword)
+                           (string-match-p (rx line-start
+                                               (repeat 1 2 ":")
+                                               (group (one-or-more (not "/")))
+                                               line-end)
+                                           keyword)))
+                  (re-frame-jump-to-reg))
+                 (:default (cider-find-dwim keyword)))
+           (recenter)))
 
-    ;; Fallback to LSP Clojure
-    ((bound-and-true-p lsp-mode)
-     (call-interactively #'lsp-find-definition)
-     (recenter))
+        ;; Fallback to LSP Clojure
+        ((bound-and-true-p lsp-mode)
+         (call-interactively #'lsp-find-definition)
+         (recenter))
 
-    (t (message "You need to enable CIDER and/or LSP Clojure to jump to a definition."))))
+        (:default
+         (message "You need to enable CIDER and/or LSP Clojure to jump to a definition."))))
+
+(defun pkg-clojure/tempo-setup ()
+  (tempo-define-template
+   "clojure-defn"
+   '("(defn " p
+     n> "[" p "]"
+     n> p ")")
+   "defn"
+   "Insert defn expression."
+   'pkg-clojure/tempo-tags)
+
+  (tempo-use-tag-list 'pkg-clojure/tempo-tags))
 
 ;;; Package
 
@@ -49,6 +65,7 @@ mode is not enabled it tries to use LSP to find the definition."
 
   :hook (clojure-mode-hook . outline-minor-mode)
   :hook (outline-minor-mode-hook . pkg-clojure-mode/outline-minor-mode-h)
+  :hook (clojure-mode-hook . pkg-clojure/tempo-setup)
 
   :init
   (general-def

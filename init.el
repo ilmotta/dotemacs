@@ -97,6 +97,7 @@
  pkg-flyspell-correct
  pkg-quickrun
  pkg-smartparens
+ pkg-tempo
  pkg-undo-fu)
 
 ;;; File/language modes

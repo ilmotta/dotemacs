@@ -29,6 +29,7 @@
         savehist
         saveplace
         shell-mode
+        tempo
         time
         timeclock
         tramp
