@@ -24,6 +24,7 @@
         hl-line
         ispell
         proced
+        project
         python
         recentf
         savehist

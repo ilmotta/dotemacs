@@ -54,14 +54,6 @@
   "o s v" #'pkg-eshell/split-right
   "o s s" #'pkg-eshell/split-below)
 
-;;; Project
-
-(general-def
-  :keymaps 'override
-  :prefix my/leader
-  :states '(normal visual)
-  "p" '(:keymap project-prefix-map :package project))
-
 ;;; Text-to-speach
 
 (general-def

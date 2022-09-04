@@ -46,6 +46,10 @@
 
 ;;; Built-in packages
 (my/with-packages
+ pkg-dired
+ pkg-proced
+ pkg-project
+ pkg-recentf
  pkg-xref)
 
 ;;; Completion systems

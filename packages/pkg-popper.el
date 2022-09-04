@@ -22,11 +22,17 @@
   ;; need to supply both the name and major mode to match them consistently.
   (setq popper-reference-buffers
         `(;; Eshell as a popup.
-          ,(rx line-start "*eshell" (zero-or-more not-newline) line-end)
+          ,(rx line-start
+            "*" (zero-or-more not-newline)
+            "eshell"
+            (zero-or-more not-newline) line-end)
           eshell-mode
 
           ;; Vterm as a popup.
-          ,(rx line-start "*vterm" (zero-or-more not-newline) line-end)
+          ,(rx line-start
+            "*" (zero-or-more not-newline)
+            "vterm"
+            (zero-or-more not-newline) line-end)
           vterm-mode
 
           ;; Reference by mode.
