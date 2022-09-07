@@ -51,6 +51,8 @@
  pkg-proced
  pkg-project
  pkg-recentf
+ pkg-savehist
+ pkg-saveplace
  pkg-xref)
 
 ;;; Completion systems

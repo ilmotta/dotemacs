@@ -122,46 +122,6 @@
 (setq mail-specify-envelope-from t)
 (setq mail-envelope-from 'header)
 
-;;; Save history
-
-;;;; Init
-
-(setq savehist-file (concat my/cache-dir "savehist")
-      savehist-save-minibuffer-history t)
-
-;; Save on kill only.
-(setq savehist-autosave-interval nil)
-
-;; You don't need to add minibuffer history variables to this list.
-(setq savehist-additional-variables
-      '(search-ring regexp-search-ring))
-
-;;;; Config
-
-(add-hook 'after-init-hook #'savehist-mode)
-
-;;; Save place
-
-(defun pkg-saveplace/reposition ()
-  "Force windows to recenter current line (with saved position)."
-  (run-with-timer
-   0 nil
-   (lambda (buf)
-     (when (buffer-live-p buf)
-       (dolist (win (get-buffer-window-list buf nil t))
-         (with-selected-window win (recenter)))))
-   (current-buffer)))
-
-;;;; Init
-
-(setq save-place-file (concat my/cache-dir "saveplace")
-      save-place-limit 100)
-
-;;;; Config
-
-(add-hook 'find-file-hook 'pkg-saveplace/reposition t)
-(add-hook 'after-init-hook #'save-place-mode)
-
 ;;; Security, encryption
 ;;;; EPA
 
