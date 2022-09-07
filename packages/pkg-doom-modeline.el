@@ -56,7 +56,6 @@ works fine."
     '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
 
 (defun pkg-doom-modeline/setup-mode ()
-  (setq-default mode-line-format my/original-mode-line-format)
   (doom-modeline-mode +1)
   (remove-hook 'find-file-hook #'doom-modeline-update-vcs-text)
   (remove-hook 'find-file-hook #'doom-modeline-update-vcs-icon)

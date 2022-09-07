@@ -647,15 +647,6 @@ with 'kill' as the default action instead of 'bury'."
 ;; Show outlines in the describe bindings buffer.
 (setq describe-bindings-outline t)
 
-;;; Modeline
-
-;; Prevent flash of unstyled modeline at startup. The styled modeline will be
-;; loaded much later.
-(defvar my/original-mode-line-format nil)
-(unless after-init-time
-  (setq my/original-mode-line-format mode-line-format)
-  (setq-default mode-line-format nil))
-
 ;;; Native compilation
 
 ;; Non-nil to prevent native-compiling of Emacs Lisp code.

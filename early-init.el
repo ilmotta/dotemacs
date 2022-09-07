@@ -14,6 +14,15 @@
 
 (unless noninteractive
   (setq file-name-handler-alist nil))
+
+;; Temporarily inhibit messages.
+(setq inhibit-message t)
+
+(defun my/reset-inhibit-message ()
+  (run-with-timer 0.25 nil (lambda ()
+                             (setq inhibit-message nil))))
+
+(add-hook 'emacs-startup-hook #'my/reset-inhibit-message)
 
 (load (concat user-emacs-directory "core/globals.el") nil 'no-message)
 
@@ -22,12 +31,12 @@
 (defun theme/read ()
   (ignore-errors
     (mapcar (lambda (line)
-               (pcase-let ((`(,key ,value) (split-string line "=")))
-                 `(,(intern (string-trim key)) . ,(string-trim value))))
-             (split-string (with-temp-buffer
-                             (insert-file-contents-literally "~/.theme")
-                             (buffer-string))
-                           "\n" 'omit-nulls))))
+              (pcase-let ((`(,key ,value) (split-string line "=")))
+                `(,(intern (string-trim key)) . ,(string-trim value))))
+            (split-string (with-temp-buffer
+                            (insert-file-contents-literally "~/.theme")
+                            (buffer-string))
+                          "\n" 'omit-nulls))))
 
 (let* ((theme (theme/read))
        (name (and theme (intern (alist-get 'SYSTEM_THEME theme))))
