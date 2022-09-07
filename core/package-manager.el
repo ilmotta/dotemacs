@@ -20,6 +20,7 @@
         emacs
         emacs-lisp-mode
         epa
+        eshell
         goto-addr
         hl-line
         ispell
@@ -35,8 +36,8 @@
         timeclock
         tramp
         vterm ; Installed via NixOS
-        xref
-        winner))
+        winner
+        xref))
 
 ;; Files that can be discarded should live in the local directory.
 (setq straight-base-dir my/local-dir)

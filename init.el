@@ -47,6 +47,7 @@
 ;;; Built-in packages
 (my/with-packages
  pkg-dired
+ pkg-eshell
  pkg-proced
  pkg-project
  pkg-recentf

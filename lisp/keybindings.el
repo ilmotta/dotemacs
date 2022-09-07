@@ -27,33 +27,6 @@
   :prefix my/leader
   "o c" #'calc)
 
-;;; Eshell
-
-(general-def
-  :keymaps 'eshell-mode-map
-  :states '(emacs insert)
-  "C-y" #'yank
-  "C-a" #'eshell-bol
-  "C-e" #'move-end-of-line
-  "C-l" #'pkg-eshell/clear)
-
-(general-def
-  :keymaps 'eshell-mode-map
-  :states 'normal
-  :prefix "m"
-  "c c" #'pkg-eshell/change-line
-  "y y" #'pkg-eshell/copy-dwim
-  "y i" #'pkg-eshell/copy-input
-  "y o" #'pkg-eshell/copy-output)
-
-(general-def
-  :keymaps 'override
-  :states 'normal
-  :prefix my/leader
-  "o s ." #'pkg-eshell/here
-  "o s v" #'pkg-eshell/split-right
-  "o s s" #'pkg-eshell/split-below)
-
 ;;; Text-to-speach
 
 (general-def
