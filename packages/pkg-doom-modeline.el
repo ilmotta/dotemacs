@@ -103,8 +103,7 @@ works fine."
   :config
   (pkg-doom-modeline/define-sections)
 
-  ;; On the Surface laptop, the Doom modeline height is too big.
-  (when my/surface?
-    (advice-add #'doom-modeline--font-height :override #'pkg-doom-modeline/-font-height-patch)))
+  ;; Set the modeline height to the minimum possible value.
+  (advice-add #'doom-modeline--font-height :override #'pkg-doom-modeline/-font-height-patch))
 
 (provide 'pkg-doom-modeline)
