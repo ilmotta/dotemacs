@@ -9,6 +9,12 @@
   (interactive)
   (pop-to-buffer (find-file-noselect (file-truename pkg-org-roam/tasks-file))))
 
+(defun pkg-org-roam/node-find ()
+  "Find and open an Org-roam node by its title or alias."
+  (interactive)
+  (my/with-buffer-reuse-window
+   (call-interactively #'org-roam-node-find)))
+
 (my/package emacsql
   :straight (:host github :repo "skeeto/emacsql")
   :defer t)
@@ -38,7 +44,7 @@
     "t a" #'org-roam-tag-add
     "t d" #'org-roam-tag-remove
     "T" #'pkg-org-roam/pop-to-buffer-tasks
-    "f" #'org-roam-node-find
+    "f" #'pkg-org-roam/node-find
     "g" #'org-roam-graph
     "r" #'org-roam-refile
     "R" #'org-roam-db-sync)

@@ -52,7 +52,7 @@
   "s-f" #'project-find-file
   "s-m" #'magit-status
   "s-i" #'execute-extended-command
-  "s-n" #'org-roam-node-find
+  "s-n" #'pkg-org-roam/node-find
   "s-p" #'project-switch-project
   "s-s" #'save-buffer
   "s-u" #'switch-to-buffer
