@@ -93,7 +93,6 @@
  pkg-aggressive-indent
  pkg-apheleia
  pkg-drag-stuff
- pkg-dumb-jump
  pkg-emmet-mode
  pkg-evil-cleverparens
  pkg-evil-matchit

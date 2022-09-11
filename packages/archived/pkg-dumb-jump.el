@@ -1,5 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Commentary:
+;; Disabled on 2022-09-10 due to the lack of usefulness for me.
+
+;;; Code:
+
 (my/package dumb-jump
   :straight t
   :defer t

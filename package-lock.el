@@ -33,7 +33,6 @@
  ("dockerfile-mode" . "b63a3d12b7dea0cb9efc7f78d7ad5672ceab2a3f")
  ("doom-modeline" . "1b7463832f21369377bf0a3d8f402241ad8102cb")
  ("drag-stuff.el" . "6d06d846cd37c052d79acd0f372c13006aa7e7c8")
- ("dumb-jump" . "0a783d1db610ff1dc4e1b7869589cff16ff92f7a")
  ("el-get" . "bf3dba444dcd240b8cb358a0850c8c5a92606134")
  ("elisp-refs" . "af73739084637c8ebadad337a8fe58ff4f1d2ec1")
  ("elisp-tree-sitter" . "3cfab8a0e945db9b3df84437f27945746a43cc71")
