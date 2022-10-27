@@ -601,6 +601,10 @@ with 'kill' as the default action instead of 'bury'."
 ;; Variable that are considered safe. `safe-local-variable-values' is explicitly
 ;; set for future reference.
 (setq safe-local-variable-values nil)
+
+;; Give me the option to at least remember my choice for risky variables.
+(advice-add #'risky-local-variable-p :override #'ignore)
+
 (put 'line-spacing 'safe-local-variable #'integerp)
 (put 'visual-fill-column-center-text 'safe-local-variable #'booleanp)
 
