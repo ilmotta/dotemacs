@@ -92,7 +92,6 @@
 ;;;###autoload
 (defun pkg-cider/run-ns-tests ()
   (interactive)
-  (cider-eval-buffer)
   (setq pkg-cider/last-test-var nil)
   (pkg-cider/-execute-test-ns nil))
 
