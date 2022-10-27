@@ -44,8 +44,13 @@ understand standard input."
                    :buffer scratch
                    :command (funcall cmd-builder)
                    :connection-type 'pipe
-                   :sentinel (lambda (_proc _state)
-                               (funcall callback)))))
+                   :sentinel (lambda (proc state)
+                               (if (zerop (process-exit-status proc))
+                                   (funcall callback)
+                                 (message "Could not format buffer. Error '%s'\n%s"
+                                          state
+                                          (with-current-buffer scratch
+                                            (buffer-string))))))))
         (with-current-buffer buffer
           (process-send-region proc (point-min) (point-max))
           (process-send-eof proc))))))
