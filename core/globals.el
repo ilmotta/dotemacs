@@ -23,6 +23,7 @@
 (defconst my/mac?   (equal my/system-type 'system/macos))
 (defconst my/windows? (equal my/system-type 'system/windows))
 (defconst my/surface? (equal my/system-type 'system/linux/surface))
+(defconst my/machine-matrix-p (equal "matrix" (system-name)))
 (defconst my/linux? (or (equal my/system-type 'system/linux)
                         (equal my/system-type 'system/linux/surface)))
 
