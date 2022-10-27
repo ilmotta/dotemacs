@@ -1,5 +1,15 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Custom
+
+(defcustom pkg-cider/app-refresh-form
+  "(user/refresh)"
+  "Clojure form used to refresh the application."
+  :type 'string
+  :group 'cider)
+
+(make-variable-buffer-local 'pkg-cider/app-refresh-form)
+
 ;;; Variables
 
 (defvar pkg-cider/last-test-var nil
@@ -193,7 +203,7 @@ This is particularly useful to evaluate the value of a var."
 ;;;###autoload
 (defun pkg-cider/app-refresh ()
   (interactive)
-  (cider-interactive-eval "(user/refresh)"))
+  (cider-interactive-eval pkg-cider/app-refresh-form))
 
 ;;;###autoload
 (defun pkg-cider/app-stop ()
@@ -210,18 +220,17 @@ desirable in cases where hot-reloading is not reliable and/or is
 too expensive. Some people save files multiple times per minute,
 for example."
   (interactive)
-  (cider-map-repls
-   :clj
-   (lambda (connection)
-     (let ((form "(shadow.cljs.devtools.api/watch-compile-all!)"))
-       (cider--prep-interactive-eval form connection)
-       (cider-nrepl-request:eval form
-                                 (lambda (_response))
-                                 (cider-current-ns)
-                                 nil
-                                 nil
-                                 nil
-                                 connection)))))
+  (cider-map-repls :clj
+    (lambda (connection)
+      (let ((form "(shadow.cljs.devtools.api/watch-compile-all!)"))
+        (cider--prep-interactive-eval form connection)
+        (cider-nrepl-request:eval form
+                                  (lambda (_response))
+                                  (cider-current-ns)
+                                  nil
+                                  nil
+                                  nil
+                                  connection)))))
 
 ;;; Package
 
