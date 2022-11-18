@@ -9,7 +9,9 @@ to customize the section. There's probably a better way, but this
 works fine."
   (doom-modeline-def-modeline 'main
     '(bar workspace-name window-number matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
-    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker time))
+    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process
+      ;; vcs
+      checker time))
 
   (doom-modeline-def-modeline 'minimal
     '(bar matches buffer-info-simple)
@@ -41,7 +43,9 @@ works fine."
 
   (doom-modeline-def-modeline 'media
     '(bar window-number buffer-size buffer-info)
-    '(misc-info media-info major-mode process vcs))
+    '(misc-info media-info major-mode process
+      ;; vcs
+      ))
 
   (doom-modeline-def-modeline 'message
     '(bar window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
@@ -49,7 +53,9 @@ works fine."
 
   (doom-modeline-def-modeline 'pdf
     '(bar window-number matches buffer-info pdf-pages)
-    '(misc-info major-mode process vcs))
+    '(misc-info major-mode process
+      ;; vcs
+      ))
 
   (doom-modeline-def-modeline 'org-src
     '(bar workspace-name window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
