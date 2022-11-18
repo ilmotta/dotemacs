@@ -15,6 +15,7 @@
   (load (concat user-emacs-directory "core/" file) nil 'no-message))
 
 (defun my/load-extra-libs ()
+  (require 'lib-adb)
   (require 'lib-backup)
   (require 'lib-fs)
   (require 'lib-metabase)
