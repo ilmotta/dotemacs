@@ -151,8 +151,9 @@
    ;; Don't accelerate scrolling.
    mouse-wheel-progressive-speed nil))
 
-;; Emacs 29: Experimental pixel scroll (compiled with --xinput2).
-(when (version= "29.0.50" emacs-version)
+;; Emacs 29+: Experimental pixel scroll (compiled with --xinput2).
+(when (or (version= "29.0.50" emacs-version)
+          (version= "30.0.50" emacs-version))
   (setq pixel-scroll-precision-interpolate-page t
         pixel-scroll-precision-initial-velocity-factor (/ 0.0335 4)
         pixel-scroll-precision-interpolation-between-scroll 0.001
