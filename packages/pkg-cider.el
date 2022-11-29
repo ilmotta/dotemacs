@@ -387,16 +387,18 @@ for example."
   ;; core Clojure functions.
   (setq cider-font-lock-dynamically '(macro core function var deprecated))
 
-  (setq cider-jack-in-dependencies '(;; 2021-12-12
-                                     ("nrepl/nrepl" "0.9.0")))
+  ;; Prefer to set these per project using directory local variables.
+  (comment
+    (setq cider-jack-in-dependencies '(("nrepl/nrepl" "0.9.0")))
+
+    (when (executable-find "zprint")
+      (setq cider-print-fn 'zprint)))
 
   ;; Use Fast Idiomatic Pretty Printer (5-10x faster
   ;; than clojure.core/pprint)
   ;;
   ;; See https://docs.cider.mx/cider/usage/pretty_printing.html
   (setq cider-repl-use-pretty-printing t)
-  ;; (when (executable-find "zprint")
-  ;;   (setq cider-print-fn 'zprint))
 
   ;; This is extremely useful for debug purposes when enabled.
   (setq nrepl-log-messages nil)
