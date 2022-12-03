@@ -3,12 +3,11 @@
 ;;; Code:
 
 (defvar pkg-magit/command-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "s") #'magit-status)
-    (define-key map (kbd "l") #'magit-log-current)
-    (define-key map (kbd "L") #'pkg-magit/log-dwim)
-    (define-key map (kbd "c A") #'pkg-magit/auto-commit)
-    map))
+  (define-keymap
+    "s" #'magit-status
+    "l" #'magit-log-current
+    "L" #'pkg-magit/log-dwim
+    "c A" #'pkg-magit/auto-commit))
 (fset 'pkg-magit/command-map pkg-magit/command-map)
 
 ;;;; Autoloads
