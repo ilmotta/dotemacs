@@ -1,12 +1,19 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
+;;; Files
+
+(general-def
+  :keymaps 'my/keys-mode-map
+  :states 'normal
+  :prefix my/local-leader
+  "o" #'find-sibling-file)
+
 ;;; Process
 
 (general-def
   :keymaps 'my/keys-mode-map
-  :states '(normal insert emacs visual)
+  :states 'normal
   :prefix my/leader
-  :non-normal-prefix my/non-normal-prefix
   "o m" #'proced
   "o p" #'list-processes)
 

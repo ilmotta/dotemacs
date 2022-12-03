@@ -652,6 +652,16 @@ with 'kill' as the default action instead of 'bury'."
 ;; Show outlines in the describe bindings buffer.
 (setq describe-bindings-outline t)
 
+;;; Monkey patches
+
+(defun my/find-sibling-file (original-fn &rest _)
+  "Same as `find-sibling-file', but try to reuse buffer window."
+  (interactive)
+  (my/with-buffer-reuse-window
+   (call-interactively original-fn)))
+
+(advice-add #'find-sibling-file :around #'my/find-sibling-file)
+
 ;;; Native compilation
 
 ;; Non-nil to prevent native-compiling of Emacs Lisp code.

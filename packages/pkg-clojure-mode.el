@@ -57,12 +57,54 @@ mode is not enabled it tries to use LSP to find the definition."
 
   (tempo-use-tag-list 'pkg-clojure/tempo-tags))
 
+(defun pkg-clojure/setup-sibling-rules ()
+  (setq-local find-sibling-rules
+              (list
+               ;; Clojure(Script) src -> test
+               (list (rx (group (+ (not "/")))
+                         "." (or "clj" "cljs")
+                         string-end)
+                     (rx (regex "\\1")
+                         "_test"
+                         "." (or "clj" "cljs")
+                         string-end))
+
+               ;; Clojure(Script) test -> src
+               (list (rx (group (+ (not "/")))
+                         "_test"
+                         "." (or "clj" "cljs")
+                         string-end)
+                     (rx (regex "\\1")
+                         "." (or "clj" "cljs")
+                         string-end))
+
+               ;; Clojure (Java standard) src -> test
+               (list (rx "src/"
+                         (group (* not-newline))
+                         ".clj"
+                         string-end)
+                     (rx "test/"
+                         (regex "\\1")
+                         "_test.clj"
+                         string-end))
+
+               ;; Clojure (Java standard) test -> src
+               (list (rx "test/"
+                         (group (* not-newline))
+                         "_test.clj"
+                         string-end)
+                     (rx "src/"
+                         (regex "\\1")
+                         ".clj"
+                         string-end)))))
+
 ;;; Package
 
 (my/package clojure-mode
   :straight t
   :defer t
 
+  :hook (clojure-mode-hook . pkg-clojure/setup-sibling-rules)
   :hook (clojure-mode-hook . outline-minor-mode)
   :hook (outline-minor-mode-hook . pkg-clojure-mode/outline-minor-mode-h)
   :hook (clojure-mode-hook . pkg-clojure/tempo-setup)
