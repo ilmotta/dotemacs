@@ -150,8 +150,8 @@
 (my/with-packages
  pkg-dap-mode
  pkg-lsp-java
- pkg-lsp-ui
- pkg-lsp-mode)
+ pkg-lsp-mode
+ pkg-lsp-ui)
 
 ;;; Org mode
 (my/with-packages

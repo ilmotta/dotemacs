@@ -62,6 +62,15 @@ spanning over multiple lines."
   :hook (clojure-mode-hook . pkg-lsp-mode/setup-clojure-h)
 
   :init
+  ;; In the context of LSP, plists provide better performance in deserialization
+  ;; and also put less presure than hash-tables. Make sure the value never
+  ;; changes after compilation.
+  ;;
+  ;; Changing this variable will require a complete recompilation of lsp related
+  ;; packages. If that's the case, make sure to remove all compiled files and
+  ;; restart Emacs.
+  (setq lsp-use-plists t)
+
   ;; The `lsp-keymap-prefix' does not work as one would think. We need to remove
   ;; the prefix keybinding and define a new one.
   (setq lsp-keymap-prefix "C-c C-l")

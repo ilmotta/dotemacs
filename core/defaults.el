@@ -193,6 +193,11 @@
 
 (add-function :after after-focus-change-function #'my/clean-gc)
 
+;;;; LSP
+
+;; This environment variable must be set before compiling any LSP package.
+(setenv "LSP_USE_PLISTS" "true")
+
 ;;; Images
 
 ;; Animate image loops forever, rather than playing once.
