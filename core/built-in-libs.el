@@ -152,7 +152,10 @@
 (setq show-paren-delay 0
       show-paren-highlight-openparen t
       show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t)
+      show-paren-when-point-in-periphery t
+
+      ;; This new setting in Emacs 29.1 doesn't work well with Evil.
+      show-paren-context-when-offscreen nil)
 
 (add-hook 'prog-mode-hook #'show-paren-mode)
 
