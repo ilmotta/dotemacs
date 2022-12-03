@@ -724,6 +724,9 @@ with 'kill' as the default action instead of 'bury'."
     (with-current-buffer buffer
       (read-only-mode +1))))
 
+;; Kill a shell buffer after the shell process terminates.
+(setq shell-kill-buffer-on-exit t)
+
 ;; I usually use shell command buffers to read text, but not change it.
 (add-hook 'shell-mode-hook #'pkg-shell-mode/use-read-only-mode-in-shell-command-buffers)
 
