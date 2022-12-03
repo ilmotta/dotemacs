@@ -1,5 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Commentary:
+;; Disabled on 2022-12-03 because Emacs 29.1 has `global-text-scale-adjust'.
+
+;;; Code:
+
 (defun pkg-text-scale/buffer-increase ()
   "Increase the height of the default face in the current buffer by
 1 step."

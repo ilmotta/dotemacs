@@ -70,7 +70,6 @@
  pkg-all-the-icons-dired
  pkg-anzu
  pkg-ctrlf
- pkg-default-text-scale
  pkg-dimmer
  pkg-diredfl
  pkg-doom-modeline

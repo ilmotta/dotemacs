@@ -27,9 +27,6 @@
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
   ;; Without resetting the cache, icons will sometimes look way bigger/smaller.
-  (advice-add #'load-theme :after #'pkg-kind-icon/reset-cache)
-  (advice-add #'default-text-scale-reset :after #'pkg-kind-icon/reset-cache)
-  (advice-add #'default-text-scale-increase :after #'pkg-kind-icon/reset-cache)
-  (advice-add #'default-text-scale-decrease :after #'pkg-kind-icon/reset-cache))
+  (advice-add #'load-theme :after #'pkg-kind-icon/reset-cache))
 
 (provide 'pkg-kind-icon)

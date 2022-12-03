@@ -25,7 +25,6 @@
  ("dap-mode" . "461f15f920c37ed06a53c1082287c5801a317b52")
  ("dash.el" . "3df46d7d9fe74f52a661565888e4d31fd760f0df")
  ("deadgrep" . "f687ca31f8d3bd8ebf05165b080b50ba724ce9bf")
- ("default-text-scale" . "bfc0987c37e93742255d3b23d86c17096fda8e7e")
  ("devdocs-lookup" . "233b9a2bac3c86a7c3d403d85848273086b4c453")
  ("dimmer.el" . "a5b697580e5aed6168b571ae3d925753428284f8")
  ("dired-du" . "4ce114a0195b852022a81b05f0c8e0cbbc1ed013")

@@ -44,7 +44,6 @@
   :non-normal-prefix "C-x"
   "w" #'pkg-emacs/window-command-map)
 
-(provide 'keybindings)
 ;;; Super shortcuts
 
 (general-def
@@ -60,3 +59,11 @@
   "s-w" #'delete-window
   "s-;" #'pkg-window/split-window-right
   "s-'" #'pkg-window/split-window-below)
+
+;;; UI
+
+(general-def
+  :keymaps 'my/keys-mode-map
+  "C-c z" #'global-text-scale-adjust)
+
+(provide 'keybindings)
