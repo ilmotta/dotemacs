@@ -555,6 +555,9 @@ If this function returns true then the buffer can be killed."
 ;; look and close it with q.
 (setq help-window-select t)
 
+;; Navigation commands in the *Help* buffer will reuse the window.
+;; (setq help-window-keep-selected t)
+
 (defun my/quit-window (_original-fn &optional bury window)
   "Quit WINDOW and kill its buffer.
 It has the same implementation as the original `quit-window', but
