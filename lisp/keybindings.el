@@ -3,7 +3,7 @@
 ;;; Files
 
 (general-def
-  :keymaps 'my/keys-mode-map
+  :keymaps 'prog-mode-map
   :states 'normal
   :prefix my/local-leader
   "o" #'find-sibling-file)
