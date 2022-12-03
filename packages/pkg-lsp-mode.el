@@ -257,6 +257,9 @@ spanning over multiple lines."
   (setq lsp-clojure-workspace-cache-dir (concat temporary-file-directory "lsp-clojure-workspace/cache/"))
 
   :config
+  (advice-add #'lsp :around #'lib-util/inhibit-message)
+  (advice-add #'lsp-deferred :around #'lib-util/inhibit-message)
+
   (with-eval-after-load 'evil
     (evil-add-command-properties #'lsp-find-definition :jump t)
     (evil-add-command-properties #'lsp-find-implementation :jump t)

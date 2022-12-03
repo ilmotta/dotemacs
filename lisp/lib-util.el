@@ -214,6 +214,12 @@ This function should be used in :around advices."
   (let ((inhibit-message t))
     (ignore-errors (apply original-fn args))))
 
+(defun u/inhibit-message (original-fn &rest args)
+  "Temporarily inhibit messages in the echo area.
+Use this function in an :around advice."
+  (let ((inhibit-message t))
+    (apply original-fn args)))
+
 (defun u/org-fill-paragraphs ()
   "Fill paragraphs in the active region, line by line.
 
