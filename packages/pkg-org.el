@@ -325,6 +325,10 @@ unless the ID property already exists."
   ;; Do not show a message in the header line of buffer.
   (setq org-edit-src-persistent-message nil)
 
+  (setq org-blank-before-new-entry
+        '((heading . auto)
+          (plain-list-item . nil)))
+
   ;; Please, let me handle indentation.
   (setq org-edit-src-content-indentation 0
         org-src-preserve-indentation t
