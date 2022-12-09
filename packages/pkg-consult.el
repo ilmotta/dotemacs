@@ -44,9 +44,10 @@ perform the completion directly in the original buffer."
   (general-def
     :keymaps 'my/keys-mode-map
     [remap apropos-command]                     #'consult-apropos
-    [remap execute-extended-command-for-buffer] #'consult-mode-command
     [remap bookmark-jump]                       #'consult-bookmark
     [remap copy-to-register]                    #'consult-register
+    [remap execute-extended-command-for-buffer] #'consult-mode-command
+    [remap imenu]                               #'consult-imenu
     [remap list-buffers]                        #'consult-buffer
     [remap switch-to-buffer-other-frame]        #'consult-buffer-other-frame
     [remap switch-to-buffer-other-window]       #'consult-buffer-other-window
