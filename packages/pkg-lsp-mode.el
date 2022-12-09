@@ -85,13 +85,10 @@ spanning over multiple lines."
     "c f R" #'lsp-treemacs-call-hierarchy
     "c r"   #'lsp-rename
     "c s"   #'lsp-treemacs-symbols
-    "f b"   #'lsp-format-buffer
-    "f r"   #'lsp-format-region
     "h ."   #'pkg-lsp-mode/describe-thing-at-point)
 
   (my/general-mode-def
     :keymaps 'clojure-mode-map
-    "c i"   #'lsp-clojure-add-import-to-namespace
     "c n c" #'lsp-clojure-clean-ns
     "c p"   #'lsp-clojure-cycle-privacy
     "c x b" #'lsp-clojure-move-to-let
