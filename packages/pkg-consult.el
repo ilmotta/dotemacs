@@ -49,6 +49,7 @@ perform the completion directly in the original buffer."
     [remap execute-extended-command-for-buffer] #'consult-mode-command
     [remap imenu]                               #'consult-imenu
     [remap list-buffers]                        #'consult-buffer
+    [remap project-switch-to-buffer]            #'consult-project-buffer
     [remap switch-to-buffer-other-frame]        #'consult-buffer-other-frame
     [remap switch-to-buffer-other-window]       #'consult-buffer-other-window
     [remap switch-to-buffer]                    #'consult-buffer
