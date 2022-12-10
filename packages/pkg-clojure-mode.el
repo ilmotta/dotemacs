@@ -62,40 +62,38 @@ mode is not enabled it tries to use LSP to find the definition."
               (list
                ;; Clojure(Script) src -> test
                (list (rx (group (+ (not "/")))
-                         "." (or "clj" "cljs")
+                         "." (group (or "clj" "cljs"))
                          string-end)
                      (rx (regex "\\1")
-                         "_test"
-                         "." (or "clj" "cljs")
+                         "_test." (regex "\\2")
                          string-end))
 
                ;; Clojure(Script) test -> src
                (list (rx (group (+ (not "/")))
-                         "_test"
-                         "." (or "clj" "cljs")
+                         "_test." (group (or "clj" "cljs"))
                          string-end)
                      (rx (regex "\\1")
-                         "." (or "clj" "cljs")
+                         "." (regex "\\2")
                          string-end))
 
                ;; Clojure (Java standard) src -> test
                (list (rx "src/"
                          (group (* not-newline))
-                         ".clj"
+                         "." (group (or "clj" "cljs"))
                          string-end)
                      (rx "test/"
                          (regex "\\1")
-                         "_test.clj"
+                         "_test." (regex "\\2")
                          string-end))
 
                ;; Clojure (Java standard) test -> src
                (list (rx "test/"
                          (group (* not-newline))
-                         "_test.clj"
+                         "_test." (group (or "clj" "cljs"))
                          string-end)
                      (rx "src/"
                          (regex "\\1")
-                         ".clj"
+                         "." (regex "\\2")
                          string-end)))))
 
 ;;; Package

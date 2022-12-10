@@ -125,6 +125,7 @@
  pkg-graphql-mode
  pkg-groovy-mode
  pkg-haskell-mode
+ pkg-js-mode
  pkg-js2-mode
  pkg-json-mode
  pkg-kbd-mode

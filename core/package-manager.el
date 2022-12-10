@@ -24,6 +24,7 @@
         goto-addr
         hl-line
         ispell
+        js-mode
         proced
         project
         python
