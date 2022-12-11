@@ -148,7 +148,8 @@ code of the process and OUTPUT is its stdout output."
   (let ((buf-name (if force-new-p (generate-new-buffer "*untitled*")
                     "*untitled*")))
     (switch-to-buffer buf-name)
-    (funcall initial-major-mode)
+    (when force-new-p
+      (funcall initial-major-mode))
     (with-current-buffer buf-name
       (setq-local buffer-offer-save t))
     (get-buffer buf-name)))
