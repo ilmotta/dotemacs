@@ -65,7 +65,8 @@ understand standard input."
     (&key buffer scratch formatter callback remote async &allow-other-keys)
   (pkg-apheleia/-formatter-async
    :cmd-builder (lambda ()
-                  (list (executable-find "zprint")))
+                  (list (executable-find "zprint")
+                        "{:search-config? true}"))
    :buffer buffer
    :scratch scratch
    :formatter formatter
