@@ -230,35 +230,36 @@
   (define-key my/keys-mode-map (kbd "C-x <f5>") #'restart-emacs))
 
 (defvar pkg-emacs/file-command-map
-  (define-keymap
-    "%"   #'query-replace-regexp
-    "b"   #'consult-buffer
-    "4 b" #'consult-buffer-other-window
-    "d"   #'dired-jump
-    "4 d" #'dired-jump-other-window
-    "f"   #'find-file
-    "l"   #'find-library
-    "4 l" #'find-library-other-window
-    "5 l" #'find-library-other-frame
-    "n"   #'switch-to-next-buffer
-    "p"   #'switch-to-prev-buffer
-    "i"   #'ibuffer
-    "k"   #'kill-buffer
-    "K"   #'kill-buffer-and-window
-    "c"   #'lib-util/buffer-new
-    "C"   #'lib-util/clone-buffer-dwim
-    "4 C" #'clone-indirect-buffer-other-window
-    "o i" #'lib-util/find-user-init-file
-    "o c" #'lib-util/find-user-custom-file
-    "0"   #'revert-buffer-quick
-    "R"   #'rename-visited-file
-    "s"   #'save-buffer
-    "u f" #'lib-util/sudo-find-file
-    "w"   #'write-file
-    "y d" #'lib-util/yank-buffer-absolute-dir-path
-    "y f" #'lib-util/yank-buffer-filename
-    "y y" #'lib-util/yank-buffer-absolute-path
-    "z"   #'bury-buffer))
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "%")   #'query-replace-regexp)
+    (define-key map (kbd "b")   #'consult-buffer)
+    (define-key map (kbd "4 b") #'consult-buffer-other-window)
+    (define-key map (kbd "d")   #'dired-jump)
+    (define-key map (kbd "4 d") #'dired-jump-other-window)
+    (define-key map (kbd "f")   #'find-file)
+    (define-key map (kbd "l")   #'find-library)
+    (define-key map (kbd "4 l") #'find-library-other-window)
+    (define-key map (kbd "5 l") #'find-library-other-frame)
+    (define-key map (kbd "n")   #'switch-to-next-buffer)
+    (define-key map (kbd "p")   #'switch-to-prev-buffer)
+    (define-key map (kbd "i")   #'ibuffer)
+    (define-key map (kbd "k")   #'kill-buffer)
+    (define-key map (kbd "K")   #'kill-buffer-and-window)
+    (define-key map (kbd "c")   #'lib-util/buffer-new)
+    (define-key map (kbd "C")   #'lib-util/clone-buffer-dwim)
+    (define-key map (kbd "4 C") #'clone-indirect-buffer-other-window)
+    (define-key map (kbd "o i") #'lib-util/find-user-init-file)
+    (define-key map (kbd "o c") #'lib-util/find-user-custom-file)
+    (define-key map (kbd "0")   #'revert-buffer-quick)
+    (define-key map (kbd "R")   #'rename-visited-file)
+    (define-key map (kbd "s")   #'save-buffer)
+    (define-key map (kbd "u f") #'lib-util/sudo-find-file)
+    (define-key map (kbd "w")   #'write-file)
+    (define-key map (kbd "y d") #'lib-util/yank-buffer-absolute-dir-path)
+    (define-key map (kbd "y f") #'lib-util/yank-buffer-filename)
+    (define-key map (kbd "y y") #'lib-util/yank-buffer-absolute-path)
+    (define-key map (kbd "z")   #'bury-buffer)
+    map))
 (fset 'pkg-emacs/file-command-map pkg-emacs/file-command-map)
 
 (define-key my/keys-mode-map (kbd "C-x K") #'kill-buffer-and-window)
@@ -820,23 +821,24 @@ reuse the same window whenever possible."
 ;;;; Keybindings
 
 (defvar pkg-emacs/window-command-map
-  (define-keymap
-    "+"   #'maximize-window
-    "0"   #'pkg-window/transient-resize
-    "="   #'balance-windows
-    "C-r" #'winner-redo
-    "C-w" #'evil-window-next
-    "h"   #'evil-window-left
-    "j"   #'evil-window-down
-    "k"   #'evil-window-up
-    "l"   #'evil-window-right
-    "o"   #'delete-other-windows
-    "q"   #'evil-quit
-    "u"   #'winner-undo
-    "s"   #'pkg-window/split-window-below
-    "v"   #'pkg-window/split-window-right
-    "|"   #'evil-window-set-width
-    "_"   #'evil-window-set-height))
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "+")   #'maximize-window)
+    (define-key map (kbd "0")   #'pkg-window/transient-resize)
+    (define-key map (kbd "=")   #'balance-windows)
+    (define-key map (kbd "C-r") #'winner-redo)
+    (define-key map (kbd "C-w") #'evil-window-next)
+    (define-key map (kbd "h")   #'evil-window-left)
+    (define-key map (kbd "j")   #'evil-window-down)
+    (define-key map (kbd "k")   #'evil-window-up)
+    (define-key map (kbd "l")   #'evil-window-right)
+    (define-key map (kbd "o")   #'delete-other-windows)
+    (define-key map (kbd "q")   #'evil-quit)
+    (define-key map (kbd "u")   #'winner-undo)
+    (define-key map (kbd "s")   #'pkg-window/split-window-below)
+    (define-key map (kbd "v")   #'pkg-window/split-window-right)
+    (define-key map (kbd "|")   #'evil-window-set-width)
+    (define-key map (kbd "_")   #'evil-window-set-height)
+    map))
 (fset 'pkg-emacs/window-command-map pkg-emacs/window-command-map)
 
 (define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-h")) #'windmove-left)
