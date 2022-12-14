@@ -17,13 +17,11 @@
     [remap isearch-forward-regexp] #'ctrlf-forward-regexp
     [remap isearch-forward] #'ctrlf-forward-default)
 
-  ;; This is a workaround to fix an issue where C-g doesn't restore the original
-  ;; cursor position.
-  ;;
-  ;; Issue: https://github.com/raxod502/ctrlf/issues/110
+  ;; This is a workaround to force escape to go back to the original cursor
+  ;; position.
   (general-def
     :keymaps 'ctrlf-minibuffer-mode-map
-    [remap abort-minibuffers] #'ctrlf-cancel)
+    [remap my/escape] #'ctrlf-cancel)
 
   (setq ctrlf-default-search-style 'literal)
   (setq ctrlf-auto-recenter t)
