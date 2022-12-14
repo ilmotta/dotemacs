@@ -198,6 +198,26 @@
 ;; This environment variable must be set before compiling any LSP package.
 (setenv "LSP_USE_PLISTS" "true")
 
+;;; Environment paths
+
+(defun my/path-prepend (path)
+  "Prepend PATH to `exec-path' and $PATH if not present already."
+  (let ((path (expand-file-name path))
+        (env-path (getenv "PATH")))
+    (unless (member path exec-path)
+      (setq exec-path (cons path exec-path)))
+    (unless (member path (string-split env-path ":"))
+      (setenv "PATH" (concat path ":" env-path)))))
+
+;; Tell Emacs where global NPM packages are installed. For a more general
+;; approach, get the prefix path using "npm config get prefix", but do it
+;; asynchronously, as this command is rather slow.
+;;
+;; This workaround wouldn't be necessary if Emacs GUI could start with the
+;; correct $PATH. I prefer to avoid duplicating what's sourced from
+;; shell/variables to ~/.profile.
+(my/path-prepend "~/.local/opt/npm-packages/bin")
+
 ;;; Images
 
 ;; Animate image loops forever, rather than playing once.
@@ -708,21 +728,6 @@ with 'kill' as the default action instead of 'bury'."
 
 ;; Solves issues with commands such as "git log" and the default "less".
 (setenv "PAGER" "cat")
-
-(defun my/exec-path-prepend (path)
-  "Prepend PATH to `exec-path' if not present already."
-  (let ((path (expand-file-name path)))
-    (unless (member path exec-path)
-      (setq exec-path (cons path exec-path)))))
-
-;; Tell Emacs where global NPM packages are installed. For a more general
-;; approach, get the prefix path using "npm config get prefix", but do it
-;; asynchronously, as this command is rather slow.
-;;
-;; This workaround wouldn't be necessary if Emacs GUI could start with the
-;; correct $PATH. I prefer to avoid duplicating what's sourced from
-;; shell/variables to ~/.profile.
-(my/exec-path-prepend "~/.local/opt/npm-packages/bin")
 
 (defun pkg-shell-mode/use-read-only-mode-in-shell-command-buffers ()
   (when-let ((buffer (get-buffer "*Async Shell Command*")))
