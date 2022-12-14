@@ -109,22 +109,15 @@ understand standard input."
   (setq apheleia-log-only-errors nil)
 
   (setq apheleia-mode-alist
-        '((c++-mode . clang-format)
-          (c-mode . clang-format)
-          (cc-mode . clang-format)
-          (clojure-mode . zprint)
+        '((clojure-mode . zprint)
           (clojurescript-mode . zprint)
           (css-mode . prettier)
           (elixir-mode . mix-format)
           (go-mode . gofmt)
-          (haskell-mode . brittany)
           (html-mode . prettier)
           (java-mode . google-java-format)
           (js-mode . prettier)
-          (js3-mode . prettier)
           (json-mode . prettier)
-          (LaTeX-mode . latexindent)
-          (latex-mode . latexindent)
           (ledger-mode . ledger)
           (nix-mode . nixfmt)
           (python-mode . black)
@@ -133,9 +126,6 @@ understand standard input."
           (rustic-mode . rustfmt)
           (sass-mode . prettier)
           (terraform-mode . terraform)
-          (TeX-latex-mode . latexindent)
-          (TeX-mode . latexindent)
-          (tuareg-mode . ocamlformat)
           (typescript-mode . prettier)
           (typescript-tsx-mode . prettier)
           (web-mode . prettier)
@@ -143,8 +133,6 @@ understand standard input."
 
   (setq apheleia-formatters
         `((black "black" "-")
-          (brittany "brittany")
-          (clang-format "clang-format")
           (gofmt "gofmt")
           (google-java-format "google-java-format" "-")
           (isort "isort" "--stdout" "-")
@@ -153,9 +141,22 @@ understand standard input."
           (mix-format "mix" "format" "-")
           (nixfmt . pkg-apheleia/formatter-nixfmt)
           (ocamlformat "ocamlformat" "-" "--name" filepath)
-          (prettier npx "prettier" "--stdin-filepath" filepath)
           (rustfmt "rustfmt" "--unstable-features" "--skip-children" "--quiet" "--emit" "stdout")
           (terraform "terraform" "fmt" "-")
-          (zprint . pkg-apheleia/formatter-zprint))))
+          (zprint . pkg-apheleia/formatter-zprint)
+
+          ;; Unfortunately, apheleia mutates the `apheleia-formatters' variable
+          ;; to resolve the path to the binary when using "npx". This is a
+          ;; problem, because if you run the formatter in project A (which has
+          ;; prettier in package.json), and then runs the formatter in project B
+          ;; (which happens to NOT have prettier in package.json), then
+          ;; formatting on project B will use project A's binary. If project A
+          ;; failed to install prettier or installed a faulty version, then
+          ;; project A won't be able to format anything, even if there was a
+          ;; global prettier installation.
+          ;;
+          ;; For the moment, I'm relying on a global prettier binary. Also this
+          ;; variable can change per project using dir local variables.
+          (prettier "prettier" "--stdin-filepath" filepath))))
 
 (provide 'pkg-apheleia)
