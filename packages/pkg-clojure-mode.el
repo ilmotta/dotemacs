@@ -133,6 +133,7 @@ mode is not enabled it tries to use LSP to find the definition."
   (define-clojure-indent (>defn :defn))
   (define-clojure-indent (async :defn))
   (define-clojure-indent (match :defn))
+  (define-clojure-indent (wait-for :defn))
   (define-clojure-indent (letsubs 1))
 
   (with-eval-after-load 'flycheck
