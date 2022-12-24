@@ -61,19 +61,6 @@ understand standard input."
     (ledger-mode-clean-buffer))
   (funcall callback))
 
-(cl-defun pkg-apheleia/formatter-zprint
-    (&key buffer scratch formatter callback remote async &allow-other-keys)
-  (pkg-apheleia/-formatter-async
-   :cmd-builder (lambda ()
-                  (list (executable-find "zprint")
-                        "{:search-config? true}"))
-   :buffer buffer
-   :scratch scratch
-   :formatter formatter
-   :callback callback
-   :remote remote
-   :async async))
-
 (cl-defun pkg-apheleia/formatter-nixfmt
     (&key buffer scratch formatter callback remote async &allow-other-keys)
   (pkg-apheleia/-formatter-async
@@ -143,7 +130,7 @@ understand standard input."
           (ocamlformat "ocamlformat" "-" "--name" filepath)
           (rustfmt "rustfmt" "--unstable-features" "--skip-children" "--quiet" "--emit" "stdout")
           (terraform "terraform" "fmt" "-")
-          (zprint . pkg-apheleia/formatter-zprint)
+          (zprint "zprint" "{:search-config? true}")
 
           ;; Unfortunately, apheleia mutates the `apheleia-formatters' variable
           ;; to resolve the path to the binary when using "npx". This is a
