@@ -55,7 +55,8 @@
   ;; Ignore read-only buffers
   (setq global-idle-highlight-ignore-buffer
         (lambda (buf)
-          (buffer-local-value 'buffer-read-only buf)))
+          (with-current-buffer buf
+            buffer-read-only)))
 
   :config
   (global-idle-highlight-mode +1))

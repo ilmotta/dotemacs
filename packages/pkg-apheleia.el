@@ -1,41 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
-(defun pkg-apheleia/format-ledger ()
-  "Format and save current ledger-mode buffer.
-
-Useful to be used as a buffer hook, such as `before-save-hook'.
-Example:
-
-  (add-hook 'before-save-hook #'pkg-apheleia/format-ledger nil t)
-"
-  (interactive)
-  (apheleia-format-buffer 'ledger #'basic-save-buffer))
-
-(cl-defun pkg-apheleia/-formatter-async-outdated
-    (&key cmd-builder buffer scratch formatter callback remote async &allow-other-keys)
-  "Kept for reference, it might be useful for commands that don't
-understand standard input."
-  (let* ((inhibit-message t)
-         (tmp-file (make-temp-file (format "%s-scratch-" formatter)
-                                   nil nil
-                                   (with-current-buffer scratch
-                                     (buffer-string))))
-         ;; Make the command run in the buffer's `default-directory'.
-         (default-directory (buffer-local-value 'default-directory buffer)))
-    (when async
-      (promise-then (lib-system/promise-start-process-shell-command (funcall cmd-builder tmp-file))
-                    (lambda (formatted)
-                      (with-current-buffer scratch
-                        (erase-buffer)
-                        (insert formatted))
-                      (delete-file tmp-file)
-                      (funcall callback))))))
-
 (cl-defun pkg-apheleia/-formatter-async
     (&key cmd-builder buffer scratch formatter callback remote async &allow-other-keys)
   (let* ((inhibit-message t)
          ;; Make the command run in the buffer's `default-directory'.
-         (default-directory (buffer-local-value 'default-directory buffer)))
+         (default-directory (with-current-buffer buffer default-directory)))
     (when async
       (with-current-buffer scratch
         (erase-buffer))

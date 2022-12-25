@@ -842,7 +842,8 @@ If BUFFER-OR-NAME is omitted or nil, the current buffer is tested."
       (setq buf basebuf))
     (and (buffer-live-p buf)
          (not (u/temp-buffer-p buf))
-         (buffer-local-value 'my/real-buffer-p buf))))
+         (with-current-buffer buf
+           my/real-buffer-p))))
 
 (defun u/promise-delay (delay-ms f &rest args)
   "Delays execution of F for DELAY-MS. ARGS will be directly passed
