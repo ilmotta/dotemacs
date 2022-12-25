@@ -9,7 +9,8 @@
 ;;; Code:
 
 (my/package embark
-  :straight t
+  ;; We need to explicitly add embark-consult.el.
+  :straight (:host github :repo "oantolin/embark" :files ("embark.el" "embark-org.el" "embark-consult.el"))
   :defer t
 
   :init
@@ -43,26 +44,5 @@
     (general-def
       :keymaps 'embark-symbol-map
       "h" #'helpful-at-point)))
-
-;; If you use the grepping commands from the Consult package, consult-grep,
-;; consult-git-grep or consult-ripgrep, then you’ll probably want to install and
-;; load the embark-consult package, which adds support for exporting a list of
-;; grep results to an honest grep-mode buffer, on which you can even use wgrep
-;; if you wish.
-(my/package embark-consult
-  :straight t
-  :defer t
-  :init
-  (with-eval-after-load 'embark
-    (with-eval-after-load 'consult
-      (require 'embark-consult))))
-
-(defun pkg-embark/setup-org ()
-  (require 'embark-org))
-
-(my/package embark-org
-  :straight (:type git :flavor melpa :files ("embark-org.el") :host github :repo "oantolin/embark")
-  :defer t
-  :hook (org-load-hook . pkg-embark/setup-org))
 
 (provide 'pkg-embark)
