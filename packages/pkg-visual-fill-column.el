@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(my/package visual-fill-column
-  :straight t
+(my/package
+  (visual-fill-column :ref "453d698d7fc243a547665f8ba43c55eee574e0db")
   :defer t)
 
 (provide 'pkg-visual-fill-column)

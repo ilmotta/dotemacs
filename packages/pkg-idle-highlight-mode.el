@@ -35,8 +35,8 @@
   (when (derived-mode-p 'eshell-mode)
     (idle-highlight-mode -1)))
 
-(my/package idle-highlight-mode
-  :straight (:type git :host gitlab :repo "ideasman42/emacs-idle-highlight-mode")
+(my/package
+  (idle-highlight-mode :ref "0cdf8437183766de7e165d5f9ae76646ecccaaa2")
   :defer t
 
   :hook (after-change-major-mode-hook . pkg-idle-highlight-mode/after-change-major-mode-h)
@@ -50,6 +50,7 @@
   ;; Ignore certain modes when `global-idle-highlight-mode' is enabled.
   (setq idle-highlight-ignore-modes '(csv-mode
                                       json-mode
+                                      json-ts-mode
                                       org-mode))
 
   ;; Ignore read-only buffers

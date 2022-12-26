@@ -98,8 +98,8 @@ mode is not enabled it tries to use LSP to find the definition."
 
 ;;; Package
 
-(my/package clojure-mode
-  :straight t
+(my/package
+  (clojure-mode :ref "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
   :defer t
 
   :hook (clojure-mode-hook . pkg-clojure/setup-sibling-rules)

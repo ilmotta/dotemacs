@@ -45,8 +45,8 @@
    (apply original-fn args)
    (recenter)))
 
-(my/package magit
-  :straight t
+(my/package
+  (magit :ref "010fec9cdedb2cbe40fc92b0385823e9a21f9842")
   :defer t
 
   :commands (magit-log-current

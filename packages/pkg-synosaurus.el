@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package synosaurus
-  :straight t
+(my/package
+  (synosaurus :ref "14d34fc92a77c3a916b4d58400424c44ae99cd81")
   :defer t
   :commands (synosaurus-lookup
              synosaurus-choose-and-insert

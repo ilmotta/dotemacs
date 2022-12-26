@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Code:
+
 ;;;###autoload
 (defun l/symlinks-to-file ()
   (interactive)

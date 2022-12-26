@@ -1,7 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package js2-mode
-  :straight t
+(my/package
+  js2-mode
+  :disabled t
   :defer t
 
   :hook (js-mode-hook . js2-minor-mode)

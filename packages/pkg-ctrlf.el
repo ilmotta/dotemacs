@@ -1,12 +1,14 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Code:
+
 (defun pkg-ctrlf/recenter-after-default-search (&rest _args)
   (recenter-top-bottom))
 
 ;; An intuitive and efficient solution for single-buffer text search in
 ;; Emacs,replacing packages such as Isearch, Swiper, and helm-swoop.
-(my/package ctrlf
-  :straight t
+(my/package
+  (ctrlf :ref "9b4cf6c79a961f2bfbb949805aa300fcf1eb40a6")
   :defer t
 
   :init

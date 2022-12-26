@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package typescript-mode
-  :straight t
+(my/package
+  typescript-mode
   :defer t
   :hook (typescript-mode-hook . electric-pair-local-mode)
   :init

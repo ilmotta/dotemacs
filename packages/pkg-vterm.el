@@ -62,9 +62,9 @@ If it's on a prompt, copy the input, otherwise copy the output."
       (pkg-vterm/copy-input)
     (pkg-vterm/copy-output)))
 
-(my/package vterm
+(my/package
+  (vterm :ref "f14d113ee4618f052879509ec378feb9766b871b")
   :unless my/android?
-  :straight t
   :defer t
 
   :hook (vterm-mode-hook . lib-system/set-no-process-query-on-exit)

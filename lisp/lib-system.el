@@ -1,9 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(require 'promise)
-(require 'lib-tabulated)
-(require 'lib-util)
-(require 'transient)
+;;; Code:
 
 ;;; Variables
 

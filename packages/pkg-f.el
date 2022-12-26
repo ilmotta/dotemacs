@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package f
-  :straight (:files ("f.el" "f-shortdoc.el") :host github :repo "rejeep/f.el")
+(my/package
+  (f :ref "d50dca48929575642912bb5bbb2585709ba38f82")
   :defer t)
 
 (provide 'pkg-f)

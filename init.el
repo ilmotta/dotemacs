@@ -4,6 +4,7 @@
 (add-to-list 'load-path (file-truename (concat user-emacs-directory "lisp/")))
 
 (require 'cl-macs)
+(require 'cl-lib)
 (require 'transient)
 (require 'seq)
 (require 'lib-util)
@@ -45,17 +46,6 @@
  pkg-magit
  pkg-xclip)
 
-;;; Built-in packages
-(my/with-packages
- pkg-dired
- pkg-eshell
- pkg-proced
- pkg-project
- pkg-recentf
- pkg-savehist
- pkg-saveplace
- pkg-xref)
-
 ;;; Completion systems
 (my/with-packages
  pkg-consult
@@ -75,11 +65,9 @@
  pkg-doom-modeline
  pkg-doom-themes
  pkg-eros
- pkg-goto-addr
  pkg-helpful
  pkg-hide-mode-line
  pkg-highlight-parentheses
- pkg-hl-line
  pkg-idle-highlight-mode
  pkg-kind-icon
  pkg-marginalia
@@ -103,7 +91,6 @@
  pkg-flyspell-correct
  pkg-quickrun
  pkg-smartparens
- pkg-tempo
  pkg-undo-fu)
 
 ;;; File/language modes
@@ -114,27 +101,22 @@
  pkg-clojure-mode
  pkg-csv-mode
  pkg-dockerfile-mode
- pkg-elisp-mode
  pkg-flycheck-clj-kondo
  pkg-flycheck-ledger
  pkg-flycheck-rust
  pkg-geiser
  pkg-git-modes
  pkg-gnuplot
- pkg-go-mode
  pkg-graphql-mode
  pkg-groovy-mode
  pkg-haskell-mode
- pkg-js-mode
  pkg-js2-mode
- pkg-json-mode
  pkg-kbd-mode
  pkg-kotlin-mode
  pkg-ledger-mode
  pkg-lua-mode
  pkg-markdown-mode
  pkg-nix-mode
- pkg-nxml-mode
  pkg-php-mode
  pkg-plantuml-mode
  pkg-rust-mode
@@ -159,7 +141,6 @@
  pkg-evil-org
  pkg-htmlize
  pkg-ob-async
- pkg-org-capture
  pkg-org-cliplink
  pkg-org-download
  pkg-org-make-toc
@@ -192,14 +173,5 @@
  pkg-vterm
  pkg-wgrep
  pkg-wordnut)
-
-;;; Internal packages
-(my/with-packages
- pkg-outline)
-
-;;; Final pieces of the puzzle
-(my/with-packages
- pkg-daemon
- pkg-theme)
 
 (require 'keybindings)

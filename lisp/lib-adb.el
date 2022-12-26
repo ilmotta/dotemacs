@@ -4,7 +4,6 @@
 ;; Commands to interact with the Android Debug Bridge (adb).
 
 ;;; Code:
-(require 'lib-system)
 
 (defun lib-adb/-devices ()
   (let* ((output (lib-system/-shell-command-to-string "adb devices"))

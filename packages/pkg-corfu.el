@@ -32,11 +32,10 @@
 ;; Corfu is the minimalistic completion-in-region counterpart of the Vertico
 ;; minibuffer UI. Corfu is a small package, which relies on the Emacs completion
 ;; facilities and concentrates on providing a polished completion UI.
-(my/package corfu
-  :straight (:host github :repo "minad/corfu")
+(my/package
+  (corfu :ref "7bf3ec4622372ed23e83a0778ded53222c4e1187")
   :defer t
-
-  :hook (after-init-hook . global-corfu-mode)
+  :hook (elpaca-after-init-hook . global-corfu-mode)
 
   :init
   (general-def

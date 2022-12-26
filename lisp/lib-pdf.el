@@ -2,10 +2,6 @@
 
 ;;; Code:
 
-(require 'lib-tabulated)
-(require 'lib-system)
-(require 'map)
-
 ;;;; Variables
 
 (defgroup lib-pdf nil

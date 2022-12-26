@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(my/package dired-du
-  :straight t
+(my/package
+  (dired-du :ref "e5a2aa64849aae14fd6d1973919ec7e13ed76dd0")
   :defer t
   :commands (dired-du-mode)
   :init

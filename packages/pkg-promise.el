@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package promise
-  :straight t
+(my/package
+  (promise :ref "cec51feb5f957e8febe6325335cf57dc2db6be30")
   :defer t)
 
 (provide 'pkg-promise)

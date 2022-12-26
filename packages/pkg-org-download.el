@@ -15,8 +15,8 @@
     (concat (format-time-string org-download-timestamp)
             filename)))
 
-(my/package org-download
-  :straight t
+(my/package
+  (org-download :ref "19e166f0a8c539b4144cfbc614309d47a9b2a9b7")
   :defer t
   :commands (org-download-screenshot org-download-yank)
   :hook ((dired-mode-hook org-mode-hook) . org-download-enable)

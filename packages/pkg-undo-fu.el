@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package undo-fu
-  :straight t
+(my/package
+  (undo-fu :ref "601fed8e4bbed041dea5969600d985c0c17759ad")
   :demand t
   :init
   (setq undo-fu-allow-undo-in-region t)

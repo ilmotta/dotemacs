@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Code:
+
 (defun pkg-consult/-consult-line (original-fn &rest args)
   (let ((consult-preview-key 'any))
     (apply original-fn args)))
@@ -31,8 +33,8 @@ perform the completion directly in the original buffer."
       (funcall #'consult-ripgrep (project-root proj) (thing-at-point 'symbol))
     (funcall #'consult-ripgrep default-directory (thing-at-point 'symbol))))
 
-(my/package consult
-  :straight (:host github :repo "minad/consult" :branch "main")
+(my/package
+  (consult :ref "7c514c0a2414347c4cd0482a691371625a8a1c53")
   :defer t
 
   :init

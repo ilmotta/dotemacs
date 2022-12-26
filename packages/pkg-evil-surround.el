@@ -1,8 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;; Surround.vim for evil.
-(my/package evil-surround
-  :straight t
+(my/package
+  (evil-surround :ref "c9e1449bf3f740b5e9b99e7820df4eca7fc7cf02")
   :defer t
 
   :init

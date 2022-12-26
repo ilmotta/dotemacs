@@ -703,7 +703,7 @@ with 'kill' as the default action instead of 'bury'."
 ;; files are compiled when gccemacs is installed.
 ;;
 ;; Compile AOT with:
-;;  (native-compile-async "~/.emacs.d/.local/straight/build" 'recursively)
+;;  (native-compile-async "~/.emacs.d/.local/elpaca/builds" 'recursively)
 (setq native-comp-deferred-compilation nil)
 
 ;; This intended for debugging the compiler itself.

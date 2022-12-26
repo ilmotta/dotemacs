@@ -272,33 +272,37 @@ This is particularly useful to evaluate the value of a var."
 
 (add-hook 'emacs-lisp-mode-hook #'cl-font-lock-built-in-mode)
 
-(my/general-mode-def
-  :keymaps '(emacs-lisp-mode-map)
-  ;; Code
-  "c ="   #'lib-util/sort-up-sexp
-  ;; Debug
-  "d f"   #'edebug-defun
-  ;; Eval
-  "e :"   #'eval-expression
-  "e b"   #'pkg-elisp-mode/eval-buffer
-  "e e"   #'eval-defun
-  "e f"   #'pkg-elisp-mode/eval-list-at-point
-  "e l"   #'eval-last-sexp
-  "e p :" #'pp-eval-expression
-  "e p b" #'pp-buffer
-  "e p p" #'pp-eval-last-sexp
-  "e r"   #'eval-region
-  "e 2"   #'pkg-elisp-mode/eval-defun-2nd-symbol
-  ;; Help
-  "h ."   #'helpful-at-point
-  "h a a" #'apropos
-  "h a d" #'apropos-documentation
-  ;; Macroexpand
-  "m :"   #'pp-macroexpand-expression
-  "m m"   #'pp-macroexpand-last-sexp
-  ;; Test
-  "t b"   #'pkg-elisp-mode/run-file-tests
-  "t p"   #'pkg-elisp-mode/run-project-tests)
+(with-eval-after-load 'general
+  (general-def
+    :states '(normal visual insert emacs)
+    :prefix my/local-leader
+    :non-normal-prefix my/non-normal-prefix
+    :keymaps '(emacs-lisp-mode-map)
+    ;; Code
+    "c ="   #'lib-util/sort-up-sexp
+    ;; Debug
+    "d f"   #'edebug-defun
+    ;; Eval
+    "e :"   #'eval-expression
+    "e b"   #'pkg-elisp-mode/eval-buffer
+    "e e"   #'eval-defun
+    "e f"   #'pkg-elisp-mode/eval-list-at-point
+    "e l"   #'eval-last-sexp
+    "e p :" #'pp-eval-expression
+    "e p b" #'pp-buffer
+    "e p p" #'pp-eval-last-sexp
+    "e r"   #'eval-region
+    "e 2"   #'pkg-elisp-mode/eval-defun-2nd-symbol
+    ;; Help
+    "h ."   #'helpful-at-point
+    "h a a" #'apropos
+    "h a d" #'apropos-documentation
+    ;; Macroexpand
+    "m :"   #'pp-macroexpand-expression
+    "m m"   #'pp-macroexpand-last-sexp
+    ;; Test
+    "t b"   #'pkg-elisp-mode/run-file-tests
+    "t p"   #'pkg-elisp-mode/run-project-tests))
 
 (advice-add #'calculate-lisp-indent :override #'pkg-elisp-mode/calculate-lisp-indent)
 

@@ -23,8 +23,8 @@
     (evil-set-initial-state 'calc-mode 'emacs)
     (evil-mode +1)))
 
-(my/package evil
-  :straight t
+(my/package
+  (evil :ref "2e8576188b1d0768fbf92c6bea2fb3fbed9f019f")
   :defer t
 
   :commands (evil-set-initial-state)
@@ -34,7 +34,7 @@
   :custom (evil-want-keybinding nil)
 
   :init
-  (add-hook 'after-init-hook #'pkg-evil/setup -9999)
+  (add-hook 'elpaca-after-init-hook #'pkg-evil/setup -9999)
 
   (when my/evil-p
     (general-def

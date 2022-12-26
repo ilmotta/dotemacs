@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package paren-face
-  :straight t
+(my/package
+  (paren-face :ref "bf741a6038a2554abf98d31e658421c33f8bf7a4")
   :defer t
   :hook ((emacs-lisp-mode-hook clojure-mode-hook) . paren-face-mode)
   :init

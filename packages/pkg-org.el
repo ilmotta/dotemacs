@@ -15,6 +15,9 @@ PDFs, HTML and Tex files."
 (defun pkg-org/recenter (&rest _args)
   (recenter))
 
+(defun pkg-org/note-id ()
+  (format-time-string my/note-id-time-string (current-time) "UTC0"))
+
 ;;; Custom link types
 
 (defun pkg-org/link-mpv-complete ()
@@ -172,8 +175,8 @@ unless the ID property already exists."
 
 ;;; Package
 
-(my/package org
-  :straight t
+(my/package
+  (org :ref "0f1184a850737d22bf78ee6d7621f65fd2679d4f")
   :defer t
 
   :init
@@ -202,6 +205,10 @@ unless the ID property already exists."
     :states '(motion emacs)
     ;; Make it consistent with Dired.
     "U" #'org-agenda-bulk-unmark)
+
+  (general-def
+    :keymaps 'my/keys-mode-map
+    "C-c c" #'org-capture)
 
   (my/general-mode-def
     :keymaps 'org-mode-map
@@ -458,6 +465,29 @@ unless the ID property already exists."
   (setq org-refile-use-cache nil)
 
   (setq org-refile-use-outline-path nil)
+
+;;;; Org capture
+
+;;;;; Templates
+
+  (defun pkg-org-capture/note-new-path ()
+    (file-truename (format "~/data/repos/notes/%s.org" (pkg-org/note-id))))
+
+  (defvar pkg-org-capture/template-note
+    (string-join (list ":properties:"
+                       ":id: %(lib-util/uuid)"
+                       ":end:"
+                       "#+setupfile: setup.org"
+                       "#+title: Note%?\n")
+                 "\n"))
+
+  (defvar pkg-org-capture/template-todo
+    (string-join (list "* TODO %^{Description}"
+                       ":properties:"
+                       ":id: %(lib-util/uuid)"
+                       ":created: %T"
+                       ":end:")
+                 "\n"))
 
 ;;;; UI
 

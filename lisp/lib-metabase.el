@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
-(require 'cl-lib)
-(require 'lib-util)
+
+;;; Code:
 
 (defconst l/port 8990)
 (defconst l/db-file (expand-file-name "~/.local/var/metabase/metabase.db"))

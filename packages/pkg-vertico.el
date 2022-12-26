@@ -1,16 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
 
-(eval-and-compile
-  (defun pkg-vertico/load-paths ()
-    (list (concat (straight--repos-dir "vertico") (file-name-as-directory "extensions")))))
-
-(my/package vertico
-  :straight (:host github :repo "minad/vertico")
-  :load-path (lambda () (pkg-vertico/load-paths))
+(my/package
+  (vertico :files ("*.el" "extensions/*.el")
+           :ref "4d2bde64e7c4a07e4c4447283af19382ead37d48")
   :defer t
-
-  :hook (after-init-hook . vertico-mode)
+  :hook (elpaca-after-init-hook . vertico-mode)
 
   :init
   (general-def

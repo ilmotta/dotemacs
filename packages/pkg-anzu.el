@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package anzu
-  :straight t
+(my/package
+  (anzu :ref "5abb37455ea44fa401d5f4c1bdc58adb2448db67")
   :defer t
   :init
   (general-def

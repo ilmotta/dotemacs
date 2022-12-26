@@ -1,8 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
 
-(my/package org-modern
-  :straight (:host github :repo "minad/org-modern")
+(my/package
+  (org-modern :host github
+              :repo "minad/org-modern"
+              :ref "010eade723881ca234a12bd94b791e2000cd2a15")
   :defer t
   :hook (org-mode-hook . org-modern-mode)
   :init

@@ -8,8 +8,8 @@
   (evil-add-command-properties #'evil-cp-backward-up-sexp :jump t)
   (evil-add-command-properties #'evil-cp-up-sexp :jump t))
 
-(my/package evil-cleverparens
-  :straight t
+(my/package
+  (evil-cleverparens :ref "22aa03d0f50aa70ae08fbe8765a88f5020afa635")
   :defer t
 
   ;; Command properties must be added after `evil-cleverparens-mode'is enabled.

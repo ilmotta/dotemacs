@@ -1,14 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package tree-sitter
+(my/package
+  tree-sitter
   :unless my/android?
-  :straight t
   :defer t
-  :hook ((css-mode-hook
-          go-mode-hook
-          java-mode-hook
+  :hook ((java-mode-hook
           js-mode-hook
-          json-mode-hook
           python-mode-hook
           rjsx-mode-hook
           ruby-mode-hook

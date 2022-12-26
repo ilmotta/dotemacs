@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package evil-matchit
-  :straight t
+(my/package
+  (evil-matchit :ref "ec3dd819983b2d824142efddd46ef29b46a7c454")
   :defer t
   :hook ((typescript-mode-hook
           typescript-tsx-mode-hook

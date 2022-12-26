@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package page-break-lines
-  :straight t
+(my/package
+  (page-break-lines :ref "79eca86e0634ac68af862e15c8a236c37f446dcd")
   :defer t
   :hook ((compilation-mode-hook
           emacs-lisp-mode-hook

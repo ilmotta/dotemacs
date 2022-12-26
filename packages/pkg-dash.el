@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package dash
-  :straight t
+(my/package
+  (dash :ref "3df46d7d9fe74f52a661565888e4d31fd760f0df")
   :defer t)
 
 (provide 'pkg-dash)

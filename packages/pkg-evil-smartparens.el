@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package evil-smartparens
-  :straight t
+(my/package
+  (evil-smartparens :ref "026d4a3cfce415a4dfae1457f871b385386e61d3")
   :defer t
   :init
   (when (bound-and-true-p evil-mode)

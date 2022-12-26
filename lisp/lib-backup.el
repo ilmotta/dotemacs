@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Code:
+
 (defun lib/rsync-extended-features ()
   "Return only available rsync options.
 Some of these flags were added in the 3.2.3 release (Aug 2020)."

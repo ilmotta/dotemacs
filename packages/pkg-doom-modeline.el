@@ -72,12 +72,10 @@ works fine."
   "PATCH: Always return the specified `doom-modeline-height'."
   doom-modeline-height)
 
-;; A minimal and modern mode-line.
-(my/package doom-modeline
-  :straight t
+(my/package
+  (doom-modeline :ref "fe9ee5a2a950f9ded10261a05a12adc577ae9e36")
   :defer t
-
-  :hook (after-init-hook . pkg-doom-modeline/setup-mode)
+  :hook (elpaca-after-init-hook . pkg-doom-modeline/setup-mode)
 
   :init
   ;; Determines the style used by `doom-modeline-buffer-file-name'.

@@ -1,8 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
-(require 'cl-macs)
-(require 'lib-util)
-(require 'lib-system)
-(require 's)
+
+;;; Code:
 
 (defgroup lib-media nil
   "Audio and video utility functions."

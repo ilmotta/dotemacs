@@ -1,14 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
-(eval-and-compile
-  (defun pkg-dirvish/load-paths ()
-    (list (concat (straight--repos-dir "dirvish") (file-name-as-directory "extensions")))))
-
-;; Dirvish is a minimalistic file manager based on dired.
-;; Dirvish does not introduce any keybindings by default, see dirvish-mode-map for more details.
-(my/package dirvish
-  :straight (:host github :repo "alexluigit/dirvish")
-  :load-path (lambda () (pkg-dirvish/load-paths))
+;; Dirvish is a minimalistic file manager based on dired. Dirvish does not
+;; introduce any keybindings by default, see dirvish-mode-map for more details.
+(my/package
+  (dirvish :host github :repo "alexluigit/dirvish" :files (:defaults "extensions/"))
   :defer t
 
   :init

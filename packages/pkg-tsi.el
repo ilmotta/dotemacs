@@ -5,9 +5,9 @@
 ;; indentation.
 
 ;;; Code:
-(my/package tsi
+(my/package
+  (tsi :host github :repo "orzechowskid/tsi.el")
   :unless my/android?
-  :straight (:host github :repo "orzechowskid/tsi.el")
   :defer t
   :hook ((javascript-mode-hook typescript-mode-hook) . tsi-typescript-mode))
 

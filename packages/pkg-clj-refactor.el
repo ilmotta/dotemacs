@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package clj-refactor
-  :straight t
+(my/package
+  (clj-refactor :ref "8300d5cab861668f313fbbbb3e2926e3e5130e86")
   :defer t
   :hook (clojure-mode-hook . clj-refactor-mode)
   :init

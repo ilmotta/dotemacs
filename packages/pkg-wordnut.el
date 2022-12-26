@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package wordnut
-  :straight t
+(my/package
+  (wordnut :ref "feac531404041855312c1a046bde7ea18c674915")
   :defer t
   :commands (wordnut-search wordnut-history-lookup)
   :init

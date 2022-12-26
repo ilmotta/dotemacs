@@ -68,9 +68,6 @@
 (defvar my/start-up-time nil
   "The total time it took to start-up Emacs (in milliseconds).")
 
-(defvar bootstrap-version nil
-  "Used by the straight package manager.")
-
 (defvar-local my/real-buffer-p nil
   "If non-nil, this buffer should be considered real no matter
 what. See `lib-util/real-buffer-p' for more information.")

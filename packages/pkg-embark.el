@@ -8,9 +8,9 @@
 
 ;;; Code:
 
-(my/package embark
+(my/package
   ;; We need to explicitly add embark-consult.el.
-  :straight (:host github :repo "oantolin/embark" :files ("embark.el" "embark-org.el" "embark-consult.el"))
+  (embark :ref "ee014d5f3c86eafae673a947b492fa03ffbacb4e" :files ("embark.el" "embark-org.el" "embark-consult.el"))
   :defer t
 
   :init

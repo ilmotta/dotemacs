@@ -6,9 +6,9 @@
 
 ;;; Code:
 
-(my/package xclip
+(my/package
+  (xclip :ref "a1ac607f75a250dddf49866918bb493884451130")
   :if (and (not (display-graphic-p)) (not my/android?))
-  :straight t
   :demand t
   :config
   (xclip-mode +1))

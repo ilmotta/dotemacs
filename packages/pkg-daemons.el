@@ -5,9 +5,9 @@
 
 ;;; Code:
 
-(my/package daemons
+(my/package
+  (daemons :ref "e18e84ccc13101f1609c213029cf011ae0ad1178")
   :when my/linux?
-  :straight t
   :defer t
   :commands (daemons
              daemons-disable

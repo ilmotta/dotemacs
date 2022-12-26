@@ -5,8 +5,8 @@
 ;; predictability of `windmove' and pack it into a single key binding, similar
 ;; to other-window.
 
-(my/package ace-window
-  :straight t
+(my/package
+  (ace-window :rev "77115afc1b0b9f633084cf7479c767988106c196")
   :defer t
 
   :init

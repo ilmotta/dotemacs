@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Code:
+
 (cl-defun pkg-apheleia/-formatter-async
     (&key cmd-builder buffer scratch formatter callback remote async &allow-other-keys)
   (let* ((inhibit-message t)
@@ -44,8 +46,8 @@
 
 ;; Apheleia is a code formatting tool that can reliably and efficiently run on
 ;; every save.
-(my/package apheleia
-  :straight (:type git :host github :repo "raxod502/apheleia")
+(my/package
+  (apheleia :ref "5ebd6bf5819fbf2adfa18162f270825e6ca4379c")
   :defer t
 
   :hook (nix-mode-hook . apheleia-mode)
@@ -68,12 +70,15 @@
         '((clojure-mode . zprint)
           (clojurescript-mode . zprint)
           (css-mode . prettier)
+          (css-ts-mode . prettier)
           (elixir-mode . mix-format)
           (go-mode . gofmt)
+          (go-ts-mode . gofmt)
           (html-mode . prettier)
           (java-mode . google-java-format)
           (js-mode . prettier)
           (json-mode . prettier)
+          (json-ts-mode . prettier)
           (ledger-mode . ledger)
           (nix-mode . nixfmt)
           (python-mode . black)

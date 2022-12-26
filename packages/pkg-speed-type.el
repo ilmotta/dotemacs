@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package speed-type
-  :straight t
+(my/package
+  (speed-type :ref "11a8bd33711711fb5e22d93ac2ed950e4a2e76fc")
   :defer t
   :commands (speed-type-region
              speed-type-text

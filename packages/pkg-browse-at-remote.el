@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package browse-at-remote
-  :straight t
+(my/package
+  (browse-at-remote :ref "010639fc6bd6c710b56e0f095352da60c92473a3")
   :defer t
   :init
   (general-def

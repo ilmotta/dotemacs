@@ -134,8 +134,8 @@
     (define-key map "W" #'detached-copy-session-output)
     map))
 
-(my/package detached
-  :straight t
+(my/package
+  (detached :ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
   :defer t
   :init
   (general-def

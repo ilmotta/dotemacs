@@ -5,8 +5,16 @@
 
 ;;; Code:
 
-(my/package smartparens
-  :straight t
+;; We need to use the mirror because the original recipe results in the error
+;; 'dumb http transport does not support shallow capabilities'.
+(my/package
+  (paredit :host github
+           :repo "emacsmirror/paredit"
+           :ref "009c95980e52cc4d736fa1404cf17c86fe97fd7d")
+  :defer t)
+
+(my/package
+  (smartparens :ref "0a23136dd6b1f326419c5828f4197ecfd820b204")
   :defer t
 
   :init

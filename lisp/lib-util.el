@@ -63,13 +63,13 @@ This is a variadic `cl-pushnew'."
         ((equal 'default my/use-package-force-demand) default)
         (t nil)))
 
-(defmacro my/package (name &rest args)
-  (declare (indent 1))
+(defmacro my/package (order &rest args)
+  (declare (indent 0))
   (when my/use-package-force-demand
     (setq args (map-delete args :defer))
     (setq args (map-delete args :demand))
     (setq args (append '(:demand t) args)))
-  `(use-package ,name ,@args))
+  `(elpaca-use-package ,order ,@args))
 
 ;;; Interactive fundamentals
 

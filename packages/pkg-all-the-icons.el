@@ -1,8 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package all-the-icons
+;;; Code:
+
+(my/package
+  (all-the-icons :ref "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
   :when (display-graphic-p)
-  :straight t
   :defer t
   :commands (all-the-icons-octicon
              all-the-icons-faicon
@@ -11,7 +13,9 @@
              all-the-icons-material
              all-the-icons-alltheicon)
 
-  :config
+  :init
+  ;; IMPORTANT: changing the variables below may require restarting Emacs.
+
   ;; This is an important fix when using posframe, because certain lines at the
   ;; end would not be displayed because I prefer to set posframes with fixed
   ;; heights. Anyway, I actually prefer smaller icons.
@@ -20,7 +24,20 @@
   ;; Display colored icons in dired buffers.
   (setq all-the-icons-dired-monochrome nil)
 
-  ;; Important: changing the variables below may require restarting Emacs.
+  :config
+  (setq org-capture-templates
+        (append
+         `(("n" ,(concat (all-the-icons-faicon "sticky-note" :v-adjust -0.1) " Note")
+            plain
+            (file pkg-org-capture/note-new-path)
+            ,pkg-org-capture/template-note
+            :immediate-finish t
+            :jump-to-captured t
+            :no-save t))
+         `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
+            entry (file "~/data/repos/notes/20200827220222.org")
+            ,pkg-org-capture/template-todo
+            :immediate-finish t))))
 
   ;; Icons by file name.
   (add-to-list 'all-the-icons-icon-alist '("\\.ledger$" all-the-icons-faicon "money" :height 1.0 :v-adjust 0.0 :face all-the-icons-dgreen))

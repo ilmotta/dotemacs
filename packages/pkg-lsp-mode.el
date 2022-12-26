@@ -49,13 +49,11 @@ spanning over multiple lines."
 ;; using /directory locals/.
 ;;
 ;;   ((js-mode . ((eval . (lsp-deferred)))))
-(my/package lsp-mode
-  :straight t
+(my/package
+  (lsp-mode :ref "7dee0d63fa1b6628be4aaea86b2298244eb3d84e")
   :defer t
-  :load-path (lambda ()
-               (concat (straight--repos-dir "lsp-mode") (file-name-as-directory "clients")))
 
-  :hook (go-mode-hook . lsp-deferred)
+  :hook (go-ts-mode-hook . lsp-deferred)
   :hook (lsp-completion-mode-hook . pkg-lsp-mode/setup-completion)
   :hook (lsp-mode-hook . pkg-lsp-mode/disable-eldoc-h)
   :hook ((typescript-mode-hook rjsx-mode-hook js-mode-hook) . pkg-lsp-mode/lsp-mode-h)

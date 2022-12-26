@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(my/package dap-mode
-  :straight t
+(my/package
+  (dap-mode :ref "512b70bb71b5727bfb155f08f7e9a32f0496f1a6")
   :defer t
   :init
   (setq dap-breakpoints-file (concat my/cache-dir "dap-breakpoints")))

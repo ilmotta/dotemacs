@@ -1,9 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package popper
-  :straight t
+(my/package
+  (popper :ref "d7560f18350faaee8362aee16481268de3cc6457")
   :defer t
-  :hook (after-init-hook . popper-mode)
+  :hook (elpaca-after-init-hook . popper-mode)
   :init
   (general-def
     :keymaps '(my/keys-mode-map)

@@ -29,8 +29,8 @@
    ((string-prefix-p "~" pattern) `(orderless-flex . ,(substring pattern 1)))
    ((string-suffix-p "~" pattern) `(orderless-flex . ,(substring pattern 0 -1)))))
 
-(my/package orderless
-  :straight t
+(my/package
+  (orderless :ref "e3062280f924933e9c6f5dd1a71729ed98c8493a")
   :defer t
 
   :init
