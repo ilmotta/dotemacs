@@ -6,6 +6,12 @@
 (with-eval-after-load 'general
   (general-def
     :keymaps 'my/keys-mode-map
+    :states 'normal
+    :prefix my/leader
+    "m i" #'imenu)
+
+  (general-def
+    :keymaps 'my/keys-mode-map
     "C-c z" #'global-text-scale-adjust)
 
   (general-def
