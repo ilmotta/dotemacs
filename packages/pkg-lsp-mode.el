@@ -71,27 +71,23 @@ spanning over multiple lines."
 
   ;; The `lsp-keymap-prefix' does not work as one would think. We need to remove
   ;; the prefix keybinding and define a new one.
-  (setq lsp-keymap-prefix "C-c C-l")
+  (setq lsp-keymap-prefix nil)
   (general-def
     :keymaps 'lsp-mode-map
-    "s-l" nil
-    "C-c C-l" '(:keymap lsp-command-map))
-
-  (my/general-mode-def
-    :keymaps 'lsp-mode-map
-    "c f r" #'lsp-find-references
-    "c f R" #'lsp-treemacs-call-hierarchy
-    "c r"   #'lsp-rename
-    "c s"   #'lsp-treemacs-symbols
-    "h ."   #'pkg-lsp-mode/describe-thing-at-point)
+    "s-l" nil)
 
   (my/general-mode-def
     :keymaps 'clojure-mode-map
+    "c f R" #'lsp-treemacs-call-hierarchy
+    "c f r" #'lsp-find-references
     "c n c" #'lsp-clojure-clean-ns
     "c p"   #'lsp-clojure-cycle-privacy
+    "c r"   #'lsp-rename
+    "c s"   #'lsp-treemacs-symbols
     "c x b" #'lsp-clojure-move-to-let
     "c x f" #'lsp-clojure-extract-function
-    "c x l" #'lsp-clojure-introduce-let)
+    "c x l" #'lsp-clojure-introduce-let
+    "h ."   #'pkg-lsp-mode/describe-thing-at-point)
 
   (setq lsp-auto-guess-root t)
   (setq lsp-session-file (concat temporary-file-directory "lsp-session"))
