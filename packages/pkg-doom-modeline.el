@@ -104,6 +104,14 @@ works fine."
         doom-modeline-modal-icon nil
         doom-modeline-unicode-fallback nil)
 
+  ;; Don't display version in the modeline.
+  (setq doom-modeline-env-enable-elixir nil
+        doom-modeline-env-enable-go nil
+        doom-modeline-env-enable-perl nil
+        doom-modeline-env-enable-python nil
+        doom-modeline-env-enable-ruby nil
+        doom-modeline-env-enable-rust nil)
+
   :config
   (pkg-doom-modeline/define-sections)
 
