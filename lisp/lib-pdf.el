@@ -54,6 +54,20 @@
 ;;; Autoloads
 
 ;;;###autoload
+(defun l/remove-password (file password)
+  "Remove password from FILE by using PASSWORD."
+  (interactive (list (read-file-name "PDF file: " nil nil t)
+                     (read-passwd "Password: ")))
+  (thread-first (lib-system/promise-start-process-shell-command
+                 (format "qpdf -password='%s' -decrypt '%s' --replace-input"
+                         password (expand-file-name file)))
+                (promise-then (lambda (_)
+                                (message "Password removed successfully.")))
+                (promise-catch (lambda (err)
+                                 (message "Failed to remove password: '%s'"
+                                          (replace-regexp-in-string "\n$" "" err))))))
+
+;;;###autoload
 (defun l/metadata (file)
   (interactive "fPDF file: ")
   (thread-first (l/-fetch-metadata file)
