@@ -1030,35 +1030,6 @@ is already visible.")
              (cons (rx "." (or "json") string-end)
                    'json-ts-mode))
 
-;;;; Go
-
-(defun pkg-go/setup-sibling-rules ()
-  (setq-local find-sibling-rules
-              (list
-               ;; Go src -> test
-               (list (rx (group (+ (not "/")))
-                         ".go"
-                         string-end)
-                     (rx (regex "\\1")
-                         "_test.go"
-                         string-end))
-
-               ;; Go test -> src
-               (list (rx (group (+ (not "/")))
-                         "_test"
-                         ".go"
-                         string-end)
-                     (rx (regex "\\1")
-                         ".go"
-                         string-end)))))
-
-(add-to-list 'auto-mode-alist
-             (cons (rx "." (or "go") string-end)
-                   'go-ts-mode))
-
-(add-hook 'go-ts-mode-hook #'pkg-go/setup-sibling-rules)
-(add-hook 'go-ts-mode-hook #'electric-pair-local-mode)
-
 ;;;; XML
 
 (add-to-list 'auto-mode-alist

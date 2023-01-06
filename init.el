@@ -107,6 +107,7 @@
  pkg-geiser
  pkg-git-modes
  pkg-gnuplot
+ pkg-go-mode
  pkg-graphql-mode
  pkg-groovy-mode
  pkg-haskell-mode
