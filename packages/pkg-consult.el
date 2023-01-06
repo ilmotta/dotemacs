@@ -2,6 +2,9 @@
 
 ;;; Code:
 
+(defvar pkg-consult/-ripgrep-dwim-previous-query nil
+  "Stores the latest query when calling `pkg-consult/ripgrep-dwim'.")
+
 (defun pkg-consult/-consult-line (original-fn &rest args)
   (let ((consult-preview-key 'any))
     (apply original-fn args)))
@@ -29,9 +32,22 @@ perform the completion directly in the original buffer."
 (defun pkg-consult/ripgrep-dwim ()
   "Search with rg using symbol at point as initial input."
   (interactive)
-  (if-let ((proj (project-current)))
-      (funcall #'consult-ripgrep (project-root proj) (thing-at-point 'symbol))
-    (funcall #'consult-ripgrep default-directory (thing-at-point 'symbol))))
+  (let ((thing (thing-at-point 'symbol))
+        (dir (if-let ((proj (project-current)))
+                 (project-root proj)
+               default-directory)))
+    (setq pkg-consult/-ripgrep-dwim-previous-query thing)
+    (consult-ripgrep dir thing)))
+
+(defun pkg-consult/ripgrep-dwim-previous ()
+  "Searches with rg.
+Uses initial input from previous call to
+`pkg-consult/ripgrep-dwim'."
+  (interactive)
+  (let ((dir (if-let ((proj (project-current)))
+                 (project-root proj)
+               default-directory)))
+    (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
 (my/package
   (consult :ref "7c514c0a2414347c4cd0482a691371625a8a1c53")
@@ -71,7 +87,8 @@ perform the completion directly in the original buffer."
   (general-def
     :keymaps 'project-prefix-map
     "s s" #'consult-ripgrep
-    "s ." #'pkg-consult/ripgrep-dwim)
+    "s ." #'pkg-consult/ripgrep-dwim
+    "s l" #'pkg-consult/ripgrep-dwim-previous)
 
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
