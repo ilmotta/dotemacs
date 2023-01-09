@@ -206,7 +206,7 @@
         (env-path (getenv "PATH")))
     (unless (member path exec-path)
       (setq exec-path (cons path exec-path)))
-    (unless (member path (string-split env-path ":"))
+    (unless (member path (split-string env-path ":"))
       (setenv "PATH" (concat path ":" env-path)))))
 
 ;; Tell Emacs where global NPM packages are installed. For a more general
