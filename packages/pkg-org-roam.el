@@ -26,7 +26,7 @@
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
 (my/package
-  (org-roam :ref "45a6863e074f049489a2b9fa94f14635bcce4788")
+  (org-roam :ref "74422df546a515bc984c2f3d3a681c09d6f43916")
   :defer t
 
   :init
