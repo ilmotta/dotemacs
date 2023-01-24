@@ -112,6 +112,7 @@
  pkg-groovy-mode
  pkg-haskell-mode
  pkg-js2-mode
+ pkg-just-mode
  pkg-kbd-mode
  pkg-kotlin-mode
  pkg-ledger-mode
