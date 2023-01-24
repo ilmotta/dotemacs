@@ -55,7 +55,7 @@ spanning over multiple lines."
 
   :hook ((go-ts-mode-hook go-mode-hook) . lsp-deferred)
   :hook (lsp-completion-mode-hook . pkg-lsp-mode/setup-completion)
-  :hook (lsp-mode-hook . pkg-lsp-mode/disable-eldoc-h)
+  :hook (typescript-mode-hook . pkg-lsp-mode/disable-eldoc-h)
   :hook ((typescript-mode-hook rjsx-mode-hook js-mode-hook) . pkg-lsp-mode/lsp-mode-h)
   :hook (clojure-mode-hook . pkg-lsp-mode/setup-clojure-h)
 
