@@ -129,12 +129,14 @@ mode is not enabled it tries to use LSP to find the definition."
 
   :config
   ;; Indentation settings
-  (define-clojure-indent (prop/for-all 1))
   (define-clojure-indent (>defn :defn))
   (define-clojure-indent (async :defn))
-  (define-clojure-indent (match :defn))
-  (define-clojure-indent (wait-for :defn))
+  (define-clojure-indent (h/describe :defn))
+  (define-clojure-indent (h/test :defn))
   (define-clojure-indent (letsubs 1))
+  (define-clojure-indent (match :defn))
+  (define-clojure-indent (prop/for-all 1))
+  (define-clojure-indent (wait-for :defn))
 
   (with-eval-after-load 'flycheck
     (require 'flycheck-clj-kondo nil 'noerror))
