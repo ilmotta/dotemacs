@@ -232,6 +232,17 @@ for example."
                                   nil
                                   connection)))))
 
+;;;###autoload
+(defun pkg-cider/kill-repls ()
+  "Kill without confirmation all CIDER REPL buffers."
+  (interactive)
+  (thread-last (buffer-list)
+               (seq-filter (lambda (buf)
+                             (string-prefix-p "*cider-repl " (buffer-name buf))))
+               (seq-each (lambda (buf)
+                           (let ((kill-buffer-query-functions nil))
+                             (kill-buffer buf))))))
+
 ;;; Package
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
@@ -314,6 +325,7 @@ for example."
     "r R"   #'cider-restart
     "r b"   #'cider-switch-to-repl-buffer
     "r x"   #'cider-quit
+    "r X"   #'pkg-cider/kill-repls
     "r c"   #'pkg-cider/repl-clear-buffer
     "r s"   #'cider-jack-in
     ;; Tests
