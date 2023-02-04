@@ -275,7 +275,7 @@ for example."
     "SPC" #'pkg-cider/shadow-watch-compile)
 
   (my/general-mode-def
-    :keymaps '(clojure-mode-map)
+    :keymaps '(clojure-mode-map cider-repl-mode-map)
     ;; Application
     "a s" #'pkg-cider/app-start
     "a x" #'pkg-cider/app-stop
