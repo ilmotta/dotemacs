@@ -132,6 +132,7 @@ Uses initial input from previous call to
    ;; Fast scrolling with a low debounce (e.g. 100ms) will prevent needlessly
    ;; previewing buffers.
    consult-buffer
+   consult-ripgrep
    :preview-key (append '(:debounce 0.05) consult-preview-key))
 
   (advice-add #'consult-line :around #'pkg-consult/-consult-line)
