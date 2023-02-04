@@ -1,43 +1,32 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Commentary:
 ;; Dirvish is a minimalistic file manager based on dired. Dirvish does not
 ;; introduce any keybindings by default, see dirvish-mode-map for more details.
+;;
+;; Disabled @ 2023-02-04 because it's noticeably slower than Dired. Scrolling
+;; lags, especially when `dired-hide-details-mode' is enabled, to the point
+;; that's unusable.
+
+;;; Code:
+
 (my/package
-  (dirvish :host github :repo "alexluigit/dirvish" :files (:defaults "extensions/"))
+  (dirvish :rev "4b63cd2e5ba994f8e674388db7035de1a8f0343f")
+  :disabled t
   :defer t
 
   :init
-  (setq dirvish-body-fontsize-increment 0.0)
+  ;; (setq dirvish-body-fontsize-increment 0.0)
   (setq dirvish-cache-dir (concat my/cache-dir "dirvish/"))
-  (setq dirvish-enable-preview t)
-  (setq dirvish-preview-delay 0.02)
-  (setq dirvish-use-large-header nil)
-  (setq dirvish-preview-cmd-alist '(("text/"
-                                     (find-file-noselect t nil))
-                                    ("image/"
-                                     ("convert" "-resize" "%s" "%i" "%T"))
-                                    ("audio/"
-                                     ("mediainfo" "%i"))
-                                    ("video/"
-                                     ("ffmpegthumbnailer" "-i" "%i" "-o" "%T" "-s 0"))
-                                    (("iso" "bin" "exe" "gpg")
-                                     ("*Preview Disable*"))
-                                    (("zip")
-                                     ("zipinfo" "%i"))
-                                    (("zst" "tar")
-                                     ("tar" "-tvf" "%i"))
-                                    (("epub")
-                                     ("epub-thumbnailer" "%i" "%T" "1024"))
-                                    (("pdf")
-                                     (find-file-noselect
-                                      '(t nil)))))
+  (setq dirvish-attributes '(all-the-icons))
 
-  ;; For selectrum or vertico users (only support these 2 completion UIs for
-  ;; now), if you’d like to give this extension a try, all you need is:
-  ;; (require 'dirvish-minibuffer-preview)
-  ;; (dirvish-minibuf-preview-mode)
+  ;; The default is too low.
+  (setq dirvish-redisplay-debounce 0.05)
+
+  ;; My cursor stands out and helps me see where I am.
+  (setq dirvish-hide-cursor nil)
+
   :config
-
   (dirvish-override-dired-mode))
 
 (provide 'pkg-dirvish)

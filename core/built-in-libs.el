@@ -1509,6 +1509,11 @@ theme is loaded in order to correctly update all faces."
      (pkg-theme/merge-face-attributes 'org-todo '(:inherit fixed-pitch))
      (pkg-theme/merge-face-attributes 'org-document-title '(:height 1.6))))
 
+  (with-eval-after-load 'dirvish
+    (custom-theme-set-faces
+     theme
+     (pkg-theme/merge-face-attributes 'dirvish-hl-line '(:inherit 'hl-line))))
+
   (with-eval-after-load 'notmuch
     (custom-theme-set-faces
      theme
