@@ -30,6 +30,7 @@
 (my/with-packages
  pkg-dash
  pkg-f
+ pkg-plz
  pkg-posframe
  pkg-promise
  pkg-request
