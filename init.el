@@ -164,6 +164,7 @@
  pkg-dired-du
  pkg-dirvish
  pkg-explain-pause-mode
+ pkg-golden-ratio
  pkg-hnreader
  pkg-openwith
  pkg-pdf-tools
