@@ -243,6 +243,10 @@ for example."
                            (let ((kill-buffer-query-functions nil))
                              (kill-buffer buf))))))
 
+(defun pkg-cider/repl-buffer-p (buffer &optional _arg)
+  (with-current-buffer buffer
+    (derived-mode-p 'cider-repl-mode)))
+
 ;;; Package
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
@@ -418,6 +422,14 @@ for example."
   :config
   (with-eval-after-load 'evil
     ;; Add to jump list, i.e. record location prior to running commands.
-    (evil-add-command-properties #'cider-test-run-project-tests :jump t)))
+    (evil-add-command-properties #'cider-test-run-project-tests :jump t))
+
+  (add-to-list 'display-buffer-alist
+               `(pkg-cider/repl-buffer-p
+                 (display-buffer-in-side-window)
+                 (window-width . 0.33)
+                 (side . right)
+                 (slot . 0)
+                 (window-parameters . ((no-delete-other-windows . t))))))
 
 (provide 'pkg-cider)

@@ -36,6 +36,7 @@
           vterm-mode
 
           ;; Reference by mode.
+          cider-repl-mode
           compilation-mode
           flycheck-error-list-mode
           messages-buffer-mode
