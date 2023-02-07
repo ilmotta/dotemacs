@@ -50,13 +50,6 @@
     "g i" '(go-goto-imports :properties (:jump t))
     "h ." '(godoc-at-point :properties (:jump t))
     "i a" #'go-import-add
-    "i c" #'go-remove-unused-imports)
-
-  (my/general-mode-def
-    :keymaps '(go-mode-map go-ts-mode-map)
-    "c f r" #'lsp-find-references
-    "c r"   #'lsp-rename
-    "c s"   #'lsp-treemacs-symbols
-    "h ."   #'pkg-lsp-mode/describe-thing-at-point))
+    "i c" #'go-remove-unused-imports))
 
 (provide 'pkg-go-mode)

@@ -121,7 +121,12 @@ mode is not enabled it tries to use LSP to find the definition."
 
   (my/general-mode-def
     :keymaps 'clojure-mode-map
-    "c =" #'lib-util/sort-up-sexp)
+    "c =" #'lib-util/sort-up-sexp
+    "c n c" #'lsp-clojure-clean-ns
+    "c p"   #'lsp-clojure-cycle-privacy
+    "c x b" #'lsp-clojure-move-to-let
+    "c x f" #'lsp-clojure-extract-function
+    "c x l" #'lsp-clojure-introduce-let)
 
   ;; Eval top level forms inside comment forms instead of the comment form
   ;; itself (experimental).

@@ -76,17 +76,16 @@ spanning over multiple lines."
     :keymaps 'lsp-mode-map
     "s-l" nil)
 
+  ;; Common keybindings for different modes.
   (my/general-mode-def
-    :keymaps 'clojure-mode-map
-    "c f R" #'lsp-treemacs-call-hierarchy
+    :keymaps '(clojure-mode-map
+               go-mode-map
+               go-ts-mode-map)
     "c f r" #'lsp-find-references
-    "c n c" #'lsp-clojure-clean-ns
-    "c p"   #'lsp-clojure-cycle-privacy
+    "c f R" #'lsp-treemacs-call-hierarchy
+    "c f t" #'lsp-find-type-definition
     "c r"   #'lsp-rename
     "c s"   #'lsp-treemacs-symbols
-    "c x b" #'lsp-clojure-move-to-let
-    "c x f" #'lsp-clojure-extract-function
-    "c x l" #'lsp-clojure-introduce-let
     "h ."   #'pkg-lsp-mode/describe-thing-at-point)
 
   (setq lsp-auto-guess-root t)
