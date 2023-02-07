@@ -35,6 +35,7 @@
  pkg-promise
  pkg-request
  pkg-s
+ pkg-graphql
  pkg-shrink-path
  pkg-ts)
 
