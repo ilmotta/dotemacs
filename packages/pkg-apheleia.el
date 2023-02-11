@@ -93,17 +93,17 @@
           (yaml-mode . prettier)))
 
   (setq apheleia-formatters
-        `((black "black" "-")
-          (gofmt "gofmt")
-          (google-java-format "google-java-format" "-")
-          (isort "isort" "--stdout" "-")
-          (latexindent "latexindent")
+        `((black . ("black" "-"))
+          (gofmt . ("gofmt"))
+          (gofumpt . ("gofumpt"))
+          (google-java-format . ("google-java-format" "-"))
           (ledger . pkg-apheleia/formatter-ledger)
-          (mix-format "mix" "format" "-")
+          (lisp-indent . apheleia-indent-lisp-buffer)
+          (mix-format . ("mix" "format" "-"))
           (nixfmt . pkg-apheleia/formatter-nixfmt)
-          (ocamlformat "ocamlformat" "-" "--name" filepath)
-          (rustfmt "rustfmt" "--unstable-features" "--skip-children" "--quiet" "--emit" "stdout")
-          (terraform "terraform" "fmt" "-")
+          (ocamlformat . (ocamlformat . ("ocamlformat" "-" "--name" filepath "--enable-outside-detected-project")))
+          (rustfmt . ("rustfmt" "--skip-children" "--quiet" "--emit" "stdout"))
+          (terraform . ("terraform" "fmt" "-"))
           (zprint "zprint" "{:search-config? true}")
 
           ;; Unfortunately, apheleia mutates the `apheleia-formatters' variable
@@ -118,6 +118,6 @@
           ;;
           ;; For the moment, I'm relying on a global prettier binary. Also this
           ;; variable can change per project using dir local variables.
-          (prettier "prettier" "--stdin-filepath" filepath))))
+          (prettier . ("prettier" "--stdin-filepath" filepath)))))
 
 (provide 'pkg-apheleia)
