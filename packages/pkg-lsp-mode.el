@@ -81,6 +81,9 @@ spanning over multiple lines."
     :keymaps '(clojure-mode-map
                go-mode-map
                go-ts-mode-map)
+    "c f d" #'lsp-find-definition
+    "c f i" #'lsp-find-implementation
+    "c f l" #'lsp-find-declaration
     "c f r" #'lsp-find-references
     "c f R" #'lsp-treemacs-call-hierarchy
     "c f t" #'lsp-find-type-definition
