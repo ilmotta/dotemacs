@@ -20,18 +20,26 @@
 
 ;;; Private
 
-(defun pkg-cider/-execute-test-var (var)
-  (cider-interactive-eval
-   (format "(cljs.test/test-var (var %s))" var)))
+(defun pkg-cider/-as-test-var (var)
+  (if (string-prefix-p ":" var) ; It's a keyword
+      (concat (thread-last
+                (substring var 1)
+                (replace-regexp-in-string (rx (or ":" ".")) "-")
+                (replace-regexp-in-string (rx "/") "-"))
+              "-test")
+    keyword))
 
-(defun pkg-cider/-execute-test-ns (ns)
+(defun pkg-cider/-cljs-execute-test-var (var)
+  (let ((var (pkg-cider/-as-test-var var)))
+    (cider-interactive-eval
+     (concat "(require '[cljs-run-test])"
+             (format "(cljs-run-test/run-test %s)" var)))))
+
+(defun pkg-cider/-cljs-execute-test-ns (ns)
   (cider-interactive-eval
    (if ns
        (format "(cljs.test/run-tests (quote %s))" ns)
      "(cljs.test/run-tests)")))
-
-(defun pkg-cider/cljs-mode-p ()
-  (eq major-mode 'clojurescript-mode))
 
 (defun pkg-cider/setup-clojure-h ()
   "Disable certain LSP features when `cider-mode' is enabled."
@@ -87,33 +95,48 @@
 (defun pkg-cider/run-test ()
   "Run the test at point."
   (interactive)
-  (cider-eval-defun-at-point)
-  (let* ((ns (clojure-find-ns))
-         (def (clojure-find-def))
-         (deftype (car def))
-         (var (cadr def)))
-    (if (and ns (string-match-p (rx "deftest" (zero-or-more not-newline))
-                                deftype))
-        (progn
-          (pkg-cider/-update-last-test ns var)
-          (pkg-cider/-execute-test-var var))
-      (user-error "No test at point"))))
+  (if (derived-mode-p #'clojurescript-mode)
+      (progn
+        (cider-eval-defun-at-point)
+        (let* ((ns (clojure-find-ns))
+               (def (clojure-find-def))
+               (deftype (car def))
+               (var (cadr def)))
+          (if (and ns (string-match-p (rx "deftest" (* not-newline))
+                                      deftype))
+              (progn
+                (pkg-cider/-update-last-test ns var)
+                (pkg-cider/-cljs-execute-test-var var))
+            (user-error "No test at point"))))
+    (call-interactively #'cider-test-run-test)))
 
 ;;;###autoload
 (defun pkg-cider/run-ns-tests ()
   (interactive)
-  (setq pkg-cider/last-test-var nil)
-  (pkg-cider/-execute-test-ns nil))
+  (if (derived-mode-p #'clojurescript-mode)
+      (progn
+        (setq pkg-cider/last-test-var nil)
+        (pkg-cider/-cljs-execute-test-ns nil))
+    (call-interactively #'cider-test-run-ns-tests)))
 
 ;;;###autoload
 (defun pkg-cider/rerun-tests ()
   (interactive)
-  (cond ((and pkg-cider/last-test-ns pkg-cider/last-test-var)
-         (pkg-cider/-execute-test-var pkg-cider/last-test-var))
-        (pkg-cider/last-test-ns
-         (pkg-cider/-execute-test-ns pkg-cider/last-test-ns))
-        (t
-         (user-error "No test to re-run"))))
+  (if (derived-mode-p #'clojurescript-mode)
+      (progn
+        (cond ((and pkg-cider/last-test-ns pkg-cider/last-test-var)
+               (pkg-cider/-cljs-execute-test-var pkg-cider/last-test-var))
+              (pkg-cider/last-test-ns
+               (pkg-cider/-cljs-execute-test-ns pkg-cider/last-test-ns))
+              (t
+               (user-error "No test to re-run"))))
+    (call-interactively #'cider-test-rerun-test)))
+
+;;;###autoload
+(defun pkg-cider/run-project-tests ()
+  (interactive)
+  (when (not (derived-mode-p #'clojurescript-mode))
+    (call-interactively #'cider-test-run-project-tests)))
 
 ;;;###autoload
 (defun pkg-cider/reframe-inspect-db ()
@@ -333,14 +356,10 @@ for example."
     "r c"   #'pkg-cider/repl-clear-buffer
     "r s"   #'cider-jack-in
     ;; Tests
-    "t ." (general-predicate-dispatch #'cider-test-run-test
-            (pkg-cider/cljs-mode-p) #'pkg-cider/run-test)
-    "t b" (general-predicate-dispatch #'cider-test-run-ns-tests
-            (pkg-cider/cljs-mode-p) #'pkg-cider/run-ns-tests)
-    "t l" (general-predicate-dispatch #'cider-test-rerun-test
-            (pkg-cider/cljs-mode-p) #'pkg-cider/rerun-tests)
-    "t p" (general-predicate-dispatch #'cider-test-run-project-tests
-            (pkg-cider/cljs-mode-p) nil))
+    "t ."   #'pkg-cider/run-test
+    "t b"   #'pkg-cider/run-ns-tests
+    "t l"   #'pkg-cider/rerun-tests
+    "t p"   #'pkg-cider/run-project-tests)
 
   ;; The CIDER welcome message obscures error messages that the above code is
   ;; supposed to be make visible.
