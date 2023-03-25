@@ -1497,6 +1497,12 @@ theme is loaded in order to correctly update all faces."
      ;; becomes smaller.
      (pkg-theme/merge-face-attributes 'org-modern-symbol '(:weight bold))))
 
+  (with-eval-after-load 'ledger-mode
+    (custom-theme-set-faces
+     theme
+     ;; Disable highlight face (inherited by default).
+     (pkg-theme/merge-face-attributes 'ledger-occur-xact-face '(:inherit nil))))
+
   (with-eval-after-load 'org
     (custom-theme-set-faces
      theme
