@@ -319,6 +319,8 @@ for example."
     "e f"   #'cider-eval-list-at-point
     "e i"   #'cider-inspect-last-sexp
     "e l"   #'cider-eval-last-sexp
+    "e c c" #'cider-eval-defun-to-comment
+    "e c l" #'cider-pprint-eval-last-sexp-to-comment
     "e n"   #'cider-eval-ns-form
     "e p f" #'cider-pprint-eval-defun-at-point
     "e p F" #'pkg-cider/eval-special-form-print
