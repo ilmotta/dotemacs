@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(defvar lib-adb--history nil)
+
 (defun lib-adb/-devices ()
   (let* ((output (lib-system/-shell-command-to-string "adb devices"))
          (lines (thread-first output
@@ -23,7 +25,7 @@
 (defun lib-adb/-choose-device ()
   (let ((devices (lib-adb/-devices)))
     (unless (seq-empty-p devices)
-      (completing-read "ADB device: " devices nil t))))
+      (completing-read "ADB device: " devices nil t nil lib-adb--history))))
 
 (defun lib-adb/-send-input (device input)
   (call-process-shell-command (format "adb -s '%s' shell input text '%s'"
