@@ -124,6 +124,15 @@ code of the process and OUTPUT is its stdout output."
 
 ;;; Utilities
 
+(defun u/increment-integer-at-point ()
+  "Increment integer at point.
+Does not understand negative integers."
+  (interactive)
+  (save-excursion
+    (if (looking-at "[0-9]+")
+        (replace-match (number-to-string (1+ (string-to-number (match-string 0)))))
+      (error "No number at point"))))
+
 (cl-defun u/memoize-ttl (&key f (ttl-ms 10000))
   (let ((cached nil)
         (called-at nil))
