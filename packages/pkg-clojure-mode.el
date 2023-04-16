@@ -18,7 +18,7 @@ file and call `re-frame-jump-to-reg' if symbol at point is a
 keyword, otherwise use normal `cider-find-dwim'. In case CIDER
 mode is not enabled it tries to use LSP to find the definition."
   (interactive)
-  (cond ((bound-and-true-p cider-mode) ; Prefer CIDER to find definitions
+  (cond ((cider-current-repl) ; Prefer CIDER to find definitions
          (let ((keyword (cider-symbol-at-point 'look-back)))
            (cond ((and (fboundp 're-frame-jump-to-reg)
                        (derived-mode-p 'clojurescript-mode)
