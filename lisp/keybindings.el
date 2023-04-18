@@ -54,7 +54,9 @@
     "s-U" #'project-switch-to-buffer
     "s-w" #'delete-window
     "s-;" #'pkg-window/split-window-right
-    "s-'" #'pkg-window/split-window-below))
+    "s-'" #'pkg-window/split-window-below
+    "s-L" #'tab-bar-switch-to-next-tab
+    "s-H" #'tab-bar-switch-to-prev-tab))
 
 ;;; Keybindings for built-in packages
 
