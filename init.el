@@ -174,6 +174,7 @@
  pkg-sudo-edit
  pkg-svg-clock
  pkg-synosaurus
+ pkg-tab-bar
  pkg-timer-revert
  pkg-trashed
  pkg-visual-fill-column
