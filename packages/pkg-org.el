@@ -530,10 +530,14 @@ unless the ID property already exists."
      (gnuplot . t)
      (js . t)
      (lisp . t)
+     (plantuml . t)
      (python . t)
      (ruby . t)
      (scheme . t)
      (shell . t)))
+
+  ;; Use the PlantUML executable, not jar.
+  (setq org-plantuml-exec-mode 'plantuml)
 
   (setq org-babel-js-function-wrapper
         (string-join '("const util = require('util')"

@@ -5,6 +5,6 @@
   :defer t
   :mode ((rx ".puml" string-end) . plantuml-mode)
   :init
-  (setq plantuml-jar-path (expand-file-name "~/.local/bin/plantuml.jar")))
+  (setq plantuml-default-exec-mode 'executable))
 
 (provide 'pkg-plantuml-mode)
