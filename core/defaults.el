@@ -680,6 +680,10 @@ with 'kill' as the default action instead of 'bury'."
 ;; Show outlines in the describe bindings buffer.
 (setq describe-bindings-outline t)
 
+;; When an emoji is inserted, a multisession directory is created if it doesn't
+;; exist.
+(setq multisession-directory (concat my/cache-dir "multisession/"))
+
 ;;; Monkey patches
 
 (defun my/find-sibling-file (original-fn &rest _)
