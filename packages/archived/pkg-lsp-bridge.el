@@ -2,41 +2,29 @@
 
 ;;; Commentary:
 ;; Review on 2022-08-06. The completion list is extremely fast, VS Code like
-;; speed. It kind of works, but there are issues:
-;;
-;; 1. Code completion appears in comment sections.
-;;
-;; 2. I couldn't find a quick way to set keybindings such as C-j and C-k that
-;; play well with evil. To be fair, this is not the package's fault, but it's
-;; also not well documented.
-;;
-;; 3. Certain candidates are not displayed in Typescript autocompletion, even
-;; though the language server is configured just like VS Code, for example.
-;;
-;; 4. Lacks configurability. For example, elisp autocompletion can be configured
-;; with a minimum threashold, but there's no general support for other
-;; languages.
+;; speed. It kind of works, but there are issues, and I didn't like that it
+;; doesn't leverage core Emacs libs.
 
 ;;; Code:
-(require 'use-package)
 
-(my/package lsp-bridge
-  :straight (:host github
-             :repo "manateelazycat/lsp-bridge"
-             :files (:defaults "*.py" "langserver" "acm"))
+(my/package
+  (lsp-bridge :ref "5716cceffc9bc76ef37f4754870eca1028c56b84"
+              :host github
+              :repo "manateelazycat/lsp-bridge"
+              :files (:defaults "*.py" "langserver/*.json" "acm/*.el"))
   :defer t
 
-  :hook (after-init-hook . global-lsp-bridge-mode)
+  :hook (elpaca-after-init-hook . global-lsp-bridge-mode)
 
   :init
   ;; This is not working because evil shadows keybindings, like C-n and C-k.
-  (general-def
-    :keymaps '(acm-mode-map)
-    "RET" #'newline
-    "C-j" #'acm-select-next
-    "C-k" #'acm-select-prev
-    "C-n" #'acm-select-next
-    "C-p" #'acm-select-prev)
+  ;; (general-def
+  ;;   :keymaps '(acm-mode-map)
+  ;;   "RET" #'newline
+  ;;   "C-j" #'acm-select-next
+  ;;   "C-k" #'acm-select-prev
+  ;;   "C-n" #'acm-select-next
+  ;;   "C-p" #'acm-select-prev)
 
   ;; This version of python should have epc installed (pip install epc).
   ;;
@@ -49,7 +37,6 @@
   (setq lsp-bridge-python-command (concat my/cache-dir "venv/bin/python"))
 
   (setq lsp-bridge-epc-accept-process-timeout 150)
-  (setq lsp-bridge-diagnostics-fetch-idle 1)
   (setq acm-candidate-match-function #'orderless-literal)
 
   (setq acm-icon-width 3)
@@ -57,14 +44,10 @@
   (setq acm-enable-doc nil)
   (setq acm-enable-icon t)
   (setq acm-enable-path nil)
-  (setq acm-enable-search-words nil)
   (setq acm-enable-tempel nil)
   (setq acm-enable-yas nil)
-  (setq acm-enable-english-helper nil)
   (setq acm-backend-lsp-enable-auto-import t)
-  (setq acm-backend-elisp-min-length 2)
   (setq acm-backend-lsp-candidates-max-number 500)
-  (setq lsp-bridge-enable-candidate-doc-preview nil)
   (setq lsp-bridge-enable-search-words nil)
   (setq lsp-bridge-enable-signature-help t)
 
