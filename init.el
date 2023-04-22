@@ -125,6 +125,7 @@
  pkg-nix-mode
  pkg-php-mode
  pkg-plantuml-mode
+ pkg-protobuf-mode
  pkg-rust-mode
  pkg-terraform-mode
  pkg-tree-sitter
