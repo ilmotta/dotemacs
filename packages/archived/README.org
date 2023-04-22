@@ -1,0 +1,5 @@
+* Archived packages
+
+Packages in this directory should not be required anywhere else. They are here
+either for historical reasons or because I haven't decided if they should be
+promoted to my main configuration.
