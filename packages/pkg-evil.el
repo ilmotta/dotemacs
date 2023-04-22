@@ -1,5 +1,27 @@
 ;;; -*- lexical-binding: t; -*-
 
+(defun my/translate-keys-p (key-from)
+  "Returns whether conditional key translations should be active.
+See make-conditional-key-translation function."
+  (and
+   ;; Only allow a non identity translation if we're beginning a Key Sequence.
+   (equal key-from (this-command-keys))
+   (or (evil-motion-state-p)
+       (evil-normal-state-p)
+       (evil-visual-state-p))))
+
+(defun my/translate-key-maybe (key-from key-to)
+  "Make a key translation such that if the translate-keys-p function
+returns true, KEY-FROM translates to KEY-TO, else KEY-FROM
+translates to itself. TRANSLATE-KEYS-P takes KEY-FROM as an
+argument."
+  (define-key key-translation-map
+              key-from
+              (lambda (prompt)
+                (if (my/translate-keys-p key-from)
+                    key-to
+                  key-from))))
+
 (defun pkg-evil/setup-quick-cancel ()
   ;; I'm used to C-g, but pressing ESC is faster if I rebind CAPS LOCK to ESC.
   (let ((keymaps `(minibuffer-local-map
@@ -21,6 +43,15 @@
   (when my/evil-p
     (pkg-evil/setup-quick-cancel)
     (evil-set-initial-state 'calc-mode 'emacs)
+
+    ;; Idea and code taken from https://www.emacswiki.org/emacs/Evil. I like
+    ;; this because I don't use commands prefixed by `g', but the convenience of
+    ;; pressing a single keybinding for C-x in the home row is just too good.
+    (my/translate-key-maybe (kbd "g") (kbd "C-x"))
+
+    ;; Re-add evil commands to C-x so they're used by the key translation.
+    (define-key evil-motion-state-map (kbd "C-x g") #'evil-goto-first-line)
+
     (evil-mode +1)))
 
 (my/package

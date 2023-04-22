@@ -45,6 +45,10 @@
    (apply original-fn args)
    (recenter)))
 
+;; Don't bind to C-x. This variable must be set before the call to
+;; `use-package'.
+(setq magit-define-global-key-bindings nil)
+
 (my/package
   (magit :ref "010fec9cdedb2cbe40fc92b0385823e9a21f9842")
   :defer t
@@ -60,12 +64,9 @@
   :init
   (general-def
     :keymaps 'my/keys-mode-map
-    :states '(normal insert emacs)
+    :states 'normal
     :prefix my/leader
-    :non-normal-prefix "C-x"
     "g" #'pkg-magit/command-map)
-
-  (setq magit-define-global-key-bindings nil)
 
   ;; If a buffer's major-mode derives from magit-diff-mode or magit-process-mode,
   ;; display it in another window. Display all other buffers in the selected
