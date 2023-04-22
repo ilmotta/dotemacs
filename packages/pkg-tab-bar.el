@@ -37,27 +37,39 @@ automatically switch to it."
                        :require-match t
                        :category 'tab)))))))
 
-(defun pkg-tab-bar/open-project-as-tab (project)
+(defun pkg-tab-bar/switch-project-as-tab (project)
   (interactive (list (project-prompt-project-dir)))
   (tab-bar-new-tab)
   (project-switch-project project)
   (tab-bar-rename-tab (project-name (project-current))))
 
-(setq tab-bar-close-button-show nil
-      tab-bar-close-last-tab-choice nil ; Do nothing and show a message.
-      tab-bar-close-tab-select 'recent
-      tab-bar-new-tab-to 'right
-      tab-bar-new-button-show nil
-      tab-bar-new-tab-choice t      ; Start a new tab with the current buffer.
-      tab-bar-position nil          ; Show above the tool bar.
-      tab-bar-show 1                ; Show only when there's more than 1 tab.
-      tab-bar-tab-hints nil         ; Do not show numbers on tabs.
-      tab-bar-tab-name-function #'tab-bar-tab-name-all)
+(my/package
+  tab-bar
+  :ensure nil
 
-(tab-bar-history-mode -1)
+  :init
+  (general-def
+    :keymaps 'my/keys-mode-map
+    ;; Use the "C-x t" prefix in order to be consistent with standard Emacs
+    ;; keybindings.
+    "C-x t t" #'pkg-tab-bar/select-tab-dwim)
 
-;; Use the "C-x t" prefix in order to be consistent with standard Emacs
-;; keybindings.
-(define-key my/keys-mode-map (kbd "C-x t t") #'pkg-tab-bar/select-tab-dwim)
+  (general-def
+    :keymaps 'project-prefix-map
+    "t" #'pkg-tab-bar/switch-project-as-tab)
+
+  (setq tab-bar-close-button-show nil
+        tab-bar-close-last-tab-choice nil ; Do nothing and show a message.
+        tab-bar-close-tab-select 'recent
+        tab-bar-new-tab-to 'right
+        tab-bar-new-button-show nil
+        tab-bar-new-tab-choice t      ; Start a new tab with the current buffer.
+        tab-bar-position nil          ; Show above the tool bar.
+        tab-bar-show 1                ; Show only when there's more than 1 tab.
+        tab-bar-tab-hints nil         ; Do not show numbers on tabs.
+        tab-bar-tab-name-function #'tab-bar-tab-name-all)
+
+  :config
+  (tab-bar-history-mode -1))
 
 (provide 'pkg-tab-bar)
