@@ -93,7 +93,8 @@
  pkg-flyspell-correct
  pkg-quickrun
  pkg-smartparens
- pkg-undo-fu)
+ pkg-undo-fu
+ pkg-xref)
 
 ;;; File/language modes
 (my/with-packages
