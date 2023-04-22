@@ -75,9 +75,9 @@
   (interactive)
   (let ((tab-names (pkg-tab-bar/-tab-names)))
     (unless (member "status-mobile" tab-names)
-      (pkg-tab-bar/open-project-as-tab "~/data/repos/status/mobile/status-mobile/"))
+      (pkg-tab-bar/switch-project-as-tab "~/data/repos/status/mobile/status-mobile/"))
     (unless (member "status-go" tab-names)
-      (pkg-tab-bar/open-project-as-tab "~/data/repos/status/status-go/status-go/"))))
+      (pkg-tab-bar/switch-project-as-tab "~/data/repos/status/status-go/status-go/"))))
 
 (my/package
   pkg-status-mobile
