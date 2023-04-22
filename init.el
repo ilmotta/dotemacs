@@ -183,6 +183,7 @@
  pkg-visual-fill-column
  pkg-vterm
  pkg-wgrep
- pkg-wordnut)
+ pkg-wordnut
+ pkg-zones)
 
 (require 'keybindings)
