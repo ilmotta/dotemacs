@@ -69,8 +69,12 @@ respects display buffer actions."
   (setq xref-auto-jump-to-first-definition nil)
   (setq xref-auto-jump-to-first-xref nil)
 
-  ;; Allows independent navigation of code in each window.
-  (setq xref-history-storage 'xref-window-local-history)
+  ;; Prefer global navigation over a history per window. Sometimes it's
+  ;; frustrating to jump back to unintended places (e.g. another tab), but I
+  ;; still prefer this over `xref-window-local-history'. This is particularly
+  ;; important in a configuration like mine where I try as much as possible to
+  ;; force commands to reuse visible windows.
+  (setq xref-history-storage 'xref-global-history)
 
   :config
   (advice-add #'xref-pop-to-location :around #'pkg-xref/pop-to-location)
