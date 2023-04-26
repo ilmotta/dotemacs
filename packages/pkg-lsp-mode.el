@@ -6,7 +6,7 @@
 
 (defun pkg-lsp-mode/describe-thing-at-point ()
   (interactive)
-  (if (bound-and-true-p cider-mode)
+  (if (cider-current-repl)
       (call-interactively #'cider-doc)
     (call-interactively #'lsp-describe-thing-at-point)))
 
@@ -22,7 +22,7 @@ Also disable certain LSP features when `cider-mode' is enabled."
   (setq-local lsp-enable-indentation nil)
 
   ;; Prefer CIDER completion when enabled.
-  (if (bound-and-true-p cider-mode)
+  (if (cider-current-repl)
       (setq-local lsp-enable-completion-at-point nil
                   lsp-completion-enable nil)
     (setq-local lsp-enable-completion-at-point t
