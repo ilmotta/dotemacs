@@ -11,9 +11,9 @@ See make-conditional-key-translation function."
        (evil-visual-state-p))))
 
 (defun my/translate-key-maybe (key-from key-to)
-  "Make a key translation such that if the translate-keys-p function
+  "Make a key translation such that if the `my/translate-keys-p' function
 returns true, KEY-FROM translates to KEY-TO, else KEY-FROM
-translates to itself. TRANSLATE-KEYS-P takes KEY-FROM as an
+translates to itself. `my/translate-keys-p' takes KEY-FROM as an
 argument."
   (define-key key-translation-map
               key-from
@@ -44,13 +44,13 @@ argument."
     (pkg-evil/setup-quick-cancel)
     (evil-set-initial-state 'calc-mode 'emacs)
 
-    ;; Idea and code taken from https://www.emacswiki.org/emacs/Evil. I like
-    ;; this because I don't use commands prefixed by `g', but the convenience of
-    ;; pressing a single keybinding for C-x in the home row is just too good.
-    (my/translate-key-maybe (kbd "g") (kbd "C-x"))
+    ;; Idea and code taken from https://www.emacswiki.org/emacs/Evil. I find "f"
+    ;; to be even less disruptive and more convenient than pressing "g" on a
+    ;; QWERTY layout.
+    (my/translate-key-maybe (kbd "f") (kbd "C-x"))
 
     ;; Re-add evil commands to C-x so they're used by the key translation.
-    (define-key evil-motion-state-map (kbd "C-x g") #'evil-goto-first-line)
+    (define-key evil-motion-state-map (kbd "C-x f") #'evil-find-char)
 
     (evil-mode +1)))
 
