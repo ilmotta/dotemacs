@@ -173,6 +173,12 @@ unless the ID property already exists."
                                    (equal level 3))
                               (org-id-get-create)))))))
 
+;;;###autoload
+(defun pkg-org/open-at-point ()
+  (interactive)
+  (my/with-buffer-reuse-window
+   (call-interactively #'org-open-at-point)))
+
 ;;; Package
 
 (my/package
@@ -185,7 +191,8 @@ unless the ID property already exists."
     :keymaps 'org-mode-map
     ;; This is too valuable to be taken by org buffers. Original
     ;; `org-cycle-agenda-files'.
-    "C-," nil)
+    "C-," nil
+    [remap org-open-at-point] '(pkg-org/open-at-point :properties (:jump t)))
 
   (general-def
     :keymaps 'org-src-mode-map
