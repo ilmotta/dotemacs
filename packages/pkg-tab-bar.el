@@ -38,8 +38,8 @@ automatically switch to it."
                        :category 'tab)))))))
 
 (defun pkg-tab-bar/switch-project-as-tab (project)
+  "Switch to PROJECT and rename current tab to `project-name'."
   (interactive (list (project-prompt-project-dir)))
-  (tab-bar-new-tab)
   (project-switch-project project)
   (tab-bar-rename-tab (project-name (project-current))))
 
