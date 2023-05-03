@@ -287,8 +287,8 @@
 ;; I don't use `save-some-buffers' because I use the `magit-status' buffer to be
 ;; asked about saving modified buffers.
 ;;
-;; Given that I have translated C-x to g in `pkg-evil', it's now super
-;; convenient to press `gs' to save buffers (when in normal mode).
+;; Given that I have translated C-x to f in `pkg-evil', it's now super
+;; convenient to press `fs' to save buffers (when in normal mode).
 (global-set-key [remap save-some-buffers] #'save-buffer)
 
 ;;; Long files
