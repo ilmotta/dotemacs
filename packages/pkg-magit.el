@@ -68,6 +68,13 @@
     :prefix my/leader
     "g" #'pkg-magit/command-map)
 
+  ;; "f" is used by the translation map to mean C-x. Since I use evil, M-f
+  ;; (`forward-word') is available to me.
+  (general-def
+    :keymaps 'magit-mode-map
+    "f" nil
+    "M-f" #'magit-fetch)
+
   ;; If a buffer's major-mode derives from magit-diff-mode or magit-process-mode,
   ;; display it in another window. Display all other buffers in the selected
   ;; window.
