@@ -162,7 +162,6 @@
  pkg-consult-dir
  pkg-daemons
  pkg-deadgrep
- pkg-detached
  pkg-devdocs-lookup
  pkg-dired-du
  pkg-dirvish

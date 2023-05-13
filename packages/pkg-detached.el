@@ -1,5 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Commentary:
+;; Archived on 2023-05-13 because it throws an error while calling
+;; `detached-init':
+;;
+;;     Wrong type argument: listp, \...
+
 ;;; Consult sources
 
 (defun pkg-detached/consult--filter-candidates (predicate)
@@ -136,6 +142,7 @@
 
 (my/package
   (detached :ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
+  :disabled t
   :defer t
   :init
   (general-def
