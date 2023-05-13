@@ -44,17 +44,7 @@
 
   (general-def
     :keymaps 'my/keys-mode-map
-    "s-f" #'project-find-file
-    "s-m" #'magit-status
-    "s-i" #'execute-extended-command
-    "s-n" #'pkg-org-roam/node-find
-    "s-p" #'project-switch-project
-    "s-s" #'save-buffer
-    "s-u" #'switch-to-buffer
-    "s-U" #'project-switch-to-buffer
     "s-w" #'delete-window
-    "s-;" #'pkg-window/split-window-right
-    "s-'" #'pkg-window/split-window-below
     "s-L" #'tab-bar-switch-to-next-tab
     "s-H" #'tab-bar-switch-to-prev-tab))
 
