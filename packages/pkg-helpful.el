@@ -5,8 +5,8 @@
   (let ((same-window-regexps ".*"))
     (funcall original-fn button)))
 
-(my/package
-  (helpful :ref "94c25337b2de2f9da60914a7c0c6cca9584c0231")
+(my/package helpful
+  :elpaca (:ref "94c25337b2de2f9da60914a7c0c6cca9584c0231")
   :defer t
 
   :init

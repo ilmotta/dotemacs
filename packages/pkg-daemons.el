@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package
-  (daemons :ref "e18e84ccc13101f1609c213029cf011ae0ad1178")
+(my/package daemons
+  :elpaca (:ref "e18e84ccc13101f1609c213029cf011ae0ad1178")
   :when my/linux?
   :defer t
   :commands (daemons

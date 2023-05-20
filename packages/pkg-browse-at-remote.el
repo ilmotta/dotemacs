@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package
-  (browse-at-remote :ref "d81643c975e77d506fe2eb931229739c162adb5d")
+(my/package browse-at-remote
+  :elpaca (:ref "d81643c975e77d506fe2eb931229739c162adb5d")
   :defer t
   :init
   (general-def

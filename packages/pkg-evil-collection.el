@@ -5,8 +5,8 @@
     (require 'evil-collection)
     (evil-collection-init)))
 
-(my/package
-  (evil-collection :ref "b7a75062a600b1b1d2ba51a1e3ac1ec331d19fff")
+(my/package evil-collection
+  :elpaca (:ref "b7a75062a600b1b1d2ba51a1e3ac1ec331d19fff")
   :defer t
   :init
   (add-hook 'elpaca-after-init-hook #'pkg-evil-collection/setup -9998)

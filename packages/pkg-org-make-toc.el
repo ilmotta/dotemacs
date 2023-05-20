@@ -5,8 +5,8 @@
 ;; contents in Org files.
 
 ;;; Code:
-(my/package
-  (org-make-toc :ref "26fbd6a7e1e7f8e473fe3a5f74faec715c3a05aa")
+(my/package org-make-toc
+  :elpaca (:ref "26fbd6a7e1e7f8e473fe3a5f74faec715c3a05aa")
   :defer t
   :commands (org-make-toc
              org-make-toc-insert

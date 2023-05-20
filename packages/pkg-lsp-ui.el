@@ -1,8 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  (lsp-ui :ref "fb1073013f745bce056811a38e2b0b8b2a4b5ebc")
+(my/package lsp-ui
+  :elpaca (:ref "fb1073013f745bce056811a38e2b0b8b2a4b5ebc")
   :defer t
+  :disabled t
   :init
   (setq lsp-ui-peek-enable nil)
 

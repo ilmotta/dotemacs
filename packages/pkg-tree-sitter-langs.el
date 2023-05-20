@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  tree-sitter-langs
+(my/package tree-sitter-langs
   :unless my/android?
   :defer t)
 

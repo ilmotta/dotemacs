@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package
-  (quickrun :ref "7a89313c07a21eae9cd69a1a98e2a134d559e04f")
+(my/package quickrun
+  :elpaca (:ref "7a89313c07a21eae9cd69a1a98e2a134d559e04f")
   :defer t
   :commands (quickrun)
   :init

@@ -11,8 +11,8 @@
   (when (derived-mode-p 'scheme-mode)
     (setq-local outline-regexp my/outline-regex-lisp)))
 
-(my/package
-  (geiser :ref "bfc9cce54b7ac1cb036911965198b5cbe2f43f4c")
+(my/package geiser
+  :elpaca (:ref "bfc9cce54b7ac1cb036911965198b5cbe2f43f4c")
   :defer t
 
   :hook (scheme-mode-hook . outline-minor-mode)

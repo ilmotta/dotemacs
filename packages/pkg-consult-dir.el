@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(my/package
-  (consult-dir :ref "ed8f0874d26f10f5c5b181ab9f2cf4107df8a0eb")
+(my/package consult-dir
+  :elpaca (:ref "ed8f0874d26f10f5c5b181ab9f2cf4107df8a0eb")
   :defer t
   :init
   (general-def

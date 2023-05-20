@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(my/package
-  (aggressive-indent :ref "f376cdc25de5c0f8c330f1e053557d95ca47a540")
+(my/package aggressive-indent
+  :elpaca (:ref "f376cdc25de5c0f8c330f1e053557d95ca47a540")
   :defer t
   :init
   ;; Enable `aggressive-indent-mode' in all Lisp modes.

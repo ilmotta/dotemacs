@@ -26,6 +26,20 @@
 
 (add-hook 'after-init-hook #'my/load-extra-libs)
 
+;;; Core packages
+(my/with-packages
+ pkg-general               ; Sync load before all other packages.
+ pkg-org                   ; Org must be loaded before the bundled org-mode one.
+ pkg-evil
+ pkg-evil-collection
+ pkg-magit
+ pkg-undo-fu
+ pkg-xclip
+
+ ;; Built-in packages
+ pkg-recentf
+ pkg-tab-bar)
+
 ;;; Emacs Lisp development libraries
 (my/with-packages
  pkg-dash
@@ -38,15 +52,6 @@
  pkg-graphql
  pkg-shrink-path
  pkg-ts)
-
-;;; Core packages
-(my/with-packages
- pkg-general
- pkg-org ; Org must be loaded before the bundled org-mode one.
- pkg-evil
- pkg-evil-collection
- pkg-magit
- pkg-xclip)
 
 ;;; Completion systems
 (my/with-packages
@@ -93,7 +98,6 @@
  pkg-flyspell-correct
  pkg-quickrun
  pkg-smartparens
- pkg-undo-fu
  pkg-xref)
 
 ;;; File/language modes
@@ -138,6 +142,7 @@
 
 ;;; LSP (Language Server Protocol)
 (my/with-packages
+ pkg-eglot
  pkg-dap-mode
  pkg-lsp-java
  pkg-lsp-mode
@@ -176,7 +181,6 @@
  pkg-sudo-edit
  pkg-svg-clock
  pkg-synosaurus
- pkg-tab-bar
  pkg-timer-revert
  pkg-trashed
  pkg-visual-fill-column

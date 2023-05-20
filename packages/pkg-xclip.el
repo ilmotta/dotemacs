@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package
-  (xclip :ref "a1ac607f75a250dddf49866918bb493884451130")
+(my/package xclip
+  :elpaca (:ref "a1ac607f75a250dddf49866918bb493884451130")
   :if (and (not (display-graphic-p)) (not my/android?))
   :demand t
   :config

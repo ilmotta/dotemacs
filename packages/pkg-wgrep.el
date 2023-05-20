@@ -5,8 +5,8 @@
 ;; like sed interactively.
 
 ;;; Code:
-(my/package
-  (wgrep :ref "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
+(my/package wgrep
+  :elpaca (:ref "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
   :defer t
   :init
   (when my/evil-p

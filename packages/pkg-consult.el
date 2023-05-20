@@ -49,8 +49,8 @@ Uses initial input from previous call to
                default-directory)))
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
-(my/package
-  (consult :ref "7c514c0a2414347c4cd0482a691371625a8a1c53")
+(my/package consult
+  :elpaca (:ref "7c7658ba7b1389fba1eff9dbc8962409f99343b7")
   :defer t
 
   :init
@@ -102,7 +102,7 @@ Uses initial input from previous call to
 
   (setq completion-in-region-function #'pkg-consult/completion-in-region-function)
 
-  (setq consult-preview-key (list (kbd "M-k") (kbd "M-j")))
+  (setq consult-preview-key (list "M-k" "M-j"))
   (setq consult-narrow-key ">")
   (setq consult-widen-key "<")
   (setq consult-line-numbers-widen t)

@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package
-  (eros :ref "dd8910279226259e100dab798b073a52f9b4233a")
+(my/package eros
+  :elpaca (:ref "dd8910279226259e100dab798b073a52f9b4233a")
   :defer t
   :hook ((clojure-mode-hook
           emacs-lisp-mode-hook

@@ -35,8 +35,10 @@
   (when (derived-mode-p 'eshell-mode)
     (idle-highlight-mode -1)))
 
-(my/package
-  (idle-highlight-mode :ref "0cdf8437183766de7e165d5f9ae76646ecccaaa2")
+(my/package idle-highlight-mode
+  :elpaca (:host gitlab
+           :repo "ideasman42/emacs-idle-highlight-mode"
+           :ref "f9091c907d41e7b12d99d108a194229b8dbfc5ae")
   :defer t
 
   :hook (after-change-major-mode-hook . pkg-idle-highlight-mode/after-change-major-mode-h)

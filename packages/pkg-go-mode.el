@@ -34,8 +34,8 @@
                          ".go"
                          string-end)))))
 
-(my/package
-  (go-mode :ref "166dfb1e090233c4609a50c2ec9f57f113c1da72")
+(my/package go-mode
+  :elpaca (:ref "166dfb1e090233c4609a50c2ec9f57f113c1da72")
   :defer t
 
   :hook (go-mode-hook . pkg-go/setup-sibling-rules)

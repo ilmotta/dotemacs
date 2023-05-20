@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(my/package
-  (dap-mode :ref "39bfaf1a3400b3ca4e9755f4d15e33abb0dda2c4")
+(my/package dap-mode
+  :elpaca (:ref "39bfaf1a3400b3ca4e9755f4d15e33abb0dda2c4")
   :defer t
 
   :init

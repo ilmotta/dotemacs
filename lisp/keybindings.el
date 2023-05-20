@@ -43,6 +43,13 @@
     "o p" #'list-processes)
 
   (general-def
+    :keymaps 'clojure-mode-map
+    :states 'normal
+    :prefix my/local-leader
+    "a g" #'pkg-status-mobile/navigate-to
+    "a <" #'pkg-status-mobile/navigate-back)
+
+  (general-def
     :keymaps 'my/keys-mode-map
     "s-w" #'delete-window
     "s-L" #'tab-bar-switch-to-next-tab

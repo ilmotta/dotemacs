@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  (hnreader :ref "8444e177035e236e991f9ea73074c053a45426ad")
+(my/package hnreader
+  :elpaca (:ref "8444e177035e236e991f9ea73074c053a45426ad")
   :defer t
   :commands (hnreader-news
              hnreader-newest

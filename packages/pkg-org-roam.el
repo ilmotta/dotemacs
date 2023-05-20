@@ -15,18 +15,18 @@
   (my/with-buffer-reuse-window
    (call-interactively #'org-roam-node-find)))
 
-(my/package
-  (emacsql :host github :repo "skeeto/emacsql")
+(my/package emacsql
+  :elpaca (:host github :repo "skeeto/emacsql")
   :defer t)
 
-(my/package
-  (emacsql-sqlite :host github :repo "skeeto/emacsql")
+(my/package emacsql-sqlite
+  :elpaca (:host github :repo "skeeto/emacsql")
   :defer t)
 
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
-(my/package
-  (org-roam :ref "74422df546a515bc984c2f3d3a681c09d6f43916")
+(my/package org-roam
+  :elpaca (:ref "74422df546a515bc984c2f3d3a681c09d6f43916")
   :defer t
 
   :init

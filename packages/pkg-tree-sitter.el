@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  tree-sitter
+(my/package tree-sitter
   :unless my/android?
   :defer t
   :hook ((java-mode-hook

@@ -8,8 +8,8 @@
     (evil-org-agenda-set-keys)
     (evil-org-mode +1)))
 
-(my/package
-  (evil-org :ref "b1f309726b1326e1a103742524ec331789f2bf94")
+(my/package evil-org
+  :elpaca (:ref "b1f309726b1326e1a103742524ec331789f2bf94")
   :defer t
   :hook (org-mode-hook . pkg-evil-org/setup-mode))
 

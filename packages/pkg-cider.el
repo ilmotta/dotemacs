@@ -273,8 +273,8 @@ for example."
 ;;; Package
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
-(my/package
-  (cider :ref "17743001467e0045ecd6639aad45d21e89d6b9a2")
+(my/package cider
+  :elpaca (:ref "17743001467e0045ecd6639aad45d21e89d6b9a2")
   :defer t
   :commands (cider
              cider-connect

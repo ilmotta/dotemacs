@@ -37,6 +37,11 @@ mode is not enabled it tries to use LSP to find the definition."
                  (:default (cider-find-dwim keyword)))
            (recenter)))
 
+        ;; Prefer eglot over lsp-mode.
+        ((let ((current-server (eglot-current-server)))
+           (and current-server (jsonrpc-running-p current-server)))
+         (call-interactively #'xref-find-definitions))
+
         ;; Fallback to LSP Clojure
         ((bound-and-true-p lsp-mode)
          (call-interactively #'lsp-find-definition)
@@ -98,8 +103,8 @@ mode is not enabled it tries to use LSP to find the definition."
 
 ;;; Package
 
-(my/package
-  (clojure-mode :ref "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
+(my/package clojure-mode
+  :elpaca (:ref "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
   :defer t
 
   :hook (clojure-mode-hook . pkg-clojure/setup-sibling-rules)

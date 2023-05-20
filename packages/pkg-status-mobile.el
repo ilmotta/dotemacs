@@ -79,16 +79,4 @@
     (unless (member "status-go" tab-names)
       (pkg-tab-bar/switch-project-as-tab "~/data/repos/status/status-go/status-go/"))))
 
-(my/package
-  pkg-status-mobile
-  :ensure nil
-
-  :init
-  (general-def
-    :keymaps 'clojure-mode-map
-    :states 'normal
-    :prefix my/local-leader
-    "a g" #'pkg-status-mobile/navigate-to
-    "a <" #'pkg-status-mobile/navigate-back))
-
 (provide 'pkg-status-mobile)

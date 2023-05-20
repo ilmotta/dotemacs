@@ -5,8 +5,8 @@
 
 ;;; Code:
 
-(my/package
-  (diredfl :ref "94bd99eeced6d52a5a7b9db3745239feafd633e2")
+(my/package diredfl
+  :elpaca (:ref "94bd99eeced6d52a5a7b9db3745239feafd633e2")
   :defer t
   :hook (dired-mode-hook . diredfl-mode))
 

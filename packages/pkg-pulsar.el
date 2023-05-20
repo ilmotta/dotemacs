@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  (pulsar :ref "57010e2c6cdee14acfd87b4c2bd75c796f04a75e")
+(my/package pulsar
+  :elpaca (:ref "57010e2c6cdee14acfd87b4c2bd75c796f04a75e")
   :defer t
 
   ;; This is mandatory when pulsar is deferred and `consult-after-jump-hook' is

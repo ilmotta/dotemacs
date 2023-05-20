@@ -64,12 +64,12 @@ This is a variadic `cl-pushnew'."
         (t nil)))
 
 (defmacro my/package (order &rest args)
-  (declare (indent 0))
+  (declare (indent defun))
   (when my/use-package-force-demand
     (setq args (map-delete args :defer))
     (setq args (map-delete args :demand))
     (setq args (append '(:demand t) args)))
-  `(elpaca-use-package ,order ,@args))
+  `(use-package ,order ,@args))
 
 ;;; Interactive fundamentals
 

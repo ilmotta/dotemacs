@@ -6,8 +6,10 @@
 
 ;;; Code:
 
-(my/package
-  (undo-fu :ref "601fed8e4bbed041dea5969600d985c0c17759ad")
+(my/package undo-fu
+  :elpaca (:host github
+           :repo "emacsmirror/undo-fu"
+           :ref "0e22308de8337a9291ddd589edae167d458fbe77")
   :demand t
   :init
   (setq undo-fu-allow-undo-in-region t)

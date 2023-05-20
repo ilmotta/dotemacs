@@ -53,9 +53,8 @@ respects display buffer actions."
             ;; Uses `display-action' as 'window.
             (xref-find-definitions-other-window thing))))))
 
-(my/package
-  xref
-  :ensure nil
+(my/package xref
+  :elpaca nil
 
   :hook ((xref-after-jump-hook
           xref-after-return-hook)

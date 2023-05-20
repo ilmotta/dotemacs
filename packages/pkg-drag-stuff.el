@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
-  (drag-stuff :ref "6d06d846cd37c052d79acd0f372c13006aa7e7c8")
+(my/package drag-stuff
+  :elpaca (:ref "6d06d846cd37c052d79acd0f372c13006aa7e7c8")
   :defer t
   :init
   (general-def
