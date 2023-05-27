@@ -34,11 +34,25 @@
  pkg-evil-collection
  pkg-magit
  pkg-undo-fu
- pkg-xclip
+ pkg-xclip)
 
- ;; Built-in packages
+;;; Built-in packages
+(my/with-packages
+ pkg-dired
+ pkg-eldoc
+ pkg-emacs
+ pkg-eshell
+ pkg-goto-addr
+ pkg-hl-line
+ pkg-image-dired
+ pkg-outline
+ pkg-proced
  pkg-recentf
- pkg-tab-bar)
+ pkg-tab-bar
+ pkg-theme
+ pkg-tramp
+ pkg-transient
+ pkg-winner)
 
 ;;; Emacs Lisp development libraries
 (my/with-packages
@@ -66,6 +80,7 @@
  pkg-all-the-icons
  pkg-all-the-icons-dired
  pkg-anzu
+ pkg-battery
  pkg-ctrlf
  pkg-dimmer
  pkg-diredfl
