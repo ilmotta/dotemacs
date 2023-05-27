@@ -38,7 +38,7 @@ mode is not enabled it tries to use LSP to find the definition."
            (recenter)))
 
         ;; Prefer eglot over lsp-mode.
-        ((let ((current-server (eglot-current-server)))
+        ((let ((current-server (and (fboundp 'eglot-current-server) (eglot-current-server))))
            (and current-server (jsonrpc-running-p current-server)))
          (call-interactively #'xref-find-definitions))
 
