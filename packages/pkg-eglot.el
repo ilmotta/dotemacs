@@ -1,7 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
 (my/package eglot
-  :elpaca nil
+  :elpaca (:host github
+           :repo "joaotavora/eglot"
+           :ref "8b5532dd32b25276c1857508030b207f765ef9b6")
   :init
   (my/general-mode-def
     :keymaps '(clojure-mode-map
