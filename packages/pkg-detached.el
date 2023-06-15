@@ -124,21 +124,20 @@
         (call-interactively #'detached-delete-sessions))))))
 
 (defvar pkg-detached/session-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "a" #'detached-edit-session-annotation)
-    (define-key map "d" #'detached-detach-session)
-    (define-key map "x" #'detached-delete-session)
-    (define-key map "X" #'pkg-detached/delete-all-sessions)
-    (define-key map "D" #'detached-describe-duration)
-    (define-key map "e" #'detached-edit-and-run-session)
-    (define-key map "k" #'detached-kill-session)
-    (define-key map "o" #'detached-open-session)
-    (define-key map "r" #'detached-rerun-session)
-    (define-key map "S" #'detached-describe-session)
-    (define-key map "v" #'detached-view-session)
-    (define-key map "w" #'detached-copy-session-command)
-    (define-key map "W" #'detached-copy-session-output)
-    map))
+  (define-keymap
+    "a" #'detached-edit-session-annotation
+    "d" #'detached-detach-session
+    "x" #'detached-delete-session
+    "X" #'pkg-detached/delete-all-sessions
+    "D" #'detached-describe-duration
+    "e" #'detached-edit-and-run-session
+    "k" #'detached-kill-session
+    "o" #'detached-open-session
+    "r" #'detached-rerun-session
+    "S" #'detached-describe-session
+    "v" #'detached-view-session
+    "w" #'detached-copy-session-command
+    "W" #'detached-copy-session-output))
 
 (my/package
   (detached :ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
