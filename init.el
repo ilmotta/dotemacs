@@ -92,6 +92,7 @@
  pkg-highlight-parentheses
  pkg-idle-highlight-mode
  pkg-kind-icon
+ pkg-magit-delta
  pkg-marginalia
  pkg-page-break-lines
  pkg-paren-face
