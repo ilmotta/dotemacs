@@ -49,7 +49,9 @@
 ;; (setq magit-define-global-key-bindings nil)
 
 (my/package magit
-  :elpaca (:ref "010fec9cdedb2cbe40fc92b0385823e9a21f9842")
+  :elpaca (:host github
+           :repo "magit/magit"
+           :ref "9007bcfdb520f32befd48f8bf8c228e2a065f9e4")
   :defer t
 
   :commands (magit-log-current
