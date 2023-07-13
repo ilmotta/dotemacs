@@ -197,7 +197,7 @@ that resolves to the PID string."
       (message "Error: Could not detect monitor"))))
 
 ;;;###autoload
-(transient-define-prefix lib/main-t
+(transient-define-prefix lib/main-t ()
   "System controllers."
   :transient-non-suffix #'transient--do-quit-one
   [["Brightness"

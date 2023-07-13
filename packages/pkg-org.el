@@ -182,7 +182,7 @@ unless the ID property already exists."
 ;;; Package
 
 (my/package org
-  :elpaca (org :ref "0f1184a850737d22bf78ee6d7621f65fd2679d4f")
+  :elpaca (:ref "0f1184a850737d22bf78ee6d7621f65fd2679d4f")
   :defer t
 
   :init
