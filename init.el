@@ -142,6 +142,7 @@
  pkg-ledger-mode
  pkg-lua-mode
  pkg-markdown-mode
+ pkg-nim-mode
  pkg-nix-mode
  pkg-php-mode
  pkg-plantuml-mode

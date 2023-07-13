@@ -169,8 +169,7 @@ that resolves to the PID string."
                                    :columns-names columns-names
                                    :rows (cdr data)))))
                 (promise-catch (lambda (err)
-                                 (message "%s" err)))
-                ))
+                                 (message "%s" err)))))
 
 ;;;; Display
 
