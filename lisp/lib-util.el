@@ -122,6 +122,17 @@ code of the process and OUTPUT is its stdout output."
     (when (process-live-p process)
       (set-process-sentinel process sentinel))))
 
+;;; UI
+
+(defun u/toggle-background-transparency ()
+  "Toggle background transparency."
+  (interactive)
+  (let ((alpha-transparency 93))
+    (set-frame-parameter nil 'alpha-background
+                         (if (eq alpha-transparency (frame-parameter nil 'alpha-background))
+                             100
+                           alpha-transparency))))
+
 ;;; Utilities
 
 (defun u/increment-integer-at-point ()
