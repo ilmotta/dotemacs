@@ -61,7 +61,7 @@
         dired-do-revert-buffer t
         dired-dwim-target t  ; Suggest a target for moving/copying intelligently
         dired-hide-details-hide-symlink-targets nil
-        dired-listing-switches "-lAFh")
+        dired-listing-switches "-lAFh --group-directories-first")
 
   ;; If non-nil, kill the current buffer when selecting a new directory.
   (setq dired-kill-when-opening-new-dired-buffer t)
