@@ -47,6 +47,7 @@
  pkg-image-dired
  pkg-outline
  pkg-proced
+ pkg-project
  pkg-recentf
  pkg-tab-bar
  pkg-theme

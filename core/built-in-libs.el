@@ -199,22 +199,6 @@
 (setq nxml-slash-auto-complete-flag t)
 (setq nxml-auto-insert-xml-declaration-flag nil)
 
-;;; Project
-
-(defun pkg-project/locate-project (dir)
-  (let ((override (locate-dominating-file dir ".project.el")))
-    (if override
-        (cons 'vc override)
-      nil)))
-
-;;;; Init
-
-(add-hook 'project-find-functions #'project-try-vc)
-(add-hook 'project-find-functions #'pkg-project/locate-project)
-
-(setq project-list-file (concat my/cache-dir "projects"))
-(setq project-switch-commands #'project-dired)
-
 ;;; Security, encryption
 ;;;; EPA
 
