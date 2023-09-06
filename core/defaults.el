@@ -725,7 +725,9 @@ with 'kill' as the default action instead of 'bury'."
 
 (setq native-comp-async-report-warnings-errors 'silent)
 
-(setq native-compile-target-directory (concat my/cache-dir "eln/"))
+(setq native-compile-target-directory t)
+(setq native-comp-eln-load-path (append (list (concat my/cache-dir "eln/"))
+                                        native-comp-eln-load-path) )
 
 ;;; Python
 
