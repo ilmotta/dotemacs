@@ -96,6 +96,9 @@ spanning over multiple lines."
   (setq lsp-eslint-library-choices-file (concat my/cache-dir "lsp-eslint-choices"))
   (setq lsp-server-install-dir (concat my/cache-dir "lsp/"))
 
+  ;; Don't offer to auto restart server.
+  (setq lsp-restart 'ignore)
+
   ;; Common feature toggles. Some can be disabled via specific LSP language
   ;; variables, others would need to be set with buffer local variables based on
   ;; the major mode in question.
