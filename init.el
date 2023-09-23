@@ -50,6 +50,7 @@
  pkg-project
  pkg-recentf
  pkg-tab-bar
+ pkg-tempo
  pkg-theme
  pkg-tramp
  pkg-transient
