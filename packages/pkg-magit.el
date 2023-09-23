@@ -2,8 +2,17 @@
 
 ;;; Code:
 
+(defvar-local pkg-magit/main-branch "origin/main"
+  "Main repo branch name.
+Main here means the repo's most common branch pull-requests are
+merged into. Prefer to set this value on a directory local
+variable.")
+
 (defvar pkg-magit/command-map
   (define-keymap
+    "d m" #'pkg-magit/diff-from-main
+    "d r" #'pkg-magit/diff-from
+    "d f" #'magit-diff-buffer-file
     "s"   #'magit-status
     "l"   #'magit-log-current
     "L"   #'pkg-magit/log-dwim
@@ -18,6 +27,18 @@
   (if (equal major-mode 'dired-mode)
       (magit-dired-log 'follow)
     (magit-log-buffer-file 'follow)))
+
+;;;###autoload
+(defun pkg-magit/diff-from (branch-or-rev)
+  "Show differences between HEAD and BRANCH-OR-REV."
+  (interactive (list (magit-read-other-branch-or-commit "Diff from")))
+  (magit-diff-range branch-or-rev))
+
+;;;###autoload
+(defun pkg-magit/diff-from-main ()
+  "Show differences between HEAD and `pkg-magit/main-branch'."
+  (interactive)
+  (pkg-magit/diff-from pkg-magit/main-branch))
 
 ;;;###autoload
 (defun pkg-magit/auto-commit ()
