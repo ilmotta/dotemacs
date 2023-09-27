@@ -81,6 +81,14 @@ mode is not enabled it tries to use LSP to find the definition."
                          "." (regex "\\2")
                          string-end))
 
+               ;; ClojureScript style.cljs -> view.cljs
+               (list (rx (group (+ (not "/")))
+                         "/style.cljs"
+                         string-end)
+                     (rx (regex "\\1")
+                         "/view.cljs"
+                         string-end))
+
                ;; Clojure (Java standard) src -> test
                (list (rx "src/"
                          (group (* not-newline))
