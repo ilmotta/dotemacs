@@ -10,6 +10,20 @@
       (call-interactively #'cider-doc)
     (call-interactively #'lsp-describe-thing-at-point)))
 
+(defun pkg-lsp-mode/kill-project-servers ()
+  "Kill all project servers."
+  (interactive)
+  (with-current-buffer (current-buffer)
+    (let* ((proj (project-current))
+           (proj-root (directory-file-name (expand-file-name (project-root proj)))))
+      (seq-doseq (proc (process-list))
+        (when-let ((proc-buf (process-buffer proc)))
+          (let* ((proc-dir (buffer-local-value 'default-directory proc-buf))
+                 (proc-root (directory-file-name (expand-file-name (project-root proj)))))
+            (when (string= proj-root proc-root)
+              (let ((confirm-kill-processes nil))
+                (lsp-process-kill proc)))))))))
+
 (defun pkg-lsp-mode/setup-clojure-h ()
   "Configure local variables for `clojure-mode' only.
 
