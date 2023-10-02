@@ -25,12 +25,14 @@
 
 (defun pkg-theme/update-kitty (theme)
   "Switch Kitty THEME and update all running instances."
-  (make-directory "~/.config/kitty" 'parents)
-  (let ((kitty-theme (cond ((equal theme 'doom-one) '("Doom_One" . "Doom One"))
-                           ((equal theme 'doom-one-light) '("Doom_One_Light" . "Doom One Light"))
-                           (:default '("Doom_One" . "Doom One")))))
-    (with-temp-file "~/.config/kitty/current-theme.conf"
-      (insert "include themes/" (car kitty-theme) ".conf"))))
+  (when (executable-find "kitty")
+    (let* ((kitty-theme (pcase theme
+                          ('doom-one "Doom One")
+                          ('doom-one-light "Doom One Light")
+                          (t "Doom One")))
+           (cmd (format "kitty +kitten themes --reload-in all --config-file-name themes.conf %s"
+                        kitty-theme)))
+      (start-process-shell-command "kitty" nil cmd))))
 
 (defun pkg-theme/update-tmux (theme)
   "Globally change all Tmux windows based on symbol THEME."
