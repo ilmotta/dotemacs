@@ -219,17 +219,18 @@ that resolves to the PID string."
 
 ;;;; Nix
 
-(defhof lib/--nix-packages
-  (lib-util/memoize-ttl
-   :ttl-ms (* 1000 3600)
-   :f (lambda ()
-        (with-temp-buffer
-          (let* ((_ (call-process-shell-command "nix-env -f \"<nixpkgs>\" -qaP" nil (buffer-name)))
-                 (pkgs (thread-last (split-string (buffer-string) "\n" nil "\n")
-                                    (seq-map #'string-trim)
-                                    (seq-map (lambda (line)
-                                               (replace-regexp-in-string (rx (one-or-more whitespace)) " | " line))))))
-            pkgs)))))
+(defhof
+ lib/--nix-packages
+ (lib-util/memoize-ttl
+  :ttl-ms (* 8 1000 3600)
+  :f (lambda ()
+       (with-temp-buffer
+         (let* ((_ (call-process-shell-command "nix-env -f \"<nixpkgs>\" -qaP" nil (buffer-name)))
+                (pkgs (thread-last (split-string (buffer-string) "\n" nil "\n")
+                                   (seq-map #'string-trim)
+                                   (seq-map (lambda (line)
+                                              (replace-regexp-in-string (rx (one-or-more whitespace)) " | " line))))))
+           pkgs)))))
 
 ;;;###autoload
 (defun lib/nix-packages ()
