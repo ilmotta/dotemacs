@@ -22,7 +22,7 @@ Also disable certain LSP features when `cider-mode' is enabled."
   (setq-local lsp-enable-indentation nil)
 
   ;; Prefer CIDER completion when enabled.
-  (if (cider-current-repl)
+  (if (and (fboundp 'cider-current-repl) (cider-current-repl))
       (setq-local lsp-enable-completion-at-point nil
                   lsp-completion-enable nil)
     (setq-local lsp-enable-completion-at-point t
