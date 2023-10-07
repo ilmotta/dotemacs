@@ -29,7 +29,7 @@
     (let* ((kitty-theme (pcase theme
                           ('doom-one "Doom One")
                           ('doom-one-light "Doom One Light")
-                          (t "Doom One")))
+                          (_ "Doom One")))
            (cmd (format "kitty +kitten themes --reload-in all --config-file-name themes.conf %s"
                         kitty-theme)))
       (start-process-shell-command "kitty" nil cmd))))
