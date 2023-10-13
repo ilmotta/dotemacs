@@ -131,6 +131,16 @@ current major mode."
   "Local leader prefix."
   :type 'string)
 
+(defcustom my/consult-preview-and-next-line-key "M-J"
+  "Key used by `consult-preview-key' and by `next-line' in the
+minibuffer."
+  :type 'string)
+
+(defcustom my/consult-preview-and-previous-line-key "M-K"
+  "Key used by `consult-preview-key' and by `previous-line' in the
+minibuffer."
+  :type 'string)
+
 (defcustom my/default-gc-cons-threshold (* 16 1024 1024)
   "The default portion of the heap used for allocation (16 MB)."
   :type 'integer)

@@ -10,8 +10,8 @@
   :init
   (general-def
     :keymaps 'vertico-map
-    "M-k" #'previous-line
-    "M-j" #'next-line
+    my/consult-preview-and-previous-line-key #'previous-line
+    my/consult-preview-and-next-line-key #'next-line
     "M-f" #'vertico-multiform-flat
     "M-g" #'vertico-multiform-grid
     "M-r" #'vertico-multiform-reverse

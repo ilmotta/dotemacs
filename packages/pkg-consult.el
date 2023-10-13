@@ -102,7 +102,8 @@ Uses initial input from previous call to
 
   (setq completion-in-region-function #'pkg-consult/completion-in-region-function)
 
-  (setq consult-preview-key (list "M-k" "M-j"))
+  (setq consult-preview-key (list my/consult-preview-and-previous-line-key
+                                  my/consult-preview-and-next-line-key))
   (setq consult-narrow-key ">")
   (setq consult-widen-key "<")
   (setq consult-line-numbers-widen t)
