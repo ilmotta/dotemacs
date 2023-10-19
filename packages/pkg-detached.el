@@ -1,10 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; Archived on 2023-05-13 because it throws an error while calling
-;; `detached-init':
-;;
-;;     Wrong type argument: listp, \...
+;; Archived on 2023-10-19 because it's buggy. I tried integrating with it, but
+;; some functions wouldn't work as expected, like `detached-kill-session'.
 
 ;;; Consult sources
 
@@ -118,7 +116,8 @@
   (let ((n-sessions (length detached--sessions)))
     (cond
      ((= n-sessions 1)
-      (call-interactively #'detached-delete-sessions))
+      (let ((session (seq-first (map-values detached--sessions))))
+        (detached-kill-session session 'delete)))
      ((> n-sessions 0)
       (when (yes-or-no-p (format "Do you want to delete %s session(s)?" n-sessions))
         (call-interactively #'detached-delete-sessions))))))
@@ -139,8 +138,8 @@
     "w" #'detached-copy-session-command
     "W" #'detached-copy-session-output))
 
-(my/package
-  (detached :ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
+(my/package detached
+  :elpaca (:ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
   :disabled t
   :defer t
   :init
@@ -167,6 +166,10 @@
           eshell
           org
           vterm))
+
+  ;; Don't show notifications.
+  (setq detached-notification-function #'ignore
+        detached-state-transition-notifications-message #'ignore)
 
   ;; Number of context lines to display for a session.
   (setq detached-session-context-lines 50)
