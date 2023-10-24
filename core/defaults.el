@@ -726,8 +726,13 @@ with 'kill' as the default action instead of 'bury'."
 (setq native-comp-async-report-warnings-errors 'silent)
 
 (setq native-compile-target-directory t)
-(setq native-comp-eln-load-path (append (list (concat my/cache-dir "eln/"))
-                                        native-comp-eln-load-path) )
+
+;; For some reason, setting this variable causes Emacs to segfault when
+;; compiling files, and thus Emacs will try to async compile on every start,
+;; which is very taxing on my system.
+;;
+;; (setq native-comp-eln-load-path (append (list (concat my/cache-dir "eln/"))
+;;                                         native-comp-eln-load-path) )
 
 ;;; Python
 
