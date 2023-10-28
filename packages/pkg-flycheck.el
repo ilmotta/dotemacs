@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-flycheck/list-errors ()
   (interactive)
   (lib-util/toggle-buffer flycheck-error-list-buffer #'flycheck-list-errors))

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg lsp-java
   :elpaca (:ref "de2d89814fecb9bae825baa7028c5cd8b32b9b8f")
   :defer t

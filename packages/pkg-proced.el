@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Variables
 
 (defconst pkg-proced/proced-keywords

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-helpful/-navigate (original-fn button)
   "Force all push buttons to reuse same window."
   (let ((same-window-regexps ".*"))

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-vterm/prompt-p ()
   "Return t if cursor is at prompt, nil otherwise.
 Unfortunately, `vterm--at-prompt-p' only returns true if point is

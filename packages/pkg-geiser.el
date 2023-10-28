@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-geiser/outline-minor-mode-h ()
   (when (derived-mode-p 'scheme-mode)
     (setq-local outline-regexp my/outline-regex-lisp)))

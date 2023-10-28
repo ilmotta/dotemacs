@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;; Surround.vim for evil.
 (lib-util/pkg evil-surround
   :elpaca (:ref "c9e1449bf3f740b5e9b99e7820df4eca7fc7cf02")

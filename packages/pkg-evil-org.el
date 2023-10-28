@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-evil-org/setup-mode ()
   (when (bound-and-true-p evil-mode)
     (require 'evil-org)

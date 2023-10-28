@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Utils
 
 (defun pkg-org/export-output-file-name (orig-fun extension &optional subtreep pub-dir)

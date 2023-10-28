@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
+(add-to-list 'load-path (file-truename (concat user-emacs-directory "core/")))
 (add-to-list 'load-path (file-truename (concat user-emacs-directory "packages/")))
 (add-to-list 'load-path (file-truename (concat user-emacs-directory "lisp/")))
 
@@ -7,6 +8,8 @@
 (require 'cl-lib)
 (require 'transient)
 (require 'seq)
+
+(require 'my-globals)
 (require 'lib-elisp)
 (require 'lib-util)
 

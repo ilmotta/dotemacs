@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-evil-cleverparens/setup-modes ()
   (dolist (mode-hook my/lisp-modes-hooks)
     (add-hook mode-hook #'evil-cleverparens-mode)))

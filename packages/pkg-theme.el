@@ -12,6 +12,10 @@
 ;;
 ;; Kitty themes: https://github.com/kovidgoyal/kitty-themes/tree/master/themes
 
+;;; Code:
+
+(require 'lib-util)
+
 ;;; Private
 
 (defun pkg-theme/dark-p ()

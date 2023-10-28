@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (cl-defun pkg-apheleia/-formatter-async
     (&key cmd-builder buffer scratch formatter callback remote async &allow-other-keys)
   (let* ((inhibit-message t)

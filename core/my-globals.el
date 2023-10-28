@@ -214,3 +214,5 @@ minibuffer."
   :lighter " MK"
   :global t
   :keymap '())
+
+(provide 'my-globals)

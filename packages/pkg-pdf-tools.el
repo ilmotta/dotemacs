@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg pdf-tools
   :elpaca (:ref "b8079e4ebc2936f9772657332d50936350a65825")
   :when (equal 'gnu/linux my/system-type)

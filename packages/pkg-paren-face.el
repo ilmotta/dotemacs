@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg paren-face
   :elpaca (:ref "bf741a6038a2554abf98d31e658421c33f8bf7a4")
   :defer t

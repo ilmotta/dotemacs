@@ -24,7 +24,7 @@
 
 (add-hook 'emacs-startup-hook #'my/reset-inhibit-message)
 
-(load (concat user-emacs-directory "core/globals.el") nil 'no-message)
+(load (file-name-concat user-emacs-directory "core" "my-globals.el") nil 'no-message)
 
 ;;; Frame settings
 

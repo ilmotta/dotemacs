@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-marginalia/persist-annotator-registry ()
   (let ((inhibit-message t))
     (customize-save-variable 'marginalia-annotator-registry

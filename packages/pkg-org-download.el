@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-org-download/file-format-default (filename)
   "Format the file name. If it's a screenshot, then onl use the
 `org-download-timestamp' as the basename."

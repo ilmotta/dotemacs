@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg eglot
   :elpaca (:host github
            :repo "joaotavora/eglot"

@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-ctrlf/recenter-after-default-search (&rest _args)
   (recenter-top-bottom))
 

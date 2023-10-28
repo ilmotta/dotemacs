@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg quickrun
   :elpaca (:ref "7a89313c07a21eae9cd69a1a98e2a134d559e04f")
   :defer t

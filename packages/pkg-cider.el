@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Custom
 
 (defcustom pkg-cider/app-refresh-form

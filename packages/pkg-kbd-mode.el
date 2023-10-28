@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg kbd-mode
   :elpaca (:host github
            :repo "kmonad/kbd-mode"

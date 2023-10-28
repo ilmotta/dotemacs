@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
+
 ;;; Code:
+
+(require 'lib-util)
 
 (lib-util/pkg vertico
   :elpaca (:files ("*.el" "extensions/*.el")

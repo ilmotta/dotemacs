@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg synosaurus
   :elpaca (:ref "14d34fc92a77c3a916b4d58400424c44ae99cd81")
   :defer t

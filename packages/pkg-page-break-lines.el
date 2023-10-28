@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg page-break-lines
   :elpaca (:ref "79eca86e0634ac68af862e15c8a236c37f446dcd")
   :defer t

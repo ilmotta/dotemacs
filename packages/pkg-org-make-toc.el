@@ -5,6 +5,9 @@
 ;; contents in Org files.
 
 ;;; Code:
+
+(require 'lib-util)
+
 (lib-util/pkg org-make-toc
   :elpaca (:ref "26fbd6a7e1e7f8e473fe3a5f74faec715c3a05aa")
   :defer t

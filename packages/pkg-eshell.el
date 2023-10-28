@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Faces
 
 (defface pkg-eshell/prompt-pwd '((t (:inherit font-lock-constant-face)))

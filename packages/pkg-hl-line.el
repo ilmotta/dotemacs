@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defvar-local pkg-hl-line/mode-on nil
   "Store the hl-line-mode state for the current buffer.
 

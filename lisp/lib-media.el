@@ -228,7 +228,7 @@ Every file should follow the pattern:
 
 Where {dddd} means 4 consecutive digits.
 
-Metadata will be added using the 'metaflac' program. All existing
+Metadata will be added using the metaflac program. All existing
 tags will be removed."
   (interactive "DDirectory: ")
   (cl-assert (and dir (file-exists-p dir )))
@@ -240,7 +240,7 @@ tags will be removed."
 (defun lib-media/flac-slice (input tracks)
   "Extract audio files from INPUT specified by TRACKS.
 
-Each track in TRACKS must have a 'beg-ms' element that has the
+Each track in TRACKS must have a beg-ms element that has the
 correct time in milliseconds the song starts in the INPUT file,
 i.e. considering all previous tracks."
   (cl-assert (and input (file-exists-p input))
@@ -274,7 +274,7 @@ Before you can successfully record audio, remember to open the
 PulseAudio Volume Control application and change the application
 output device.
 
-Kill the process 'record-n-play' manually if you don't want to
+Kill the process record-n-play manually if you don't want to
 monitor the sink output anymore, for example by using the
 `list-processes' buffer."
   (interactive "FPath to record FLAC file: ")

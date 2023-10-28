@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-tempo/tags-completing-insert ()
   (interactive)
   (let ((tag-name (completing-read "Tempo tag: " (map-keys tempo-tags))))

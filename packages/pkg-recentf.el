@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-recentf/add-dired-directory ()
   "Add dired directory to recentf file list."
   (recentf-add-file default-directory))

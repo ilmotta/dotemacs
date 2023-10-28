@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Variables
 
 (defvar-local pkg-clojure/tempo-tags nil)

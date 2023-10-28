@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg git-modes
   :elpaca (:ref "be96ef14fab6a2d76cca3ebf9a15b462a695923d")
   :defer t)

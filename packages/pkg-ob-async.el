@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-ob-async/enable ()
   (require 'ob-async))
 

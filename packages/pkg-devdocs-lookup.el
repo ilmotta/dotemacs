@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defvar my/devdocs-lookup-loaded-p nil)
 
 (defun my/devdocs-lookup-setup ()

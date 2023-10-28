@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-flycheck-ledger/enable-mode ()
   (require 'flycheck-ledger))
 

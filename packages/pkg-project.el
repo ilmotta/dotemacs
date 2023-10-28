@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-project/locate-project (dir)
   (let ((override (locate-dominating-file dir ".project.el")))
     (if override

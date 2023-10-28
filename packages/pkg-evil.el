@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun my/translate-keys-p (key-from)
   "Returns whether conditional key translations should be active.
 See make-conditional-key-translation function."

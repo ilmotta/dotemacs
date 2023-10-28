@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-ledger-mode/report-balance ()
   (interactive)
   (ledger-report "bal" nil))

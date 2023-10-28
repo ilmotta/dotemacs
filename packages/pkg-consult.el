@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defvar pkg-consult/-ripgrep-dwim-previous-query nil
   "Stores the latest query when calling `pkg-consult/ripgrep-dwim'.")
 

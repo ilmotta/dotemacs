@@ -10,6 +10,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-orderless/dispatcher (pattern _index _total)
   (cond
    ;; Ensure $ works with Consult commands, which add disambiguation suffixes

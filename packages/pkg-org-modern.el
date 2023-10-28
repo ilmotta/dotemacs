@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
+
 ;;; Code:
+
+(require 'lib-util)
 
 (lib-util/pkg org-modern
   :elpaca (:host github

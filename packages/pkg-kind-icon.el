@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-kind-icon/reset-cache (&rest _args)
   (kind-icon-reset-cache))
 

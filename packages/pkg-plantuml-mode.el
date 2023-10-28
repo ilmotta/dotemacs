@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg plantuml-mode
   :elpaca (:ref "ea45a13707abd2a70df183f1aec6447197fc9ccc")
   :defer t

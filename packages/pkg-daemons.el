@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg daemons
   :elpaca (:ref "e18e84ccc13101f1609c213029cf011ae0ad1178")
   :when my/linux?

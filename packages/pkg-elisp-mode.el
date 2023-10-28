@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-elisp-mode/list-at-point (&optional bounds)
   "Return the list (compound form) at point as a string, otherwise nil.
 If BOUNDS is non-nil, return a list of its starting and ending position

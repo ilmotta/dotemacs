@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 ;; We need to use the mirror because the original recipe results in the error
 ;; 'dumb http transport does not support shallow capabilities'.
 (lib-util/pkg paredit

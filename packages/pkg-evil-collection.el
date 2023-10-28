@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-evil-collection/setup ()
   (when my/evil-p
     (require 'evil-collection)

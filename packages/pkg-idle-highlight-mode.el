@@ -10,6 +10,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-idle-highlight-mode/after-change-major-mode-h ()
   (cond ((derived-mode-p 'emacs-lisp-mode)
          (setq-local idle-highlight-exceptions

@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-zones/monkey-org-narrow-to-subtree (&optional element)
   "Narrow buffer to the current subtree.
 

@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg plz
   :elpaca (:ref "b6072edeec1f0e2465d273db74a8f2f7726e6bce"
            :fetcher github

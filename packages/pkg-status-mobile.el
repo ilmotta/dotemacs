@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+(require 'lib-util)
 (require 'notifications)
 
 (defvar pkg-status-mobile/preview-screens

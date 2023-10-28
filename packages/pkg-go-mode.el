@@ -14,6 +14,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-go/setup-sibling-rules ()
   (setq-local find-sibling-rules
               (list

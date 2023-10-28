@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defvar-local pkg-magit/main-branch "origin/main"
   "Main repo branch name.
 Main here means the repo's most common branch pull-requests are

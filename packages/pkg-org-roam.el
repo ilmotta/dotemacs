@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
+
 ;;; Code:
+
+(require 'lib-util)
 
 (defvar pkg-org-roam/tasks-file
   "~/data/repos/notes/20200827220222.org")

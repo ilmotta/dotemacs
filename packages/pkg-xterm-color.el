@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-xterm-color/eshell-h ()
   ;; This is necessary to print colors for certain programs (e.g. Jest).
   (setenv "TERM" "xterm-256color")

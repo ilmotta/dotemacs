@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg explain-pause-mode
   :elpaca (:host github
            :repo "lastquestion/explain-pause-mode"

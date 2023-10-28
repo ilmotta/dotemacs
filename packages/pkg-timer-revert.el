@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-timer-revert/process-menu-setup ()
   (setq-local timer-revert-delay 5)
   (timer-revert-mode +1))

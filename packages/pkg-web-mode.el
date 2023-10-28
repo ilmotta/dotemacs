@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg web-mode
   :elpaca (:ref "53bed1e6a8554da877c27ffad6bd65113dc758e3")
   :defer t

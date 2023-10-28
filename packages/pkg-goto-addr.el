@@ -11,6 +11,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg goto-addr
   :elpaca nil
   :hook (text-mode-hook . goto-address-mode)

@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg browse-at-remote
   :elpaca (:ref "d81643c975e77d506fe2eb931229739c162adb5d")
   :defer t

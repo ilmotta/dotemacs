@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg dired-du
   :elpaca (:ref "e5a2aa64849aae14fd6d1973919ec7e13ed76dd0")
   :defer t

@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg undo-fu
   :elpaca (:host github
            :repo "emacsmirror/undo-fu"

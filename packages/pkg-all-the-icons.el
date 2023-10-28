@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg all-the-icons
   :elpaca (:ref "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
   :when (display-graphic-p)

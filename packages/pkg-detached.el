@@ -4,6 +4,10 @@
 ;; Archived on 2023-10-19 because it's buggy. I tried integrating with it, but
 ;; some functions wouldn't work as expected, like `detached-kill-session'.
 
+;;; Code:
+
+(require 'lib-util)
+
 ;;; Consult sources
 
 (defun pkg-detached/consult--filter-candidates (predicate)

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg evil-smartparens
   :elpaca (:ref "026d4a3cfce415a4dfae1457f871b385386e61d3")
   :defer t

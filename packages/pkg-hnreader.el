@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (lib-util/pkg hnreader
   :elpaca (:ref "8444e177035e236e991f9ea73074c053a45426ad")
   :defer t

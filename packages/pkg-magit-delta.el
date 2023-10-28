@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
-(require 'use-package)
+
+(require 'lib-util)
 
 (lib-util/pkg magit-delta
   :elpaca (:ref "5fc7dbddcfacfe46d3fd876172ad02a9ab6ac616")

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Private
 
 (defun pkg-elisp-mode/list-at-point (&optional bounds)

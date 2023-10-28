@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (defun pkg-corfu/disable-auto-complete ()
   "Disable auto-complete for the current buffer."
   (setq-local corfu-auto nil))

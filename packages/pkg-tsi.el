@@ -5,6 +5,9 @@
 ;; indentation.
 
 ;;; Code:
+
+(require 'lib-util)
+
 (lib-util/pkg tsi
   :elpaca (:host github :repo "orzechowskid/tsi.el")
   :unless my/android?

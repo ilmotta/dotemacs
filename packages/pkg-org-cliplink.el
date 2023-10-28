@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'lib-util)
+
 (lib-util/pkg org-cliplink
   :elpaca (:ref "13e0940b65d22bec34e2de4bc8cba1412a7abfbc")
   :defer t

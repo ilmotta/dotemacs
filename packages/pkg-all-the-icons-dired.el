@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;; Adds dired support to `all-the-icons'.
 (lib-util/pkg all-the-icons-dired
   :elpaca (:ref "4564bec6bd3fd02dd870e6d2cfed37fe38bbc93a")

@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-doom-modeline/define-sections ()
   "Define mode line sections without the `modals' section.
 

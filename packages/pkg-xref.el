@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 ;;; Monkey patches
 
 (defun pkg-xref/pop-to-location (_original-fn item &optional action)

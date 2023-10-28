@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'lib-util)
+
 (defun pkg-tab-bar/select-tab-action (tab-name)
   "Switch to TAB-NAME or create a new tab using TAB-NAME."
   (if (tab-bar--tab-index-by-name tab-name)

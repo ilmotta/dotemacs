@@ -8,7 +8,7 @@
 (require 'subr-x)
 (require 'request nil 'no-error)
 (require 'lib-util)
-(require 'libmedia)
+(require 'lib-media)
 (require 'dash)
 (require 'promise)
 
@@ -178,186 +178,186 @@ The token will be cached in `lib-spotify/api-token'."
       (erase-buffer))
     (cl-labels
         ((record-loop
-          (curr-state event)
-          (map-put! ctx 'event event)
-          (map-put! ctx 'curr-state curr-state)
-          (with-current-buffer buffer
-            (insert (format "[INFO] Recording: curr-state='%s' event='%s'.\n" curr-state event)))
-          (cond ((and (eq curr-state nil) (eq event 'record/start))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (cl-assert (not lib-spotify/record-set-state) nil "Already recording")
-                       (let ((directory (or directory
-                                            (make-temp-file (format "spotify-record-%s-%s-"
-                                                                    playlist-id
-                                                                    (format-time-string "%Y-%m-%dT%H:%M:%S"))
-                                                            'dir))))
-                         (cl-assert (file-exists-p directory))
-                         (map-put! ctx 'directory
-                                   (file-name-as-directory (file-truename directory)))
-                         (map-put! ctx 'tmp-file
-                                   (concat (map-elt ctx 'directory)
-                                           (make-temp-name "record-n-play-") ".flac"))
-                         (thread-first (lib-spotify/api-authenticate)
-                                       (promise-then
-                                        (lambda (auth)
-                                          (lib-spotify/fetch-playlist auth playlist-id)))
-                                       (promise-then
-                                        (lambda (playlist)
-                                          (map-put! ctx 'tracks
-                                                    (thread-last playlist
-                                                                 (lib-spotify/playlist-tracks)
-                                                                 (seq-sort-by (lambda (track) (map-elt track 'added-at)) #'equal)
-                                                                 (seq-reverse)))
-                                          (record-loop 'record/playlist-fetched 'record/create-pulse-audio-sink)))
-                                       (promise-catch
-                                        (lambda (reason)
-                                          (map-put! ctx 'error reason)
-                                          (record-loop curr-state 'record/error))))))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+           (curr-state event)
+           (map-put! ctx 'event event)
+           (map-put! ctx 'curr-state curr-state)
+           (with-current-buffer buffer
+             (insert (format "[INFO] Recording: curr-state='%s' event='%s'.\n" curr-state event)))
+           (cond ((and (eq curr-state nil) (eq event 'record/start))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (cl-assert (not lib-spotify/record-set-state) nil "Already recording")
+                        (let ((directory (or directory
+                                             (make-temp-file (format "spotify-record-%s-%s-"
+                                                                     playlist-id
+                                                                     (format-time-string "%Y-%m-%dT%H:%M:%S"))
+                                                             'dir))))
+                          (cl-assert (file-exists-p directory))
+                          (map-put! ctx 'directory
+                                    (file-name-as-directory (file-truename directory)))
+                          (map-put! ctx 'tmp-file
+                                    (concat (map-elt ctx 'directory)
+                                            (make-temp-name "record-n-play-") ".flac"))
+                          (thread-first (lib-spotify/api-authenticate)
+                                        (promise-then
+                                         (lambda (auth)
+                                           (lib-spotify/fetch-playlist auth playlist-id)))
+                                        (promise-then
+                                         (lambda (playlist)
+                                           (map-put! ctx 'tracks
+                                                     (thread-last playlist
+                                                                  (lib-spotify/playlist-tracks)
+                                                                  (seq-sort-by (lambda (track) (map-elt track 'added-at)) #'equal)
+                                                                  (seq-reverse)))
+                                           (record-loop 'record/playlist-fetched 'record/create-pulse-audio-sink)))
+                                        (promise-catch
+                                         (lambda (reason)
+                                           (map-put! ctx 'error reason)
+                                           (record-loop curr-state 'record/error))))))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/playlist-fetched)
-                      (eq event 'record/create-pulse-audio-sink))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (if-let ((track (seq-first (map-elt ctx 'tracks))))
-                           (progn
-                             (lib-spotify/stop)
-                             (map-put! ctx 'process-monitor-sink
-                                       (libmedia/flac-monitor-pulse-audio-sink
-                                        (map-elt ctx 'tmp-file)
-                                        lib-spotify/record-n-play-sink))
-                             (record-loop 'record/pulse-audio-sink-created 'record/spotify-play))
-                         (record-loop 'record/end nil)))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/playlist-fetched)
+                       (eq event 'record/create-pulse-audio-sink))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (if-let ((track (seq-first (map-elt ctx 'tracks))))
+                            (progn
+                              (lib-spotify/stop)
+                              (map-put! ctx 'process-monitor-sink
+                                        (lib-media/flac-monitor-pulse-audio-sink
+                                         (map-elt ctx 'tmp-file)
+                                         lib-spotify/record-n-play-sink))
+                              (record-loop 'record/pulse-audio-sink-created 'record/spotify-play))
+                          (record-loop 'record/end nil)))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/pulse-audio-sink-created)
-                      (eq event 'record/spotify-play))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (let ((track (seq-first (map-elt ctx 'tracks))))
-                         (insert (format "[INFO] Recording: uri='%s' title='%s'.\n"
-                                         (map-elt track 'uri)
-                                         (map-elt track 'title)))
-                         (lib-spotify/play (map-elt track 'uri)))
-                       (run-with-timer
-                        3 nil
-                        (lambda ()
-                          (record-loop 'record/playing 'record/check-playing))))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/pulse-audio-sink-created)
+                       (eq event 'record/spotify-play))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (let ((track (seq-first (map-elt ctx 'tracks))))
+                          (insert (format "[INFO] Recording: uri='%s' title='%s'.\n"
+                                          (map-elt track 'uri)
+                                          (map-elt track 'title)))
+                          (lib-spotify/play (map-elt track 'uri)))
+                        (run-with-timer
+                         3 nil
+                         (lambda ()
+                           (record-loop 'record/playing 'record/check-playing))))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/playing)
-                      (eq event 'record/check-playing))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (if (lib-spotify/playing-p)
-                           (run-with-timer 5 nil (lambda () (record-loop curr-state event)))
-                         (record-loop 'record/track-stopped 'record/encode)))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/playing)
+                       (eq event 'record/check-playing))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (if (lib-spotify/playing-p)
+                            (run-with-timer 5 nil (lambda () (record-loop curr-state event)))
+                          (record-loop 'record/track-stopped 'record/encode)))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/track-stopped)
-                      (eq event 'record/encode))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (let* ((track (seq-first (map-elt ctx 'tracks)))
-                              (tmp-file (map-elt ctx 'tmp-file))
-                              (new-file (format "%s%s.encoded.flac"
-                                                (file-name-directory tmp-file)
-                                                (file-name-base tmp-file)) ))
-                         (map-put! ctx 'new-file new-file)
+                 ((and (eq curr-state 'record/track-stopped)
+                       (eq event 'record/encode))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (let* ((track (seq-first (map-elt ctx 'tracks)))
+                               (tmp-file (map-elt ctx 'tmp-file))
+                               (new-file (format "%s%s.encoded.flac"
+                                                 (file-name-directory tmp-file)
+                                                 (file-name-base tmp-file)) ))
+                          (map-put! ctx 'new-file new-file)
 
-                         ;; Simply re-creating the input file with sox will fix
-                         ;; playback issues.
-                         (insert (format  "[INFO] Encoding: uri='%s'.\n" (map-elt track 'uri)))
-                         (let ((cmd (format "sox '%s' '%s'"
-                                            (lib-util/shell-escape-single-quote tmp-file)
-                                            (lib-util/shell-escape-single-quote new-file))))
-                           (call-process-shell-command cmd))
-                         (record-loop 'record/encoded 'record/validate)))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                          ;; Simply re-creating the input file with sox will fix
+                          ;; playback issues.
+                          (insert (format  "[INFO] Encoding: uri='%s'.\n" (map-elt track 'uri)))
+                          (let ((cmd (format "sox '%s' '%s'"
+                                             (lib-util/shell-escape-single-quote tmp-file)
+                                             (lib-util/shell-escape-single-quote new-file))))
+                            (call-process-shell-command cmd))
+                          (record-loop 'record/encoded 'record/validate)))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/encoded)
-                      (eq event 'record/validate))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (thread-first (libmedia/async-validate-song-duration
-                                      (map-elt ctx 'new-file)
-                                      (map-elt (seq-first (map-elt ctx 'tracks))
-                                               'duration-ms))
-                                     (promise-then
-                                      (lambda (_)
-                                        (record-loop 'record/valid-track 'record/add-metadata)))
-                                     (promise-catch
-                                      (lambda (reason)
-                                        (map-put! ctx 'invalid-track-p t)
-                                        (let ((new-file (map-elt ctx 'new-file)))
-                                          (with-current-buffer buffer
-                                            (insert (format "[ERROR] Track '%s' is probably incomplete. Reason: '%s'\n"
-                                                            (map-elt (seq-first (map-elt ctx 'tracks)) 'title)
-                                                            (or reason "no further details")))))
-                                        (record-loop 'record/valid-track 'record/add-metadata)))))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/encoded)
+                       (eq event 'record/validate))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (thread-first (lib-media/async-validate-song-duration
+                                       (map-elt ctx 'new-file)
+                                       (map-elt (seq-first (map-elt ctx 'tracks))
+                                                'duration-ms))
+                                      (promise-then
+                                       (lambda (_)
+                                         (record-loop 'record/valid-track 'record/add-metadata)))
+                                      (promise-catch
+                                       (lambda (reason)
+                                         (map-put! ctx 'invalid-track-p t)
+                                         (let ((new-file (map-elt ctx 'new-file)))
+                                           (with-current-buffer buffer
+                                             (insert (format "[ERROR] Track '%s' is probably incomplete. Reason: '%s'\n"
+                                                             (map-elt (seq-first (map-elt ctx 'tracks)) 'title)
+                                                             (or reason "no further details")))))
+                                         (record-loop 'record/valid-track 'record/add-metadata)))))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/valid-track)
-                      (eq event 'record/add-metadata))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (let* ((track (seq-first (map-elt ctx 'tracks)))
-                              (new-file (map-elt ctx 'new-file))
-                              (final-file (if (map-elt ctx 'invalid-track-p)
-                                              (concat (map-elt ctx 'directory)
-                                                      "_REVIEW_/"
-                                                      (lib-spotify/track-file-path track))
-                                            (concat (map-elt ctx 'directory)
-                                                    (lib-spotify/track-file-path track)))))
-                         (libmedia/flac-set-basic-metadata new-file track)
-                         (make-directory (file-name-directory final-file) 'parents)
-                         (rename-file new-file final-file 'overwrite)
-                         (record-loop 'record/track-processed 'record/continue)))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/valid-track)
+                       (eq event 'record/add-metadata))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (let* ((track (seq-first (map-elt ctx 'tracks)))
+                               (new-file (map-elt ctx 'new-file))
+                               (final-file (if (map-elt ctx 'invalid-track-p)
+                                               (concat (map-elt ctx 'directory)
+                                                       "_REVIEW_/"
+                                                       (lib-spotify/track-file-path track))
+                                             (concat (map-elt ctx 'directory)
+                                                     (lib-spotify/track-file-path track)))))
+                          (lib-media/flac-set-basic-metadata new-file track)
+                          (make-directory (file-name-directory final-file) 'parents)
+                          (rename-file new-file final-file 'overwrite)
+                          (record-loop 'record/track-processed 'record/continue)))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((and (eq curr-state 'record/track-processed)
-                      (eq event 'record/continue))
-                 (condition-case err
-                     (with-current-buffer buffer
-                       (when-let ((process (map-elt ctx 'process-monitor-sink)))
-                         (kill-process process))
-                       (delete-file (map-elt ctx 'tmp-file))
-                       (map-put! ctx 'invalid-track-p nil)
-                       (map-put! ctx 'tracks (seq-rest (map-elt ctx 'tracks)))
-                       (record-loop 'record/playlist-fetched 'record/create-pulse-audio-sink))
-                   (error
-                    (map-put! ctx 'error err)
-                    (record-loop curr-state 'record/error))))
+                 ((and (eq curr-state 'record/track-processed)
+                       (eq event 'record/continue))
+                  (condition-case err
+                      (with-current-buffer buffer
+                        (when-let ((process (map-elt ctx 'process-monitor-sink)))
+                          (kill-process process))
+                        (delete-file (map-elt ctx 'tmp-file))
+                        (map-put! ctx 'invalid-track-p nil)
+                        (map-put! ctx 'tracks (seq-rest (map-elt ctx 'tracks)))
+                        (record-loop 'record/playlist-fetched 'record/create-pulse-audio-sink))
+                    (error
+                     (map-put! ctx 'error err)
+                     (record-loop curr-state 'record/error))))
 
-                ((eq curr-state 'record/end)
-                 (with-current-buffer buffer
-                   (insert "Finished processing tracks.\n")
-                   (read-only-mode +1)))
+                 ((eq curr-state 'record/end)
+                  (with-current-buffer buffer
+                    (insert "Finished processing tracks.\n")
+                    (read-only-mode +1)))
 
-                ((eq event 'record/error)
-                 (with-current-buffer buffer
-                   (insert (format "[ERROR] Error recording playlist: '%s'" (map-elt ctx 'error)))
-                   (when-let ((process (map-elt ctx 'process-monitor-sink)))
-                     (kill-process process))
-                   (delete-file (map-elt ctx 'new-file))
-                   (delete-file (map-elt ctx 'tmp-file))
-                   (ignore-errors (lib-spotify/stop))
-                   (record-loop 'record/end nil))))))
+                 ((eq event 'record/error)
+                  (with-current-buffer buffer
+                    (insert (format "[ERROR] Error recording playlist: '%s'" (map-elt ctx 'error)))
+                    (when-let ((process (map-elt ctx 'process-monitor-sink)))
+                      (kill-process process))
+                    (delete-file (map-elt ctx 'new-file))
+                    (delete-file (map-elt ctx 'tmp-file))
+                    (ignore-errors (lib-spotify/stop))
+                    (record-loop 'record/end nil))))))
       #'record-loop)))
 
 ;; (libmedia/pulse-audio-create-sink lib-spotify/record-n-play-sink)

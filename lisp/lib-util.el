@@ -1,5 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
+
+;;; Code:
+
 (require 'benchmark)
+(require 'my-globals)
+(require 'lib-elisp)
 (require 'map)
 
 ;;; Other macros
@@ -61,8 +66,8 @@ code of the process and OUTPUT is its stdout output."
          (process (let ((display-buffer-alist (list (list buffer-name #'display-buffer-no-window))))
                     (async-shell-command command output-buffer)
                     (get-buffer-process output-buffer)))
-         (sentinel `(lambda (process signal)
-                      (when (memq (process-status process) '(exit signal))
+         (sentinel (lambda (process signal)
+                     (when (memq (process-status process) '(exit signal))
                        (shell-command-sentinel process signal)
                        ;; Here you could run arbitrary code when the
                        ;; command is successful.
@@ -84,6 +89,12 @@ code of the process and OUTPUT is its stdout output."
                            alpha-transparency))))
 
 ;;; Utilities
+
+(defun lib-util/native-compile-my-emacs ()
+  (interactive)
+  (native-compile-async (list (file-name-concat user-emacs-directory "core")
+                              (file-name-concat user-emacs-directory "lisp")
+                              (file-name-concat user-emacs-directory "packages"))))
 
 (defun lib-util/increment-integer-at-point ()
   "Increment integer at point.
@@ -148,10 +159,6 @@ Does not understand negative integers."
   "Edit the `user-init-file', in another window."
   (interactive)
   (find-file (concat my/cache-dir "custom.el")))
-
-(defun lib-util/temp-buffer-p (buffer)
-  "Returns non-nil if BUFFER is temporary."
-  (equal (substring (buffer-name buffer) 0 1) " "))
 
 (defun lib-util/advice-once (symbol where function &optional props)
   "Add advice, but remove it after calling FUNCTION.
@@ -786,7 +793,7 @@ https://thoughtspile.github.io/2018/06/20/serialize-promises/"
 
 ;;;###autoload
 (defun lib-util/real-buffer-p (buffer-or-name)
-  "Returns t if BUFFER-OR-NAME is a 'real' buffer.
+  "Returns t if BUFFER-OR-NAME is a real buffer.
 
 Copied from Doom.
 
