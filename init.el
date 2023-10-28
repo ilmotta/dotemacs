@@ -165,8 +165,9 @@
 
 ;;; LSP (Language Server Protocol)
 (lib-util/require
- pkg-eglot
  pkg-dap-mode
+ pkg-eglot
+ pkg-lsp-bridge
  pkg-lsp-java
  pkg-lsp-mode
  pkg-lsp-ui)

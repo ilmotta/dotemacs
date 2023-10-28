@@ -70,6 +70,11 @@ argument."
 
   (when my/evil-p
     (general-def
+      :states 'insert
+      ;; I don't use `evil-insert-digraph'.
+      "C-k" nil)
+
+    (general-def
       :states 'normal
       [remap evil-beginning-of-line] #'lib-util/smart-beginning-of-line
       "C-]" #'evil-goto-definition
