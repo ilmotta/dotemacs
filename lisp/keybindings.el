@@ -52,8 +52,8 @@
   (general-def
     :keymaps 'my/keys-mode-map
     "s-w" #'delete-window
-    "s-L" #'tab-bar-switch-to-next-tab
-    "s-H" #'tab-bar-switch-to-prev-tab))
+    "M-L" #'tab-bar-switch-to-next-tab
+    "M-H" #'tab-bar-switch-to-prev-tab))
 
 ;;; Keybindings for built-in packages
 
