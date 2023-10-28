@@ -34,37 +34,37 @@
 ;;; Code:
 (require 'consult)
 
-(defvar t/-files-history nil)
+(defvar lib-tmsu/-files-history nil)
 
 (defgroup lib-tmsu nil
   "TMSU integration layer."
   :group 'my
-  :prefix "t/")
+  :prefix "lib-tmsu/")
 
-(defcustom t/buffer "*tmsu*"
+(defcustom lib-tmsu/buffer "*tmsu*"
   "Name of the buffer to append tmsu output."
   :type 'string)
 
-(defcustom t/database-dir
+(defcustom lib-tmsu/database-dir
   (file-truename "~")
   "Directory where the TMSU database is stored."
   :type 'string)
 
 ;;;###autoload
-(defun t/init ()
+(defun lib-tmsu/init ()
   (interactive)
-  (let ((default-directory t/database-dir))
-    (start-process-shell-command "tmsu" t/buffer "tmsu init")))
+  (let ((default-directory lib-tmsu/database-dir))
+    (start-process-shell-command "tmsu" lib-tmsu/buffer "tmsu init")))
 
 ;;;###autoload
-(defun t/files ()
+(defun lib-tmsu/files ()
   (interactive)
   (let ((initial "")
         (cmd "tmsu files ARG OPTS"))
     (consult--read
      (consult--async-command cmd)
      :prompt "Query: "
-     :history '(:input t/-files-history)
+     :history '(:input lib-tmsu/-files-history)
      :state (lambda (cand _restore)
               (find-file cand))
      :initial (concat consult-async-default-split initial)
@@ -73,7 +73,3 @@
      :sort nil)))
 
 (provide 'lib-tmsu)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("t/" . "lib-tmsu/"))
-;; End:

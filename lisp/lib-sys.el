@@ -4,27 +4,27 @@
 
 ;;; Variables
 
-(defgroup lib-system nil
+(defgroup lib-sys nil
   "Manage OS preferences, display settings, etc."
   :group 'my
-  :prefix "lib-system/")
+  :prefix "lib-sys/")
 
-(defcustom lib/brightness-debounce-threshold-ms
+(defcustom lib-sys/brightness-debounce-threshold-ms
   1000
   "Debounce threshold in milliseconds."
   :type 'integer)
 
-(defvar lib/raise-brightness-debounced
-  (setf (symbol-function 'lib/raise-brightness-debounced)
-        (lib-util/debounce-promise lib/brightness-debounce-threshold-ms #'lib/-raise-brightness)))
+(defvar lib-sys/raise-brightness-debounced
+  (setf (symbol-function 'lib-sys/raise-brightness-debounced)
+        (lib-util/debounce-promise lib-sys/brightness-debounce-threshold-ms #'lib-sys/-raise-brightness)))
 
-(defvar lib/lower-brightness-debounced
-  (setf (symbol-function 'lib/lower-brightness-debounced)
-        (lib-util/debounce-promise lib/brightness-debounce-threshold-ms #'lib/-lower-brightness)))
+(defvar lib-sys/lower-brightness-debounced
+  (setf (symbol-function 'lib-sys/lower-brightness-debounced)
+        (lib-util/debounce-promise lib-sys/brightness-debounce-threshold-ms #'lib-sys/-lower-brightness)))
 
 ;;; Private
 
-(defun lib/-round-nearest (n multiple)
+(defun lib-sys/-round-nearest (n multiple)
   "Round N to the nearest integer multiple of MULTIPLE."
   (let ((n2 (round (* 100 n))))
     (cond ((zerop (% n2 multiple))
@@ -32,9 +32,9 @@
           (t (/ (* multiple (round n2 multiple))
                 100.0)))))
 
-(defun lib/-ddcutil-get-brightness ()
+(defun lib-sys/-ddcutil-get-brightness ()
   (thread-first
-    (lib-system/promise-start-process-shell-command "ddcutil getvcp 10")
+    (lib-sys/promise-start-process-shell-command "ddcutil getvcp 10")
     (promise-then (lambda (out)
                     (string-match (rx "current value = " (one-or-more whitespace)
                                       (group (one-or-more digit))
@@ -42,58 +42,58 @@
                                   out)
                     (string-to-number (match-string 1 out))))))
 
-(defun lib/-ddcutil-set-brightness (value)
+(defun lib-sys/-ddcutil-set-brightness (value)
   (let ((cmd (format "ddcutil setvcp --verify 10 %s" value)))
-    (lib-system/promise-start-process-shell-command cmd)))
+    (lib-sys/promise-start-process-shell-command cmd)))
 
-(defun lib/-ddcutil-message-brightness (value)
+(defun lib-sys/-ddcutil-message-brightness (value)
   (message "Brightness: %s" (propertize (format "%s" value) 'face 'compilation-info)))
 
-(defun lib/-raise-brightness (amount)
-  (thread-first (lib/-ddcutil-get-brightness)
+(defun lib-sys/-raise-brightness (amount)
+  (thread-first (lib-sys/-ddcutil-get-brightness)
                 (promise-then (lambda (brightness)
                                 (let ((new-value (min 100 (+ amount brightness))))
                                   (message "%s value" new-value)
-                                  (lib/-ddcutil-set-brightness new-value)
+                                  (lib-sys/-ddcutil-set-brightness new-value)
                                   new-value)))
                 (promise-then (lambda (new-value)
-                                (lib/-ddcutil-message-brightness new-value)))
+                                (lib-sys/-ddcutil-message-brightness new-value)))
                 (promise-catch #'lib-util/message-error)))
 
-(defun lib/-lower-brightness (amount)
-  (thread-first (lib/-ddcutil-get-brightness)
+(defun lib-sys/-lower-brightness (amount)
+  (thread-first (lib-sys/-ddcutil-get-brightness)
                 (promise-then (lambda (brightness)
                                 (let ((new-value (max 1 (- brightness amount))))
-                                  (lib/-ddcutil-set-brightness new-value)
+                                  (lib-sys/-ddcutil-set-brightness new-value)
                                   new-value)))
                 (promise-then (lambda (new-value)
-                                (lib/-ddcutil-message-brightness new-value)))
+                                (lib-sys/-ddcutil-message-brightness new-value)))
                 (promise-catch #'lib-util/message-error)))
 
-(defun lib/-lower-brightness-20 ()
+(defun lib-sys/-lower-brightness-20 ()
   (interactive)
-  (lib/lower-brightness-debounced 20))
+  (lib-sys/lower-brightness-debounced 20))
 
-(defun lib/-lower-brightness-10 ()
+(defun lib-sys/-lower-brightness-10 ()
   (interactive)
-  (lib/lower-brightness-debounced 10))
+  (lib-sys/lower-brightness-debounced 10))
 
-(defun lib/-raise-brightness-20 ()
+(defun lib-sys/-raise-brightness-20 ()
   (interactive)
-  (lib/raise-brightness-debounced 20))
+  (lib-sys/raise-brightness-debounced 20))
 
-(defun lib/-raise-brightness-10 ()
+(defun lib-sys/-raise-brightness-10 ()
   (interactive)
-  (lib/raise-brightness-debounced 10))
+  (lib-sys/raise-brightness-debounced 10))
 
-(defun lib/-remove-trailing-newlines (s)
+(defun lib-sys/-remove-trailing-newlines (s)
   (replace-regexp-in-string "\n+\\'" "" s))
 
-(defun lib/-shell-command-to-string (cmd)
+(defun lib-sys/-shell-command-to-string (cmd)
   (replace-regexp-in-string "\n\\'" ""
                             (shell-command-to-string cmd)))
 
-(defun lib/-start-process-shell-command-async (cmd on-success on-failure)
+(defun lib-sys/-start-process-shell-command-async (cmd on-success on-failure)
   "Run CMD in a subprocess. Returns the process instance."
   (with-temp-buffer
     (let* ((name (car (split-string cmd)))
@@ -109,52 +109,52 @@
                                   (when on-failure
                                     (funcall on-failure output)))))))))
 
-(defun lib/-get-monitor-name ()
+(defun lib-sys/-get-monitor-name ()
   "Get the connected monitor name."
-  (lib/-shell-command-to-string "xrandr | grep ' connected' | cut -f1 -d ' '"))
+  (lib-sys/-shell-command-to-string "xrandr | grep ' connected' | cut -f1 -d ' '"))
 
 ;;; Public
 
 ;;;; Processes
 
-(defun lib/set-no-process-query-on-exit ()
+(defun lib-sys/set-no-process-query-on-exit ()
   "Don't ask for confirmation to exit the process' buffer."
   (let ((proc (get-buffer-process (current-buffer))))
     (when (processp proc)
       (set-process-query-on-exit-flag proc nil))))
 
-(defun lib/promise-start-process-shell-command (cmd)
+(defun lib-sys/promise-start-process-shell-command (cmd)
   "Run CMD in a subprocess. Returns a promise resolving to the command output."
   (promise-new (lambda (resolve reject)
-                 (lib/-start-process-shell-command-async cmd
+                 (lib-sys/-start-process-shell-command-async cmd
                                                          (lambda (out)
                                                            (funcall resolve out))
                                                          (lambda (err)
                                                            (funcall reject err))))))
 
 ;;;###autoload
-(defun lib/pidof (process-name)
+(defun lib-sys/pidof (process-name)
   "When called interactively, show a message with the PID of
 PROCESS-NAME. When called non-interactively, return a promise
 that resolves to the PID string."
   (interactive "sProcess name: ")
   (let ((called-interactively-p (called-interactively-p 'interactive)))
-    (thread-first (lib/promise-start-process-shell-command (format "pidof '%s'" process-name))
-                  (promise-then #'lib/-remove-trailing-newlines)
+    (thread-first (lib-sys/promise-start-process-shell-command (format "pidof '%s'" process-name))
+                  (promise-then #'lib-sys/-remove-trailing-newlines)
                   (promise-then (lambda (pid)
                                   (if called-interactively-p
                                       (message "PID for '%s': %s" process-name pid)
                                     pid))))))
 
 ;;;###autoload
-(defun lib/process-limits (process-name)
+(defun lib-sys/process-limits (process-name)
   (interactive "sProcess name: ")
-  (thread-first (lib/pidof process-name)
+  (thread-first (lib-sys/pidof process-name)
                 (promise-catch (lambda (_err)
                                  (message "Could not find PID of '%s'" process-name)))
                 (promise-then (lambda (pid)
-                                (lib/promise-start-process-shell-command (format "cat /proc/%s/limits" pid))))
-                (promise-then #'lib/-remove-trailing-newlines)
+                                (lib-sys/promise-start-process-shell-command (format "cat /proc/%s/limits" pid))))
+                (promise-then #'lib-sys/-remove-trailing-newlines)
                 (promise-then (lambda (out)
                                 (let* ((data (thread-last (split-string out "\n" 'omit-nulls)
                                                           (seq-map (lambda (line)
@@ -174,19 +174,19 @@ that resolves to the PID string."
 ;;;; Display
 
 ;;;###autoload
-(defun lib/configure-ultrawide-monitor ()
+(defun lib-sys/configure-ultrawide-monitor ()
   (interactive)
   (let* ((width 2560)
          (height 1080)
          (refresh-rate "60.00")
          (device-name "HDMI-1") ; You may need to change it to HDMI1
-         (connected-p (equal "connected" (lib/-shell-command-to-string (format "xrandr --current | grep -i %s | cut -f2 -d' '"
+         (connected-p (equal "connected" (lib-sys/-shell-command-to-string (format "xrandr --current | grep -i %s | cut -f2 -d' '"
                                                                                device-name)))))
     (if connected-p
         (progn
-          (let* ((modeline (lib/-shell-command-to-string (format "cvt %s %s %s | cut -f2 -d$'\n'" width height refresh-rate)))
-                 (modedata (lib/-shell-command-to-string (format "echo %s | cut -f 3- -d' '" modeline)))
-                 (modename (lib/-shell-command-to-string (format "echo %s | cut -f2 -d' '" modedata))))
+          (let* ((modeline (lib-sys/-shell-command-to-string (format "cvt %s %s %s | cut -f2 -d$'\n'" width height refresh-rate)))
+                 (modedata (lib-sys/-shell-command-to-string (format "echo %s | cut -f 3- -d' '" modeline)))
+                 (modename (lib-sys/-shell-command-to-string (format "echo %s | cut -f2 -d' '" modedata))))
             (message "Using MODELINE='%s'" modeline)
             (message "Using MODENAME='%s'" modename)
             (message "Using MODEDATA='%s'" modedata)
@@ -196,19 +196,19 @@ that resolves to the PID string."
       (message "Error: Could not detect monitor"))))
 
 ;;;###autoload
-(transient-define-prefix lib/main-t ()
+(transient-define-prefix lib-sys/main-t ()
   "System controllers."
   :transient-non-suffix #'transient--do-quit-one
   [["Brightness"
-    ("j" "↓20" lib/-lower-brightness-20 :transient t)
-    ("k" "↑20" lib/-raise-brightness-20 :transient t)
-    ("J" "↓10" lib/-lower-brightness-10 :transient t)
-    ("K" "↑10" lib/-raise-brightness-10 :transient t)]])
+    ("j" "↓20" lib-sys/-lower-brightness-20 :transient t)
+    ("k" "↑20" lib-sys/-raise-brightness-20 :transient t)
+    ("J" "↓10" lib-sys/-lower-brightness-10 :transient t)
+    ("K" "↑10" lib-sys/-raise-brightness-10 :transient t)]])
 
 ;;;; Misc
 
 ;;;###autoload
-(defun lib/serve-dir (directory)
+(defun lib-sys/serve-dir (directory)
   "Serve all files in DIRECTORY."
   (interactive "DDirectory: ")
   (start-process-shell-command
@@ -220,7 +220,7 @@ that resolves to the PID string."
 ;;;; Nix
 
 (defhof
- lib/--nix-packages
+ lib-sys/--nix-packages
  (lib-util/memoize-ttl
   :ttl-ms (* 8 1000 3600)
   :f (lambda ()
@@ -233,26 +233,22 @@ that resolves to the PID string."
            pkgs)))))
 
 ;;;###autoload
-(defun lib/nix-packages ()
+(defun lib-sys/nix-packages ()
   "List all known Nix packages."
   (interactive)
   (with-temp-buffer
-    (let* ((pkgs (lib/--nix-packages))
+    (let* ((pkgs (lib-sys/--nix-packages))
            (pkg (completing-read "Nix pkgs: " pkgs nil t)))
       pkg)))
 
 ;;;; File system
 
 ;;;###autoload
-(defun lib/resize-tmp (size)
+(defun lib-sys/resize-tmp (size)
   (interactive "nNew size in GB: ")
   (with-temp-buffer
     (cd "/sudo::")
     (call-process-shell-command (format "mount -o remount,size=%dG /tmp/" size))
     (message "Resized /tmp to %dGB." size)))
 
-(provide 'lib-system)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("lib/" . "lib-system/"))
-;; End:
+(provide 'lib-sys)

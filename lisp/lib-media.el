@@ -5,13 +5,13 @@
 (defgroup lib-media nil
   "Audio and video utility functions."
   :group 'my
-  :prefix "lib/")
+  :prefix "lib-media/")
 
-(defcustom lib/valid-song-duration-threshold 5000
+(defcustom lib-media/valid-song-duration-threshold 5000
   "Duration threshold in ms to consider a recording valid."
   :type 'integer)
 
-(defcustom lib/extensions
+(defcustom lib-media/extensions
   '(".flac"
     ".mkv"
     ".mp3"
@@ -22,7 +22,7 @@
   "Recognizable media file extensions."
   :type 'list)
 
-(defcustom lib/metadata-regex
+(defcustom lib-media/metadata-regex
   (rx line-start
       (one-or-more not-newline)
       "/" (group (one-or-more not-newline))   ; Artist
@@ -31,22 +31,22 @@
       "/" (group (= 1 digit))                 ; Disc number
       ":" (group (= 2 digit))                 ; Track number
       " - " (group (one-or-more not-newline)) ; Title
-      (regex (string-join lib/extensions "\\|"))
+      (regex (string-join lib-media/extensions "\\|"))
       line-end)
   "Pattern used to extract metadata from absolute file paths."
   :type 'string)
 
-(defcustom lib/flac-metaflac-buffer
+(defcustom lib-media/flac-metaflac-buffer
   "*metaflac-basic-metadata*"
   "Buffer to insert output from metaflac calls."
   :type 'string)
 
-(defcustom lib/flac-conversion-buffer
+(defcustom lib-media/flac-conversion-buffer
   "*extract-flac*"
   "Buffer to write output from ffmpeg FLAC extraction."
   :type 'string)
 
-(defcustom lib/flac-cmd-ffmpeg-extract
+(defcustom lib-media/flac-cmd-ffmpeg-extract
   "ffmpeg -y -loglevel repeat+level+warning -i '%s' -vn -codec:a flac '%s'"
   "Command used to extract audio into a new FLAC file.
 
@@ -54,7 +54,7 @@ It should have two string template slots, in order: input
 file, output file."
   :type 'string)
 
-(defcustom lib/flac-cmd-ffmpeg-slice
+(defcustom lib-media/flac-cmd-ffmpeg-slice
   (concat "ffmpeg -y -loglevel repeat+level+warning "
           "-i '%s' " ; Input file.
           "-ss %s "  ; Beginning of slice.
@@ -68,7 +68,7 @@ and '-to' options expect a time duration, for example as
 'HH:MM:SS'. See the ffmpeg-utils manual for more details."
   :type 'string)
 
-(defcustom lib/flac-cmd-write-from-stream
+(defcustom lib-media/flac-cmd-write-from-stream
   (concat "flac --verify "
           "--compression-level-5 "
           "--endian=little "
@@ -81,22 +81,22 @@ and '-to' options expect a time duration, for example as
   "Command used to encode PulseAudio Recorder (parec) stream."
   :type 'string)
 
-(defcustom lib/flac-recognizable-input-extensions
+(defcustom lib-media/flac-recognizable-input-extensions
   (rx line-start
       (one-or-more not-newline)
-      (regex (string-join lib/extensions "\\|"))
+      (regex (string-join lib-media/extensions "\\|"))
       line-end)
   "Recognizable input file extensions when converting to FLAC."
   :type 'string)
 
-(defun lib/pulse-audio-current-sink ()
+(defun lib-media/pulse-audio-current-sink ()
   "Return current PulseAudio sink name or nil if it fails."
   (let* ((cmd (concat "pacmd list-sinks"
                       "| grep -A1 '* index'"
                       "| grep -oP '<\\K[^ >]+'")))
     (s-presence (s-trim (shell-command-to-string cmd)))))
 
-(defun lib/pulse-audio-sink-exists-p (sink-name)
+(defun lib-media/pulse-audio-sink-exists-p (sink-name)
   "Return t when PulseAudio SINK-NAME already exists."
   (let ((cmd (concat "pacmd list-sinks"
                      (format "| grep 'name: <%s>'" sink-name)
@@ -104,7 +104,7 @@ and '-to' options expect a time duration, for example as
     (equal sink-name (s-trim (shell-command-to-string cmd)))))
 
 ;;;###autoload
-(defun lib/pulse-audio-create-sink (sink-name)
+(defun lib-media/pulse-audio-create-sink (sink-name)
   "Create sink SINK-NAME if it does not exist.
 
 The new sink is not persisted and if you terminate the PulseAudio
@@ -112,23 +112,23 @@ server you'll need to call this function again, for example when
 you restart or call 'pactl exit'.
 
 Returns the process."
-  (unless (lib/pulse-audio-sink-exists-p sink-name)
+  (unless (lib-media/pulse-audio-sink-exists-p sink-name)
     (let ((cmd (concat "pactl load-module "
                        "module-combine-sink "
                        (format "sink_name='%s' " sink-name)
-                       (format "slaves='%s' " (lib/pulse-audio-current-sink))
+                       (format "slaves='%s' " (lib-media/pulse-audio-current-sink))
                        (format "sink_properties=device.description='%s'" sink-name))))
       (start-process-shell-command "pactl" nil cmd))))
 
-(defun lib/timestamp->seconds (timestamp)
+(defun lib-media/timestamp->seconds (timestamp)
   "Convert HH:MM:SS timestamp to seconds number."
   (seq-let (h min s) (seq-map #'string-to-number (s-split ":" timestamp))
     (+ (* h 3600) (* 60 min) s)))
 
-(defun lib/infer-basic-metadata (file)
+(defun lib-media/infer-basic-metadata (file)
   "Infer metadata from file pattern `--media-metadata-regex'."
   (let ((file (file-truename file)))
-    (when (string-match lib/metadata-regex file)
+    (when (string-match lib-media/metadata-regex file)
       `((artist . ,(string-trim (match-string 1 file)))
         (album . ,(string-trim (match-string 2 file)))
         (release-year . ,(match-string 3 file))
@@ -136,16 +136,16 @@ Returns the process."
         (track . ,(match-string 5 file))
         (title . ,(file-name-base (string-trim (match-string 6 file))))))))
 
-(defun lib/fd-extensions ()
+(defun lib-media/fd-extensions ()
   "Return valid file extensions for the fd program."
-  (->> lib/extensions
+  (->> lib-media/extensions
        (-map (lambda (ext) (format "--extension '%s'" ext) ))
        (s-join " ")))
 
-(defun lib/directory-find (dir)
+(defun lib-media/directory-find (dir)
   "Return all recognizable media files in DIR."
   (cl-assert (executable-find "fd"))
-  (let* ((cmd (format "fd --follow --ignore-case --type f %s" (lib/fd-extensions))))
+  (let* ((cmd (format "fd --follow --ignore-case --type f %s" (lib-media/fd-extensions))))
     (with-temp-buffer
       (let ((default-directory (file-name-as-directory (file-truename dir))))
         (call-process-shell-command cmd nil (current-buffer))
@@ -153,7 +153,7 @@ Returns the process."
              (-filter #'s-present-p)
              (-map (lambda (file) (file-truename file))))))))
 
-(defun lib/async-validate-song-duration (file expected-duration-ms)
+(defun lib-media/async-validate-song-duration (file expected-duration-ms)
   "Async verify FILE is within +-2ms of EXPECTED-DURATION-MS."
   (let* ((file (file-truename file))
          (cmd (format "soxi -D '%s'" (lib-util/shell-escape-single-quote file))))
@@ -164,11 +164,11 @@ Returns the process."
                                      (let ((actual-duration-ms (* 1000 (string-to-number output))))
                                        (message "File '%s' has a duration of %sms." file actual-duration-ms)
                                        (if (< (abs (- actual-duration-ms expected-duration-ms))
-                                              lib/valid-song-duration-threshold)
+                                              lib-media/valid-song-duration-threshold)
                                            (funcall resolve t)
                                          (funcall reject nil))))))))))
 
-(defun lib/flac-set-basic-metadata (file tags)
+(defun lib-media/flac-set-basic-metadata (file tags)
   "Remove existing tags from FILE and set new ones using TAGS.
 
 TAGS should be an alist with 'title', 'artist' and 'album' keys.
@@ -190,10 +190,10 @@ The command's result is inserted in the
                          (format "--set-tag='DISCNUMBER=%s' "
                                  (map-elt tags 'disc))
                          (format "'%s'" (lib-util/shell-escape-single-quote file)))))
-        (call-process-shell-command cmd nil lib/flac-metaflac-buffer)))))
+        (call-process-shell-command cmd nil lib-media/flac-metaflac-buffer)))))
 
 ;;;###autoload
-(defun lib/flac-extract-audio (input)
+(defun lib-media/flac-extract-audio (input)
   "Extract audio from INPUT and convert it to FLAC.
 
 INPUT can be a file or directory. In the case of a directory,
@@ -201,12 +201,12 @@ files that match a regex will be created in the same directory
 and with the same name, but with the .flac extension."
   (interactive "fConvert file or directory to FLAC: ")
   (let* ((input (file-truename input))
-         (buffer (generate-new-buffer-name lib/flac-conversion-buffer))
+         (buffer (generate-new-buffer-name lib-media/flac-conversion-buffer))
          (files (if (file-directory-p input) (directory-files input) (list input))))
     (thread-last files
                  (seq-filter
                   (lambda (f)
-                    (string-match-p lib/flac-recognizable-input-extensions f)))
+                    (string-match-p lib-media/flac-recognizable-input-extensions f)))
                  (seq-map
                   (lambda (f)
                     (list (lib-util/shell-escape-single-quote (concat (file-name-directory input) f))
@@ -216,10 +216,10 @@ and with the same name, but with the .flac extension."
                  (seq-do
                   (pcase-lambda (`((,input ,output)))
                       (call-process-shell-command
-                       (format lib/flac-cmd-ffmpeg-extract input output) nil buffer))))))
+                       (format lib-media/flac-cmd-ffmpeg-extract input output) nil buffer))))))
 
 ;;;###autoload
-(defun lib/flac-set-basic-metadata-recursively (dir)
+(defun lib-media/flac-set-basic-metadata-recursively (dir)
   "Recursively add basic tags inferred from DIR path.
 
 Every file should follow the pattern:
@@ -233,11 +233,11 @@ tags will be removed."
   (interactive "DDirectory: ")
   (cl-assert (and dir (file-exists-p dir )))
   (cl-assert (executable-find "metaflac"))
-  (seq-doseq (file (lib/directory-find dir))
-    (lib/flac-set-basic-metadata file (lib/infer-basic-metadata file))))
+  (seq-doseq (file (lib-media/directory-find dir))
+    (lib-media/flac-set-basic-metadata file (lib-media/infer-basic-metadata file))))
 
 ;;;###autoload
-(defun lib/flac-slice (input tracks)
+(defun lib-media/flac-slice (input tracks)
   "Extract audio files from INPUT specified by TRACKS.
 
 Each track in TRACKS must have a 'beg-ms' element that has the
@@ -258,7 +258,7 @@ i.e. considering all previous tracks."
                                (map-elt track 'disc)
                                (map-elt track 'track)
                                (map-elt track 'title)))
-             (cmd (format lib/flac-cmd-ffmpeg-slice
+             (cmd (format lib-media/flac-cmd-ffmpeg-slice
                           input
                           (map-elt track 'beg)
                           (map-elt track 'end)
@@ -267,7 +267,7 @@ i.e. considering all previous tracks."
         (call-process-shell-command cmd nil buffer)))))
 
 ;;;###autoload
-(defun lib/flac-monitor-pulse-audio-sink (file sink-name)
+(defun lib-media/flac-monitor-pulse-audio-sink (file sink-name)
   "Monitor PulseAudio sink SINK-NAME output in FLAC FILE.
 
 Before you can successfully record audio, remember to open the
@@ -282,15 +282,15 @@ monitor the sink output anymore, for example by using the
          (dir (file-name-directory file)))
     (cl-assert (file-exists-p dir) nil
                (format "Directory '%s' does not exist" dir))
-    (when (lib/pulse-audio-sink-exists-p sink-name)
+    (when (lib-media/pulse-audio-sink-exists-p sink-name)
       (let ((cmd (concat "parec --format=s16le "
                          (format "--device='%s.monitor' | " sink-name)
-                         (format lib/flac-cmd-write-from-stream
+                         (format lib-media/flac-cmd-write-from-stream
                                  (lib-util/shell-escape-single-quote file)))))
         (start-process-shell-command "record-n-play" nil cmd)))))
 
 ;;;###autoload
-(defun lib/generate-video-thumbnail (input)
+(defun lib-media/generate-video-thumbnail (input)
   "Create thumbnail from INPUT video file."
   (interactive "fInput video file: ")
   (cl-assert (file-exists-p input))
@@ -301,7 +301,7 @@ monitor the sink output anymore, for example by using the
          (cmd (format "ffmpeg -y -ss 00:00:10.000 -i '%s' -vframes 1 -q:v 2 '%s'" input output)))
     (start-process-shell-command "generate-thumbnail" nil cmd)))
 
-(defconst lib/ffmpeg-video-resolutions
+(defconst lib-media/ffmpeg-video-resolutions
   '("960x720        (4:3)  Standard HD"
     "1280x720      (16:9)  Standard HD"
     "1920x1080     (16:9)  Full HD"
@@ -316,22 +316,22 @@ monitor the sink output anymore, for example by using the
     "4096x3072      (4:3)  4K"
     "4096x2160  (256:135)  4K - DCI Full Frame"))
 
-(defconst lib/ffmpeg-codecs
+(defconst lib-media/ffmpeg-codecs
   '(("x265" . "libx265 -x265-params lossless=1 -preset medium")
     ("ProRes" . "prores -profile:v 3 -preset medium")))
 
 ;;;###autoload
-(defun lib/ffmpeg-make-timelapse (sequence-dir framerate out-resolution codec out &optional overwrite)
+(defun lib-media/ffmpeg-make-timelapse (sequence-dir framerate out-resolution codec out &optional overwrite)
   (interactive
    (list (read-directory-name "Sequence directory (*.JPG): " default-directory nil 'must-match)
          (read-number "Framerate: " 24)
-         (completing-read "Output resolution: " lib/ffmpeg-video-resolutions)
-         (completing-read "Codec: " lib/ffmpeg-codecs)
+         (completing-read "Output resolution: " lib-media/ffmpeg-video-resolutions)
+         (completing-read "Codec: " lib-media/ffmpeg-codecs)
          (read-file-name "Timelapse output file: " default-directory)))
   (let* ((sequence-dir (file-name-as-directory (file-truename sequence-dir)))
          (out (file-truename out))
          (out-resolution (car (split-string out-resolution " " 'omit-nulls)))
-         (codec (cdr (assoc codec lib/ffmpeg-codecs #'equal)))
+         (codec (cdr (assoc codec lib-media/ffmpeg-codecs #'equal)))
          (buffer (get-buffer-create "*ffmpeg*"))
          ;; I couldn't get ffmpeg to understand a case insensitive glob pattern,
          ;; thus the code should find the first file with a known extension and
@@ -355,7 +355,7 @@ monitor the sink output anymore, for example by using the
     (display-buffer buffer)))
 
 ;;;###autoload
-(defun lib/crunchyroll-download (url out-filename)
+(defun lib-media/crunchyroll-download (url out-filename)
   "Download Crunchyroll episode URL to OUT-FILENAME."
   (interactive "sURL: \nFOutput: ")
   (let* ((username "icaro.ldm@gmail.com")
@@ -377,7 +377,7 @@ monitor the sink output anymore, for example by using the
       (start-process-shell-command "crunchyroll" (current-buffer) cmd))))
 
 ;;;###autoload
-(defun lib/generate-proxies-from-darktable (dir)
+(defun lib-media/generate-proxies-from-darktable (dir)
   (interactive "DDirectory: ")
   (let* ((files (directory-files-recursively dir (rx (or ".jpg" ".JPG") line-end)))
          (buf (get-buffer-create "*darktable-proxies*"))
@@ -414,27 +414,27 @@ monitor the sink output anymore, for example by using the
 
 ;;; YouTube
 
-(defcustom lib/youtube-cookie-path
+(defcustom lib-media/youtube-cookie-path
   "~/.config/youtube-dl/cookies.txt"
   "Path to YouTube cookies in Netscape format."
   :type 'string)
 
-(defcustom lib/youtube-default-video-directory
+(defcustom lib-media/youtube-default-video-directory
   (file-name-directory (file-truename "~/Videos/"))
   "Default directory to store videos."
   :type 'string)
 
-(defcustom lib/youtube-default-video-name
+(defcustom lib-media/youtube-default-video-name
   "%(title)s.%(ext)s"
   "Default video name."
   :type 'string)
 
 ;;;###autoload
-(defun lib/youtube-download-audio (url output)
+(defun lib-media/youtube-download-audio (url output)
   (interactive "sURL: \nFOutput path (*.flac): ")
-  (cl-assert (file-exists-p (file-truename lib/youtube-cookie-path))
+  (cl-assert (file-exists-p (file-truename lib-media/youtube-cookie-path))
              nil "YouTube cookies file not found")
-  (thread-first (lib-system/promise-start-process-shell-command
+  (thread-first (lib-sys/promise-start-process-shell-command
                  (string-join (list "yt-dlp"
                                     "--ignore-config"
                                     "--no-continue"
@@ -447,7 +447,7 @@ monitor the sink output anymore, for example by using the
                                     "--audio-format" "flac"
                                     "--audio-quality" "0" ; Best (default is 5)
                                     "--limit-rate" "3.75M"
-                                    (format "--cookies '%s'" (file-truename lib/youtube-cookie-path))
+                                    (format "--cookies '%s'" (file-truename lib-media/youtube-cookie-path))
                                     (format "-o '%s'" output)
                                     (format "'%s'" url))
                               " "))
@@ -456,7 +456,7 @@ monitor the sink output anymore, for example by using the
                 (promise-catch (lambda (err)
                                  (message "Failed to extract YouTube audio: '%s'" err)))))
 
-(defun lib/youtube-url-from-clipboard ()
+(defun lib-media/youtube-url-from-clipboard ()
   "Returns URL from system clipboard if it's a YouTube host,
 otherwise nil."
   (let* ((maybe-url (substring-no-properties (gui-get-selection)))
@@ -466,25 +466,25 @@ otherwise nil."
       maybe-url)))
 
 ;;;###autoload
-(defun lib/youtube-download-video (url &optional output)
-  (interactive (list (read-string "URL: " (lib/youtube-url-from-clipboard)
+(defun lib-media/youtube-download-video (url &optional output)
+  (interactive (list (read-string "URL: " (lib-media/youtube-url-from-clipboard)
                                   nil nil nil)
                      (read-file-name "Output: "
-                                     lib/youtube-default-video-directory
-                                     lib/youtube-default-video-name
+                                     lib-media/youtube-default-video-directory
+                                     lib-media/youtube-default-video-name
                                      nil nil nil)))
   (let ((output (cond ((or (not output) (string-blank-p output))
-                       (concat lib/youtube-default-video-directory
-                               lib/youtube-default-video-name))
+                       (concat lib-media/youtube-default-video-directory
+                               lib-media/youtube-default-video-name))
                       ((file-name-directory output)
                        (file-truename output))
-                      (t (concat lib/youtube-default-video-directory
+                      (t (concat lib-media/youtube-default-video-directory
                                  output)))))
     (cl-assert (thread-first output file-name-directory file-directory-p)
                nil "Error: directory '%s' does not exist" (file-name-directory output))
-    (cl-assert (file-exists-p (file-truename lib/youtube-cookie-path))
+    (cl-assert (file-exists-p (file-truename lib-media/youtube-cookie-path))
                nil "YouTube cookies file not found")
-    (thread-first (lib-system/promise-start-process-shell-command
+    (thread-first (lib-sys/promise-start-process-shell-command
                    (string-join (list "yt-dlp"
                                       "--ignore-config"
                                       "--no-continue"
@@ -495,8 +495,8 @@ otherwise nil."
                                       "--restrict-filenames"
                                       "--remux-video" "mp4"
                                       "--merge-output-format" "mp4"
-                                      "-f" "bestvideo+bestaudio" ; See https://askubuntu.colib/questions/486297/how-to-select-video-quality-from-youtube-dl
-                                      (format "--cookies '%s'" (file-truename lib/youtube-cookie-path))
+                                      "-f" "bestvideo+bestaudio" ; See https://askubuntu.colib-media/questions/486297/how-to-select-video-quality-from-youtube-dl
+                                      (format "--cookies '%s'" (file-truename lib-media/youtube-cookie-path))
                                       (format "-o '%s'" output)
                                       (format "'%s'" url))
                                 " "))
@@ -507,24 +507,24 @@ otherwise nil."
 
 ;;; Text-to-speech
 
-(defvar lib/google-tts-supported-languages nil
+(defvar lib-media/google-tts-supported-languages nil
   "Cached alist of all supported IETF language tags reported by
 gtts-cli.")
 
-(defvar lib/google-tts-history nil
+(defvar lib-media/google-tts-history nil
   "Command history to choose IETF language tags.")
 
 (defun lib-media/google-tts-get-supported-languages ()
-  (or lib/google-tts-supported-languages
+  (or lib-media/google-tts-supported-languages
       (let* ((output (lib-util/call-process "gtts-cli --all"))
              (languages (thread-last (split-string (cdr output) "\n")
                                      (seq-map (lambda (s) (reverse (split-string s ":"))))
                                      (seq-map (lambda (e) (seq-map #'string-trim e)))
                                      (seq-sort-by #'car #'string-lessp))))
-        (setq lib/google-tts-supported-languages languages)
+        (setq lib-media/google-tts-supported-languages languages)
         languages)))
 
-(defun lib/google-tts-read-string (s language-tag speed)
+(defun lib-media/google-tts-read-string (s language-tag speed)
   (cl-assert (not (string-blank-p s)) nil "Empty input")
   (let ((cmd (string-join (list "gtts-cli"
                                 (format "--lang %s" language-tag)
@@ -540,37 +540,37 @@ gtts-cli.")
       (message "Google TTS command: '%s'" cmd)
       (start-process-shell-command "google-tts" nil cmd))))
 
-(defun lib/google-tts-preprocess (region)
+(defun lib-media/google-tts-preprocess (region)
   (with-temp-buffer
     (insert region)
     (lib-util/unfill-dwim (point-min) (point-max))
     (buffer-string)))
 
-(defun lib/google-tts-choose-language ()
+(defun lib-media/google-tts-choose-language ()
   (interactive)
-  (let* ((languages (lib/google-tts-get-supported-languages))
-         (key (completing-read "Language: " languages nil t nil 'lib/google-tts-history))
+  (let* ((languages (lib-media/google-tts-get-supported-languages))
+         (key (completing-read "Language: " languages nil t nil 'lib-media/google-tts-history))
          (value (car (map-elt languages key))))
     (list key value)))
 
 ;;;###autoload
-(defun lib/google-tts-read-region (&optional speed delay)
+(defun lib-media/google-tts-read-region (&optional speed delay)
   "Read active region using Google Translate text-to-speech API.
 See `lib-media/google-tts-dictate-region' for more details about
 SPEED and DELAY."
   (interactive)
   (cl-assert (use-region-p) nil "No region selected")
-  (pcase-let ((`(_ ,language-tag) (lib/google-tts-choose-language))
+  (pcase-let ((`(_ ,language-tag) (lib-media/google-tts-choose-language))
               (delay (or delay 0))
               (region  (buffer-substring-no-properties (region-beginning) (region-end))))
     (run-with-timer delay nil (lambda ()
                                 (message "after %s" (buffer-substring-no-properties (region-beginning) (region-end)))
                                 (thread-first
-                                  (lib/google-tts-preprocess region)
-                                  (lib/google-tts-read-string language-tag speed))))))
+                                  (lib-media/google-tts-preprocess region)
+                                  (lib-media/google-tts-read-string language-tag speed))))))
 
 ;;;###autoload
-(defun lib/google-tts-dictate-region (speed delay)
+(defun lib-media/google-tts-dictate-region (speed delay)
   "Dictate active region using Google Translate text-to-speech API.
 
 SPEED is the slowdown percentage and should be a number between 1
@@ -588,10 +588,6 @@ The default is zero, i.e. read immediately."
                     (cl-assert (<= 1 speed 100) nil "Speed should be a number between 1 and 100")
                     (/ speed 100.0)))))
     (cl-assert (<= 0 delay 300) nil "Delay should be a number between 0 and 300 (inclusive)")
-    (lib/google-tts-read-region speed delay)))
+    (lib-media/google-tts-read-region speed delay)))
 
 (provide 'lib-media)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("lib/" . "lib-media/"))
-;; End:

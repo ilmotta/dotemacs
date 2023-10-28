@@ -3,18 +3,18 @@
 ;;; Code:
 
 ;;;###autoload
-(defun l/symlinks-to-file ()
+(defun lib-fs/symlinks-to-file ()
   (interactive)
   (when-let ((file (buffer-file-name)))
     (let ((cmd (format "symlinks -rv ~/ | grep '%s'" file)))
-      (promise-chain (lib-system/promise-start-process-shell-command cmd)
+      (promise-chain (lib-sys/promise-start-process-shell-command cmd)
         (then (lambda (out)
                 (message "%s" out)))
         (catch (lambda (err)
                  (message "Error '%s'" err)))))))
 
 ;;;###autoload
-(defun l/rename-file-and-buffer ()
+(defun lib-fs/rename-file-and-buffer ()
   "Rename current buffer and if the buffer is visiting a file,
 rename it too."
   (interactive)
@@ -31,7 +31,3 @@ rename it too."
           (set-visited-file-name new-name t t)))))))
 
 (provide 'lib-fs)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("l/" . "lib-fs/"))
-;; End:

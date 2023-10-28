@@ -7,12 +7,12 @@
 (defgroup lib-pdf nil
   "PDF utilities."
   :group 'my
-  :prefix "l/")
+  :prefix "lib-pdf/")
 
-(defvar-local l/file nil
+(defvar-local lib-pdf/file nil
   "PDF file path.")
 
-(defvar-local l/metadata nil
+(defvar-local lib-pdf/metadata nil
   "PDF metadata.")
 
 (define-derived-mode pdf-metadata-mode tabulated-list-mode "pdf-metadata-mode"
@@ -20,45 +20,45 @@
 
 ;;;; Private
 
-(defun l/-setup-keymap ()
+(defun lib-pdf/-setup-keymap ()
   (define-key pdf-metadata-mode-map (kbd "<tab>") #'tabulated-list-next-column)
   (define-key pdf-metadata-mode-map (kbd "<backtab>") #'tabulated-list-previous-column)
-  (define-key pdf-metadata-mode-map (kbd "C-c a") #'l/metadata-add))
+  (define-key pdf-metadata-mode-map (kbd "C-c a") #'lib-pdf/metadata-add))
 
-(defun l/-fetch-metadata (file)
+(defun lib-pdf/-fetch-metadata (file)
   (let ((cmd (format "exiftool -all:all -json %s" (shell-quote-argument (expand-file-name file)))))
-    (thread-first (lib-system/promise-start-process-shell-command cmd)
+    (thread-first (lib-sys/promise-start-process-shell-command cmd)
                   (promise-then #'json-read-from-string)
                   (promise-then #'seq-first)
                   (promise-catch (lambda (err)
                                    (message "%s" err))))))
 
-(defun l/-json->tabulated (json)
+(defun lib-pdf/-json->tabulated (json)
   (map-apply (lambda (k v)
                (list (symbol-name k) (format "%s" v)))
              json))
 
-(defun l/-write-metadata (file key value)
+(defun lib-pdf/-write-metadata (file key value)
   (let ((cmd (format "exiftool -overwrite_original -%s=%s %s"
                      key
                      (shell-quote-argument value)
                      (shell-quote-argument (expand-file-name file)))))
-    (lib-system/promise-start-process-shell-command cmd)))
+    (lib-sys/promise-start-process-shell-command cmd)))
 
-(defun l/buffer-name (file)
+(defun lib-pdf/buffer-name (file)
   (format "*metadata-%s*" (file-name-base file)))
 
-(defun l/setup-mode ()
-  (l/-setup-keymap))
+(defun lib-pdf/setup-mode ()
+  (lib-pdf/-setup-keymap))
 
 ;;; Autoloads
 
 ;;;###autoload
-(defun l/remove-password (file password)
+(defun lib-pdf/remove-password (file password)
   "Remove password from FILE by using PASSWORD."
   (interactive (list (read-file-name "PDF file: " nil nil t)
                      (read-passwd "Password: ")))
-  (thread-first (lib-system/promise-start-process-shell-command
+  (thread-first (lib-sys/promise-start-process-shell-command
                  (format "qpdf -password='%s' -decrypt '%s' --replace-input"
                          password (expand-file-name file)))
                 (promise-then (lambda (_)
@@ -68,33 +68,29 @@
                                           (replace-regexp-in-string "\n$" "" err))))))
 
 ;;;###autoload
-(defun l/metadata (file)
+(defun lib-pdf/metadata (file)
   (interactive "fPDF file: ")
-  (thread-first (l/-fetch-metadata file)
+  (thread-first (lib-pdf/-fetch-metadata file)
                 (promise-then (lambda (json)
-                                (let ((buf (get-buffer-create (l/buffer-name file))))
+                                (let ((buf (get-buffer-create (lib-pdf/buffer-name file))))
                                   (with-current-buffer buf
                                     (lib-tabulated/display :columns-names '("Property" "Value")
-                                                           :rows (l/-json->tabulated json)
+                                                           :rows (lib-pdf/-json->tabulated json)
                                                            :tabulated-mode #'pdf-metadata-mode
                                                            :buffer buf)
-                                    (setq l/file (expand-file-name file)
-                                          l/metadata json)))))))
+                                    (setq lib-pdf/file (expand-file-name file)
+                                          lib-pdf/metadata json)))))))
 
 ;;;###autoload
-(defun l/metadata-add (key value)
+(defun lib-pdf/metadata-add (key value)
   (interactive (list (read-string "Metadata key: ")
                      (read-string "Metadata value: ")))
-  (thread-first (l/-write-metadata l/file (intern key) value)
+  (thread-first (lib-pdf/-write-metadata lib-pdf/file (intern key) value)
                 (promise-then (lambda (_)
                                 (message "Metadata '%s' set successfully." key)))
                 (promise-catch (lambda (err)
                                  (message "%s" err)))))
 
-(add-hook 'pdf-metadata-mode-hook #'l/setup-mode)
+(add-hook 'pdf-metadata-mode-hook #'lib-pdf/setup-mode)
 
 (provide 'lib-pdf)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("l/" . "lib-pdf/"))
-;; End:

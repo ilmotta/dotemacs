@@ -82,7 +82,7 @@ See `advice-mapc'."
                  symbol)
     fns))
 
-(defun u/advice-remove-dwim ()
+(defun lib-util/advice-remove-dwim ()
   (interactive)
   (let ((advised-fn (intern (thing-at-point 'symbol 'no-properties))))
     (if-let ((fns (advice-alist advised-fn)))
@@ -93,7 +93,7 @@ See `advice-mapc'."
 
 ;;; Process
 
-(defun u/call-process (cmd)
+(defun lib-util/call-process (cmd)
   "Execute CMD synchronously.
 
 Returns (STATUS . OUTPUT) when it is done, where STATUS is the returned error
@@ -103,7 +103,7 @@ code of the process and OUTPUT is its stdout output."
               -1)
           (string-trim (buffer-string)))))
 
-(defun u/async-shell-command-no-window (command)
+(defun lib-util/async-shell-command-no-window (command)
   "Execute string COMMAND asynchronously without opening buffer."
   (interactive "sAsync shell command: ")
   (let* ((buffer-name "*Async Shell Command*")
@@ -124,7 +124,7 @@ code of the process and OUTPUT is its stdout output."
 
 ;;; UI
 
-(defun u/toggle-background-transparency ()
+(defun lib-util/toggle-background-transparency ()
   "Toggle background transparency."
   (interactive)
   (let ((alpha-transparency 93))
@@ -135,7 +135,7 @@ code of the process and OUTPUT is its stdout output."
 
 ;;; Utilities
 
-(defun u/increment-integer-at-point ()
+(defun lib-util/increment-integer-at-point ()
   "Increment integer at point.
 Does not understand negative integers."
   (interactive)
@@ -144,7 +144,7 @@ Does not understand negative integers."
         (replace-match (number-to-string (1+ (string-to-number (match-string 0)))))
       (error "No number at point"))))
 
-(cl-defun u/memoize-ttl (&key f (ttl-ms 10000))
+(cl-defun lib-util/memoize-ttl (&key f (ttl-ms 10000))
   (let ((cached nil)
         (called-at nil))
     (lambda (&rest args)
@@ -156,12 +156,12 @@ Does not understand negative integers."
         (setq called-at (ts-now))
         cached))))
 
-(defun u/uuid ()
+(defun lib-util/uuid ()
   "Generate UUID."
-  (cdr (u/call-process "uuidgen")))
+  (cdr (lib-util/call-process "uuidgen")))
 
 ;;;###autoload
-(defun u/buffer-new (&optional force-new-p)
+(defun lib-util/buffer-new (&optional force-new-p)
   "Create new empty buffer. New buffer will be named *untitled*,
 *untitled*<2>, etc."
   (interactive "P")
@@ -175,7 +175,7 @@ Does not understand negative integers."
     (get-buffer buf-name)))
 
 ;;;###autoload
-(defun u/clone-buffer-dwim ()
+(defun lib-util/clone-buffer-dwim ()
   "Clone buffer even if it's a file visiting buffer."
   (interactive)
   (if buffer-file-name
@@ -188,22 +188,22 @@ Does not understand negative integers."
     (call-interactively #'clone-buffer)))
 
 ;;;###autoload
-(defun u/find-user-init-file ()
+(defun lib-util/find-user-init-file ()
   "Edit the `user-init-file', in another window."
   (interactive)
   (find-file (concat user-emacs-directory "init.el")))
 
 ;;;###autoload
-(defun u/find-user-custom-file ()
+(defun lib-util/find-user-custom-file ()
   "Edit the `user-init-file', in another window."
   (interactive)
   (find-file (concat my/cache-dir "custom.el")))
 
-(defun u/temp-buffer-p (buffer)
+(defun lib-util/temp-buffer-p (buffer)
   "Returns non-nil if BUFFER is temporary."
   (equal (substring (buffer-name buffer) 0 1) " "))
 
-(defun u/advice-once (symbol where function &optional props)
+(defun lib-util/advice-once (symbol where function &optional props)
   "Add advice, but remove it after calling FUNCTION.
 
 One example usage is when configuring packages. You might want to
@@ -212,7 +212,7 @@ do defer loading it until it's actually needed."
   (advice-add symbol :after (lambda (&rest _) (advice-remove symbol function)))
   (advice-add symbol where function props))
 
-(defun u/add-hook-once (hook fn &optional depth local)
+(defun lib-util/add-hook-once (hook fn &optional depth local)
   "Add HOOK, but remove it after first call to FN. DEPTH and LOCAL
 are passed directly to `add-hook'."
   (cl-labels ((wrapper ()
@@ -220,28 +220,28 @@ are passed directly to `add-hook'."
                        (funcall fn)))
     (add-hook hook #'wrapper depth local)))
 
-(defun u/message-error (err)
+(defun lib-util/message-error (err)
   (error "%s" (propertize (format "Error: %s" err) 'face 'compilation-error)))
 
 ;;;###autoload
-(defun u/advice-unadvice (sym)
+(defun lib-util/advice-unadvice (sym)
   "Remove all advices from symbol SYM."
   (interactive "aFunction symbol: ")
   (advice-mapc (lambda (advice _props) (advice-remove sym advice)) sym))
 
-(defun u/mute-echo-area (original-fn &rest args)
+(defun lib-util/mute-echo-area (original-fn &rest args)
   "Temporarily disable logging in the echo area.
 This function should be used in :around advices."
   (let ((inhibit-message t))
     (ignore-errors (apply original-fn args))))
 
-(defun u/inhibit-message (original-fn &rest args)
+(defun lib-util/inhibit-message (original-fn &rest args)
   "Temporarily inhibit messages in the echo area.
 Use this function in an :around advice."
   (let ((inhibit-message t))
     (apply original-fn args)))
 
-(defun u/org-fill-paragraphs ()
+(defun lib-util/org-fill-paragraphs ()
   "Fill paragraphs in the active region, line by line.
 
 `forward-paragraph` doesn't work as expected, so we move line by
@@ -257,7 +257,7 @@ line instead."
           (org-fill-paragraph nil nil)
           (forward-line))))))
 
-(defun u/--org-unfill-paragraph-p ()
+(defun lib-util/--org-unfill-paragraph-p ()
   "Returns true when the paragraph should be unfilled.
 Note that by default `org-fill-paragraph' will unfill paragraphs
 within comment blocks."
@@ -274,7 +274,7 @@ within comment blocks."
                       quote-block
                       src-block)))))
 
-(defun u/sort-up-sexp ()
+(defun lib-util/sort-up-sexp ()
   "Rudimentary solution to sort s-exps. The cursor must be on a
 valid position so that the surrouding s-exp contains all the
 lines that should be sorted. S-exps in the lines to be sorted
@@ -328,7 +328,7 @@ must not have line breaks, otherwise pairs will be unbalanced."
     (paredit-backward-up)
     (join-line 'next)))
 
-(defun u/sudo-file-path (file)
+(defun lib-util/sudo-file-path (file)
   (let ((host (or (file-remote-p file 'host) "localhost")))
     (concat "/" (when (file-remote-p file)
                   (concat (file-remote-p file 'method) ":"
@@ -340,7 +340,7 @@ must not have line breaks, otherwise pairs will be unbalanced."
             ":" (or (file-remote-p file 'localname)
                     file))))
 
-(defun u/toggle-buffer (buffer-or-name cmd)
+(defun lib-util/toggle-buffer (buffer-or-name cmd)
   "Either bury/kill BUFFER-OR-NAME when visible or run CMD
 interactively."
   (if (get-buffer-window buffer-or-name)
@@ -352,7 +352,7 @@ interactively."
     (call-interactively cmd)))
 
 ;;;###autoload
-(defun u/unfill-dwim (&optional start end)
+(defun lib-util/unfill-dwim (&optional start end)
   (interactive)
   (let ((fill-column most-positive-fixnum))
     (cond ((and start end)
@@ -368,7 +368,7 @@ interactively."
            (fill-paragraph)))))
 
 ;;;###autoload
-(defun u/kill-other-buffers ()
+(defun lib-util/kill-other-buffers ()
   "Kill all buffers except the current one and non-file buffers."
   (interactive)
   (mapc 'kill-buffer
@@ -378,7 +378,7 @@ interactively."
                             (buffer-list)))))
 
 ;;;###autoload
-(defun u/org-babel-remove-result-buffer ()
+(defun lib-util/org-babel-remove-result-buffer ()
   "Remove results from every code block in buffer."
   (interactive)
   (save-excursion
@@ -387,35 +387,35 @@ interactively."
       (org-babel-remove-result))))
 
 ;;;###autoload
-(defun u/align-regexp (string-or-regex start end)
+(defun lib-util/align-regexp (string-or-regex start end)
   "Align columns by whitespace followed by custom STRING_OR_REGEX."
   (interactive "sRegex: \nr")
   (align-regexp start end
                 (concat "\\(\\s-*\\)\\s-" string-or-regex) 1 0 t))
 
 ;;;###autoload
-(defun u/describe-face-at-point ()
+(defun lib-util/describe-face-at-point ()
   "Show details about face at point."
   (interactive)
   (what-cursor-position t))
 
-(defalias 'u/describe-cursor-at-point #'u/describe-face-at-point)
+(defalias 'lib-util/describe-cursor-at-point #'lib-util/describe-face-at-point)
 
 ;;;###autoload
-(defun u/smart-beginning-of-line ()
+(defun lib-util/smart-beginning-of-line ()
   "Move point to the first non-whitespace character on this line.
 
 If the command is repeated then cycle position between
 `beginning-of-line' and `back-to-indentation'."
   (interactive "^")
-  (if (eq last-command 'u/smart-beginning-of-line)
+  (if (eq last-command 'lib-util/smart-beginning-of-line)
       (if (= (line-beginning-position) (point))
           (back-to-indentation)
         (beginning-of-line))
     (back-to-indentation)))
 
 ;;;###autoload
-(defun u/screenshot ()
+(defun lib-util/screenshot ()
   "Save a screenshot of the current frame.
 
 Emacs should be built with Cairo support (Emacs 28 will use it by
@@ -430,7 +430,7 @@ defined."
     (message "Screenshot saved at %s" filename)))
 
 ;;;###autoload
-(defun u/process-environment ()
+(defun lib-util/process-environment ()
   "List and sort all env vars inherited by subprocesses."
   (interactive)
   (with-current-buffer (get-buffer-create "*Environment Variables*")
@@ -445,7 +445,7 @@ defined."
     (pop-to-buffer (current-buffer))))
 
 ;;;###autoload
-(defun u/symlink (target link &optional replace)
+(defun lib-util/symlink (target link &optional replace)
   "Make a symbolic link to TARGET, named LINK.
 
 When REPLACE is non-nil it replaces the existing LINK. When LINK
@@ -467,7 +467,7 @@ TARGET is always resolved to its true name."
        (make-symbolic-link target link replace)))))
 
 ;;;###autoload
-(defun u/symlink-dotfiles (&optional replace)
+(defun lib-util/symlink-dotfiles (&optional replace)
   "Create symbolic links for all configuration files.
 
 When called with prefix argument it replaces all existing
@@ -477,40 +477,40 @@ symbolic links."
         (link-root "~/")
         (replace (if replace 'replace nil)))
     ;; Ruby
-    (u/symlink (concat target-root "ruby/gemrc")
+    (lib-util/symlink (concat target-root "ruby/gemrc")
                (concat link-root ".gemrc") replace)
-    (u/symlink (concat target-root "ruby/irbrc")
+    (lib-util/symlink (concat target-root "ruby/irbrc")
                (concat link-root ".irbrc") replace)
-    (u/symlink (concat target-root "ruby/pryrc")
+    (lib-util/symlink (concat target-root "ruby/pryrc")
                (concat link-root ".pryrc") replace)
 
     ;; Node.js
-    (u/symlink (concat target-root "nodejs/npmrc")
+    (lib-util/symlink (concat target-root "nodejs/npmrc")
                (concat link-root ".npmrc") replace)
 
     ;; Shell and terminal
-    (u/symlink (concat target-root "bashrc")
+    (lib-util/symlink (concat target-root "bashrc")
                (concat link-root ".bashrc") replace)
-    (u/symlink (concat target-root "inputrc")
+    (lib-util/symlink (concat target-root "inputrc")
                (concat link-root ".inputrc") replace)
-    (u/symlink (concat target-root "tmux/tmux.conf")
+    (lib-util/symlink (concat target-root "tmux/tmux.conf")
                (concat link-root ".tmux.conf") replace)
-    (u/symlink (concat target-root "shell/zpreztorc")
+    (lib-util/symlink (concat target-root "shell/zpreztorc")
                (concat link-root ".zpreztorc") replace)
-    (u/symlink (concat target-root "shell/zshrc")
+    (lib-util/symlink (concat target-root "shell/zshrc")
                (concat link-root ".zshrc") replace)
 
     ;; Vim
     (make-directory (concat link-root ".vim/after/syntax/") 'parents)
     (make-directory (concat link-root ".vim/colors/") 'parents)
-    (u/symlink (concat target-root "vim/colors/zenburn.vim")
+    (lib-util/symlink (concat target-root "vim/colors/zenburn.vim")
                (concat link-root ".vim/colors/zenburn.vim") replace)
-    (u/symlink (concat target-root "vim/vimrc")
+    (lib-util/symlink (concat target-root "vim/vimrc")
                (concat link-root ".vimrc") replace)
 
     ;; Clojure
     (make-directory (concat link-root ".lein/") 'parents)
-    (u/symlink (concat target-root "clojure/profiles.clj")
+    (lib-util/symlink (concat target-root "clojure/profiles.clj")
                (concat link-root ".lein/profiles.clj") replace)
     (make-directory (concat link-root ".clojure/") 'parents)
     ;; Unfortunately Clojure deps does not work with symbolic links.
@@ -520,45 +520,45 @@ symbolic links."
 
     ;; Kitty
     (make-directory (concat link-root ".config/kitty/") 'parents)
-    (u/symlink (concat target-root "kitty/kitty.conf")
+    (lib-util/symlink (concat target-root "kitty/kitty.conf")
                (concat link-root ".config/kitty/kitty.conf") replace)
-    (u/symlink (concat target-root "kitty/themes/")
+    (lib-util/symlink (concat target-root "kitty/themes/")
                (concat link-root ".config/kitty/themes") replace)
 
     ;; Misc
     (make-directory (concat link-root ".config/qutebrowser/") 'parents)
-    (u/symlink (concat target-root "qutebrowser-config.py")
+    (lib-util/symlink (concat target-root "qutebrowser-config.py")
                (concat link-root ".config/qutebrowser/config.py") replace)
 
     (make-directory (concat link-root ".gnupg/") 'parents)
-    (u/symlink (concat target-root "gpg-agent.conf")
+    (lib-util/symlink (concat target-root "gpg-agent.conf")
                (concat link-root ".gnupg/gpg-agent.conf") replace)
 
-    (u/symlink (concat target-root "aspell.conf")
+    (lib-util/symlink (concat target-root "aspell.conf")
                (concat link-root ".aspell.conf") replace)
-    (u/symlink (concat target-root "editorconfig")
+    (lib-util/symlink (concat target-root "editorconfig")
                (concat link-root ".editorconfig") replace)
-    (u/symlink (concat target-root "git/gitconfig")
+    (lib-util/symlink (concat target-root "git/gitconfig")
                (concat link-root ".gitconfig") replace)
-    (u/symlink (concat target-root "git/gitignore")
+    (lib-util/symlink (concat target-root "git/gitignore")
                (concat link-root ".gitignore") replace)
 
-    (u/symlink "~/data/repos/dotemacs/"
+    (lib-util/symlink "~/data/repos/dotemacs/"
                (concat link-root ".config/emacs") replace)
-    (u/symlink "~/data/repos/dotemacs/"
+    (lib-util/symlink "~/data/repos/dotemacs/"
                (concat link-root ".emacs.d") replace)
 
     ;; Enable if reading e-mail in Emacs.
     ;; (make-directory (concat link-root ".config/afew/") 'parents)
     ;; (make-directory (concat link-root ".mail/.notmuch/hooks") 'parents)
-    ;; (u/symlink (concat target-root "mail/notmuch/hooks/post-new")
+    ;; (lib-util/symlink (concat target-root "mail/notmuch/hooks/post-new")
     ;;                  (concat link-root ".mail/.notmuch/hooks/post-new") replace)
-    ;; (u/symlink (concat target-root "mail/notmuch/hooks/pre-new")
+    ;; (lib-util/symlink (concat target-root "mail/notmuch/hooks/pre-new")
     ;;                  (concat link-root ".mail/.notmuch/hooks/pre-new") replace)
     ))
 
 ;;;###autoload
-(defun u/profile-function (fn)
+(defun lib-util/profile-function (fn)
   "Profile FN and display the report buffer."
   (interactive "aProfile function: ")
   (profiler-start 'cpu)
@@ -568,20 +568,20 @@ symbolic links."
   (select-window (previous-window)))
 
 ;;;###autoload
-(defun u/project-switch-to-dotfiles ()
+(defun lib-util/project-switch-to-dotfiles ()
   "Open my dotfiles project."
   (interactive)
   (my/with-buffer-reuse-window
    (project-switch-project "~/data/repos/dotfiles")))
 
 ;;;###autoload
-(defun u/sudo-find-file (file)
+(defun lib-util/sudo-find-file (file)
   "Open FILE as root."
   (interactive "FOpen file as root: ")
-  (find-file (u/sudo-file-path file)))
+  (find-file (lib-util/sudo-file-path file)))
 
 ;;;###autoload
-(defun u/yank-buffer-filename ()
+(defun lib-util/yank-buffer-filename ()
   "Copy the current buffer's path to the kill ring."
   (interactive)
   (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
@@ -589,7 +589,7 @@ symbolic links."
     (error "Couldn't find filename in current buffer")))
 
 ;;;###autoload
-(defun u/yank-buffer-absolute-path ()
+(defun lib-util/yank-buffer-absolute-path ()
   "Copy the current buffer's absolute path to the kill ring."
   (interactive)
   (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
@@ -597,7 +597,7 @@ symbolic links."
     (error "Couldn't find filename in current buffer")))
 
 ;;;###autoload
-(defun u/yank-buffer-absolute-dir-path ()
+(defun lib-util/yank-buffer-absolute-dir-path ()
   "Copy the absolute buffer directory to the kill ring."
   (interactive)
   (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
@@ -605,14 +605,14 @@ symbolic links."
     (error "Couldn't find filename in current buffer")))
 
 ;;;###autoload
-(defun u/profiler-start ()
+(defun lib-util/profiler-start ()
   "Stop current CPU profiler and start it again."
   (interactive)
   (profiler-cpu-stop)
   (profiler-start 'cpu))
 
 ;;;###autoload
-(defun u/profiler-stop ()
+(defun lib-util/profiler-stop ()
   "Automatically display the report when finished."
   (interactive)
   (profiler-report)
@@ -620,12 +620,12 @@ symbolic links."
   (select-window (previous-window)))
 
 ;;;###autoload
-(defun u/init-find-early-init-file ()
+(defun lib-util/init-find-early-init-file ()
   (interactive)
   (find-file (concat user-emacs-directory "early-init.el")))
 
 ;;;###autoload
-(defun u/start-up-report ()
+(defun lib-util/start-up-report ()
   (interactive)
   (let* ((buf (get-buffer-create "*start-up-report*"))
          (factor 1000)
@@ -660,7 +660,7 @@ symbolic links."
       (pop-to-buffer buf))))
 
 ;;;###autoload
-(defun u/font-preview (text)
+(defun lib-util/font-preview (text)
   "Preview all available font families."
   (interactive "sText to preview: ")
   (let ((buffer-name "*font families*"))
@@ -672,18 +672,18 @@ symbolic links."
       (goto-char (point-min)))
     (pop-to-buffer-same-window buffer-name)))
 
-(defun u/shell-escape-single-quote (file)
+(defun lib-util/shell-escape-single-quote (file)
   "Escape single quote in FILE for shell."
   (s-replace "'" "'\"'\"'" file))
 
-(defun u/listening-p (port)
+(defun lib-util/listening-p (port)
   "Return t when there's a process listening on PORT."
   (with-temp-buffer
     (let* ((cmd (format "lsof -i -P -n | grep LISTEN | grep java | grep %s" port))
            (exit-code (call-process-shell-command cmd)))
       (zerop exit-code))))
 
-(defun u/process-pids (regexp)
+(defun lib-util/process-pids (regexp)
   (interactive)
   (let* ((cmd (format "ps aux | grep %s | grep -v grep" regexp))
          (out (with-temp-buffer
@@ -695,7 +695,7 @@ symbolic links."
                     (nth 1 (seq-remove #'string-empty-p (split-string line " ")))))
                  (seq-filter #'identity))))
 
-(defun u/promise-each (actions)
+(defun lib-util/promise-each (actions)
   "Asynchronously process each action.
 
 Every action in ACTIONS is a function that takes a single
@@ -706,7 +706,7 @@ function must return a promise."
               actions
               (promise-resolve nil)))
 
-(defun u/promise-serialize (immediate)
+(defun lib-util/promise-serialize (immediate)
   "Wrap promise-returning IMMEDIATE fn to wait previous promise.
 
 Implementation based on
@@ -718,7 +718,7 @@ https://thoughtspile.github.io/2018/06/20/serialize-promises/"
                                (promise-then (lambda (_) (apply immediate args)))))
       last)))
 
-(defun u/promise-timer-while (secs repeat pred function)
+(defun lib-util/promise-timer-while (secs repeat pred function)
   (promise-new
    (lambda (resolve _reject)
      (cl-labels ((fn ()
@@ -738,12 +738,12 @@ https://thoughtspile.github.io/2018/06/20/serialize-promises/"
 ;;                                            n nil (lambda ()
 ;;                                                    (message "%s" n)
 ;;                                                    (funcall resolve n)))))))
-;;          (resolve-n-serial (u/promise-serialize resolve-n)))
+;;          (resolve-n-serial (lib-util/promise-serialize resolve-n)))
 ;;     (thread-first (seq-map (lambda (n) (funcall resolve-n-serial n)) '(3 2 1))
 ;;       (promise-all)
 ;;       (promise-then (lambda (values) (message "%s" values))))))
 
-(defun u/comment-dwim ()
+(defun lib-util/comment-dwim ()
   "Comment/uncomment while balancing S-expressions."
   (interactive)
   (require 'evil-nerd-commenter)
@@ -799,43 +799,43 @@ https://thoughtspile.github.io/2018/06/20/serialize-promises/"
      (:default (call-interactively #'evilnc-comment-or-uncomment-lines)))))
 
 ;;;###autoload
-(defun u/read-password (&rest props)
+(defun lib-util/read-password (&rest props)
   "Search USERNAME in authinfo.gpg and return the password."
   (when-let ((fn (map-elt (car (apply #'auth-source-search props))
                           :secret)))
     (funcall fn)))
 
 ;;;###autoload
-(defun u/x11-remove-window-decorations ()
+(defun lib-util/x11-remove-window-decorations ()
   (interactive)
   (message "Please, select the X window.")
   (call-process-shell-command "xprop -format _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS 2")
   (message nil))
 
 ;;;###autoload
-(defun u/x11-reset-window-decorations ()
+(defun lib-util/x11-reset-window-decorations ()
   (interactive)
   (message "Please, select the X window.")
   (call-process-shell-command "xprop -format _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS '0x2, 0x0, 0x1, 0x0, 0x0'")
   (message nil))
 
 ;;;###autoload
-(defun u/spaces->tabs ()
+(defun lib-util/spaces->tabs ()
   (interactive)
   (tabify (point-min) (point-max)))
 
 ;;;###autoload
-(defun u/tabs->spaces ()
+(defun lib-util/tabs->spaces ()
   (interactive)
   (untabify (point-min) (point-max)))
 
 ;;;###autoload
-(defun u/temp-buffer-p (buf)
+(defun lib-util/temp-buffer-p (buf)
   "Returns non-nil if BUF is temporary."
   (equal (substring (buffer-name buf) 0 1) " "))
 
 ;;;###autoload
-(defun u/real-buffer-p (buffer-or-name)
+(defun lib-util/real-buffer-p (buffer-or-name)
   "Returns t if BUFFER-OR-NAME is a 'real' buffer.
 
 Copied from Doom.
@@ -861,11 +861,11 @@ If BUFFER-OR-NAME is omitted or nil, the current buffer is tested."
     (when-let (basebuf (buffer-base-buffer buf))
       (setq buf basebuf))
     (and (buffer-live-p buf)
-         (not (u/temp-buffer-p buf))
+         (not (lib-util/temp-buffer-p buf))
          (with-current-buffer buf
            my/real-buffer-p))))
 
-(defun u/promise-delay (delay-ms f &rest args)
+(defun lib-util/promise-delay (delay-ms f &rest args)
   "Delays execution of F for DELAY-MS. ARGS will be directly passed
 to F when the timer triggers. The promise will be resolved with
 the return value of F."
@@ -875,7 +875,7 @@ the return value of F."
                               (lambda ()
                                 (funcall resolve (apply f args)))))))
 
-(defun u/debounce (threshold-ms f)
+(defun lib-util/debounce (threshold-ms f)
   "Debounces synchronous function F within THRESHOLD-MS."
   (let* ((called-at nil)
          (timer (timer-create))
@@ -898,7 +898,7 @@ the return value of F."
             (apply f args))
         (funcall delay args)))))
 
-(defun u/debounce-promise (threshold-ms f)
+(defun lib-util/debounce-promise (threshold-ms f)
   "Debounces async function F within THRESHOLD-MS. F must return a promise."
   (let* ((called-at nil)
          (timer (timer-create))
@@ -928,26 +928,26 @@ the return value of F."
 ;;; RCF
 
 (comment
-    (defvar u/debounced-message
-      (setf (symbol-function 'debounced-message)
-            (u/debounce 1000 #'message))
-      "Debounced version of `message'.")
+  (defvar lib-util/debounced-message
+    (setf (symbol-function 'debounced-message)
+          (lib-util/debounce 1000 #'message))
+    "Debounced version of `message'.")
 
-    (progn ; Should print once after 1s
-      (debounced-message "hello world")
-      (debounced-message "hello world")
-      (debounced-message "hello world")
-      nil)
+  (progn ; Should print once after 1s
+    (debounced-message "hello world")
+    (debounced-message "hello world")
+    (debounced-message "hello world")
+    nil)
 
   (defun -launch-rocket! (rocket-name)
-    (u/promise-delay 1000
-                     #'message
-                     "Launching rocket '%s'"
-                     rocket-name))
+    (lib-util/promise-delay 1000
+                            #'message
+                            "Launching rocket '%s'"
+                            rocket-name))
 
   (defvar -debounced-launch-rocket!
     (setf (symbol-function '-debounced-launch-rocket!)
-          (u/debounce-promise 1000 #'-launch-rocket!)))
+          (lib-util/debounce-promise 1000 #'-launch-rocket!)))
 
   (-debounced-launch-rocket! "Rocket A")
   (promise-all (vector (-debounced-launch-rocket! "Rocket A")
@@ -958,7 +958,3 @@ the return value of F."
   )
 
 (provide 'lib-util)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("u/" . "lib-util/"))
-;; End:

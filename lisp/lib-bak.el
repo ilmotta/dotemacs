@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-(defun lib/rsync-extended-features ()
+(defun lib-bak/rsync-extended-features ()
   "Return only available rsync options.
 Some of these flags were added in the 3.2.3 release (Aug 2020)."
   (let ((features '())
@@ -14,17 +14,17 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
           (push opt features))))
     features))
 
-(defconst lib/mirror-cmd
+(defconst lib-bak/mirror-cmd
   "rsync -vha --delete --stats \"%s\" \"%s\"")
 
-(defun lib/rsync-extended-mirror-cmd ()
+(defun lib-bak/rsync-extended-mirror-cmd ()
   (string-join `("rsync"
                  ;; "--dry-run"
                  "--verbose"
                  "--exclude" "node_modules"
                  ,(format "--log-file='%s'" (concat (temporary-file-directory) "rsync.log"))
                  "--archive"
-                 ,@(lib/rsync-extended-features)
+                 ,@(lib-bak/rsync-extended-features)
                  "--hard-links"
                  "--executability"
                  "--xattrs"
@@ -36,10 +36,10 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
                  "\"%s\"")
                " "))
 
-(defun lib/rsync-mirror-silent-cmd ()
+(defun lib-bak/rsync-mirror-silent-cmd ()
   (string-join `("rsync"
                  "--archive"
-                 ,@(lib/rsync-extended-features)
+                 ,@(lib-bak/rsync-extended-features)
                  "--hard-links"
                  "--executability"
                  "--xattrs"
@@ -49,7 +49,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
                " "))
 
 ;;;###autoload
-(defun lib/mirror-directories (src dst &optional force-p)
+(defun lib-bak/mirror-directories (src dst &optional force-p)
   "Mirror SRC to DST using rsync."
   (interactive
    (list (read-directory-name "Source directory: " default-directory nil nil)
@@ -58,7 +58,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
   (cl-assert (file-directory-p src))
   (let* ((src (file-name-as-directory (expand-file-name src)))
          (dst (file-name-as-directory (expand-file-name dst)))
-         (cmd (format (lib/rsync-extended-mirror-cmd) src dst))
+         (cmd (format (lib-bak/rsync-extended-mirror-cmd) src dst))
          (buffer (get-buffer-create "*Sync*"))
          (do-run-sync (lambda ()
                         (make-directory dst 'parents)
@@ -79,7 +79,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force))
+    (lib-bak/mirror-directories src dst 'force))
 
   ;; Downloads
   (let* ((disk-mirror (concat "/run/media/" (user-login-name) "/MIRROR_3TB/"))
@@ -89,7 +89,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force))
+    (lib-bak/mirror-directories src dst 'force))
 
   ;; Music
   (let* ((disk-mirror (concat "/run/media/" (user-login-name) "/MIRROR_3TB/"))
@@ -99,7 +99,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force))
+    (lib-bak/mirror-directories src dst 'force))
 
   ;; Backups
   (let* ((disk-mirror (concat "/run/media/" (user-login-name) "/MIRROR_3TB/"))
@@ -109,7 +109,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force))
+    (lib-bak/mirror-directories src dst 'force))
 
   ;; Videos
   (let* ((disk-mirror (concat "/run/media/" (user-login-name) "/MIRROR_3TB/"))
@@ -119,7 +119,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force))
+    (lib-bak/mirror-directories src dst 'force))
 
   ;; Photos
   (let* ((disk-mirror (concat "/run/media/" (user-login-name) "/MIRROR_3TB/"))
@@ -129,28 +129,28 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (cl-assert (file-exists-p src))
     (cl-assert (file-exists-p dst))
     (cl-assert (file-directory-p src))
-    (lib/mirror-directories src dst 'force)))
+    (lib-bak/mirror-directories src dst 'force)))
 
-(defun lib/-file-remote-p (path)
+(defun lib-bak/-file-remote-p (path)
   (string-match-p (rx line-start
                       (one-or-more alphanumeric)
                       ":/")
                   path))
 
-(defun lib/remote-mirror-directories-silent (src dst)
+(defun lib-bak/remote-mirror-directories-silent (src dst)
   "Mirror SRC to DST using rsync."
   (interactive)
-  (let* ((src (if (lib/-file-remote-p src)
+  (let* ((src (if (lib-bak/-file-remote-p src)
                   (seq-let [remote path] (split-string src ":")
                     (s-join ":" (list remote (file-name-as-directory path))))
                 (file-name-as-directory (expand-file-name src))))
-         (dst (if (lib/-file-remote-p dst)
+         (dst (if (lib-bak/-file-remote-p dst)
                   (seq-let [remote path] (split-string dst ":")
                     (s-join ":" (list remote (file-name-as-directory path))))
                 (file-name-as-directory (expand-file-name dst))))
-         (cmd (format (lib/rsync-mirror-silent-cmd) src dst))
+         (cmd (format (lib-bak/rsync-mirror-silent-cmd) src dst))
          (proc-name "sync-silent"))
-    (unless (lib/-file-remote-p src)
+    (unless (lib-bak/-file-remote-p src)
       (cl-assert (file-exists-p src) 'show-args)
       (cl-assert (file-directory-p src) 'show-args))
     (if-let ((proc (get-process proc-name)))
@@ -158,8 +158,4 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
       (make-directory dst 'parents)
       (start-process-shell-command proc-name (get-buffer-create "*sync*") cmd))))
 
-(provide 'lib-backup)
-
-;; Local Variables:
-;; read-symbol-shorthands: (("lib/" . "lib-backup/"))
-;; End:
+(provide 'lib-bak)

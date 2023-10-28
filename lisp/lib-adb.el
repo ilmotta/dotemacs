@@ -10,9 +10,9 @@
 (defvar lib-adb--history-paths nil)
 
 (defun lib-adb/-devices ()
-  (let* ((output (lib-system/-shell-command-to-string "adb devices"))
+  (let* ((output (lib-sys/-shell-command-to-string "adb devices"))
          (lines (thread-first output
-                              lib-system/-remove-trailing-newlines
+                              lib-sys/-remove-trailing-newlines
                               (split-string "\n" t)
                               cdr)))
     (thread-last lines

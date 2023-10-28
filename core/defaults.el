@@ -241,7 +241,7 @@
 (define-key my/keys-mode-map (kbd "C-h K") #'describe-keymap)
 (define-key my/keys-mode-map (kbd "C-h F") #'describe-face)
 
-(define-key my/keys-mode-map (kbd "C-c 0") #'lib-system/main-t)
+(define-key my/keys-mode-map (kbd "C-c 0") #'lib-sys/main-t)
 (define-key my/keys-mode-map (kbd "M-Q") #'lib-util/unfill-dwim)
 (define-key my/keys-mode-map (kbd "C-c e P s") #'lib-util/profiler-start)
 (define-key my/keys-mode-map (kbd "C-c e P k") #'lib-util/profiler-stop)

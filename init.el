@@ -17,12 +17,12 @@
 
 (defun my/load-extra-libs ()
   (require 'lib-adb)
-  (require 'lib-backup)
+  (require 'lib-bak)
   (require 'lib-fs)
   (require 'lib-metabase)
   (require 'lib-media)
   (require 'lib-pdf)
-  (require 'lib-system))
+  (require 'lib-sys))
 
 (add-hook 'after-init-hook #'my/load-extra-libs)
 

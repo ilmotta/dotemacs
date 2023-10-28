@@ -67,7 +67,7 @@ If it's on a prompt, copy the input, otherwise copy the output."
   :unless my/android?
   :defer t
 
-  :hook (vterm-mode-hook . lib-system/set-no-process-query-on-exit)
+  :hook (vterm-mode-hook . lib-sys/set-no-process-query-on-exit)
 
   :init
   (setq vterm-max-scrollback 9999)
