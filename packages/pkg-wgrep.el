@@ -5,7 +5,7 @@
 ;; like sed interactively.
 
 ;;; Code:
-(my/package wgrep
+(lib-util/pkg wgrep
   :elpaca (:ref "f9687c28bbc2e84f87a479b6ce04407bb97cfb23")
   :defer t
   :init

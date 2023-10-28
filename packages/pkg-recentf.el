@@ -12,7 +12,7 @@
       (file-truename file)
     file))
 
-(my/package recentf
+(lib-util/pkg recentf
   :elpaca nil
   :hook (kill-emacs-hook . recentf-cleanup)
   :hook (dired-mode-hook . pkg-recentf/add-dired-directory)

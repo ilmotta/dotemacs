@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package golden-ratio
+(lib-util/pkg golden-ratio
   :elpaca (:ref "007911d8a431b72670f5fe5f0e5b4380c2777a31")
   :defer t
   :hook (golden-ratio-mode-hook . golden-ratio)

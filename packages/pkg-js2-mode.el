@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package
+(lib-util/pkg
   js2-mode
   :disabled t
   :defer t

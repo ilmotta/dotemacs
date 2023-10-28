@@ -176,12 +176,12 @@ unless the ID property already exists."
 ;;;###autoload
 (defun pkg-org/open-at-point ()
   (interactive)
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (call-interactively #'org-open-at-point)))
 
 ;;; Package
 
-(my/package org
+(lib-util/pkg org
   :elpaca (:ref "0f1184a850737d22bf78ee6d7621f65fd2679d4f")
   :defer t
 

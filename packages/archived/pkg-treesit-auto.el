@@ -8,7 +8,7 @@
 (defun pkg-treesit-auto/enable-a (&rest _r)
   (treesit-auto-apply-remap))
 
-(my/package
+(lib-util/pkg
   (treesit-auto :ref "bac3b9d1d61a4d759f87c80de7be3b808d19cbf6"
                 :fetcher github
                 :repo "renzmann/treesit-auto")

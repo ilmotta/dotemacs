@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(my/package aggressive-indent
+(lib-util/pkg aggressive-indent
   :elpaca (:ref "f376cdc25de5c0f8c330f1e053557d95ca47a540")
   :defer t
   :init

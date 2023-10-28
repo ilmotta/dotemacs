@@ -16,7 +16,7 @@ Except current buffer."
                                             kill-buffer-query-functions)))
     (project-kill-buffers)))
 
-(my/package project
+(lib-util/pkg project
   :elpaca nil
   :init
   (general-def

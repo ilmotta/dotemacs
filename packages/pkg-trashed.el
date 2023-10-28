@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(my/package trashed
+(lib-util/pkg trashed
   :elpaca (:ref "ddf5830730544435a068f2dc9ac75a81ea69df1d")
   :defer t
   :init

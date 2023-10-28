@@ -10,7 +10,7 @@
 
 ;;; Code:
 
-(my/package dirvish
+(lib-util/pkg dirvish
   :elpaca (:ref "4b63cd2e5ba994f8e674388db7035de1a8f0343f")
   :disabled t
   :defer t

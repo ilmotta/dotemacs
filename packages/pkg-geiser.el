@@ -11,7 +11,7 @@
   (when (derived-mode-p 'scheme-mode)
     (setq-local outline-regexp my/outline-regex-lisp)))
 
-(my/package geiser
+(lib-util/pkg geiser
   :elpaca (:ref "bfc9cce54b7ac1cb036911965198b5cbe2f43f4c")
   :defer t
 

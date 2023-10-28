@@ -4,7 +4,7 @@
 ;; See for mini-frame config, not vertico-posframe
 ;; https://gist.github.com/rougier/126e358464e12aa28fac5b4f3dd5eb9c
 
-(my/package
+(lib-util/pkg
   (vertico-posframe :ref "7da6d648ff4202a48eb6647ee7dce8d65de48779")
   :defer t
   :init

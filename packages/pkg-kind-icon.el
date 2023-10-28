@@ -4,7 +4,7 @@
   (kind-icon-reset-cache))
 
 ;; SVG icons for completion backends.
-(my/package kind-icon
+(lib-util/pkg kind-icon
   :elpaca (:ref "42d2a41874d5a61731556e53ba57547b4ef95342")
   :defer t
 

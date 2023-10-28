@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package alchemist
+(lib-util/pkg alchemist
   :straight t
   ;; I haven't used it in a long time. It's heavy to load and it hasn't received
   ;; updates in a long time (last commit on Mar/2018).

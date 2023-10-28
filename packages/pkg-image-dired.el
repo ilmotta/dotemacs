@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package image-dired
+(lib-util/pkg image-dired
   :elpaca nil
   :init
   (setq image-dired-thumb-size 150

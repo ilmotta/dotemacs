@@ -5,7 +5,7 @@
     (require 'evil-collection)
     (evil-collection-init)))
 
-(my/package evil-collection
+(lib-util/pkg evil-collection
   :elpaca (:ref "b7a75062a600b1b1d2ba51a1e3ac1ec331d19fff")
   :defer t
   :init

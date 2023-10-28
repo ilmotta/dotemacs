@@ -695,7 +695,7 @@ with 'kill' as the default action instead of 'bury'."
 (defun my/find-sibling-file (original-fn &rest _)
   "Same as `find-sibling-file', but try to reuse buffer window."
   (interactive)
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (call-interactively original-fn)))
 
 (advice-add #'find-sibling-file :around #'my/find-sibling-file)

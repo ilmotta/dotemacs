@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package general
+(lib-util/pkg general
   :elpaca t
   :demand t
   :config

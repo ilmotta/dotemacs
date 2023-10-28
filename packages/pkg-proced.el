@@ -80,7 +80,7 @@
     (remove-hook 'proced-mode-hook #'pkg-proced/extra-keywords)
     (font-lock-flush (point-min) (point-max))))
 
-(my/package proced
+(lib-util/pkg proced
   :elpaca nil
   :hook (proced-mode-hook . pkg-proced/extra-keywords)
   :init

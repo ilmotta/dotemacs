@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(my/package anzu
+(lib-util/pkg anzu
   :elpaca (:ref "5abb37455ea44fa401d5f4c1bdc58adb2448db67")
   :defer t
   :init

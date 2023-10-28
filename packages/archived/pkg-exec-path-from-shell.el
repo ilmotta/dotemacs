@@ -3,7 +3,7 @@
 
 ;; This package helps me configure Emacs GUI to use the same variables set by
 ;; zshell. For example, this is important to use FZF (fuzzy finder).
-(my/package exec-path-from-shell
+(lib-util/pkg exec-path-from-shell
   :when (memq window-system '(mac ns x))
   :straight t
 

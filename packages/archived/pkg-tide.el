@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package tide
+(lib-util/pkg tide
   :straight t
   :defer t
   :hook ((typescript-mode-hook rjsx-mode-hook) . tide-setup)

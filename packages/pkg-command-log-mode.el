@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package command-log-mode
+(lib-util/pkg command-log-mode
   :elpaca (:ref "af600e6b4129c8115f464af576505ea8e789db27")
   :defer t
   :commands (command-log-mode

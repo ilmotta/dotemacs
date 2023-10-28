@@ -260,7 +260,7 @@ This is particularly useful to evaluate the value of a var."
     (forward-symbol 2)
     (call-interactively #'eval-last-sexp)))
 
-(my/package emacs
+(lib-util/pkg emacs
   :elpaca nil
 
   :hook (emacs-lisp-mode-hook . cl-font-lock-built-in-mode)

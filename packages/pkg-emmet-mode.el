@@ -7,7 +7,7 @@
 ;; http://docs.emmet.io/abbreviations/ is inspired by CSS selectors.
 
 ;;; Code:
-(my/package emmet-mode
+(lib-util/pkg emmet-mode
   :elpaca (:ref "63b6932603184956b5ea8919036d2b307b48d7fd")
   :defer t
   :hook ((js-mode-hook

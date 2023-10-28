@@ -11,7 +11,7 @@
 ;; protocol based on the XML description files from XCB project. This is a
 ;; dependency of the exwm package. Here the ch11ng/xelb repository replaces the
 ;; default straight recipe.
-(my/package xelb
+(lib-util/pkg xelb
   :disabled t
   :straight (:type git :host github :repo "ch11ng/xelb")
   :demand t)

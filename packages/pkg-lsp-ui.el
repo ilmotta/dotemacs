@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package lsp-ui
+(lib-util/pkg lsp-ui
   :elpaca (:ref "fb1073013f745bce056811a38e2b0b8b2a4b5ebc")
   :defer t
   :init

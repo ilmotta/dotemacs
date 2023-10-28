@@ -35,7 +35,7 @@
   (when (derived-mode-p 'eshell-mode)
     (idle-highlight-mode -1)))
 
-(my/package idle-highlight-mode
+(lib-util/pkg idle-highlight-mode
   :elpaca (:host codeberg
            :repo "ideasman42/emacs-idle-highlight-mode"
            :ref "f9091c907d41e7b12d99d108a194229b8dbfc5ae")

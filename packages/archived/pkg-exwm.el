@@ -4,7 +4,7 @@
 ;; EXWM (Emacs X Window Manager). IMPORTANT: Do not call `exwm-enable'. We want
 ;; to be able to open Emacs without EXWM if we haven't started the EXWM session
 ;; at login.
-(my/package exwm
+(lib-util/pkg exwm
   :disabled t
   :straight (:type git :host github :repo "ch11ng/exwm")
   :demand t

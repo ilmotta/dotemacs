@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
 
-(my/package org-modern
+(lib-util/pkg org-modern
   :elpaca (:host github
            :repo "minad/org-modern"
            :ref "010eade723881ca234a12bd94b791e2000cd2a15")

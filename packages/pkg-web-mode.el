@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package web-mode
+(lib-util/pkg web-mode
   :elpaca (:ref "53bed1e6a8554da877c27ffad6bd65113dc758e3")
   :defer t
   :mode (rx "." (or "html") string-end)

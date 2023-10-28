@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package speed-type
+(lib-util/pkg speed-type
   :elpaca (:ref "11a8bd33711711fb5e22d93ac2ed950e4a2e76fc")
   :defer t
   :commands (speed-type-region

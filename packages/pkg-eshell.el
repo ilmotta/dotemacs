@@ -126,7 +126,7 @@ working directory (`default-directory')."
     (evil-change-whole-line)))
 
 
-(my/package eshell
+(lib-util/pkg eshell
   :elpaca nil
 
   :hook (eshell-post-command-hook . pkg-eshell/rename-buffer-with-last-input)

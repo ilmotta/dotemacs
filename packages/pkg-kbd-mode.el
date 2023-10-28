@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package kbd-mode
+(lib-util/pkg kbd-mode
   :elpaca (:host github
            :repo "kmonad/kbd-mode"
            :ref "96178a43d3c9ea3167362513fe4c3fdeb7074e9f")

@@ -5,7 +5,7 @@
 ;; indentation.
 
 ;;; Code:
-(my/package tsi
+(lib-util/pkg tsi
   :elpaca (:host github :repo "orzechowskid/tsi.el")
   :unless my/android?
   :defer t

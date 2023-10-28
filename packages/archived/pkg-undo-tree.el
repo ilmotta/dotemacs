@@ -4,7 +4,7 @@
 (defun pkg-undo-tree/reset-line-spacing ()
   (setq-local line-spacing 0))
 
-(my/package undo-tree
+(lib-util/pkg undo-tree
   :straight t
   ;; Weird behavior sometimes, experimenting with undo-fu instead (2022-04-03).
   :disabled t

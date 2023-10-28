@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(my/package htmlize
+(lib-util/pkg htmlize
   :elpaca (:ref "dd27bc3f26efd728f2b1f01f9e4ac4f61f2ffbf9")
   :defer t)
 

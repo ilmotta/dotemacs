@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package transient
+(lib-util/pkg transient
   :elpaca nil
   :init
   (setq transient-values-file (file-name-concat my/cache-dir "transient/values.el")

@@ -8,7 +8,7 @@
 
 ;;; Code:
 
-(my/package embark
+(lib-util/pkg embark
   ;; We need to explicitly add embark-consult.el.
   :elpaca (:ref "ee014d5f3c86eafae673a947b492fa03ffbacb4e"
            :files ("embark.el" "embark-org.el" "embark-consult.el"))

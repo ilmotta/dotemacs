@@ -61,7 +61,7 @@ variable.")
 
 (defun pkg-magit/diff-visit-file (original-fn &rest args)
   "Try to visit file reusing buffer window and recenter."
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (apply original-fn args)
    (recenter)))
 
@@ -69,7 +69,7 @@ variable.")
 ;; `use-package'.
 ;; (setq magit-define-global-key-bindings nil)
 
-(my/package magit
+(lib-util/pkg magit
   :elpaca (:host github
            :repo "magit/magit"
            :ref "9007bcfdb520f32befd48f8bf8c228e2a065f9e4")

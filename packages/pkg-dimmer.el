@@ -9,7 +9,7 @@
 
 ;;; Code:
 
-(my/package dimmer
+(lib-util/pkg dimmer
   :elpaca (:ref "a5b697580e5aed6168b571ae3d925753428284f8")
   :defer t
 

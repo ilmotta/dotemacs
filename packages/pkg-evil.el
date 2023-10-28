@@ -54,7 +54,7 @@ argument."
 
     (evil-mode +1)))
 
-(my/package evil
+(lib-util/pkg evil
   :elpaca (:ref "2e8576188b1d0768fbf92c6bea2fb3fbed9f019f")
   :defer t
   :commands (evil-set-initial-state)

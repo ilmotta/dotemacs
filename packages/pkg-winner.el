@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package winner
+(lib-util/pkg winner
   :elpaca nil
   :init
   (setq winner-dont-bind-my-keys t)

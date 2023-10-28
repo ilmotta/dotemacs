@@ -45,7 +45,7 @@ command respects buffer display actions."
 that `xref-pop-to-location' uses `pop-to-buffer', which in turn
 respects display buffer actions."
   (interactive)
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (cond ((bound-and-true-p lsp-mode)
           (lsp-find-definition :display-action 'window))
          (:default
@@ -53,7 +53,7 @@ respects display buffer actions."
             ;; Uses `display-action' as 'window.
             (xref-find-definitions-other-window thing))))))
 
-(my/package xref
+(lib-util/pkg xref
   :elpaca nil
 
   :hook ((xref-after-jump-hook

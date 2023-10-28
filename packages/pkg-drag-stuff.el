@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package drag-stuff
+(lib-util/pkg drag-stuff
   :elpaca (:ref "6d06d846cd37c052d79acd0f372c13006aa7e7c8")
   :defer t
   :init

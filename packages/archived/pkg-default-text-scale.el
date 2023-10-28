@@ -37,7 +37,7 @@ to zero."
 
 ;; Easily adjust the font size in all Emacs frames. The bindings are the same
 ;; used in web browsers.
-(my/package default-text-scale
+(lib-util/pkg default-text-scale
   :straight t
   :defer t
   :init

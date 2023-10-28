@@ -21,17 +21,17 @@
 (require 'use-package)
 
 ;; Non-specified dependency by rigpa.
-(my/package dynamic-ring
+(lib-util/pkg dynamic-ring
   :disabled t
   :straight t)
 
 ;; Non-specified dependency by rigpa.
-(my/package dynaring
+(lib-util/pkg dynaring
   :disabled t
   :straight (:type git :host github :repo "countvajhula/dynaring"))
 
 ;; An evil way to edit Lisp symbolic expressions ("symexes") as trees.
-(my/package symex
+(lib-util/pkg symex
   :disabled t
   :straight t
   :config
@@ -49,7 +49,7 @@
   (symex-initialize))
 
 ;; Modular editing levels and towers.
-(my/package rigpa
+(lib-util/pkg rigpa
   :disabled t
   :straight (:type git :host github :repo "countvajhula/rigpa")
   :after (evil symex)

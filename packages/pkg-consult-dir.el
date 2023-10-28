@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(my/package consult-dir
+(lib-util/pkg consult-dir
   :elpaca (:ref "ed8f0874d26f10f5c5b181ab9f2cf4107df8a0eb")
   :defer t
   :init

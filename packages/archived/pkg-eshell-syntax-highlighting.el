@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package eshell-syntax-highlighting
+(lib-util/pkg eshell-syntax-highlighting
   :straight t
   ;; Unfortunately it doesn't work with evil. There's no issue on Github and I
   ;; don't have the time to fix it.

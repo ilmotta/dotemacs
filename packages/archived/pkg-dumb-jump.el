@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package dumb-jump
+(lib-util/pkg dumb-jump
   :straight t
   :defer t
   :init

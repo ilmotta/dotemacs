@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package magit-delta
+(lib-util/pkg magit-delta
   :elpaca (:ref "5fc7dbddcfacfe46d3fd876172ad02a9ab6ac616")
   ;; [2023-06-15] Too slow when rendering diffs in the magit status buffer.
   :disabled t

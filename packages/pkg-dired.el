@@ -42,7 +42,7 @@
 
 ;;;; Init
 
-(my/package dired
+(lib-util/pkg dired
   :elpaca nil
   :hook (dired-mode-hook . pkg-dired/setup-mode-h)
 

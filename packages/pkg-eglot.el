@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package eglot
+(lib-util/pkg eglot
   :elpaca (:host github
            :repo "joaotavora/eglot"
            :ref "8b5532dd32b25276c1857508030b207f765ef9b6")

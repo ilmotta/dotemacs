@@ -39,7 +39,7 @@ Examples:
       (setf (alist-get mode pkg-company/backend-alist)
             backends))))
 
-(my/package company
+(lib-util/pkg company
   :straight t
   :disabled t
   :demand t

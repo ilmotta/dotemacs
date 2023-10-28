@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package tramp
+(lib-util/pkg tramp
   :elpaca nil
   :init
   ;; Value of TERM environment variable for logging in to remote host.

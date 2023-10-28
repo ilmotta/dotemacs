@@ -103,7 +103,7 @@ mode is not enabled it tries to use LSP to find the definition."
 
 ;;; Package
 
-(my/package clojure-mode
+(lib-util/pkg clojure-mode
   :elpaca (:ref "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
   :defer t
 

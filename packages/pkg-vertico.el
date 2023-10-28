@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 ;;; Code:
 
-(my/package vertico
+(lib-util/pkg vertico
   :elpaca (:files ("*.el" "extensions/*.el")
            :ref "4d2bde64e7c4a07e4c4447283af19382ead37d48")
   :defer t

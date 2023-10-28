@@ -18,7 +18,7 @@ is already visible.")
   (when hl-line-mode
     (setq pkg-hl-line/mode-on t)))
 
-(my/package hl-line
+(lib-util/pkg hl-line
   :elpaca nil
   :hook ((conf-mode-hook
           dired-mode-hook

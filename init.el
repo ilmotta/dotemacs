@@ -7,6 +7,7 @@
 (require 'cl-lib)
 (require 'transient)
 (require 'seq)
+(require 'lib-elisp)
 (require 'lib-util)
 
 ;; Load core modules.
@@ -27,7 +28,7 @@
 (add-hook 'after-init-hook #'my/load-extra-libs)
 
 ;;; Core packages
-(my/with-packages
+(lib-util/require
  pkg-general               ; Sync load before all other packages.
  pkg-org                   ; Org must be loaded before the bundled org-mode one.
  pkg-evil
@@ -37,7 +38,7 @@
  pkg-xclip)
 
 ;;; Built-in packages
-(my/with-packages
+(lib-util/require
  pkg-dired
  pkg-eldoc
  pkg-emacs
@@ -57,7 +58,7 @@
  pkg-winner)
 
 ;;; Emacs Lisp development libraries
-(my/with-packages
+(lib-util/require
  pkg-dash
  pkg-f
  pkg-plz
@@ -70,7 +71,7 @@
  pkg-ts)
 
 ;;; Completion systems
-(my/with-packages
+(lib-util/require
  pkg-consult
  pkg-corfu
  pkg-embark
@@ -78,7 +79,7 @@
  pkg-vertico)
 
 ;;; UI packages
-(my/with-packages
+(lib-util/require
  pkg-all-the-icons
  pkg-all-the-icons-dired
  pkg-anzu
@@ -102,7 +103,7 @@
  pkg-xterm-color)
 
 ;;; Packages that enhance text editing
-(my/with-packages
+(lib-util/require
  pkg-aggressive-indent
  pkg-apheleia
  pkg-drag-stuff
@@ -119,7 +120,7 @@
  pkg-xref)
 
 ;;; File/language modes
-(my/with-packages
+(lib-util/require
  pkg-cargo
  pkg-cider
  pkg-clj-refactor
@@ -160,7 +161,7 @@
  pkg-yaml-mode)
 
 ;;; LSP (Language Server Protocol)
-(my/with-packages
+(lib-util/require
  pkg-eglot
  pkg-dap-mode
  pkg-lsp-java
@@ -168,7 +169,7 @@
  pkg-lsp-ui)
 
 ;;; Org mode
-(my/with-packages
+(lib-util/require
  pkg-evil-org
  pkg-htmlize
  pkg-ob-async
@@ -179,7 +180,7 @@
  pkg-org-roam)
 
 ;;; Miscellaneous packages
-(my/with-packages
+(lib-util/require
  pkg-ace-window
  pkg-browse-at-remote
  pkg-command-log-mode

@@ -6,7 +6,7 @@
 ;;
 ;; Update @ 2023-04-21: waiting for the 2.0 release.
 
-(my/package
+(lib-util/pkg
   (symex :ref "9fe07170ff5370cea9e6edbf093cb1ea8f71e28b")
   :defer t
 

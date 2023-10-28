@@ -3,13 +3,13 @@
 
 ;; Solidity is an object-oriented, high-level language for implementing smart
 ;; contracts.
-(my/package solidity-mode
+(lib-util/pkg solidity-mode
   :straight t
   :defer t
   :config
   (setq solidity-comment-style 'slash))
 
-(my/package solidity-flycheck
+(lib-util/pkg solidity-flycheck
   :straight t
   :defer t
   :hook (solidity-mode-hook . pkg-solidity-mode/setup-flycheck)
@@ -27,7 +27,7 @@
     (setq solidity-flycheck-solium-checker-active t)
     (require 'solidity-flycheck)))
 
-(my/package company-solidity
+(lib-util/pkg company-solidity
   ;; Currently disabled because it always adds 'company-solidity to the
   ;; `company-backends' variable.
   :disabled t

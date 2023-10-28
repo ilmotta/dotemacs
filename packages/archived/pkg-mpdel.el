@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package mpdel
+(lib-util/pkg mpdel
   :straight t
   :disabled t ; TODO: Improve start-up time
   :demand t

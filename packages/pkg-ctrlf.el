@@ -7,7 +7,7 @@
 
 ;; An intuitive and efficient solution for single-buffer text search in
 ;; Emacs,replacing packages such as Isearch, Swiper, and helm-swoop.
-(my/package ctrlf
+(lib-util/pkg ctrlf
   :elpaca (:ref "9b4cf6c79a961f2bfbb949805aa300fcf1eb40a6")
   :defer t
 

@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(my/package shrink-path
+(lib-util/pkg shrink-path
   :elpaca (:ref "c14882c8599aec79a6e8ef2d06454254bb3e1e41")
   :defer t)
 

@@ -15,7 +15,7 @@
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
-(my/package flycheck
+(lib-util/pkg flycheck
   :elpaca (:ref "15f0759602f9a31aff134c44d001ab058fbe747c")
   :defer t
 

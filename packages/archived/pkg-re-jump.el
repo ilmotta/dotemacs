@@ -2,7 +2,7 @@
 (require 'use-package)
 
 ;; Clojure re-frame navigation for fully qualified keywords.
-(my/package re-jump
+(lib-util/pkg re-jump
   :straight (:host github :repo "oliyh/re-jump.el")
   :disabled t
   :defer t)

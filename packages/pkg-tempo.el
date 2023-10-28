@@ -5,7 +5,7 @@
   (let ((tag-name (completing-read "Tempo tag: " (map-keys tempo-tags))))
     (insert tag-name)))
 
-(my/package tempo
+(lib-util/pkg tempo
   :elpaca nil
   :config
   (tempo-define-template

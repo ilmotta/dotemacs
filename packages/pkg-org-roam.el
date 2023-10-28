@@ -12,20 +12,20 @@
 (defun pkg-org-roam/node-find ()
   "Find and open an Org-roam node by its title or alias."
   (interactive)
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (call-interactively #'org-roam-node-find)))
 
-(my/package emacsql
+(lib-util/pkg emacsql
   :elpaca (:host github :repo "skeeto/emacsql")
   :defer t)
 
-(my/package emacsql-sqlite
+(lib-util/pkg emacsql-sqlite
   :elpaca (:host github :repo "skeeto/emacsql")
   :defer t)
 
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
-(my/package org-roam
+(lib-util/pkg org-roam
   :elpaca (:ref "74422df546a515bc984c2f3d3a681c09d6f43916")
   :defer t
 

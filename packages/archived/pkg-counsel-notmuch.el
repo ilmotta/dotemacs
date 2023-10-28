@@ -3,7 +3,7 @@
 
 ;; Now that I'm not using counsel, some of the features in `counsel-notmuch'
 ;; should be ported. Ivy interface to search e-mails with notmuch-search(1).
-(my/package counsel-notmuch
+(lib-util/pkg counsel-notmuch
   :disabled t
   :straight t
   :after (counsel notmuch)

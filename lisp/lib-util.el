@@ -2,68 +2,27 @@
 (require 'benchmark)
 (require 'map)
 
-;;; Macros
+;;; Other macros
 
-(defmacro my/with-buffer-reuse-window (&rest body)
+(defmacro lib-util/with-buf-reuse-window (&rest body)
   "Force buffer switch/pop to reuse the same window whenever
 possible, but fallback `display-buffer-same-window'."
   `(let ((display-buffer-overriding-action '((display-buffer-reuse-window
                                               display-buffer-same-window))))
     ,@body))
 
-(defmacro defhof (name fn-factory)
-  `(progn
-     (defvar ,name ,fn-factory)
-     (fset ',name ,name)
-     (declare-function ,name nil)))
-
-(defmacro delq! (elt list &optional fetcher)
-  "`delq' ELT from LIST in-place.
-
-If FETCHER is a function, ELT is used as the key in LIST (an alist)."
-  `(setq ,list
-    (delq ,(if fetcher
-               `(funcall ,fetcher ,elt ,list)
-             elt)
-     ,list)))
-
-(defmacro pushnew! (place &rest values)
-  "Push VALUES sequentially into PLACE, if they aren't already present.
-This is a variadic `cl-pushnew'."
-  (let ((var (make-symbol "result")))
-    `(dolist (,var (list ,@values) (with-no-warnings ,place))
-       (cl-pushnew ,var ,place :test #'equal))))
-
-(defmacro comment (&rest _body)
-  "Ignores body, yields nil."
-  (declare (indent defun))
-  nil)
-
-(defmacro with-delay (delay &rest body)
-  (declare (indent defun))
-  `(run-with-timer ,delay nil (lambda () ,@body)))
-
-(defmacro with-timer (delay repeat &rest body)
-  (declare (indent defun))
-  `(run-with-timer ,delay ,repeat (lambda () ,@body)))
-
-(defmacro my/benchmark (id &rest body)
+(defmacro lib-util/benchmark (id &rest body)
   `(push (list ,id (benchmark-elapse ,@body))
     my/start-up-benchmarks))
 
-(defmacro my/with-packages (&rest packages)
+(defmacro lib-util/require (&rest packages)
   (declare (indent nil))
   `(progn
      ,@(cl-loop for pkg in packages
-        collect `(my/benchmark (quote ,pkg) (require (quote ,pkg))))
+        collect `(lib-util/benchmark (quote ,pkg) (require (quote ,pkg))))
      nil))
 
-(defun my/use-package-force-demand-p (default)
-  (cond ((equal 'force my/use-package-force-demand) t)
-        ((equal 'default my/use-package-force-demand) default)
-        (t nil)))
-
-(defmacro my/package (order &rest args)
+(defmacro lib-util/pkg (order &rest args)
   (declare (indent defun))
   (when my/use-package-force-demand
     (setq args (map-delete args :defer))
@@ -72,15 +31,6 @@ This is a variadic `cl-pushnew'."
   `(use-package ,order ,@args))
 
 ;;; Interactive fundamentals
-
-(defun advice-alist (symbol)
-  "Returns an alist of (ADVICE-FUNCTION . ADVICE-PROPS) for SYMBOL.
-See `advice-mapc'."
-  (let ((fns nil))
-    (advice-mapc (lambda (fn props)
-                   (push `(,fn . ,props) fns))
-                 symbol)
-    fns))
 
 (defun lib-util/advice-remove-dwim ()
   (interactive)
@@ -571,7 +521,7 @@ symbolic links."
 (defun lib-util/project-switch-to-dotfiles ()
   "Open my dotfiles project."
   (interactive)
-  (my/with-buffer-reuse-window
+  (lib-util/with-buf-reuse-window
    (project-switch-project "~/data/repos/dotfiles")))
 
 ;;;###autoload

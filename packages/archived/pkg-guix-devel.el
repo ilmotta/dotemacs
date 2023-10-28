@@ -5,7 +5,7 @@
 ;; indentation rules for Guix Guile code, as well as some tools to work with
 ;; Guix (or even an arbitrary Guile code) with Geiser.
 (unless my/windows?
-  (my/package guix-devel
+  (lib-util/pkg guix-devel
     :no-require t
     :defer t
     :hook (scheme-mode-hook . guix-devel-mode)))

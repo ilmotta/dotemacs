@@ -49,7 +49,7 @@ spanning over multiple lines."
 ;; using /directory locals/.
 ;;
 ;;   ((js-mode . ((eval . (lsp-deferred)))))
-(my/package lsp-mode
+(lib-util/pkg lsp-mode
   :elpaca (:ref "7dee0d63fa1b6628be4aaea86b2298244eb3d84e")
   :defer t
 

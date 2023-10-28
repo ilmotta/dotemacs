@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package eldoc
+(lib-util/pkg eldoc
   :elpaca nil
   :init
   (setq eldoc-idle-delay 0.25

@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package explain-pause-mode
+(lib-util/pkg explain-pause-mode
   :elpaca (:host github
            :repo "lastquestion/explain-pause-mode"
            :ref "2356c8c3639cbeeb9751744dbe737267849b4b51")

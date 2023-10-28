@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package pulsar
+(lib-util/pkg pulsar
   :elpaca (:ref "57010e2c6cdee14acfd87b4c2bd75c796f04a75e")
   :defer t
 

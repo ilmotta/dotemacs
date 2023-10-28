@@ -5,7 +5,7 @@
 ;; predictability of `windmove' and pack it into a single key binding, similar
 ;; to other-window.
 
-(my/package ace-window
+(lib-util/pkg ace-window
   :elpaca (:ref "77115afc1b0b9f633084cf7479c767988106c196")
   ;; 2023-05-20: I haven't used it for a long time.
   :disabled t

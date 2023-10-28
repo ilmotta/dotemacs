@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package ivy-mpdel
+(lib-util/pkg ivy-mpdel
   :disabled t
   :straight t
   :demand t)

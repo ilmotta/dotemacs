@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'use-package)
 
-(my/package evil-goggles
+(lib-util/pkg evil-goggles
   :straight t
 
   ;; This package is incompatible with evil-cleverparens and evil-smartparens.

@@ -61,7 +61,7 @@
               (error-message-string err))
      pkg-mini-frame/fallback-frame-parameters)))
 
-(my/package mini-frame
+(lib-util/pkg mini-frame
   :straight (:host github :repo "muffinmad/emacs-mini-frame")
   :defer t
 

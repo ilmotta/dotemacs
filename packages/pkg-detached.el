@@ -138,7 +138,7 @@
     "w" #'detached-copy-session-command
     "W" #'detached-copy-session-output))
 
-(my/package detached
+(lib-util/pkg detached
   :elpaca (:ref "6b64d4d8064cee781e071e825857b442ea96c3d9")
   :disabled t
   :defer t

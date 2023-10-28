@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package battery
+(lib-util/pkg battery
   :elpaca nil
   :init
   (setq battery-mode-line-limit 99

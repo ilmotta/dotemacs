@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(my/package awesome-tray
+(lib-util/pkg awesome-tray
   :straight (:host github :repo "manateelazycat/awesome-tray")
   :defer t
   :hook (after-init-hook . awesome-tray-mode)

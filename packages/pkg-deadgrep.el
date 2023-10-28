@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-(my/package deadgrep
+(lib-util/pkg deadgrep
   :elpaca (:ref "9da7183e60c75bacefd44025fc5e5335b7c5862a")
   :defer t
   :init

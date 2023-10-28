@@ -2,7 +2,7 @@
 (require 'use-package)
 
 ;; Emacs start-up profiler.
-(my/package esup
+(lib-util/pkg esup
   :straight t
   :defer t
   :init

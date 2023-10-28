@@ -43,7 +43,7 @@ automatically switch to it."
   (project-switch-project project)
   (tab-bar-rename-tab (project-name (project-current))))
 
-(my/package tab-bar
+(lib-util/pkg tab-bar
   :elpaca nil
 
   :init

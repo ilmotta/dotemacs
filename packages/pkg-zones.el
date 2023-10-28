@@ -62,7 +62,7 @@ Use the command `\\[widen]' to see the whole buffer again."
         (zz-add-zone beg end)
         (narrow-to-region beg end))))))
 
-(my/package zones
+(lib-util/pkg zones
   :elpaca (:ref "932aa3cd9e1827c0ebe68a4af7899704c4dba495"
            :host github
            :repo "emacs-straight/zones")

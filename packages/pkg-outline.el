@@ -26,7 +26,7 @@
   (call-interactively #'outline-previous-heading)
   (call-interactively #'outline-hide-other))
 
-(my/package outline
+(lib-util/pkg outline
   :elpaca nil
   :init
   (setq outline-minor-mode-highlight 'override)

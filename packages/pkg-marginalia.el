@@ -11,7 +11,7 @@
     (customize-save-variable 'marginalia-annotator-registry
                              marginalia-annotator-registry)))
 
-(my/package marginalia
+(lib-util/pkg marginalia
   :elpaca (:ref "c1365bf0c7b5d32e7531fa8f1a9a3b64a155cec0")
   :defer t
   :hook (minibuffer-setup-hook . marginalia-mode)

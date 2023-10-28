@@ -8,7 +8,7 @@
     (evil-org-agenda-set-keys)
     (evil-org-mode +1)))
 
-(my/package evil-org
+(lib-util/pkg evil-org
   :elpaca (:ref "b1f309726b1326e1a103742524ec331789f2bf94")
   :defer t
   :disabled t ; Too many keybindings I don't really use.

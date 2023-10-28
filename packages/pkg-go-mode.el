@@ -34,7 +34,7 @@
                          ".go"
                          string-end)))))
 
-(my/package go-mode
+(lib-util/pkg go-mode
   :elpaca (:ref "166dfb1e090233c4609a50c2ec9f57f113c1da72")
   :defer t
 

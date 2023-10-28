@@ -8,7 +8,7 @@
 ;; /directory locals/.
 ;;
 ;;   ((js-mode . ((mode . rjsx))))
-(my/package rjsx-mode
+(lib-util/pkg rjsx-mode
   :straight t
   :disabled t
   :defer t

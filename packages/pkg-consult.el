@@ -49,7 +49,7 @@ Uses initial input from previous call to
                default-directory)))
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
-(my/package consult
+(lib-util/pkg consult
   :elpaca (:ref "7c7658ba7b1389fba1eff9dbc8962409f99343b7")
   :defer t
 

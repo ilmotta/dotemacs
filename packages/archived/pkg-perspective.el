@@ -9,7 +9,7 @@
 ;; buffers.
 
 ;;; Code:
-(my/package perspective
+(lib-util/pkg perspective
   :straight t
   :defer t
 

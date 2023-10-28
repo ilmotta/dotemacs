@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(my/package
+(lib-util/pkg
   (lsp-bridge :ref "5716cceffc9bc76ef37f4754870eca1028c56b84"
               :host github
               :repo "manateelazycat/lsp-bridge"

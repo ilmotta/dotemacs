@@ -2,7 +2,7 @@
 (require 'use-package)
 
 ;; Flashcards and spaced repetition for org-mode.
-(my/package org-drill
+(lib-util/pkg org-drill
   :when (version< "28.0.50" emacs-version) ; Native compilation fails
   :straight t
   :defer t

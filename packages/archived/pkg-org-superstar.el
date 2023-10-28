@@ -3,7 +3,7 @@
 
 ;; Prettify headings and plain lists in Org mode. This package is a direct
 ;; descendant of org-bullets.
-(my/package org-superstar
+(lib-util/pkg org-superstar
   :straight t
   :defer t
   :init

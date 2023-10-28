@@ -18,7 +18,7 @@
 
 ;; Major mode for interacting with Notmuch (an email tag system).
 (unless my/windows?
-  (my/package notmuch
+  (lib-util/pkg notmuch
     :straight t
     :defer t
 
