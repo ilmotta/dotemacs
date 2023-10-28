@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(require 'notifications)
+
 (defvar pkg-status-mobile/preview-screens
   '((:name "account-avatar" :category "avatar")
     (:name "account-selector" :category "tabs")
@@ -153,5 +155,127 @@ of plists:
       (pkg-tab-bar/switch-project-as-tab "~/data/repos/status/mobile/status-mobile/"))
     (unless (member "status-go" tab-names)
       (pkg-tab-bar/switch-project-as-tab "~/data/repos/status/status-go/status-go/"))))
+
+(defun pkg-status-mobile/start-react-native-android ()
+  (let ((proc (start-process "run-android" "*status-mobile-run-android*" "make" "run-android")))
+    (set-process-sentinel
+     proc
+     (lambda (process event)
+       (when (string-prefix-p "finished" (substring event 0 8))
+         (notifications-notify :title "Status Mobile"
+                               :body "Emulated Android app is running."
+                               :urgency 'low
+                               :suppress-sound t))))))
+
+(defun pkg-status-mobile/start-react-native-android ()
+  (let ((proc (start-process "run-android" "*status-mobile-run-android*" "make" "run-android")))
+    (set-process-sentinel
+     proc
+     (lambda (process event)
+       (when (string-prefix-p "finished" (substring event 0 8))
+         (notifications-notify :title "Status Mobile"
+                               :body "Emulated Android app is running."
+                               :urgency 'normal
+                               :suppress-sound t))))))
+
+(defun pkg-status-mobile/start-metro ()
+  (let ((proc (start-process "run-metro" "*status-mobile-run-metro*" "make" "run-metro" "TARGET=android")))
+    (set-process-filter
+     proc
+     (lambda (process output)
+       (with-current-buffer (process-buffer process)
+         (insert output)
+         (ansi-color-apply-on-region (point-min) (point-max))
+         (goto-char (point-max))
+         (when (string-match-p "Welcome to Metro!" output)
+           (message "[info][status] Metro finished.")
+           (process-send-eof process)
+           (pkg-status-mobile/start-react-native-android)))))))
+
+(defun pkg-status-mobile/start-shadowcljs-target-mobile ()
+  (let ((proc (start-process "run-clojure" "*status-mobile-run-clojure*" "make" "run-clojure")))
+    (set-process-filter
+     proc
+     (lambda (process output)
+       (with-current-buffer (process-buffer process)
+         (insert output)
+         (ansi-color-apply-on-region (point-min) (point-max))
+         (goto-char (point-max))
+         (when (string-match-p (rx "[:mobile] Build completed.") output)
+           (message "[info][status] Shadow-CLJS :mobile target finished.")
+           (process-send-eof process)
+           (pkg-status-mobile/start-metro)))))))
+
+(defun pkg-status-mobile/start-app ()
+  (interactive)
+  (let ((default-directory (project-root (project-current))))
+    (pkg-status-mobile/start-shadowcljs-target-mobile)))
+
+(defun pkg-status-mobile/start-shadowcljs-test-repl ()
+  (let ((proc (start-process "shadow-cljs-test-repl" "*status-mobile-shadow-cljs-test-repl*"
+                             "nix-shell"
+                             "--show-trace"
+                             "--attr" "shells.default"
+                             "--keep" "default" "default.nix"
+                             "--run" "yarn shadow-cljs cljs-repl test"))
+        (started-p nil))
+    (set-process-filter
+     proc
+     (lambda (process output)
+       (with-current-buffer (process-buffer process)
+         (insert output)
+         (goto-char (point-max))
+         (when (and (not started-p) (string-match-p (rx "cljs.user=>") output))
+           (setq started-p t)
+           (notifications-notify :title "Status Mobile"
+                                 :body "Test REPL is ready!"
+                                 :urgency 'normal
+                                 :suppress-sound t)
+           (process-send-eof process)))))))
+
+(defun pkg-status-mobile/start-shadowcljs-compiled-tests ()
+  (let ((proc (start-process "shadow-cljs-compiled-tests" "*status-mobile-shadow-cljs-compiled-tests*"
+                             "nix-shell"
+                             "--show-trace"
+                             "--attr" "shells.default"
+                             "--keep" "default" "default.nix"
+                             "--run" "node --require ./test-resources/override.js target/test/test.js --repl"))
+        (started-p nil))
+    (set-process-filter
+     proc
+     (lambda (process output)
+       (with-current-buffer (process-buffer process)
+         (insert output)
+         (goto-char (point-max))
+         (when (and (not started-p) (string-match-p (rx "shadow-cljs - #" (= 1 digit) " ready!") output))
+           (setq started-p t)
+           (message "[info][status] Successfully executed Shadow-CLJS cljs-test.")
+           (process-send-eof process)
+           (pkg-status-mobile/start-shadowcljs-test-repl)))))))
+
+(defun pkg-status-mobile/start-shadowcljs-target-test ()
+  (let ((proc (start-process "shadow-cljs-watch-test" "*status-mobile-shadow-cljs-watch-test*"
+                             "nix-shell"
+                             "--show-trace"
+                             "--attr" "shells.default"
+                             "--keep" "default" "default.nix"
+                             "--run" "yarn shadow-cljs watch test --verbose"))
+        (started-p nil))
+    (set-process-filter
+     proc
+     (lambda (process output)
+       (with-current-buffer (process-buffer process)
+         (insert output)
+         (goto-char (point-max))
+         (when (and (not started-p) (string-match-p (rx "[:test] Build completed.") output))
+           (setq started-p t)
+           (message "[info][status] Shadow-CLJS :test target finished.")
+           (process-send-eof process)
+           (pkg-status-mobile/start-shadowcljs-compiled-tests)))))))
+
+(defun pkg-status-mobile/start-test-repl ()
+  (interactive)
+  (let ((default-directory (project-root (project-current))))
+    (pkg-status-mobile/start-shadowcljs-target-test)))
 
 (provide 'pkg-status-mobile)
