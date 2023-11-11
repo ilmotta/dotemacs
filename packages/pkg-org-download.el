@@ -32,10 +32,11 @@
   (setq org-download-screenshot-file "/tmp/screenshot.png")
   (setq org-download-timestamp my/note-id-time-string)
 
-  ;; Don't add image width attributes because we'll add them uppercased.
+  ;; Don't add image width attributes because it'll be added by
+  ;; `org-download-image-attr-list'.
   (setq org-download-image-org-width 0
         org-download-image-html-width 0
-        org-download-image-attr-list '("#+ATTR_ORG: :width 800"))
+        org-download-image-attr-list '("#+attr_org: :width 600"))
 
   ;; When non-nil display inline images in org buffer after download.
   (setq org-download-display-inline-images t)
