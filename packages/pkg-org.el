@@ -49,6 +49,16 @@ PDFs, HTML and Tex files."
 ;;; Autoloads
 
 ;;;###autoload
+(defun pkg-org/copy-symbol-at-point-as-link ()
+  "Copy symbol at point as an org file link."
+  (interactive)
+  (kill-new (format "[[file:%s::%d][%s]]"
+                    (buffer-file-name)
+                    (line-number-at-pos)
+                    (or (thing-at-point 'symbol)
+                        (file-name-nondirectory (directory-file-name (buffer-file-name)))))))
+
+;;;###autoload
 (defun pkg-org/link-unlink ()
   "Unlink the text at point."
   (interactive)
