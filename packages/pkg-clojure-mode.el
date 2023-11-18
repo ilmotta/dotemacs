@@ -149,6 +149,7 @@ mode is not enabled it tries to use LSP to find the definition."
   (define-clojure-indent (match :defn))
   (define-clojure-indent (prop/for-all 1))
   (define-clojure-indent (reg-event-fx 1))
+  (define-clojure-indent (schema/=> 1))
   (define-clojure-indent (wait-for :defn))
 
   (with-eval-after-load 'flycheck
