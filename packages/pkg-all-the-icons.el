@@ -27,19 +27,20 @@
   (setq all-the-icons-dired-monochrome nil)
 
   :config
-  (setq org-capture-templates
-        (append
-         `(("n" ,(concat (all-the-icons-faicon "sticky-note" :v-adjust -0.1) " Note")
-            plain
-            (file pkg-org-capture/note-new-path)
-            ,pkg-org-capture/template-note
-            :immediate-finish t
-            :jump-to-captured t
-            :no-save t))
-         `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
-            entry (file "~/data/repos/notes/20200827220222.org")
-            ,pkg-org-capture/template-todo
-            :immediate-finish t))))
+  (with-eval-after-load 'org-capture
+    (setq org-capture-templates
+          (append
+           `(("n" ,(concat (all-the-icons-faicon "sticky-note" :v-adjust -0.1) " Note")
+              plain
+              (file pkg-org-capture/note-new-path)
+              ,pkg-org-capture/template-note
+              :immediate-finish t
+              :jump-to-captured t
+              :no-save t))
+           `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
+              entry (file "~/data/repos/notes/20200827220222.org")
+              ,pkg-org-capture/template-todo
+              :immediate-finish t)))))
 
   ;; Icons by file name.
   (add-to-list 'all-the-icons-icon-alist '("\\.ledger$" all-the-icons-faicon "money" :height 1.0 :v-adjust 0.0 :face all-the-icons-dgreen))
