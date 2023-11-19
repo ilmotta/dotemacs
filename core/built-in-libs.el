@@ -64,13 +64,6 @@
       lazy-highlight-cleanup t
       lazy-highlight-buffer-max-at-a-time 10)
 
-;;; Ispell
-
-(when-let ((dir (getenv "ASPELL_DICT_DIR")))
-  (setq ispell-extra-args `("--dict-dir" ,dir)))
-(add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
-(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-
 ;;; Mail
 
 ;; Specially needed for Gmail.

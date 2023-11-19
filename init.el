@@ -49,6 +49,7 @@
  pkg-goto-addr
  pkg-hl-line
  pkg-image-dired
+ pkg-ispell
  pkg-outline
  pkg-proced
  pkg-project
