@@ -866,14 +866,6 @@ reuse the same window whenever possible."
     "_"   #'evil-window-set-height))
 (fset 'pkg-emacs/window-command-map pkg-emacs/window-command-map)
 
-(define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-h")) #'windmove-left)
-(define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-j")) #'windmove-down)
-(define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-k")) #'windmove-up)
-(define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-l")) #'windmove-right)
-
-(global-set-key [remap split-window-right] #'pkg-window/split-window-right)
-(global-set-key [remap split-window-below] #'pkg-window/split-window-below)
-
 ;;;; Init
 
 ;; Leave the window configuration alone, i.e. don't try to even window sizes.

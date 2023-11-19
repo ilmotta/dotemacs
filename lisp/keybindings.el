@@ -3,6 +3,17 @@
 
 ;;; Non mode-specific keybindings
 
+(defun my/windmove-setup-keybindings ()
+  (define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-h")) #'windmove-left)
+  (define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-j")) #'windmove-down)
+  (define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-k")) #'windmove-up)
+  (define-key my/keys-mode-map (kbd (concat my/windmove-modifier "-l")) #'windmove-right)
+
+  (global-set-key [remap split-window-right] #'pkg-window/split-window-right)
+  (global-set-key [remap split-window-below] #'pkg-window/split-window-below))
+
+(add-hook 'elpaca-after-init-hook #'my/windmove-setup-keybindings 100)
+
 (with-eval-after-load 'general
   (general-def
     :keymaps 'my/keys-mode-map
