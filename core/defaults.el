@@ -6,14 +6,11 @@
 
 ;;; Code:
 
-(defun my-load-custom-file ()
-  (load custom-file 'noerror 'nomessage))
-
 ;; Prevent Custom from modifying the init file.
 (let ((file (expand-file-name ".local/cache/custom.el" user-emacs-directory)))
   (make-directory (file-name-directory file) 'parents)
   (setq custom-file file)
-  (add-hook 'elpaca-after-init-hook #'my-load-custom-file))
+  (load custom-file 'noerror 'nomessage))
 
 ;;; Noise reduction
 
