@@ -52,7 +52,7 @@ Uses initial input from previous call to
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
 (lib-util/pkg consult
-  :elpaca (:ref "7c7658ba7b1389fba1eff9dbc8962409f99343b7")
+  :elpaca (:ref "63391fb2d7fbad61ba7a44acbae4da6669c89f31")
   :defer t
 
   :init
@@ -114,7 +114,6 @@ Uses initial input from previous call to
   (setq consult-async-input-throttle 0.25)
   (setq consult-async-min-input 3)
   (setq consult-async-refresh-delay 0.1)
-  (setq consult-async-default-split nil)
 
   ;; Default is 'perl, which adds a hashtag to the initial input. This allows
   ;; two-level filtering, i.e. first level is sent to the external program
