@@ -13,6 +13,11 @@
   ;; whether it exits the transient state or not.
   ;;
   ;; Note: The colors look odd in most themes.
-  (setq transient-semantic-coloring nil))
+  (setq transient-semantic-coloring nil)
+
+  :config
+  ;; "C-g" is the default binding for such commands now, but Transient's
+  ;; predecessor Magit-Popup used "q" instead.
+  (transient-bind-q-to-quit))
 
 (provide 'pkg-transient)

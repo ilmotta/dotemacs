@@ -131,9 +131,6 @@ variable.")
 
   ;; DON'T show the recent commits section.
   ;; (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent)
-
-  ;; "C-g" is the default binding for such commands now, but Transient's
-  ;; predecessor Magit-Popup used "q" instead.
-  (transient-bind-q-to-quit))
+  )
 
 (provide 'pkg-magit)
