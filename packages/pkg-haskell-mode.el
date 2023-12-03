@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg haskell-mode
-  :elpaca (:ref "a34ccdc54be15043ff0d253c3c20087524255491")
+  :elpaca (:ref "79eaf444a72109f93f552abb53f834cc63bbf9f2")
   :defer t)
 
 (provide 'pkg-haskell-mode)

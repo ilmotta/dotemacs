@@ -5,8 +5,10 @@
 (require 'lib-util)
 
 (lib-util/pkg vertico
-  :elpaca (:files ("*.el" "extensions/*.el")
-           :ref "4d2bde64e7c4a07e4c4447283af19382ead37d48")
+  :elpaca (:host github
+           :repo "minad/vertico"
+           :ref "017ff44443bad401097b9987849625cafa348d86"
+           :files (:defaults "extensions/*.el"))
   :defer t
   :hook (elpaca-after-init-hook . vertico-mode)
 
