@@ -67,15 +67,13 @@ mode is not enabled it tries to use LSP to find the definition."
 (defun pkg-clojure/setup-sibling-rules ()
   (setq-local find-sibling-rules
               (list
-               ;; Clojure(Script) src -> test
+               ;; Clojure(Script) src <-> test
                (list (rx (group (+ (not "/")))
                          "." (group (or "clj" "cljs"))
                          string-end)
                      (rx (regex "\\1")
                          "_test." (regex "\\2")
                          string-end))
-
-               ;; Clojure(Script) test -> src
                (list (rx (group (+ (not "/")))
                          "_test." (group (or "clj" "cljs"))
                          string-end)
@@ -83,7 +81,7 @@ mode is not enabled it tries to use LSP to find the definition."
                          "." (regex "\\2")
                          string-end))
 
-               ;; Clojure (Java standard) src -> test
+               ;; Clojure (Java standard) src <-> test
                (list (rx "src/"
                          (group (* not-newline))
                          "." (group (or "clj" "cljs"))
@@ -92,8 +90,6 @@ mode is not enabled it tries to use LSP to find the definition."
                          (regex "\\1")
                          "_test." (regex "\\2")
                          string-end))
-
-               ;; Clojure (Java standard) test -> src
                (list (rx "test/"
                          (group (* not-newline))
                          "_test." (group (or "clj" "cljs"))
@@ -101,7 +97,19 @@ mode is not enabled it tries to use LSP to find the definition."
                      (rx "src/"
                          (regex "\\1")
                          "." (regex "\\2")
-                         string-end)))))
+                         string-end))
+
+               ;; ClojureSctript view.cljs <-> component_spec.cljs
+               (list (rx "view.cljs" string-end)
+                     (rx "component_spec.cljs" string-end))
+               (list (rx "component_spec.cljs" string-end)
+                     (rx "view.cljs" string-end))
+
+               ;; ClojureSctript view.cljs <-> style.cljs
+               (list (rx "view.cljs" string-end)
+                     (rx "style.cljs" string-end))
+               (list (rx "style.cljs" string-end)
+                     (rx "view.cljs" string-end)))))
 
 ;;; Package
 
