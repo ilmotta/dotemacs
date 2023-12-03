@@ -5,7 +5,8 @@
 (lib-util/pkg treesit
   :elpaca nil
   :init
-  ;; Maximum amount of syntax highlighting. Level 3 is too limited for JSON.
+  ;; Maximum amount of syntax highlighting. Level 4 can be too colorful in some
+  ;; major modes.
   (setq-default treesit-font-lock-level 3)
 
   ;; Some .so files can be downloaded/built from
