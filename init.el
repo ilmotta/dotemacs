@@ -42,6 +42,9 @@
 
 ;;; Built-in packages
 (lib-util/require
+ pkg-autorevert
+ pkg-bookmark
+ pkg-compile
  pkg-dired
  pkg-eldoc
  pkg-emacs
@@ -49,11 +52,14 @@
  pkg-goto-addr
  pkg-hl-line
  pkg-image-dired
+ pkg-isearch
  pkg-ispell
  pkg-outline
+ pkg-paren
  pkg-proced
  pkg-project
  pkg-recentf
+ pkg-saveplace
  pkg-tab-bar
  pkg-tempo
  pkg-theme

@@ -5,64 +5,9 @@
   :group 'my
   :prefix "built-in-libs/")
 
-;;; Auto-revert
-
-;; Only prompts for confirmation when buffer is unsaved.
-(setq revert-without-query '("."))
-
-(setq auto-revert-verbose t
-      auto-revert-stop-on-user-input nil
-      auto-revert-use-notify nil)
-
-;;; Bookmark
-
-;; File in which to save bookmarks by default.
-(setq bookmark-default-file (concat my/cache-dir "bookmarks"))
-
-(setq bookmark-set-fringe-mark t)
-
-;;; Compilation
-
-;; Don't ask for the compilation command in the minibuffer. I often prefer to
-;; set this variable in a directory locals file.
-(setq compilation-read-command nil)
-
 ;;; Diff
 
 (setq diff-default-read-only t)
-
-;;; File place persistence
-
-(defun pkg-saveplace/reposition ()
-  "Force windows to recenter current line (with saved position)."
-  (run-with-timer
-   0 nil
-   (lambda (buf)
-     (when (buffer-live-p buf)
-       (dolist (win (get-buffer-window-list buf nil t))
-         (with-selected-window win (recenter)))))
-   (current-buffer)))
-
-(add-hook 'elpaca-after-init-hook #'save-place-mode)
-(add-hook 'find-file-hook 'pkg-saveplace/reposition t)
-
-(setq save-place-file (concat my/cache-dir "saveplace"))
-(setq save-place-limit 100)
-
-;;; Isearch
-
-;; Isearch has been improved in Emacs 27 and can now display match numbers in
-;; the modeline.
-;;
-;; Highlights matches in the full buffer. It is useful in combination with
-;; `lazy-highlight-cleanup' customized to nil to leave matches highlighted in
-;; the whole buffer after exiting isearch.
-(setq isearch-lazy-count t
-      isearch-allow-scroll t
-      lazy-highlight-initial-delay 0
-      lazy-highlight-buffer t
-      lazy-highlight-cleanup t
-      lazy-highlight-buffer-max-at-a-time 10)
 
 ;;; Mail
 
@@ -191,99 +136,6 @@
 ;; Typing a slash automatically completes the end-tag.
 (setq nxml-slash-auto-complete-flag t)
 (setq nxml-auto-insert-xml-declaration-flag nil)
-
-;;; Security, encryption
-;;;; EPA
-
-;; Disable auto-saving when opening an encrypted file.
-(setq epa-file-inhibit-auto-save t)
-
-;; Do not cache passphrase for symmetric encryption.
-(setq epa-file-cache-passphrase-for-symmetric-encryption nil)
-
-;;;; EPG
-
-;; With gpg version 2.1+ we can avoid the GUI pinentry and enter the passphrase
-;; directly in Emacs.
-(setq epg-pinentry-mode 'loopback)
-
-;;;; Password cache
-
-(setq password-cache t)
-
-;; How many seconds passwords are cached.
-(setq password-cache-expiry 60)
-
-;;; Show parentheses
-
-;; By default, there’s a small delay before showing a matching parenthesis. It
-;; can be deactivated with the following (which you have to do before activating
-;; show-paren-mode).
-(setq show-paren-delay 0
-      show-paren-highlight-openparen t
-      show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t
-
-      ;; This new setting in Emacs 29.1 doesn't work well with Evil.
-      show-paren-context-when-offscreen nil)
-
-(add-hook 'prog-mode-hook #'show-paren-mode)
-
-;;; Snippets
-;;;; Commentary
-
-;; Tempo is a powerful snippet expansion system. For examples and documentation:
-;;
-;; - https://www.emacswiki.org/emacs/TempoSnippets
-;; - http://www.lysator.liu.se/~davidk/elisp/tempo-examples.html
-
-;;;; Variables
-
-(defvar-local pkg-tempo/tags-emacs-lisp nil)
-
-;;;; Private
-
-(defun pkg-tempo/setup-emacs-lisp ()
-  (tempo-define-template
-   "emacs-lisp-defun"
-   '("(defun " p " (" p ")" n>
-     "\"" p "\""
-     n> r ")")
-   "defun"
-   "Insert a defun expression."
-   'pkg-tempo/tags-emacs-lisp)
-
-  (tempo-use-tag-list 'pkg-tempo/tags-emacs-lisp))
-
-(defun pkg-tempo/setup ()
-  (pkg-tempo/setup-emacs-lisp)
-
-  ;; Catch-all default regex.
-  (setq-default tempo-match-finder
-                (rx line-start
-                    (group (one-or-more not-newline))
-                    point)))
-
-;;;; Init
-
-(add-hook 'emacs-lisp-mode-hook #'pkg-tempo/setup)
-
-;;; Time
-
-;; Display time, load level, and mail flag in mode lines.
-
-(setq display-time-format "%H:%M"
-      display-time-interval 60
-      display-time-mail-directory nil
-      display-time-default-load-average nil)
-
-;;; Timeclock
-
-(setq timeclock-file (concat my/cache-dir "timelog"))
-
-;;; URL
-
-(setq url-configuration-directory (concat my/cache-dir "url/"))
 
 ;;; Daemon
 ;;;; Private

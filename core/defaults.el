@@ -365,6 +365,9 @@
 
 ;;; Misc
 
+;; Only prompts for confirmation when buffer is unsaved.
+(setq revert-without-query '("."))
+
 (defun my/escape ()
   "Run `my/escape-hook'."
   (interactive)
@@ -742,6 +745,28 @@ with 'kill' as the default action instead of 'bury'."
 (setq python-indent-guess-indent-offset t
       python-indent-guess-indent-offset-verbose nil)
 
+;;; Security, encryption
+;;;; EPA
+
+;; Disable auto-saving when opening an encrypted file.
+(setq epa-file-inhibit-auto-save t)
+
+;; Do not cache passphrase for symmetric encryption.
+(setq epa-file-cache-passphrase-for-symmetric-encryption nil)
+
+;;;; EPG
+
+;; With gpg version 2.1+ we can avoid the GUI pinentry and enter the passphrase
+;; directly in Emacs.
+(setq epg-pinentry-mode 'loopback)
+
+;;;; Password cache
+
+(setq password-cache t)
+
+;; How many seconds passwords are cached.
+(setq password-cache-expiry 60)
+
 ;;; Shell
 
 ;; Solves issues with commands such as "git log" and the default "less".
@@ -765,12 +790,29 @@ with 'kill' as the default action instead of 'bury'."
 ;; kill ring.
 (setq kill-do-not-save-duplicates t)
 
+;;; Time
+
+;; Display time, load level, and mail flag in mode lines.
+
+(setq display-time-format "%H:%M"
+      display-time-interval 60
+      display-time-mail-directory nil
+      display-time-default-load-average nil)
+
+;;; Timeclock
+
+(setq timeclock-file (file-name-concat my/cache-dir "timelog"))
+
 ;;; Uniquify buffer names
 
 (setq uniquify-buffer-name-style 'reverse)
 (setq uniquify-separator " • ")
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
+
+;;; URL
+
+(setq url-configuration-directory (file-name-concat my/cache-dir "url"))
 
 ;;; X11
 

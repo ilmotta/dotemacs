@@ -275,12 +275,6 @@ This is particularly useful to evaluate the value of a var."
   :hook (emacs-lisp-mode-hook . outline-minor-mode)
   :hook (outline-minor-mode-hook . pkg-elisp-mode/outline-minor-mode-h)
 
-  :init
-  (setq battery-mode-line-limit 99
-        battery-update-interval 60
-        battery-load-low 20
-        battery-load-critical 10)
-
   :config
   (advice-add #'calculate-lisp-indent :override #'pkg-elisp-mode/calculate-lisp-indent))
 
