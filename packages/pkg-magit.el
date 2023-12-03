@@ -74,7 +74,7 @@ variable.")
 (lib-util/pkg magit
   :elpaca (:host github
            :repo "magit/magit"
-           :ref "9007bcfdb520f32befd48f8bf8c228e2a065f9e4")
+           :ref "5ec9ae91f6111e34e66e7adc2acc3f9c721af8d6")
   :defer t
 
   :commands (magit-log-current
