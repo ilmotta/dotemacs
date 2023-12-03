@@ -18,7 +18,7 @@
        :repo "https://github.com/progfolio/elpaca.git"
        ;; Revision date: 2023-05-20
        :ref "798351f21bf91c96dea5abaf274e0f9946024fc8"
-       :files (:defaults (:exclude "extensions"))
+       :files (:defaults "extensions/*.el")
        :build (:not elpaca--activate-package)))
 
 (defun my/elpaca-install ()
@@ -62,9 +62,8 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
-(elpaca use-package
-  (require 'use-package)
-  (eval-and-compile
+(require 'use-package)
+(eval-and-compile
     (setq use-package-always-defer nil
           use-package-always-demand nil
           use-package-expand-minimally nil
@@ -72,4 +71,4 @@
 
     ;; Compute statistics for `use-package' declarations. You can view the
     ;; statistical report using `use-package-report'.
-    (setq use-package-compute-statistics nil)))
+    (setq use-package-compute-statistics nil))
