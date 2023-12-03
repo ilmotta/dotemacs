@@ -126,6 +126,7 @@
  pkg-evil-surround
  pkg-flycheck
  pkg-flyspell-correct
+ pkg-jinx
  pkg-quickrun
  pkg-smartparens
  pkg-xref)
@@ -205,7 +206,6 @@
  pkg-explain-pause-mode
  pkg-golden-ratio
  pkg-hnreader
- pkg-jinx
  pkg-openwith
  pkg-pdf-tools
  pkg-popper
