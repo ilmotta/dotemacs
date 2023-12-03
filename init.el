@@ -14,10 +14,8 @@
 (require 'lib-util)
 
 ;; Load core modules.
-(dolist (file '("defaults.el"
-                "package-manager.el"
-                "built-in-libs.el"))
-  (load (concat user-emacs-directory "core/" file) nil 'no-message))
+(dolist (file '("defaults.el" "package-manager.el"))
+  (load (file-name-concat user-emacs-directory "core" file) nil 'no-message))
 
 (defun my/load-extra-libs ()
   (require 'lib-adb)
@@ -59,6 +57,7 @@
  pkg-proced
  pkg-project
  pkg-recentf
+ pkg-savehist
  pkg-saveplace
  pkg-tab-bar
  pkg-tempo
