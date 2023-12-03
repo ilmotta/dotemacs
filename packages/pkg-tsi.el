@@ -10,6 +10,7 @@
 
 (lib-util/pkg tsi
   :elpaca (:host github :repo "orzechowskid/tsi.el")
+  :disabled t
   :unless my/android?
   :defer t
   :hook ((javascript-mode-hook typescript-mode-hook) . tsi-typescript-mode))

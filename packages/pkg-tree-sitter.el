@@ -4,6 +4,7 @@
 
 (lib-util/pkg tree-sitter
   :unless my/android?
+  :disabled t
   :defer t
   :hook ((java-mode-hook
           js-mode-hook

@@ -65,6 +65,7 @@
  pkg-theme
  pkg-tramp
  pkg-transient
+ pkg-treesit
  pkg-winner)
 
 ;;; Emacs Lisp development libraries
