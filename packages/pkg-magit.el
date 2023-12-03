@@ -129,8 +129,7 @@ variable.")
 
   (advice-add #'magit-diff-visit-file :around #'pkg-magit/diff-visit-file)
 
-  ;; DON'T show the recent commits section.
-  ;; (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent)
-  )
+  ;; Do not show "Recent commits" section.
+  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
 
 (provide 'pkg-magit)
