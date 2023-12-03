@@ -45,7 +45,7 @@
 
   :init
   (my/general-mode-def
-    :keymaps '(go-mode-map)
+    :keymaps '(go-mode-map go-ts-mode-map)
     "g a" '(go-goto-arguments :properties (:jump t))
     "g d" '(go-goto-docstring :properties (:jump t))
     "g f" '(go-goto-function-name :properties (:jump t))

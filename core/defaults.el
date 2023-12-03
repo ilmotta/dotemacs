@@ -789,6 +789,30 @@ with 'kill' as the default action instead of 'bury'."
       python-indent-guess-indent-offset-verbose nil)
 
 ;;; Programming languages, tree-sitter
+
+(setq major-mode-remap-alist
+      '((bash-mode . bash-ts-mode)
+        (c++-mode . c++-ts-mode)
+        (c-mode . c-ts-mode)
+        (conf-toml-mode . toml-ts-mode)
+        (csharp-mode . csharp-ts-mode)
+        (css-mode . css-ts-mode)
+        (dockerfile-mode . dockerfile-ts-mode)
+        (elixir-mode . elixir-ts-mode)
+        (go-mode . go-ts-mode)
+        (html-mode . html-ts-mode)
+        (java-mode . java-ts-mode)
+        (javascript-mode . js-ts-mode)
+        (js-json-mode . json-ts-mode)
+        (js-mode . js-ts-mode)
+        (js2-mode . js-ts-mode)
+        (python-mode . python-ts-mode)
+        (ruby-mode . ruby-ts-mode)
+        (rust-mode . rust-ts-mode)
+        (toml-mode . toml-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (yaml-mode . yaml-ts-mode)))
+
 ;;;; Javascript
 
 (defun pkg-js-mode/setup-sibling-rules ()
@@ -829,18 +853,6 @@ with 'kill' as the default action instead of 'bury'."
 (add-hook 'js-mode-hook #'js-ts-mode)
 (add-hook 'js-mode-hook #'pkg-js-mode/setup-sibling-rules)
 (add-hook 'typescript-tsx-mode-hook #'pkg-js-mode/setup-sibling-rules)
-
-;;;; CSS
-
-(add-to-list 'auto-mode-alist
-             (cons (rx "." (or "css") string-end)
-                   'css-ts-mode))
-
-;;;; JSON
-
-(add-to-list 'auto-mode-alist
-             (cons (rx "." (or "json") string-end)
-                   'json-ts-mode))
 
 ;;;; XML
 
