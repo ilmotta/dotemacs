@@ -799,7 +799,8 @@ with 'kill' as the default action instead of 'bury'."
         (css-mode . css-ts-mode)
         (dockerfile-mode . dockerfile-ts-mode)
         (elixir-mode . elixir-ts-mode)
-        (go-mode . go-ts-mode)
+        ;; `go-ts-mode' is completely unusable (2024-04-08).
+        ;; (go-mode . go-ts-mode)
         (html-mode . html-ts-mode)
         (java-mode . java-ts-mode)
         (javascript-mode . js-ts-mode)
