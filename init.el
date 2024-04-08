@@ -99,6 +99,7 @@
  pkg-diredfl
  pkg-doom-modeline
  pkg-doom-themes
+ pkg-ef-themes
  pkg-eros
  pkg-helpful
  pkg-hide-mode-line
