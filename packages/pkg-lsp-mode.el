@@ -45,6 +45,28 @@ spanning over multiple lines."
   (unless (member (f-filename (buffer-file-name)) '("package-lock.json"))
     (lsp-deferred)))
 
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+
 ;; Language Server Protocol Mode (lsp-mode) aims to provide IDE-like experience
 ;; by providing optional integration with the most popular Emacs packages like
 ;; company, flycheck and project. You can enable LSP on a per-project basis
@@ -52,7 +74,7 @@ spanning over multiple lines."
 ;;
 ;;   ((js-mode . ((eval . (lsp-deferred)))))
 (lib-util/pkg lsp-mode
-  :elpaca (:ref "7dee0d63fa1b6628be4aaea86b2298244eb3d84e")
+  :elpaca (:ref "5b0198457e4e6570677b3e443cda0ba73d63343b")
   :defer t
 
   :hook ((go-ts-mode-hook go-mode-hook) . lsp-deferred)
@@ -266,6 +288,15 @@ spanning over multiple lines."
   :config
   (advice-add #'lsp :around #'lib-util/inhibit-message)
   (advice-add #'lsp-deferred :around #'lib-util/inhibit-message)
+
+  ;; Enable emacs-lsp-booster
+  (advice-add (if (progn (require 'json)
+                         (fboundp 'json-parse-buffer))
+                  'json-parse-buffer
+                'json-read)
+              :around
+              #'lsp-booster--advice-json-parse)
+  (advice-add #'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
   (with-eval-after-load 'evil
     (evil-add-command-properties #'lsp-find-definition :jump t)
