@@ -114,7 +114,7 @@ mode is not enabled it tries to use LSP to find the definition."
 ;;; Package
 
 (lib-util/pkg clojure-mode
-  :elpaca (:ref "3453cd229b412227aaffd1dc2870fa8fa213c5b1")
+  :elpaca (:ref "25d713a67d8e0209ee74bfc0153fdf677697b43f") ; v5.18.1
   :defer t
 
   :hook (clojure-mode-hook . pkg-clojure/setup-sibling-rules)
