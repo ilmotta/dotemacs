@@ -58,6 +58,7 @@
   :init
   (add-hook 'emacs-lisp-mode-hook #'pkg-tempo/setup-emacs-lisp)
   (add-hook 'markdown-mode-hook #'pkg-tempo/setup-html)
+  (add-hook 'html-mode-hook #'pkg-tempo/setup-html)
 
   ;; Catch-all default regex.
   (setq-default tempo-match-finder
