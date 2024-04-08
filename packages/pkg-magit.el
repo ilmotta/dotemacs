@@ -67,6 +67,9 @@ variable.")
    (apply original-fn args)
    (recenter)))
 
+(defun pkg-magit/display-buffer-same-window (buffer)
+  (display-buffer buffer '(display-buffer-same-window)))
+
 ;; Set to nil to not bind to C-x. This variable must be set before the call to
 ;; `use-package'.
 ;; (setq magit-define-global-key-bindings nil)
@@ -99,10 +102,12 @@ variable.")
     "f" nil
     "M-f" #'magit-fetch)
 
-  ;; If a buffer's major-mode derives from magit-diff-mode or magit-process-mode,
-  ;; display it in another window. Display all other buffers in the selected
-  ;; window.
+  ;; Show diffs on the same window. Use
+  ;; `magit-display-buffer-same-window-except-diff-v1' if you prefer to be able
+  ;; to see diffs side-by-side.
+  ;; (setq magit-display-buffer-function #'pkg-magit/display-buffer-same-window)
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (setq magit-commit-show-diff t)
 
   ;; Improve diff performance.
   (setq magit-diff-adjust-tab-width nil
