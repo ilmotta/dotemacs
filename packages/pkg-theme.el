@@ -213,7 +213,7 @@ theme is loaded in order to correctly update all faces."
 
 (setq modus-themes-mode-line '(accented borderless))
 (setq modus-themes-region '(bg-only))
-(setq modus-themes-completions 'opinionated)
+(setq modus-themes-completions nil)
 (setq modus-themes-bold-constructs t)
 (setq modus-themes-italic-constructs nil)
 (setq modus-themes-paren-match '(bold intense))

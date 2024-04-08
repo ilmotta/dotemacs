@@ -9,59 +9,17 @@ Unfortunately `doom-modeline-def-modeline' is called
 automatically with hardcoded sections and no variable allows me
 to customize the section. There's probably a better way, but this
 works fine."
-  (doom-modeline-def-modeline 'main
-    '(bar workspace-name window-number matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
-    '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process
-      ;; vcs
-      checker time))
-
-  (doom-modeline-def-modeline 'minimal
-    '(bar matches buffer-info-simple)
-    '(media-info major-mode))
-
-  (doom-modeline-def-modeline 'special
-    '(bar window-number matches buffer-info buffer-position word-count parrot selection-info)
-    '(objed-state misc-info battery irc-buffers debug minor-modes input-method indent-info buffer-encoding major-mode process))
-
-  (doom-modeline-def-modeline 'project
-    '(bar workspace-name window-number buffer-default-directory)
-    '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
-
-  (doom-modeline-def-modeline 'dashboard
-    '(bar window-number buffer-default-directory-simple)
-    '(misc-info battery irc mu4e gnus github debug minor-modes input-method major-mode process))
-
-  (doom-modeline-def-modeline 'vcs
-    '(bar workspace-name window-number matches buffer-info buffer-position parrot selection-info)
-    '(misc-info battery irc mu4e gnus github debug minor-modes buffer-encoding major-mode process))
-
-  (doom-modeline-def-modeline 'package
-    '(bar window-number package)
-    '(misc-info major-mode process))
-
-  (doom-modeline-def-modeline 'info
-    '(bar window-number buffer-info info-nodes buffer-position parrot selection-info)
-    '(misc-info buffer-encoding major-mode))
-
-  (doom-modeline-def-modeline 'media
-    '(bar window-number buffer-size buffer-info)
-    '(misc-info media-info major-mode process
-      ;; vcs
-      ))
-
-  (doom-modeline-def-modeline 'message
-    '(bar window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
-    '(objed-state misc-info battery debug minor-modes input-method indent-info buffer-encoding major-mode))
-
-  (doom-modeline-def-modeline 'pdf
-    '(bar window-number matches buffer-info pdf-pages)
-    '(misc-info major-mode process
-      ;; vcs
-      ))
-
-  (doom-modeline-def-modeline 'org-src
-    '(bar workspace-name window-number matches buffer-info-simple buffer-position word-count parrot selection-info)
-    '(objed-state misc-info debug lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
+  ;; Leave uncommented to overwrite modeline sections
+  ;;
+  ;; (doom-modeline-def-modeline 'main
+  ;;   '(eldoc bar workspace-name
+  ;;     ;; window-number
+  ;;     ;; modals
+  ;;     matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
+  ;;   '(compilation objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process
+  ;;     ;; vcs
+  ;;     check time))
+  )
 
 (defun pkg-doom-modeline/setup-mode ()
   (doom-modeline-mode +1)
@@ -75,7 +33,7 @@ works fine."
   doom-modeline-height)
 
 (lib-util/pkg doom-modeline
-  :elpaca (:ref "fe9ee5a2a950f9ded10261a05a12adc577ae9e36")
+  :elpaca (:ref "e829606301ea71e5f458df45aa53ad3ad882f68e")
   :defer t
   :hook (elpaca-after-init-hook . pkg-doom-modeline/setup-mode)
 
@@ -103,8 +61,10 @@ works fine."
         doom-modeline-irc nil
         doom-modeline-major-mode-icon t
         doom-modeline-minor-modes nil
+        doom-modeline-modal nil
         doom-modeline-modal-icon nil
-        doom-modeline-unicode-fallback nil)
+        doom-modeline-unicode-fallback nil
+        doom-modeline-vcs-icon nil)
 
   ;; Don't display version in the modeline.
   (setq doom-modeline-env-enable-elixir nil

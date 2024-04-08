@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg f
-  :elpaca (:ref "d50dca48929575642912bb5bbb2585709ba38f82")
+  :elpaca (:ref "1e7020dc0d4c52d3da9bd610d431cab13aa02d8c")
   :defer t)
 
 (provide 'pkg-f)
