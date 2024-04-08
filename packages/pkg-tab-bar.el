@@ -60,6 +60,8 @@ automatically switch to it."
     "t" #'pkg-tab-bar/switch-project-as-tab)
 
   (setq tab-bar-close-button-show nil
+        tab-bar-auto-width t
+        tab-bar-auto-width-max '(500 50)
         tab-bar-close-last-tab-choice nil ; Do nothing and show a message.
         tab-bar-close-tab-select 'recent
         tab-bar-new-tab-to 'right
