@@ -146,6 +146,20 @@
   (cider-nrepl-sync-request:eval
    "(tap> @re-frame.db/app-db)"))
 
+(defvar pkg-cider--history-inspect-db nil)
+
+;;;###autoload
+(defun pkg-cider/reframe-inspect-db-path (path)
+  "Pretty print re-frame's app-db at a given PATH in popup buffer.
+PATH can be any valid vector passed to Clojure's `get-in' and it
+may or may not be surrounded by square brackets."
+  (interactive (list (string-trim (read-string "Path: " nil 'pkg-cider--history-inspect-db))))
+  (unless (string-empty-p path)
+    (let ((vectorized-path (if (string-match-p "^\\[.+\\]$" path)
+                               path
+                             (format "[%s]" path))))
+      (cider--pprint-eval-form (format "(get-in @re-frame.db/app-db %s)" vectorized-path)))))
+
 ;;;###autoload
 (defun pkg-cider/portal-open ()
   (interactive)
