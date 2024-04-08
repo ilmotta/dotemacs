@@ -63,7 +63,6 @@ Uses initial input from previous call to
 
   (general-def
     :keymaps 'my/keys-mode-map
-    [remap apropos-command]                     #'consult-apropos
     [remap bookmark-jump]                       #'consult-bookmark
     [remap copy-to-register]                    #'consult-register
     [remap execute-extended-command-for-buffer] #'consult-mode-command
