@@ -73,7 +73,7 @@ Uses initial input from previous call to
     [remap switch-to-buffer-other-window]       #'consult-buffer-other-window
     [remap switch-to-buffer]                    #'consult-buffer
     [remap yank-pop]                            #'consult-yank-pop
-    "C-x /"                                     #'consult-line)
+    [remap evil-search-forward]                 #'consult-line)
 
   (general-def
     :keymaps '(outline-minor-mode-map eshell-mode-map)
