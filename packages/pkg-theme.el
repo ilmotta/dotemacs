@@ -27,13 +27,12 @@
     (insert (format "SYSTEM_THEME=%s\n" theme))
     (insert (format "THEME_BG_COLOR=%s\n" (face-attribute 'default :background)))))
 
-(defun pkg-theme/update-kitty (theme)
+(defun pkg-theme/update-kitty ()
   "Switch Kitty THEME and update all running instances."
   (when (executable-find "kitty")
-    (let* ((kitty-theme (pcase theme
-                          ('doom-one "Doom One")
-                          ('doom-one-light "Doom One Light")
-                          (_ "Doom One")))
+    (let* ((kitty-theme (if (pkg-theme/dark-p)
+                            "Doom One"
+                          "Doom One Light"))
            (cmd (format "kitty +kitten themes --reload-in all --config-file-name themes.conf %s"
                         kitty-theme)))
       (start-process-shell-command "kitty" nil cmd))))
@@ -166,7 +165,7 @@ theme is loaded in order to correctly update all faces."
       (pkg-theme/update-system 'light))
     (setq my/theme theme)
     (pkg-theme/write theme)
-    (unless my/windows? (pkg-theme/update-kitty theme))
+    (unless my/windows? (pkg-theme/update-kitty))
     (pkg-theme/update-tmux theme)
     (pkg-theme/customize-common theme)
     (pkg-theme/update-default-frame-bg-color)
