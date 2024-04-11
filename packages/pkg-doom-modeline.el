@@ -11,22 +11,19 @@ to customize the section. There's probably a better way, but this
 works fine."
   ;; Leave uncommented to overwrite modeline sections
   ;;
-  ;; (doom-modeline-def-modeline 'main
-  ;;   '(eldoc bar workspace-name
-  ;;     ;; window-number
-  ;;     ;; modals
-  ;;     matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
-  ;;   '(compilation objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process
-  ;;     ;; vcs
-  ;;     check time))
-  )
+  (doom-modeline-def-modeline 'main
+    '(eldoc bar workspace-name
+      ;; window-number
+      ;; modals
+      matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
+    '(compilation objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process
+      ;; We need to remove vcs because doom-modeline throws error about the vcs section.
+      ;; vcs
+      check time)))
 
 (defun pkg-doom-modeline/setup-mode ()
   (doom-modeline-mode +1)
-  (remove-hook 'find-file-hook #'doom-modeline-update-vcs-text)
-  (remove-hook 'find-file-hook #'doom-modeline-update-vcs-icon)
-  (remove-hook 'after-save-hook #'doom-modeline-update-vcs-text)
-  (remove-hook 'after-save-hook #'doom-modeline-update-vcs-icon))
+  (remove-hook 'find-file-hook #'doom-modeline-update-vcs))
 
 (defun pkg-doom-modeline/-font-height-patch (&rest _args)
   "PATCH: Always return the specified `doom-modeline-height'."
