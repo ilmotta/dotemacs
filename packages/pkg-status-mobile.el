@@ -279,4 +279,62 @@ of plists:
   (let ((default-directory (project-root (project-current))))
     (pkg-status-mobile/start-shadowcljs-target-test)))
 
+(defun pkg-status-mobile/set-log-level ()
+  (interactive)
+  (let* ((screens-by-name (seq-group-by #'pkg-status-mobile/-screen-completion pkg-status-mobile/preview-screens))
+         (level (completing-read "Log level: " '("Debug" "Info" "Error") nil t))
+         (form (format "(rf/dispatch [:log-level.ui/change-log-level-confirmed \"%s\"])" (upcase level))))
+    (cider-interactive-eval form)))
+
+(defun pkg-status-mobile/re-frame-find-file-from-ref (reference keyword-to-find curr-point-marker)
+  (let* ((path (replace-regexp-in-string "file://" "" (map-elt reference :uri)))
+         (line-number (map-nested-elt reference [:range :start :line]))
+         (line-column (map-nested-elt reference [:range :start :character]))
+         (open-file-at-reg-call (lambda ()
+                                  (find-file path)
+                                  (goto-char (point-min))
+                                  (forward-line line-number)
+                                  (forward-char line-column)
+                                  (recenter-top-bottom)
+                                  (evil-set-jump)
+                                  (xref-push-marker-stack curr-point-marker)
+                                  (throw 'found nil))))
+    (with-temp-buffer
+      (insert-file-contents path)
+      (clojure-mode)
+      (goto-char (point-min))
+      (forward-line line-number)
+      (forward-char line-column)
+      (when (beginning-of-defun)
+        (paredit-forward-down)
+        (let ((thing (thing-at-point 'symbol 'no-properties)))
+          (cond
+           ((string-equal "rf/defn" thing)
+            (paredit-forward-down)
+            (when (search-forward-regexp keyword-to-find (line-end-position) t)
+              (funcall open-file-at-reg-call)))
+
+           ((or (string-match-p "rf/reg-.*" thing)
+                (string-match-p "re-frame/reg-.*" thing)
+                (string-match-p "reg-root-key-sub" thing))
+            (paredit-forward 2)
+            (when (string-equal keyword-to-find (thing-at-point 'symbol 'no-properties))
+              (funcall open-file-at-reg-call)))))))))
+
+(defun pkg-status-mobile/re-frame-find-references-raw ()
+  (let ((exclude-declaration nil))
+    (lsp-request "textDocument/references"
+                 (append (lsp--text-document-position-params)
+                         (list :context
+                               `(:includeDeclaration ,(lsp-json-bool (not (or exclude-declaration lsp-references-exclude-definition)))))))))
+
+(defun pkg-status-mobile/re-frame-find-registration ()
+  (interactive)
+  (let ((keyword-to-find (thing-at-point 'symbol 'no-properties))
+        (references (pkg-status-mobile/re-frame-find-references-raw))
+        (curr-point-marker (point-marker)))
+    (catch 'found
+      (seq-doseq (ref references)
+        (pkg-status-mobile/re-frame-find-file-from-ref ref keyword-to-find curr-point-marker)))))
+
 (provide 'pkg-status-mobile)
