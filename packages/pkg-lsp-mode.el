@@ -127,7 +127,11 @@ spanning over multiple lines."
   ;; variables, others would need to be set with buffer local variables based on
   ;; the major mode in question.
   (setq lsp-auto-configure t)
-  (setq lsp-enable-dap-auto-configure t)
+
+  ;; Keep it disabled, otherwise dap will be enabled in all modes, even dired,
+  ;; which will cause keybinding conflicts.
+  (setq lsp-enable-dap-auto-configure nil)
+
   (setq lsp-enable-file-watchers nil)
   (setq lsp-enable-folding nil)
   (setq lsp-enable-imenu t)
