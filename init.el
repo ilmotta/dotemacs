@@ -203,6 +203,7 @@
  pkg-devdocs-lookup
  pkg-dired-du
  pkg-dirvish
+ pkg-eat
  pkg-explain-pause-mode
  pkg-golden-ratio
  pkg-hnreader
