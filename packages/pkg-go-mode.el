@@ -36,6 +36,26 @@
                          ".go"
                          string-end)))))
 
+(defun pkg-go-mode/go-test-additional-arguments-function (test-suite test-name)
+  (format "-run %s" test-suite))
+
+(defun pkg-go-mode/go-test--get-program (args &optional env)
+  "Return the command to launch unit test.
+`ARGS' corresponds to go command line arguments.
+When `ENV' concatenate before command."
+  (let ((project-dir (project-root (project-current)))
+        (current-dir (file-name-directory default-directory)))
+    (string-join (list "nix-shell"
+                       "--show-trace"
+                       (format "--run '%s'"
+                               (string-join (list "go"
+                                                  "test"
+                                                  (shell-quote-argument current-dir)
+                                                  (s-replace "\\$ ." "\\$" args))
+                                            " "))
+                       (file-name-concat project-dir "shell.nix"))
+                 " ")))
+
 (lib-util/pkg go-mode
   :elpaca (:ref "166dfb1e090233c4609a50c2ec9f57f113c1da72")
   :defer t
@@ -52,6 +72,9 @@
     "g i" '(go-goto-imports :properties (:jump t))
     "h ." '(godoc-at-point :properties (:jump t))
     "i a" #'go-import-add
-    "i c" #'go-remove-unused-imports))
+    "i c" #'go-remove-unused-imports)
+
+  :config
+  (advice-add 'go-test--get-program :override #'pkg-go-mode/go-test--get-program))
 
 (provide 'pkg-go-mode)
