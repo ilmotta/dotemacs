@@ -648,8 +648,12 @@ with 'kill' as the default action instead of 'bury'."
 ;; I prefer to always kill the window's buffer.
 (advice-add 'quit-window :around #'my/quit-window)
 
-;; Enable pop-up windows when `display-buffer' is called.
-(setq pop-up-windows t)
+;; Disable pop-up windows when `display-buffer' is called.
+;;
+;; Some packages (e.g. CIDER) still refer to this deprecated variable. It's
+;; disabled because I don't want Emacs to display a buffer in a "random" window.
+;; It's recommended to use `display-buffer-base-action'.
+(setq pop-up-windows nil)
 
 ;; Starting on Emacs 27+ theme changes don't take effect immediately.
 (setq custom--inhibit-theme-enable nil)

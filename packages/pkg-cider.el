@@ -385,6 +385,7 @@ for example."
 
   (setq cider-auto-select-error-buffer nil
         cider-auto-select-test-report-buffer nil
+        cider-doc-auto-select-buffer nil
         cider-show-error-buffer 'except-in-repl)
 
   (setq cider-repl-history-display-duplicates nil
