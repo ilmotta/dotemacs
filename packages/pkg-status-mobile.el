@@ -286,6 +286,12 @@ of plists:
          (form (format "(rf/dispatch [:log-level.ui/change-log-level-confirmed \"%s\"])" (upcase level))))
     (cider-interactive-eval form)))
 
+(defvar pkg-status-mobile--references nil
+  "Store references, for debugging purposes.")
+
+(defvar pkg-status-mobile--debug-p nil
+  "When non-nil, enable debugging.")
+
 (defun pkg-status-mobile/re-frame-find-file-from-ref (reference keyword-to-find curr-point-marker)
   (let* ((path (replace-regexp-in-string "file://" "" (map-elt reference :uri)))
          (line-number (map-nested-elt reference [:range :start :line]))
@@ -310,9 +316,20 @@ of plists:
         (let ((thing (thing-at-point 'symbol 'no-properties)))
           (cond
            ((string-equal "rf/defn" thing)
-            (paredit-forward-down)
-            (when (search-forward-regexp keyword-to-find (line-end-position) t)
-              (funcall open-file-at-reg-call)))
+            ;; Cursor will be at the end of the (optional) docstring closing
+            ;; double quotes or at the end of a line like {:events XYZ}, or the
+            ;; body of the event handler, in which case no match will be found.
+            (paredit-forward 3)
+            (backward-char)
+            (if (clojure--in-string-p) ; at docstring
+                (progn
+                  (forward-line)
+                  (beginning-of-line)
+                  (when (search-forward (concat "{:events [" keyword-to-find "]") (line-end-position) t)
+                    (funcall open-file-at-reg-call)))
+              (beginning-of-line)
+              (when (search-forward (concat "{:events [" keyword-to-find "]") (line-end-position) t)
+                (funcall open-file-at-reg-call))))
 
            ((or (string-match-p "rf/reg-.*" thing)
                 (string-match-p "re-frame/reg-.*" thing)
@@ -333,6 +350,8 @@ of plists:
   (let ((keyword-to-find (thing-at-point 'symbol 'no-properties))
         (references (pkg-status-mobile/re-frame-find-references-raw))
         (curr-point-marker (point-marker)))
+    (when pkg-status-mobile--debug-p
+      (setq pkg-status-mobile--references references))
     (catch 'found
       (seq-doseq (ref references)
         (pkg-status-mobile/re-frame-find-file-from-ref ref keyword-to-find curr-point-marker)))))

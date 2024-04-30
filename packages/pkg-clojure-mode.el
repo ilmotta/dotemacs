@@ -12,6 +12,13 @@
   (when (derived-mode-p 'clojure-mode)
     (setq-local outline-regexp my/outline-regex-lisp)))
 
+(defun pkg-clojure-mode/keyword-p (str)
+  "Return non nil if STR is a keyword.
+
+STR should be a valid Clojure symbol, such as the value returned by
+`cider-symbol-at-point'."
+  (string-match-p "^:.+$" str))
+
 (defun pkg-clojure-mode/find-var ()
   "Smart find var at point.
 
@@ -20,37 +27,42 @@ file and call `re-frame-jump-to-reg' if symbol at point is a
 keyword, otherwise use normal `cider-find-dwim'. In case CIDER
 mode is not enabled it tries to use LSP to find the definition."
   (interactive)
-  (cond ((cider-current-repl) ; Prefer CIDER to find definitions
-         (let ((keyword (cider-symbol-at-point 'look-back)))
-           (cond ((and (fboundp 're-frame-jump-to-reg)
-                       (derived-mode-p 'clojurescript-mode)
-                       (or (string-match-p (rx line-start
-                                               (repeat 1 2 ":")
-                                               (group (one-or-more (not "/"))) "/"
-                                               (group (one-or-more not-newline))
-                                               line-end)
-                                           keyword)
-                           (string-match-p (rx line-start
-                                               (repeat 1 2 ":")
-                                               (group (one-or-more (not "/")))
-                                               line-end)
-                                           keyword)))
-                  (re-frame-jump-to-reg))
-                 (:default (cider-find-dwim keyword)))
-           (recenter)))
+  (cond
+   ((pkg-clojure-mode/keyword-p (cider-symbol-at-point 'look-back))
+    (call-interactively #'pkg-status-mobile/re-frame-find-registration))
 
-        ;; Prefer eglot over lsp-mode.
-        ((let ((current-server (and (fboundp 'eglot-current-server) (eglot-current-server))))
-           (and current-server (jsonrpc-running-p current-server)))
-         (call-interactively #'xref-find-definitions))
+   ;; Prefer CIDER to find definitions
+   ((cider-current-repl)
+    (let ((sym (cider-symbol-at-point 'look-back)))
+      (cond ((and (fboundp 're-frame-jump-to-reg)
+                  (derived-mode-p 'clojurescript-mode)
+                  (or (string-match-p (rx line-start
+                                          (repeat 1 2 ":")
+                                          (group (one-or-more (not "/"))) "/"
+                                          (group (one-or-more not-newline))
+                                          line-end)
+                                      sym)
+                      (string-match-p (rx line-start
+                                          (repeat 1 2 ":")
+                                          (group (one-or-more (not "/")))
+                                          line-end)
+                                      sym)))
+             (re-frame-jump-to-reg))
+            (:default (cider-find-dwim sym)))
+      (recenter)))
 
-        ;; Fallback to LSP Clojure
-        ((bound-and-true-p lsp-mode)
-         (call-interactively #'lsp-find-definition)
-         (recenter))
+   ;; Prefer eglot over lsp-mode.
+   ((let ((current-server (and (fboundp 'eglot-current-server) (eglot-current-server))))
+      (and current-server (jsonrpc-running-p current-server)))
+    (call-interactively #'xref-find-definitions))
 
-        (:default
-         (message "You need to enable CIDER and/or LSP Clojure to jump to a definition."))))
+   ;; Fallback to LSP Clojure
+   ((bound-and-true-p lsp-mode)
+    (call-interactively #'lsp-find-definition)
+    (recenter))
+
+   (:default
+    (message "You need to enable CIDER and/or LSP Clojure to jump to a definition."))))
 
 (defun pkg-clojure/tempo-setup ()
   (tempo-define-template
