@@ -132,6 +132,7 @@ spanning over multiple lines."
   ;; which will cause keybinding conflicts.
   (setq lsp-enable-dap-auto-configure nil)
 
+  (setq lsp-eldoc-enable-hover t)
   (setq lsp-enable-file-watchers nil)
   (setq lsp-enable-folding nil)
   (setq lsp-enable-imenu t)

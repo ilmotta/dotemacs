@@ -9,7 +9,10 @@
   (setq lsp-ui-peek-enable nil)
 
   ;; Documentation
-  (setq lsp-ui-doc-enable t
+  ;;
+  ;; Disabled because pop-ups are too cumbersome. I prefer to explicitly call
+  ;; command to show doc.
+  (setq lsp-ui-doc-enable nil
         lsp-ui-doc-alignment 'frame
         lsp-ui-doc-delay 0.1
         lsp-ui-doc-enhanced-markdown t
