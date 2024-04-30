@@ -70,6 +70,14 @@ variable.")
 (defun pkg-magit/display-buffer-same-window (buffer)
   (display-buffer buffer '(display-buffer-same-window)))
 
+(defun pkg-magit/display-diff-other-window (buffer)
+  "Display BUFFER in same-window but for magit-diff use other-window instead."
+  (display-buffer
+   buffer
+   (if (with-current-buffer buffer (derived-mode-p 'magit-diff-mode))
+       '(display-buffer-pop-up-window)
+     '(display-buffer-same-window))))
+
 ;; Set to nil to not bind to C-x. This variable must be set before the call to
 ;; `use-package'.
 ;; (setq magit-define-global-key-bindings nil)
@@ -106,7 +114,9 @@ variable.")
   ;; `magit-display-buffer-same-window-except-diff-v1' if you prefer to be able
   ;; to see diffs side-by-side.
   ;; (setq magit-display-buffer-function #'pkg-magit/display-buffer-same-window)
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  ;;
+  ;;(setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (setq magit-display-buffer-function #'pkg-magit/display-diff-other-window)
   (setq magit-commit-show-diff t)
 
   ;; Improve diff performance.

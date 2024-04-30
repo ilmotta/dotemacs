@@ -286,6 +286,14 @@ for example."
   (with-current-buffer buffer
     (derived-mode-p 'cider-repl-mode)))
 
+;; Use directory locals file to set this value. It should be an interactive
+;; function, for example, a transient menu.
+(setq-local pkg-cider/entrypoint-fn nil)
+
+(defun pkg-cider/entrypoint ()
+  (interactive)
+  (call-interactively pkg-cider/entrypoint-fn))
+
 ;;; Package
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
@@ -323,6 +331,7 @@ for example."
     "a s" #'pkg-cider/app-start
     "a x" #'pkg-cider/app-stop
     "a r" #'pkg-cider/app-refresh
+    "a h" #'pkg-cider/entrypoint
     ;; Debug
     "d f"   #'cider-debug-defun-at-point
     "d p o" #'pkg-cider/portal-open

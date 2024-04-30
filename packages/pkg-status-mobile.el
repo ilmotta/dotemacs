@@ -356,4 +356,52 @@ of plists:
       (seq-doseq (ref references)
         (pkg-status-mobile/re-frame-find-file-from-ref ref keyword-to-find curr-point-marker)))))
 
+(defun pkg-status-mobile/do-login (nrepl-response)
+  (let* ((raw-val (nrepl-dict-get nrepl-response "value"))
+         (val (if (string= "nil" raw-val) nil raw-val)))
+    (when val
+      (let* ((response (json-read-from-string (json-read-from-string val)))
+             (accounts (seq-map (lambda (account)
+                                  (cons (map-elt account 'name)
+                                        (map-elt account 'key-uid)))
+                                response))
+             (account (if (= 1 (length accounts))
+                          (seq-first accounts)
+                        (completing-read "account to login:" accounts))))
+        (cider-interactive-eval (format "
+(swap! re-frame.db/app-db assoc-in
+  [:profile/login :password]
+  (utils.security.core/mask-data \"%s\"))
+(swap! re-frame.db/app-db assoc-in
+  [:profile/login :key-uid]
+  (:key-uid (utils.re-frame/sub [:profile/login-profile])))
+(utils.re-frame/dispatch [:profile.login/login])
+"
+                                        "passwordss"))))))
+
+(defun pkg-status-mobile/login ()
+  (interactive)
+  (cider-interactive-eval "
+(->> (utils.re-frame/sub [:profile/profiles-overview])
+     vals
+     (sort-by :timestamp)
+     reverse
+     clj->js
+     js/JSON.stringify)
+" #'pkg-status-mobile/do-login))
+
+(defun pkg-status-mobile/logout ()
+  (interactive)
+  (let ((form "(utils.re-frame/dispatch [:logout])"))
+    (cider-interactive-eval form)))
+
+(transient-define-prefix pkg-status-mobile/main-t ()
+  :transient-non-suffix #'transient--do-quit-one
+  [[:description "Session"
+    ("l" "Login" pkg-status-mobile/login)
+    ("x" "Logout" pkg-status-mobile/logout :transient t)]
+   [:description "Navigation"
+    :pad-keys t
+    ("g" "Go to screen" pkg-status-mobile/navigate-to :transient t)]])
+
 (provide 'pkg-status-mobile)
