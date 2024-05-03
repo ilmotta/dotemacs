@@ -51,7 +51,7 @@ works fine."
   ;;
   (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 
-  (setq doom-modeline-bar-width 1
+  (setq doom-modeline-bar-width 0
         doom-modeline-buffer-encoding nil
         doom-modeline-buffer-modification-icon t
         doom-modeline-icon (display-graphic-p)

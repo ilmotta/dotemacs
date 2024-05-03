@@ -111,6 +111,7 @@
  pkg-page-break-lines
  pkg-paren-face
  pkg-pulsar
+ pkg-spacious-padding
  pkg-xterm-color)
 
 ;;; Packages that enhance text editing
