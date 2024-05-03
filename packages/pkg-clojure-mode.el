@@ -123,6 +123,63 @@ mode is not enabled it tries to use LSP to find the definition."
                (list (rx "style.cljs" string-end)
                      (rx "view.cljs" string-end)))))
 
+(defun pkg-clojure-mode/transpose-pair-down ()
+  "Transpose pair down.
+
+Won't keep balanced parentheses and cursor should be in the middle of
+the pairs."
+  (interactive)
+  (let ((mid-point (point)))
+    (paredit-forward 1)
+    (paredit-backward 1)
+    (let ((next-start (point)))
+      (paredit-forward 2)
+      (let ((next-end (point)))
+        (paredit-backward 4)
+        (let ((curr-start (point)))
+          (paredit-forward 2)
+          (let* ((curr-end (point))
+                 (curr-pair (buffer-substring curr-start curr-end))
+                 (next-pair (buffer-substring next-start next-end)))
+            (goto-char next-start)
+            (delete-region next-start next-end)
+            (insert curr-pair)
+
+            (goto-char curr-start)
+            (delete-region curr-start curr-end)
+            (insert next-pair)
+
+            (paredit-forward 2)))))))
+
+(defun pkg-clojure-mode/transpose-pair-up ()
+  "Transpose pair up.
+
+Won't keep balanced parentheses and cursor should be in the middle of
+the pairs."
+  (interactive)
+  (let ((mid-point (point)))
+    (paredit-backward 4)
+    (let ((prev-start (point)))
+      (paredit-forward 2)
+      (let ((prev-end (point)))
+        (paredit-forward 1)
+        (paredit-backward 1)
+        (let ((curr-start (point)))
+          (paredit-forward 2)
+          (let* ((curr-end (point))
+                 (curr-pair (buffer-substring curr-start curr-end))
+                 (prev-pair (buffer-substring prev-start prev-end)))
+            (goto-char curr-start)
+            (delete-region curr-start curr-end)
+            (insert prev-pair)
+
+            (goto-char prev-start)
+            (delete-region prev-start prev-end)
+            (insert curr-pair)
+
+            (paredit-backward 1)
+            (paredit-forward 1)))))))
+
 ;;; Package
 
 (lib-util/pkg clojure-mode
@@ -144,7 +201,9 @@ mode is not enabled it tries to use LSP to find the definition."
     :keymaps 'clojure-mode-map
     :states '(normal insert)
     "M-." #'pkg-clojure-mode/find-var
-    "M->" #'cider-find-dwim-other-window)
+    "M->" #'cider-find-dwim-other-window
+    "C-c C-k" '(pkg-clojure-mode/transpose-pair-up :properties (:repeat t))
+    "C-c C-j" '(pkg-clojure-mode/transpose-pair-down :properties (:repeat t)))
 
   (my/general-mode-def
     :keymaps 'clojure-mode-map
