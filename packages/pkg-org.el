@@ -194,7 +194,11 @@ unless the ID property already exists."
 ;;; Package
 
 (lib-util/pkg org
-  :elpaca (:ref "769018718ce70da859b6be54bd29ee8c0e21f41c")
+  ;; Release 9.6.7 https://git.savannah.gnu.org/cgit/emacs/org-mode.git/commit/?h=release_9.6.7&id=ca873f7fe47546bca19821f1578a6ab95bf5351c
+  ;;
+  ;; Can't go to latest because org-roam will fail processing some files
+  ;; https://github.com/org-roam/org-roam/issues/2381
+  :elpaca (:ref "ca873f7fe47546bca19821f1578a6ab95bf5351c")
   :defer t
 
   :init

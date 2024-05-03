@@ -29,7 +29,7 @@
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
 (lib-util/pkg org-roam
-  :elpaca (:ref "74422df546a515bc984c2f3d3a681c09d6f43916")
+  :elpaca (:ref "8667e441876cd2583fbf7282a65796ea149f0e5f")
   :defer t
 
   :init
