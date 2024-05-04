@@ -18,12 +18,8 @@
     :prefix my/leader
     "w g" #'golden-ratio-mode)
 
-  ;; If you use a large screen and have very wide frames golden-ratio makes very
-  ;; wide windows. This can be handled automatically by setting
-  ;; golden-ratio-auto-scale to true. This does a good job of keeping windows at
-  ;; a reasonable width regardless of how wide or narrow your frame size is.
-  ;; This works well on my laptop regardless of which monitor or LCD I happen to
-  ;; be using.
-  (setq golden-ratio-auto-scale t))
+  ;; Manually adjusting the factor gives better results in my screens.
+  (setq golden-ratio-adjust-factor 1.0
+        golden-ratio-auto-scale nil))
 
 (provide 'pkg-golden-ratio)
