@@ -7,7 +7,7 @@
 (lib-util/pkg org-modern
   :elpaca (:host github
            :repo "minad/org-modern"
-           :ref "d812a192f040a9e7785a53f144de1800d52b9f0d")
+           :ref "33f694c57113418c7e739a824ff57dc9e7eb413c")
   :defer t
   :hook (org-mode-hook . org-modern-mode)
   :init
