@@ -553,7 +553,10 @@ If this function returns true then the buffer can be killed."
 (setq ring-bell-function 'ignore)
 
 ;; Configure vertical space between lines.
-(setq-default line-spacing 0)
+(setq-default line-spacing 3)
+
+;; 1/10pt, so 100 is 10pt
+(set-face-attribute 'default nil :height 140)
 
 ;; Reduce clutter in the fringes.
 (setq indicate-buffer-boundaries nil
