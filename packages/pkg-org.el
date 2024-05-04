@@ -309,7 +309,16 @@ unless the ID property already exists."
 
   ;; Prevent modifications made in invisible sections of an org document, as
   ;; unintended changes can easily go unseen otherwise.
-  (setq org-catch-invisible-edits 'smart)
+  (setq org-catch-invisible-edits 'show-and-error)
+
+  ;; Non-nil means insert new headings after the current subtree.
+  (setq org-insert-heading-respect-content t)
+
+  ;; Non-nil means font-lock should hide the emphasis marker characters.
+  (setq org-hide-emphasis-markers t)
+
+  ;; Non-nil means show entities as UTF8 characters.
+  (setq org-pretty-entities t)
 
   ;; This is just a default location to look for Org files. There is no need at
   ;; all to put your files into this directory. Anyway, it should at least point
