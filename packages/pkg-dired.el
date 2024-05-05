@@ -15,9 +15,8 @@
       (dired-hide-details-mode +1)
     (dired-hide-details-mode -1)))
 
-;;; Autoloads
+;;; Commands
 
-;;;###autoload
 (defun pkg-dired/hide-details-mode ()
   "Toggle `dired-hide-details-mode' globally."
   (interactive)
@@ -28,7 +27,6 @@
     (dired-hide-details-mode +1)
     (setq pkg-dired/global-hide-details-mode t)))
 
-;;;###autoload
 (defun pkg-dired/toggle-hidden ()
   "Show/hide dot-files."
   (interactive)
@@ -41,6 +39,22 @@
       ;; Otherwise just revert to re-show.
       (progn (revert-buffer)
              (setq-local pkg-dired/hidden-show-p t)))))
+
+(defun pkg-dired/duplicate-this-file ()
+  "Duplicate file on this line."
+  (interactive)
+  (let* ((do-format (lambda (filename count)
+                      (if-let ((extension (file-name-extension filename)))
+                          (format "%s %02d.%s" (file-name-base filename) count extension)
+                        (format "%s %02d" filename count))))
+         (original  (dired-get-filename t))
+         (count     1)
+         (new       (funcall do-format original count)))
+    (while (file-exists-p new)
+      (setq count (1+ count)
+            new   (funcall do-format original count)))
+    (dired-copy-file original new nil))
+  (revert-buffer))
 
 ;;;; Init
 
