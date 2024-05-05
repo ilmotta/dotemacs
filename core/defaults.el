@@ -276,6 +276,7 @@
     "s"   #'save-buffer
     "u f" #'lib-util/sudo-find-file
     "w"   #'write-file
+    "y o" #'pkg-org/copy-symbol-at-point-as-link
     "y d" #'lib-util/yank-buffer-absolute-dir-path
     "y f" #'lib-util/yank-buffer-filename
     "y y" #'lib-util/yank-buffer-absolute-path
