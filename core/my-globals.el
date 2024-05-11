@@ -83,7 +83,7 @@ what. See `lib-util/real-buffer-p' for more information.")
   "When non-nil, enable evil and all related dependencies."
   :type 'boolean)
 
-(defcustom my/windmove-modifier "s"
+(defcustom my/windmove-modifier "M"
   "Either Meta (M) or Super (s)."
   :type 'string)
 
