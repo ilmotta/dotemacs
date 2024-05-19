@@ -18,6 +18,15 @@ Except current buffer."
                                             kill-buffer-query-functions)))
     (project-kill-buffers)))
 
+(defun pkg-project/close-tab-and-kill-buffers ()
+  "Kill all buffers and close current tab."
+  (interactive)
+  (let ((window-buf (current-buffer))
+        (kill-buffer-query-functions nil))
+    (project-kill-buffers)
+    (when (> (length (funcall tab-bar-tabs-function)) 1)
+      (tab-close))))
+
 (lib-util/pkg project
   :elpaca nil
   :init

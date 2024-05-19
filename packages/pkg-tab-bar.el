@@ -9,7 +9,6 @@
     (tab-bar-new-tab)
     (tab-bar-rename-tab tab-name)))
 
-
 (defun pkg-tab-bar/-tab-names ()
   (thread-last (tab-bar-tabs)
                (seq-map (lambda (tab)
