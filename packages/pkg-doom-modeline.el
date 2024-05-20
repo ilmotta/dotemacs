@@ -25,7 +25,8 @@ works fine."
       process
       ;; We need to remove vcs because doom-modeline throws error about the vcs section.
       ;; vcs
-      check time)))
+      ;; check
+      time)))
 
 (defun pkg-doom-modeline/setup-mode ()
   (doom-modeline-mode +1)
@@ -46,7 +47,7 @@ Use this function to hardcode rules that can't be easily generalized."
           (t result))))
 
 (lib-util/pkg doom-modeline
-  :elpaca (:ref "e829606301ea71e5f458df45aa53ad3ad882f68e")
+  :elpaca (:ref "65d0bd83eb7c393092e032c24b882f3ba19b4899")
   :defer t
   :hook (elpaca-after-init-hook . pkg-doom-modeline/setup-mode)
 

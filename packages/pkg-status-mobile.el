@@ -442,7 +442,7 @@ of plists:
                                 response))
              (account (if (= 1 (length accounts))
                           (seq-first accounts)
-                        (completing-read "account to login:" accounts))))
+                        (completing-read "Account to login:" accounts))))
         (cider-interactive-eval (format "
 (swap! re-frame.db/app-db assoc-in
   [:profile/login :password]
@@ -473,7 +473,7 @@ of plists:
 (transient-define-prefix pkg-status-mobile/main-t ()
   :transient-non-suffix #'transient--do-quit-one
   [[:description "Session"
-    ("l" "Login" pkg-status-mobile/login)
+    ("l" "Login" pkg-status-mobile/login :transient t)
     ("x" "Logout" pkg-status-mobile/logout :transient t)]
    [:description "Navigation"
     :pad-keys t
