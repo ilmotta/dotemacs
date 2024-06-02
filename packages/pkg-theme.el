@@ -98,6 +98,10 @@ theme is loaded in order to correctly update all faces."
    (pkg-theme/merge-face-attributes 'fixed-pitch `(:family ,my/face-fixed-pitch-family))
    (pkg-theme/merge-face-attributes 'fixed-pitch-serif `(:family ,my/face-fixed-pitch-family))
 
+   ;; When spacious-padding-mode is enabled
+   (when (bound-and-true-p spacious-padding-mode)
+     (pkg-theme/merge-face-attributes 'mode-line '(:box nil)))
+
    (when (pkg-theme/dark-p)
      (pkg-theme/merge-face-attributes 'cursor `(:background "coral1")))
 
