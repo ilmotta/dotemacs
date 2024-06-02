@@ -173,8 +173,8 @@ do defer loading it until it's actually needed."
   "Add HOOK, but remove it after first call to FN. DEPTH and LOCAL
 are passed directly to `add-hook'."
   (cl-labels ((wrapper ()
-                       (remove-hook hook #'wrapper local)
-                       (funcall fn)))
+                (remove-hook hook #'wrapper local)
+                (funcall fn)))
     (add-hook hook #'wrapper depth local)))
 
 (defun lib-util/message-error (err)
@@ -222,14 +222,14 @@ within comment blocks."
   (and (not (looking-at-p (rx (zero-or-more space) line-end)))
        (not (member (car (org-element-at-point))
                     '(comment
-                      comment-block
-                      example-block
-                      headline
-                      keyword
-                      node-property
-                      property-drawer
-                      quote-block
-                      src-block)))))
+                       comment-block
+                       example-block
+                       headline
+                       keyword
+                       node-property
+                       property-drawer
+                       quote-block
+                       src-block)))))
 
 (defun lib-util/sort-up-sexp ()
   "Rudimentary solution to sort s-exps. The cursor must be on a
@@ -415,13 +415,14 @@ TARGET is always resolved to its true name."
   (let ((target (file-truename target))
         (link (expand-file-name link)))
     (cond
-      ;; Avoid recursive links.
-      ((and replace (file-symlink-p link) (file-directory-p link))
-       (delete-file link 'trash)
-       (make-symbolic-link target link))
+     ;; Avoid recursive links.
+     ((and replace (file-symlink-p link) (file-directory-p link))
+      (delete-file link 'trash)
+      (make-symbolic-link target link))
 
-      (:default
-       (make-symbolic-link target link replace)))))
+     ((and (not replace)
+           (not (file-symlink-p link)))
+      (make-symbolic-link target link replace)))))
 
 ;;;###autoload
 (defun lib-util/symlink-dotfiles (&optional replace)
@@ -433,42 +434,46 @@ symbolic links."
   (let ((target-root "~/data/repos/dotfiles/")
         (link-root "~/")
         (replace (if replace 'replace nil)))
+    (make-directory (concat link-root ".gnupg/") 'parents)
+    (lib-util/symlink (concat target-root "gpg-agent.conf")
+                      (concat link-root ".gnupg/gpg-agent.conf") replace)
+
     ;; Ruby
     (lib-util/symlink (concat target-root "ruby/gemrc")
-               (concat link-root ".gemrc") replace)
+                      (concat link-root ".gemrc") replace)
     (lib-util/symlink (concat target-root "ruby/irbrc")
-               (concat link-root ".irbrc") replace)
+                      (concat link-root ".irbrc") replace)
     (lib-util/symlink (concat target-root "ruby/pryrc")
-               (concat link-root ".pryrc") replace)
+                      (concat link-root ".pryrc") replace)
 
     ;; Node.js
     (lib-util/symlink (concat target-root "nodejs/npmrc")
-               (concat link-root ".npmrc") replace)
+                      (concat link-root ".npmrc") replace)
 
     ;; Shell and terminal
     (lib-util/symlink (concat target-root "bashrc")
-               (concat link-root ".bashrc") replace)
+                      (concat link-root ".bashrc") replace)
     (lib-util/symlink (concat target-root "inputrc")
-               (concat link-root ".inputrc") replace)
+                      (concat link-root ".inputrc") replace)
     (lib-util/symlink (concat target-root "tmux/tmux.conf")
-               (concat link-root ".tmux.conf") replace)
+                      (concat link-root ".tmux.conf") replace)
     (lib-util/symlink (concat target-root "shell/zpreztorc")
-               (concat link-root ".zpreztorc") replace)
+                      (concat link-root ".zpreztorc") replace)
     (lib-util/symlink (concat target-root "shell/zshrc")
-               (concat link-root ".zshrc") replace)
+                      (concat link-root ".zshrc") replace)
 
     ;; Vim
     (make-directory (concat link-root ".vim/after/syntax/") 'parents)
     (make-directory (concat link-root ".vim/colors/") 'parents)
     (lib-util/symlink (concat target-root "vim/colors/zenburn.vim")
-               (concat link-root ".vim/colors/zenburn.vim") replace)
+                      (concat link-root ".vim/colors/zenburn.vim") replace)
     (lib-util/symlink (concat target-root "vim/vimrc")
-               (concat link-root ".vimrc") replace)
+                      (concat link-root ".vimrc") replace)
 
     ;; Clojure
     (make-directory (concat link-root ".lein/") 'parents)
     (lib-util/symlink (concat target-root "clojure/profiles.clj")
-               (concat link-root ".lein/profiles.clj") replace)
+                      (concat link-root ".lein/profiles.clj") replace)
     (make-directory (concat link-root ".clojure/") 'parents)
     ;; Unfortunately Clojure deps does not work with symbolic links.
     (copy-file (concat target-root "clojure/deps.edn")
@@ -477,33 +482,33 @@ symbolic links."
 
     ;; Kitty
     (make-directory (concat link-root ".config/kitty/") 'parents)
-    (lib-util/symlink (concat target-root "kitty/kitty.conf")
-               (concat link-root ".config/kitty/kitty.conf") replace)
+    (lib-util/symlink  (concat target-root "kitty/kitty.conf")
+                       (concat link-root ".config/kitty/kitty.conf") replace)
     (lib-util/symlink (concat target-root "kitty/themes/")
-               (concat link-root ".config/kitty/themes") replace)
+                      (concat link-root ".config/kitty/themes") replace)
 
     ;; Misc
     (make-directory (concat link-root ".config/qutebrowser/") 'parents)
     (lib-util/symlink (concat target-root "qutebrowser-config.py")
-               (concat link-root ".config/qutebrowser/config.py") replace)
+                      (concat link-root ".config/qutebrowser/config.py") replace)
 
     (make-directory (concat link-root ".gnupg/") 'parents)
     (lib-util/symlink (concat target-root "gpg-agent.conf")
-               (concat link-root ".gnupg/gpg-agent.conf") replace)
+                      (concat link-root ".gnupg/gpg-agent.conf") replace)
 
     (lib-util/symlink (concat target-root "aspell.conf")
-               (concat link-root ".aspell.conf") replace)
+                      (concat link-root ".aspell.conf") replace)
     (lib-util/symlink (concat target-root "editorconfig")
-               (concat link-root ".editorconfig") replace)
+                      (concat link-root ".editorconfig") replace)
     (lib-util/symlink (concat target-root "git/gitconfig")
-               (concat link-root ".gitconfig") replace)
+                      (concat link-root ".gitconfig") replace)
     (lib-util/symlink (concat target-root "git/gitignore")
-               (concat link-root ".gitignore") replace)
+                      (concat link-root ".gitignore") replace)
 
     (lib-util/symlink "~/data/repos/dotemacs/"
-               (concat link-root ".config/emacs") replace)
+                      (concat link-root ".config/emacs") replace)
     (lib-util/symlink "~/data/repos/dotemacs/"
-               (concat link-root ".emacs.d") replace)
+                      (concat link-root ".emacs.d") replace)
 
     ;; Enable if reading e-mail in Emacs.
     ;; (make-directory (concat link-root ".config/afew/") 'parents)
