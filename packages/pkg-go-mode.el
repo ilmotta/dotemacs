@@ -47,12 +47,13 @@ When `ENV' concatenate before command."
         (current-dir (file-name-directory default-directory)))
     (string-join (list "nix-shell"
                        "--show-trace"
-                       (format "--run '%s'"
-                               (string-join (list "go"
-                                                  "test"
-                                                  (shell-quote-argument current-dir)
-                                                  (s-replace "\\$ ." "\\$" args))
-                                            " "))
+                       (format "--run %s"
+                               (shell-quote-argument
+                                (string-join (list "go"
+                                                   "test"
+                                                   (shell-quote-argument current-dir)
+                                                   (s-replace "\\$ ." "\\$" args))
+                                             " ")))
                        (file-name-concat project-dir "shell.nix"))
                  " ")))
 
