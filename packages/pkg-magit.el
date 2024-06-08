@@ -145,6 +145,10 @@ variable.")
   (advice-add #'magit-diff-visit-file :around #'pkg-magit/diff-visit-file)
 
   ;; Do not show "Recent commits" section.
-  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
+  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent)
+
+  ;; I don't use stashes that much, and if I do, it's just 'z l' keybinding
+  ;; away.
+  (remove-hook 'magit-status-sections-hook #'magit-insert-stashes))
 
 (provide 'pkg-magit)
