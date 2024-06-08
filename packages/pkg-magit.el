@@ -132,7 +132,7 @@ variable.")
   ;; general than setting the value to t.
   (setq magit-diff-refine-hunk t)
 
-  (setq git-commit-summary-max-length 50
+  (setq git-commit-summary-max-length 70
         git-commit-style-convention-checks '(non-empty-second-line
                                              overlong-summary-line))
   :config
