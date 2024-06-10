@@ -477,18 +477,6 @@ If this function returns true then the buffer can be killed."
 (setq auto-save-default nil
       auto-save-list-file-name (concat my/cache-dir "autosave"))
 
-(setq make-backup-files t)
-(setq vc-make-backup-files t) ; Backup version controlled files
-(setq backup-by-copying t)    ; Don't clobber symlinks
-(setq delete-old-versions t)  ; Don't ask about deleting old versions
-(setq kept-new-versions 10)   ; Keep 10 latest versions
-(setq kept-old-versions 2)    ; Keep 2 oldest versions
-(setq version-control t)      ; Number backups
-
-;; Avoid littering the user's filesystem with backups.
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-
 ;; Do not use lockfiles to avoid editing collisions.
 (setq create-lockfiles nil)
 
@@ -788,6 +776,22 @@ with 'kill' as the default action instead of 'bury'."
 
 (setq native-comp-eln-load-path (append (list (concat my/cache-dir "eln/"))
                                         native-comp-eln-load-path) )
+
+;;; Backups
+
+;; Disable backups because historically I haven't relied on them.
+(setq make-backup-files nil)
+
+(setq vc-make-backup-files t) ; Backup version controlled files
+(setq backup-by-copying t)    ; Don't clobber symlinks
+(setq delete-old-versions t)  ; Don't ask about deleting old versions
+(setq kept-new-versions 10)   ; Keep 10 latest versions
+(setq kept-old-versions 2)    ; Keep 2 oldest versions
+(setq version-control t)      ; Number backups
+
+;; Avoid littering the user's filesystem with backups.
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
 
 ;;; Python
 
