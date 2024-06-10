@@ -29,7 +29,7 @@ mode is not enabled it tries to use LSP to find the definition."
   (interactive)
   (cond
    ((pkg-clojure-mode/keyword-p (cider-symbol-at-point 'look-back))
-    (call-interactively #'pkg-status-mobile/re-frame-find-registration))
+    (call-interactively #'smob-re-frame-find-registration))
 
    ;; Prefer CIDER to find definitions
    ((cider-current-repl)

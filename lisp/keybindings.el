@@ -57,8 +57,8 @@
     :keymaps 'clojure-mode-map
     :states 'normal
     :prefix my/local-leader
-    "a g" #'pkg-status-mobile/navigate-to
-    "a <" #'pkg-status-mobile/navigate-back)
+    "a g" #'smob-navigate-to
+    "a <" #'smob-navigate-back)
 
   (general-def
     :keymaps 'my/keys-mode-map
