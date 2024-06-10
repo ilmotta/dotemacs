@@ -29,13 +29,12 @@
                 (replace-regexp-in-string (rx (or ":" ".")) "-")
                 (replace-regexp-in-string (rx "/") "-"))
               "-test")
-    keyword))
+    var))
 
 (defun pkg-cider/-cljs-execute-test-var (var)
   (let ((var (pkg-cider/-as-test-var var)))
     (cider-interactive-eval
-     (concat "(require '[cljs-run-test])"
-             (format "(cljs-run-test/run-test %s)" var)))))
+     (format "(cljs.test/run-test %s)" var))))
 
 (defun pkg-cider/-cljs-execute-test-ns (ns)
   (cider-interactive-eval
