@@ -116,7 +116,7 @@ spanning over multiple lines."
     "h ."   #'pkg-lsp-mode/describe-thing-at-point)
 
   (setq lsp-auto-guess-root t)
-  (setq lsp-session-file (concat temporary-file-directory "lsp-session"))
+  (setq lsp-session-file (file-name-concat temporary-file-directory "lsp" "lsp-session"))
   (setq lsp-eslint-library-choices-file (concat my/cache-dir "lsp-eslint-choices"))
   (setq lsp-server-install-dir (concat my/cache-dir "lsp/"))
 
@@ -288,7 +288,7 @@ spanning over multiple lines."
   ;; I'll install the binary myself.
   (setq lsp-clojure-server-download-url nil)
   (setq lsp-clojure-workspace-dir (concat my/cache-dir "lsp-clojure-workspace/"))
-  (setq lsp-clojure-workspace-cache-dir (concat temporary-file-directory "lsp-clojure-workspace/cache/"))
+  (setq lsp-clojure-workspace-cache-dir (file-name-concat temporary-file-directory "lsp" "lsp-clojure-workspace/cache/"))
 
   :config
   (advice-add #'lsp :around #'lib-util/inhibit-message)
