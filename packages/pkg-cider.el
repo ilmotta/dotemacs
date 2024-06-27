@@ -272,9 +272,9 @@ for example."
 
 ;;;###autoload
 (defun pkg-cider/kill-repls ()
-  "Kill without confirmation all CIDER REPL buffers."
+  "Kill without confirmation all CIDER REPL buffers in current project."
   (interactive)
-  (thread-last (buffer-list)
+  (thread-last (project-buffers (project-current))
                (seq-filter (lambda (buf)
                              (string-prefix-p "*cider-repl " (buffer-name buf))))
                (seq-each (lambda (buf)
