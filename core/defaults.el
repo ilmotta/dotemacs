@@ -237,7 +237,7 @@
 
 ;;; Keybindings
 
-(global-set-key [remap kill-buffer] #'kill-this-buffer)
+(global-set-key [remap kill-buffer] #'kill-current-buffer)
 (define-key my/keys-mode-map (kbd "M-;") #'lib-util/comment-dwim)
 (define-key my/keys-mode-map (kbd "C-h K") #'describe-keymap)
 (define-key my/keys-mode-map (kbd "C-h F") #'describe-face)
