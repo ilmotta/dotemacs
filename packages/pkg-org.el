@@ -414,24 +414,19 @@ unless the ID property already exists."
           (?C . success)))
 
   (setq org-todo-keyword-faces
-        '(("CANCELLED" . org-archived)
-          ("DEFERRED" . org-archived)
-          ("DELEGATED" . org-archived)
-          ("DOING" . org-scheduled-today)
+        '(("PROG" . org-scheduled-today)
           ("DONE" . org-done)
           ("TODO" . org-todo)
-          ("WAITING" . org-upcoming-deadline)))
+          ("WAIT" . org-upcoming-deadline)))
 
   ;; The exclamation mark following the shortcut letter tells Org to record to
   ;; change to the new state.
   (setq org-todo-keywords
         '((sequence
            "TODO(t)"
-           "STARTED(s!)"
-           "WAITING(w!)"
+           "PROG(p!)" ; Progress
+           "WAIT(w!)" ; Waiting
            "|"
-           "DEFERRED(!)"
-           "CANCELLED(c!)"
            "DONE(d!)")))
 
   ;; Expert is like auto, but no special window with the keyword will be shown,
