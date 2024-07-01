@@ -14,6 +14,9 @@
   :init
   (general-def
     :keymaps 'org-mode-map
-    "C-c y" #'org-cliplink))
+    "C-c y" #'org-cliplink)
+
+  ;; Default is 80.
+  (setq org-cliplink-max-length 120))
 
 (provide 'pkg-org-cliplink)
