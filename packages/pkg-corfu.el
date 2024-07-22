@@ -25,11 +25,11 @@
 
 (defun pkg-corfu/complete-in-minibuffer ()
   (interactive)
-  (if (fboundp #'consult-completion-in-region)
-      (let ((completion-extra-properties corfu--extra)
-            completion-cycle-threshold completion-cycling)
-        (apply #'consult-completion-in-region completion-in-region--data))
-    (message "Package consult is not loaded")))
+  (pcase completion-in-region--data
+    (`(,beg ,end ,table ,pred ,extras)
+     (let ((completion-extra-properties extras)
+           completion-cycle-threshold completion-cycling)
+       (consult-completion-in-region beg end table pred)))))
 
 ;; Corfu is the minimalistic completion-in-region counterpart of the Vertico
 ;; minibuffer UI. Corfu is a small package, which relies on the Emacs completion
@@ -37,7 +37,7 @@
 (lib-util/pkg corfu
   :elpaca (:host github
            :repo "minad/corfu"
-           :ref "24dccafeea114b1aec7118f2a8405b46aa0051e0")
+           :ref "0028cf83405cf39828abdf285aaa8b0deb2576c9")
   :defer t
   :hook (elpaca-after-init-hook . global-corfu-mode)
 
