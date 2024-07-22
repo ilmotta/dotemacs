@@ -757,9 +757,9 @@ with 'kill' as the default action instead of 'bury'."
 ;;
 ;; Compile AOT with:
 ;;  (native-compile-async "~/.emacs.d/.local/elpaca/builds" 'recursively)
-(setq native-comp-deferred-compilation nil)
+(setq native-comp-jit-compilation t)
 
-;; This intended for debugging the compiler itself.
+;; This is intended for debugging the compiler itself.
 ;;   - 0 no logging.
 ;;   - 1 final limple is logged.
 ;;   - 2 LAP and final limple and some pass info are logged.
@@ -774,7 +774,7 @@ with 'kill' as the default action instead of 'bury'."
 ;;
 ;; (setq native-compile-target-directory t)
 
-(setq native-comp-eln-load-path (append (list (concat my/cache-dir "eln/"))
+(setq native-comp-eln-load-path (append (list (file-name-concat my/cache-dir "eln"))
                                         native-comp-eln-load-path) )
 
 ;;; Backups
