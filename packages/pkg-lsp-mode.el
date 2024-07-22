@@ -28,9 +28,7 @@ Also disable certain LSP features when `cider-mode' is enabled."
       (setq-local lsp-enable-completion-at-point nil
                   lsp-completion-enable nil)
     (setq-local lsp-enable-completion-at-point t
-                lsp-completion-enable t))
-
-  (lsp-deferred))
+                lsp-completion-enable t)))
 
 (defun pkg-lsp-mode/disable-eldoc-h ()
   "Disable eldoc because typed signatures are too verbose, often
