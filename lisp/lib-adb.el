@@ -33,7 +33,7 @@
 
 (defun lib-adb/-send-input (device input)
   (call-process-shell-command
-   (format "adb -s '%s' shell input text '%s'" device input)))
+   (format "adb -s '%s' shell input text %s" device (shell-quote-argument input))))
 
 (defun lib-adb/-pull (device src dst)
   (call-process-shell-command
