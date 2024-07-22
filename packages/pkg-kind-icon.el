@@ -7,6 +7,7 @@
 
 ;; SVG icons for completion backends.
 (lib-util/pkg kind-icon
+  :disabled t
   :elpaca (:ref "42d2a41874d5a61731556e53ba57547b4ef95342")
   :defer t
 
@@ -24,9 +25,11 @@
   (setq svg-lib-icons-dir (concat my/cache-dir "svg-lib/"))
 
   :config
-  (with-eval-after-load 'corfu
-    (setq kind-icon-default-face 'corfu-default)
-    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+  ;; SVG icons or plain text on the margin is distracting and I rarely use this
+  ;; information.
+  ;; (with-eval-after-load 'corfu
+  ;;   (setq kind-icon-default-face 'corfu-default)
+  ;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
   ;; Without resetting the cache, icons will sometimes look way bigger/smaller.
   (advice-add #'load-theme :after #'pkg-kind-icon/reset-cache))
