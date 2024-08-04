@@ -197,6 +197,7 @@
 (lib-util/require
  pkg-ace-window
  pkg-browse-at-remote
+ pkg-cider-storm
  pkg-command-log-mode
  pkg-consult-dir
  pkg-daemons
