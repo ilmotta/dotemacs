@@ -209,6 +209,7 @@
  pkg-explain-pause-mode
  pkg-golden-ratio
  pkg-hnreader
+ pkg-magit-forge
  pkg-openwith
  pkg-pdf-tools
  pkg-popper
