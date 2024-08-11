@@ -127,6 +127,7 @@
  pkg-evil-surround
  pkg-flycheck
  pkg-flyspell-correct
+ pkg-gptel
  pkg-jinx
  pkg-quickrun
  pkg-smartparens
