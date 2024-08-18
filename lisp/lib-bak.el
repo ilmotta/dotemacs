@@ -142,11 +142,15 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
   (interactive)
   (let* ((src (if (lib-bak/-file-remote-p src)
                   (seq-let [remote path] (split-string src ":")
-                    (s-join ":" (list remote (file-name-as-directory path))))
+                    (mapconcat #'identity
+                               (list remote (file-name-as-directory path))
+                               ":"))
                 (file-name-as-directory (expand-file-name src))))
          (dst (if (lib-bak/-file-remote-p dst)
                   (seq-let [remote path] (split-string dst ":")
-                    (s-join ":" (list remote (file-name-as-directory path))))
+                    (mapconcat #'identity
+                               (list remote (file-name-as-directory path))
+                               ":"))
                 (file-name-as-directory (expand-file-name dst))))
          (cmd (format (lib-bak/rsync-mirror-silent-cmd) src dst))
          (proc-name "sync-silent"))
