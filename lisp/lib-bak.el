@@ -60,6 +60,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
          (dst (file-name-as-directory (expand-file-name dst)))
          (cmd (format (lib-bak/rsync-extended-mirror-cmd) src dst))
          (buffer (get-buffer-create "*Sync*"))
+         (use-short-answers nil)
          (do-run-sync (lambda ()
                         (make-directory dst 'parents)
                         (start-process-shell-command "sync" buffer cmd)
