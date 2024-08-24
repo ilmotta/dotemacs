@@ -56,6 +56,13 @@ argument."
 
     (evil-mode +1)))
 
+(defun pkg-evil/my-evil-record-macro ()
+  "Prefer `quit-window' in read-only buffers."
+  (interactive)
+  (if buffer-read-only
+      (quit-window)
+    (call-interactively #'evil-record-macro)))
+
 (lib-util/pkg evil
   :elpaca (:ref "0251080640e0da6f0eec2b7d8dd70e9c9b9915d7")
   :defer t
@@ -146,6 +153,13 @@ argument."
   (setq evil-jumps-max-length 250
         evil-jumps-cross-buffers t
         ;; evil--jumps-debug t
-        ))
+        )
+
+  :config
+  ;; In some read-only buffers (like the Magit diff buffer), when q is pressed,
+  ;; `evil-record-macro' takes precedence over `quit-window', but I want the
+  ;; opposite.
+  (with-eval-after-load 'evil-maps
+    (define-key evil-normal-state-map (kbd "q") #'pkg-evil/my-evil-record-macro)))
 
 (provide 'pkg-evil)
