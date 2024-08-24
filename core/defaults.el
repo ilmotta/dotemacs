@@ -636,7 +636,10 @@ with 'kill' as the default action instead of 'bury'."
 ;; Some packages (e.g. CIDER) still refer to this deprecated variable. It's
 ;; disabled because I don't want Emacs to display a buffer in a "random" window.
 ;; It's recommended to use `display-buffer-base-action'.
-(setq pop-up-windows nil)
+;;
+;; 2024-08-24: Setting to nil has a side-effect. Sometimes, magit will open the
+;; diff buffer in a new frame.
+;; (setq pop-up-windows nil)
 
 ;; Starting on Emacs 27+ theme changes don't take effect immediately.
 (setq custom--inhibit-theme-enable nil)

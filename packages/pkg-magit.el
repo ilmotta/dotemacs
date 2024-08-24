@@ -70,14 +70,6 @@ variable.")
 (defun pkg-magit/display-buffer-same-window (buffer)
   (display-buffer buffer '(display-buffer-same-window)))
 
-(defun pkg-magit/display-diff-other-window (buffer)
-  "Display BUFFER in same-window but for magit-diff use other-window instead."
-  (display-buffer
-   buffer
-   (if (with-current-buffer buffer (derived-mode-p 'magit-diff-mode))
-       '(display-buffer-pop-up-window)
-     '(display-buffer-same-window))))
-
 ;; Set to nil to not bind to C-x. This variable must be set before the call to
 ;; `use-package'.
 ;; (setq magit-define-global-key-bindings nil)
@@ -85,7 +77,7 @@ variable.")
 (lib-util/pkg magit
   :elpaca (:host github
            :repo "magit/magit"
-           :ref "5a090e879d8906b80d89907fd1fa9ad923888452")
+           :ref "461d5ba249b8178ae83f80596da4312e65010720")
   :defer t
 
   :commands (magit-log-current
@@ -115,8 +107,7 @@ variable.")
   ;; to see diffs side-by-side.
   ;; (setq magit-display-buffer-function #'pkg-magit/display-buffer-same-window)
   ;;
-  ;;(setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (setq magit-display-buffer-function #'pkg-magit/display-diff-other-window)
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (setq magit-commit-show-diff t)
 
   ;; Improve diff performance.
