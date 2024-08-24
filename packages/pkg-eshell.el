@@ -202,14 +202,12 @@ working directory (`default-directory')."
                                  "vi"
                                  "vim"))
 
-  ;; For exa colored output, consider the answer from
-  ;; https://emacs.stackexchange.com/questions/51027/missing-color-support-for-exa-in-eshell.
   (setq eshell-command-aliases-list
         '(("q"  "exit")
           ("f"  "find-file $1")
           ("d"  "dired $1")
-          ("l" "exa -lg --sort=name --group-directories-first --time-style long-iso --git")
-          ("ll" "exa -lag --sort=name --group-directories-first --time-style long-iso --git $*")
+          ("l" "ls -l --group-directories-first")
+          ("ll" "ls -lA --group-directories-first")
           ("git" "git --no-pager $*")
           ("gs" "magit-status")
           ("clear" "clear-scrollback")))
