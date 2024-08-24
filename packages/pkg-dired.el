@@ -86,8 +86,8 @@
   ;; deleted directory.
   (setq dired-clean-confirm-killing-deleted-buffers nil)
 
-  (when (version= "29.0.50" emacs-version)
-    (setq dired-free-space nil))
+  ;; Don't display free space.
+  (setq dired-free-space nil)
 
   (setq
    ;; Emulate the GNU platform.

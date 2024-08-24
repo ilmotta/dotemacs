@@ -125,9 +125,6 @@
 ;; spells of inaccurate fontification immediately after scrolling.
 (setq fast-but-imprecise-scrolling t)
 
-;; Use character scroll.
-(pixel-scroll-mode -1)
-
 (setq hscroll-margin 2
       hscroll-step 1
       ;; Emacs spends too much effort recentering the screen if you scroll the
@@ -145,27 +142,24 @@
       auto-window-vscroll nil)
 
 ;; Mouse scroll
-(when (version< emacs-version "29.0.50")
+(when (version< emacs-version "30.0.50")
   (setq ;; Reduce scroll amount to a reasonable value.
    mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
    mouse-wheel-scroll-amount-horizontal 2
    ;; Don't accelerate scrolling.
    mouse-wheel-progressive-speed nil))
 
-;; Emacs 29+: Experimental pixel scroll (compiled with --xinput2).
-(when (or (version= "29.0.50" emacs-version)
-          (version= "30.0.50" emacs-version))
-  (setq pixel-scroll-precision-interpolate-page t
-        pixel-scroll-precision-initial-velocity-factor (/ 0.0335 4)
-        pixel-scroll-precision-interpolation-between-scroll 0.001
-        pixel-scroll-precision-interpolation-factor 3.0
-        pixel-scroll-precision-interpolation-total-time 0.1
-        pixel-scroll-precision-large-scroll-height 30.0
-        pixel-scroll-precision-momentum-min-velocity 10.0
-        pixel-scroll-precision-momentum-seconds 1.75
-        pixel-scroll-precision-momentum-tick 0.01
-        pixel-scroll-precision-use-momentum nil)
-  (pixel-scroll-precision-mode +1))
+(setq pixel-scroll-precision-interpolate-page t
+      pixel-scroll-precision-initial-velocity-factor (/ 0.0335 4)
+      pixel-scroll-precision-interpolation-between-scroll 0.001
+      pixel-scroll-precision-interpolation-factor 3.0
+      pixel-scroll-precision-interpolation-total-time 0.1
+      pixel-scroll-precision-large-scroll-height 30.0
+      pixel-scroll-precision-momentum-min-velocity 10.0
+      pixel-scroll-precision-momentum-seconds 1.75
+      pixel-scroll-precision-momentum-tick 0.01
+      pixel-scroll-precision-use-momentum nil)
+(pixel-scroll-precision-mode +1)
 
 ;;;; Garbage collector
 
@@ -247,8 +241,7 @@
 (define-key my/keys-mode-map (kbd "C-c e P s") #'lib-util/profiler-start)
 (define-key my/keys-mode-map (kbd "C-c e P k") #'lib-util/profiler-stop)
 
-(when (version= "29.0.50" emacs-version)
-  (define-key my/keys-mode-map (kbd "C-x <f5>") #'restart-emacs))
+(define-key my/keys-mode-map (kbd "C-x <f5>") #'restart-emacs)
 
 (defvar pkg-emacs/file-command-map
   (define-keymap
@@ -311,9 +304,6 @@
 ;; Specially needed for Gmail.
 (setq mail-host-address "gmail.com")
 
-(setq user-full-name "Icaro Motta")
-(setq user-mail-address "icaro.ldm@gmail.com")
-
 ;; Setup User-Agent header. It is set to `message-user-agent' which means we
 ;; will be using `message-mode' to compose mail.
 (setq mail-user-agent 'message-user-agent)
@@ -347,6 +337,7 @@
 (setq sendmail-program (executable-find "msmtp"))
 (setq mail-specify-envelope-from t)
 (setq mail-envelope-from 'header)
+
 ;;; Minibuffer
 
 (defun pkg-minibuffer/truncate-lines ()
