@@ -733,6 +733,12 @@ with 'kill' as the default action instead of 'bury'."
 ;; exist.
 (setq multisession-directory (concat my/cache-dir "multisession/"))
 
+;; Non-nil means print messages describing progress of byte-compiler.
+(setq byte-compile-verbose nil)
+
+;; Minimum severity level for displaying the warning buffer.
+(setq warning-minimum-level :error)
+
 ;;; Monkey patches
 
 (defun my/find-sibling-file (original-fn &rest _)
