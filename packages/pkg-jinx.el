@@ -21,7 +21,6 @@
   :init
   (general-def
     :keymaps 'my/keys-mode-map
-    "M-$"   #'jinx-correct
-    "C-M-$" #'jinx-languages))
+    [remap ispell-word] #'jinx-correct))
 
 (provide 'pkg-jinx)
