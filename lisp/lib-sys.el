@@ -10,9 +10,24 @@
   :prefix "lib-sys/")
 
 (defcustom lib-sys/brightness-debounce-threshold-ms
-  1000
+  10
   "Debounce threshold in milliseconds."
   :type 'integer)
+
+(defvar lib-sys/-brightness 100)
+(defvar lib-sys/-timer-brightness nil)
+
+(defun lib-sys/init-brightness ()
+  (run-with-timer 1 nil (lambda ()
+                          (thread-first
+                            (lib-sys/-ddcutil-get-brightness)
+                            (promise-then (lambda (brightness)
+                                            (setq lib-sys/-brightness brightness)))
+                            (promise-catch (lambda (err)
+                                             (let ((inhibit-message t))
+                                               (message "Failed to get brightness"))))))))
+
+(lib-sys/init-brightness)
 
 (defvar lib-sys/raise-brightness-debounced
   (setf (symbol-function 'lib-sys/raise-brightness-debounced)
@@ -50,41 +65,52 @@
   (message "Brightness: %s" (propertize (format "%s" value) 'face 'compilation-info)))
 
 (defun lib-sys/-raise-brightness (amount)
-  (thread-first (lib-sys/-ddcutil-get-brightness)
-                (promise-then (lambda (brightness)
-                                (let ((new-value (min 100 (+ amount brightness))))
-                                  (message "%s value" new-value)
-                                  (lib-sys/-ddcutil-set-brightness new-value)
-                                  new-value)))
-                (promise-then (lambda (new-value)
-                                (lib-sys/-ddcutil-message-brightness new-value)))
-                (promise-catch #'lib-util/message-error)))
+  (when lib-sys/-timer-brightness
+    (cancel-timer lib-sys/-timer-brightness))
+  (let ((new-val (min 100 (+ amount lib-sys/-brightness))))
+    (setq lib-sys/-brightness new-val)
+    (lib-sys/-ddcutil-message-brightness new-val)
+    (promise-new
+     (lambda (resolve reject)
+       (setq lib-sys/-timer-brightness
+             (run-with-timer
+              1
+              nil
+              (lambda ()
+                (thread-first
+                  (lib-sys/-ddcutil-set-brightness new-val)
+                  (promise-then resolve)
+                  (promise-catch (lambda (err)
+                                   (lib-util/message-error err)
+                                   (reject err)))))))))))
 
 (defun lib-sys/-lower-brightness (amount)
-  (thread-first (lib-sys/-ddcutil-get-brightness)
-                (promise-then (lambda (brightness)
-                                (let ((new-value (max 1 (- brightness amount))))
-                                  (lib-sys/-ddcutil-set-brightness new-value)
-                                  new-value)))
-                (promise-then (lambda (new-value)
-                                (lib-sys/-ddcutil-message-brightness new-value)))
-                (promise-catch #'lib-util/message-error)))
+  (when lib-sys/-timer-brightness
+    (cancel-timer lib-sys/-timer-brightness))
+  (let ((new-val (max 1 (- lib-sys/-brightness amount))))
+    (setq lib-sys/-brightness new-val)
+    (lib-sys/-ddcutil-message-brightness new-val)
+    (promise-new
+     (lambda (resolve reject)
+       (setq lib-sys/-timer-brightness
+             (run-with-timer
+              1
+              nil
+              (lambda ()
+                (thread-first
+                  (lib-sys/-ddcutil-set-brightness new-val)
+                  (promise-then resolve)
+                  (promise-catch (lambda (err)
+                                   (lib-util/message-error err)
+                                   (reject err)))))))))))
 
-(defun lib-sys/-lower-brightness-20 ()
+(defun lib-sys/-lower-brightness-5 ()
   (interactive)
-  (lib-sys/lower-brightness-debounced 20))
+  (lib-sys/lower-brightness-debounced 5))
 
-(defun lib-sys/-lower-brightness-10 ()
+(defun lib-sys/-raise-brightness-5 ()
   (interactive)
-  (lib-sys/lower-brightness-debounced 10))
-
-(defun lib-sys/-raise-brightness-20 ()
-  (interactive)
-  (lib-sys/raise-brightness-debounced 20))
-
-(defun lib-sys/-raise-brightness-10 ()
-  (interactive)
-  (lib-sys/raise-brightness-debounced 10))
+  (lib-sys/raise-brightness-debounced 5))
 
 (defun lib-sys/-remove-trailing-newlines (s)
   (replace-regexp-in-string "\n+\\'" "" s))
@@ -200,10 +226,8 @@ that resolves to the PID string."
   "System controllers."
   :transient-non-suffix #'transient--do-quit-one
   [["Brightness"
-    ("j" "↓20" lib-sys/-lower-brightness-20 :transient t)
-    ("k" "↑20" lib-sys/-raise-brightness-20 :transient t)
-    ("J" "↓10" lib-sys/-lower-brightness-10 :transient t)
-    ("K" "↑10" lib-sys/-raise-brightness-10 :transient t)]])
+    ("j" "↓5" lib-sys/-lower-brightness-5 :transient t)
+    ("k" "↑5" lib-sys/-raise-brightness-5 :transient t)]])
 
 ;;;; Misc
 
