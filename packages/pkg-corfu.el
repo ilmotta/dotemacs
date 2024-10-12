@@ -37,7 +37,7 @@
 (lib-util/pkg corfu
   :elpaca (:host github
            :repo "minad/corfu"
-           :ref "0028cf83405cf39828abdf285aaa8b0deb2576c9")
+           :ref "05889f194fd044223a1ddc7cfb2f96c752df5559")
   :defer t
   :hook (elpaca-after-init-hook . global-corfu-mode)
 
