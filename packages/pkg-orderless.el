@@ -32,7 +32,7 @@
    ((string-suffix-p "~" pattern) `(orderless-flex . ,(substring pattern 0 -1)))))
 
 (lib-util/pkg orderless
-  :elpaca (:ref "e3062280f924933e9c6f5dd1a71729ed98c8493a")
+  :elpaca (:ref "96b74d2450ab4ab1a175d0e86c62f6695c4709b5")
   :defer t
 
   :init
