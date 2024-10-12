@@ -12,7 +12,7 @@
 
 (lib-util/pkg embark
   ;; We need to explicitly add embark-consult.el.
-  :elpaca (:ref "ee014d5f3c86eafae673a947b492fa03ffbacb4e"
+  :elpaca (:ref "d2daad08e04090391b3221fa95000492a1f8aabe"
            :files ("embark.el" "embark-org.el" "embark-consult.el"))
   :defer t
 
@@ -33,7 +33,7 @@
 
   ;; Explicitly set key to avoid warning "No cycling possible; press C-, again
   ;; to act."
-  (setq embark-cycle-key (kbd "C-h"))
+  (setq embark-cycle-key "C-h")
 
   (setq embark-indicators '(embark-minimal-indicator
                             embark-highlight-indicator
