@@ -52,7 +52,7 @@ Uses initial input from previous call to
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
 (lib-util/pkg consult
-  :elpaca (:ref "fe4852280006e61be7f1374d021ee06155ce5a26")
+  :elpaca (:ref "07ea5421fbcb65b2207a43a0941124a95a47abc7")
   :defer t
 
   :init
