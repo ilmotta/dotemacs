@@ -518,6 +518,8 @@ unless the ID property already exists."
   ;; List of symbols corresponding to keywords to be hidden in the Org buffer.
   (setq org-hidden-keywords nil)
 
+  (setq org-ellipsis " ↷ ")
+
   ;; Enable more font lock faces.
   (setq org-fontify-done-headline t
         org-fontify-emphasized-text t
