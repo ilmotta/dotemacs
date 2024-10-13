@@ -520,6 +520,9 @@ unless the ID property already exists."
 
   (setq org-ellipsis " ↷ ")
 
+  ;; Disable to prevent adding a tab by mistake when outline is collapsed.
+  (setq org-cycle-emulate-tab nil)
+
   ;; Enable more font lock faces.
   (setq org-fontify-done-headline t
         org-fontify-emphasized-text t
