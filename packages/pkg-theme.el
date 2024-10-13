@@ -116,6 +116,8 @@ theme is loaded in order to correctly update all faces."
   (with-eval-after-load 'org-modern
     (custom-theme-set-faces
      theme
+     (pkg-theme/merge-face-attributes 'org-modern-label '(:inherit fixed-pitch))
+     (pkg-theme/merge-face-attributes 'org-modern-block-name '(:inherit fixed-pitch))
      ;; The weight must be set to bold, otherwise the checkbox under the cursor
      ;; becomes smaller.
      (pkg-theme/merge-face-attributes 'org-modern-symbol '(:weight bold))))
@@ -129,6 +131,8 @@ theme is loaded in order to correctly update all faces."
   (with-eval-after-load 'org
     (custom-theme-set-faces
      theme
+     (pkg-theme/merge-face-attributes 'org-level-1 '(:height 1.4))
+     (pkg-theme/merge-face-attributes 'org-level-2 '(:height 1.2))
      (pkg-theme/merge-face-attributes 'org-block '(:inherit fixed-pitch))
      (pkg-theme/merge-face-attributes 'org-table '(:inherit fixed-pitch))
      (pkg-theme/merge-face-attributes 'org-formula '(:inherit fixed-pitch))
