@@ -27,6 +27,10 @@
   (setq org-modern-table-vertical 1)
   (setq org-modern-tag t)
   (setq org-modern-timestamp t)
-  (setq org-modern-todo t))
+  (setq org-modern-todo t)
+
+  :config
+  (with-eval-after-load 'org
+    (setq org-modern-todo-faces org-todo-keyword-faces)))
 
 (provide 'pkg-org-modern)
