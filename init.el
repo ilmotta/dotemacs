@@ -112,6 +112,7 @@
  pkg-paren-face
  pkg-pulsar
  pkg-spacious-padding
+ pkg-vertico-posframe
  pkg-xterm-color)
 
 ;;; Packages that enhance text editing

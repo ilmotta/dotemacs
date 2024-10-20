@@ -4,6 +4,15 @@
 
 (require 'lib-util)
 
+(defvar pkg-vertico/-posframe-setting-top-full-width
+  '(posframe
+    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)
+    (vertico-posframe-min-width . 1000)))
+
+(defvar pkg-vertico/-posframe-setting-center-fixed-width
+  '(posframe
+    (vertico-posframe-width . 100)))
+
 (lib-util/pkg vertico
   :elpaca (:host github
            :repo "minad/vertico"
@@ -43,9 +52,13 @@
   (setq vertico-count-format nil)
 
   (setq vertico-multiform-commands
-        '((execute-extended-command flat)
-          (lib-media/google-tts-read-region flat)
-          (consult-mode-command flat)))
+        `((consult-line ,@pkg-vertico/-posframe-setting-top-full-width)
+          (consult-bookmark ,@pkg-vertico/-posframe-setting-top-full-width)
+          (consult-ripgrep ,@pkg-vertico/-posframe-setting-top-full-width)
+          (consult-buffer ,@pkg-vertico/-posframe-setting-center-fixed-width)
+          (project-switch-project ,@pkg-vertico/-posframe-setting-center-fixed-width)
+          (project-find-file ,@pkg-vertico/-posframe-setting-center-fixed-width)
+          (t posframe)))
 
   (setq vertico-multiform-categories
         '(;; Operates on commands such as `consult-grep', `consult-git-grep' and
