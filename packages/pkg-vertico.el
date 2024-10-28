@@ -11,7 +11,8 @@
 
 (defvar pkg-vertico/-posframe-setting-center-fixed-width
   '(posframe
-    (vertico-posframe-width . 100)))
+    (vertico-posframe-width . 100)
+    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)))
 
 (lib-util/pkg vertico
   :elpaca (:host github
@@ -52,12 +53,24 @@
   (setq vertico-count-format nil)
 
   (setq vertico-multiform-commands
-        `((consult-line ,@pkg-vertico/-posframe-setting-top-full-width)
-          (consult-bookmark ,@pkg-vertico/-posframe-setting-top-full-width)
-          (consult-ripgrep ,@pkg-vertico/-posframe-setting-top-full-width)
-          (consult-buffer ,@pkg-vertico/-posframe-setting-center-fixed-width)
-          (project-switch-project ,@pkg-vertico/-posframe-setting-center-fixed-width)
-          (project-find-file ,@pkg-vertico/-posframe-setting-center-fixed-width)
+        `(,@(seq-map (lambda (e)
+                       (cons e pkg-vertico/-posframe-setting-top-full-width))
+             '(consult-bookmark
+               consult-line
+               consult-ripgrep
+               lsp-find-references
+               pkg-consult/ripgrep-dwim))
+
+          ,@(seq-map (lambda (e)
+                       (cons e pkg-vertico/-posframe-setting-center-fixed-width))
+             '(consult-buffer
+               consult-project-buffer
+               find-file
+               project-find-file
+               pkg-tab-bar/switch-project-as-tab
+               project-other-tab-command
+               project-switch-project))
+
           (t posframe)))
 
   (setq vertico-multiform-categories

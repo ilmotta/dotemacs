@@ -23,7 +23,7 @@
   (setq vertico-posframe-border-width 0)
   (setq vertico-posframe-truncate-lines t)
   (setq vertico-posframe-vertico-multiform-key nil)
-  (setq vertico-posframe-poshandler #'posframe-poshandler-frame-center)
+  (setq vertico-posframe-poshandler #'posframe-poshandler-frame-top-center)
   (setq vertico-posframe-parameters '((left-fringe . 10)
                                       (right-fringe . 10)
                                       (no-special-glyphs . t)
