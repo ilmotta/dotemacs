@@ -391,7 +391,7 @@
 (defun smob-logout ()
   (interactive)
   (smob--cider-eval
-   (do (utils.re-frame/dispatch [:logout])
+   (do (utils.re-frame/dispatch [:profile/logout])
        :ok)
    nil))
 
