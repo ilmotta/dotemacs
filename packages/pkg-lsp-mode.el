@@ -2,6 +2,33 @@
 
 (require 'lib-util)
 
+(defun pkg-lsp-mode/show-lsp-diagnostics-xref ()
+  "Display LSP diagnostics in a persistent `xref`-style buffer."
+  (interactive)
+  (let ((diagnostics (lsp-diagnostics))
+        (xref-items '())) ;; Initialize xref items list
+    ;; Collect diagnostics as `xref-item` structures
+    (maphash
+     (lambda (file errors)
+       (dolist (error errors)
+         (let* ((range (map-elt error :range))
+                (start (map-elt range :start))
+                (line (1+ (map-elt start :line)))
+                (character (map-elt start :character))
+                (message (map-elt error :message))
+                (location (xref-make-file-location file line character)))
+           (push (xref-make message location) xref-items))))
+     diagnostics)
+    ;; Create a custom xref group for diagnostics
+    (let ((xref-buffer-name "*LSP Diagnostics Xref*"))
+      (with-current-buffer (get-buffer-create xref-buffer-name)
+        ;; Use `xref` display machinery with custom buffer
+        (let ((xref-backend-functions
+               (list (lambda () (lambda () xref-items)))))
+          (xref--show-xrefs (lambda () xref-items) nil)))
+      ;; Display the custom xref buffer
+      (pop-to-buffer xref-buffer-name))))
+
 (defun pkg-lsp-mode/setup-completion ()
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
         '(orderless)))
