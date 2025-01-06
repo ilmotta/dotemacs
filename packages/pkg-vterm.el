@@ -65,7 +65,7 @@ If it's on a prompt, copy the input, otherwise copy the output."
     (pkg-vterm/copy-output)))
 
 (lib-util/pkg vterm
-  :elpaca (:ref "f14d113ee4618f052879509ec378feb9766b871b")
+  :elpaca (:ref "99c1f5e76ac927825775c887c93e46036fac7327")
   :unless my/android?
   :defer t
 
