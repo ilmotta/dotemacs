@@ -887,6 +887,18 @@ the return value of F."
             (apply f args))
         (funcall delay args)))))
 
+(defun lib-util/calc-reading-time (start end &optional words-per-min)
+  "Calculate the estimated reading time for the selected region.
+START and END define the region. Optionally, WPM (words per minute) can
+be specified."
+  (interactive "r\nP")
+  (let* ((words-per-min (or words-per-min 225))
+         (word-count (count-words start end))
+         (minutes (/ word-count (float words-per-min)))
+         (minutes-int (floor minutes))
+         (seconds (round (* 60 (- minutes minutes-int)))))
+    (message "Estimated reading time: %d minute(s) and %d second(s)" minutes-int seconds)))
+
 ;;; RCF
 
 (comment
