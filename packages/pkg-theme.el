@@ -15,6 +15,7 @@
 ;;; Code:
 
 (require 'lib-util)
+(require 'dbus)
 
 ;;; Private
 
@@ -61,6 +62,27 @@
   ;;   (start-process-shell-command "lookandfeeltool" nil
   ;;                                (format "lookandfeeltool --apply %s" theme)))
   )
+
+(defun pkg-theme/gtk-theme-changed-handler (namespace key value)
+  "Handle GTK theme changes by monitoring D-Bus signals."
+  (when (and (string= "org.gnome.desktop.interface" namespace)
+             (string= "color-scheme" key))
+    (if (equal '("prefer-dark") value)
+        (load-theme my/favorite-dark-theme 'no-confirm)
+      (load-theme my/favorite-light-theme 'no-confirm))))
+
+(defun pkg-theme/watch-theme-changed ()
+  "Register signal handler for Gnome settings changes.
+
+Use the command 'dbus-monitor --session' and the program d-spy to figure
+out the parameters to `dbus-register-signal'."
+  (let ((bus :session)
+        (service "org.gnome.desktop.interface")
+        (interface "org.freedesktop.portal.Settings")
+        (path "/org/freedesktop/portal/desktop")
+        (signal "SettingChanged")
+        (handler (lib-util/throttle 1000 #'pkg-theme/gtk-theme-changed-handler)))
+    (dbus-register-signal bus service path interface signal handler)))
 
 (defun pkg-theme/gtk? ()
   (equal "GNOME" (getenv "XDG_CURRENT_DESKTOP")))
@@ -229,6 +251,7 @@ theme is loaded in order to correctly update all faces."
 (setq modus-themes-scale-headings t)
 
 (add-hook 'elpaca-after-init-hook #'pkg-theme/load)
+(add-hook 'elpaca-after-init-hook #'pkg-theme/watch-theme-changed)
 
 ;; Advice after the theme is first loaded because `pkg-theme/load-advice' calls
 ;; `customize-save-variable' which is pretty slow.

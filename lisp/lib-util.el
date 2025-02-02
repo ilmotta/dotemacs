@@ -837,6 +837,16 @@ the return value of F."
                               (lambda ()
                                 (funcall resolve (apply f args)))))))
 
+(defun lib-util/throttle (interval-ms fn)
+  "Return a throttled version of FN that runs at most once every INTERVAL-MS."
+  (let ((last-time 0)
+        (interval-s (/ interval-ms 1000)))
+    (lambda (&rest args)
+      (let ((now (float-time)))
+        (when (> (- now last-time) interval-s)
+          (setq last-time now)
+          (apply fn args))))))
+
 (defun lib-util/debounce (threshold-ms f)
   "Debounces synchronous function F within THRESHOLD-MS."
   (let* ((called-at nil)
