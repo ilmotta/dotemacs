@@ -12,7 +12,8 @@
 (lib-util/pkg gptel
   :elpaca (:host github
            :repo "karthink/gptel"
-           :ref "7076b364bb16ad132baffe2879387dbda0de2d89")
+           :ref "aa62573ee7b14830ffa1cdb3709e588b8fa64f2e")
+  :init
   (setq gptel-log-level nil) ; Can be 'debug
   (setq gptel-use-curl t)
   (setq gptel-model "gemini-pro")

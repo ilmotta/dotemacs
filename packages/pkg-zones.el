@@ -65,9 +65,10 @@ Use the command `\\[widen]' to see the whole buffer again."
         (narrow-to-region beg end))))))
 
 (lib-util/pkg zones
-  :elpaca (:ref "932aa3cd9e1827c0ebe68a4af7899704c4dba495"
-           :host github
-           :repo "emacs-straight/zones")
+  :elpaca (:host github
+           :repo "emacsmirror/zones"
+           :branch nil
+           :ref "f7e1b641ee8360ddb8bae1711d3978863efa692d")
   :defer t
 
   :init

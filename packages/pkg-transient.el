@@ -3,7 +3,9 @@
 (require 'lib-util)
 
 (lib-util/pkg transient
-  :elpaca nil
+  :elpaca (:host github
+           :repo "magit/transient"
+           :ref "d6b52b6eb7655d538b410ae60f85fbaa4d58a608") ; 0.7.8
   :init
   (setq transient-values-file (file-name-concat my/cache-dir "transient/values.el")
         transient-levels-file (file-name-concat my/cache-dir "transient/levels.el")

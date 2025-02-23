@@ -183,7 +183,7 @@ the pairs."
 ;;; Package
 
 (lib-util/pkg clojure-mode
-  :elpaca (:ref "25d713a67d8e0209ee74bfc0153fdf677697b43f") ; v5.18.1
+  :elpaca (:ref "eabe29b076fff19db552d36d4babaa36ecf0b704") ; v5.20.0-snapshot
   :defer t
 
   :hook (clojure-mode-hook . pkg-clojure/setup-sibling-rules)

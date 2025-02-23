@@ -218,7 +218,6 @@
  pkg-speed-type
  pkg-status-mobile
  pkg-sudo-edit
- pkg-svg-clock
  pkg-synosaurus
  pkg-timer-revert
  pkg-trashed

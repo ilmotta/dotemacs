@@ -77,7 +77,8 @@ variable.")
 (lib-util/pkg magit
   :elpaca (:host github
            :repo "magit/magit"
-           :ref "461d5ba249b8178ae83f80596da4312e65010720")
+           :ref "4992c3d1f64e0e983692c7a61d47069f47380dbf"
+           :files ("lisp/magit*.el" "lisp/git-*.el" "docs/magit.texi" "docs/AUTHORS.md" "LICENSE" ".dir-locals.el" (:exclude "lisp/magit-section.el")))
   :defer t
 
   :commands (magit-log-current

@@ -10,7 +10,10 @@
 (require 'lib-util)
 
 (lib-util/pkg dired-du
-  :elpaca (:ref "e5a2aa64849aae14fd6d1973919ec7e13ed76dd0")
+  :elpaca (:host github
+           :repo "emacsmirror/dired-du"
+           :ref "f7e1593e94388b0dfb71af8e9a3d5d07edf5a159"
+           :branch nil)
   :defer t
   :commands (dired-du-mode)
   :init

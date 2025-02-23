@@ -9,7 +9,10 @@
 (require 'lib-util)
 
 (lib-util/pkg xclip
-  :elpaca (:ref "a1ac607f75a250dddf49866918bb493884451130")
+  :elpaca (:host github
+           :repo "emacsmirror/xclip"
+           :ref "7febe164de2a881b83b9d604d3c7cf20b69f422d"
+           :branch nil)
   :if (and (not (display-graphic-p)) (not my/android?))
   :demand t
   :config

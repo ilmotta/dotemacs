@@ -3,7 +3,10 @@
 (require 'lib-util)
 
 (lib-util/pkg csv-mode
-  :elpaca (:ref "58d1b74e5ecdff748f314bf701f5048ad35984b3")
+  :elpaca (:host github
+           :repo "emacsmirror/csv-mode"
+           :ref "849ce3e754f291c3643bc36ed802226606955c3f"
+           :branch nil)
   :defer t)
 
 (provide 'pkg-csv-mode)

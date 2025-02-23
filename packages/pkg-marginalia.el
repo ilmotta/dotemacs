@@ -14,7 +14,9 @@
                              marginalia-annotator-registry)))
 
 (lib-util/pkg marginalia
-  :elpaca (:ref "c1365bf0c7b5d32e7531fa8f1a9a3b64a155cec0")
+  :elpaca (:host github
+           :repo "minad/marginalia"
+           :ref "a527fb03b76a2bce1e360c6e73a095e06922c3f3")
   :defer t
   :hook (minibuffer-setup-hook . marginalia-mode)
 
