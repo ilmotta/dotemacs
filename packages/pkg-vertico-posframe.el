@@ -4,10 +4,23 @@
 ;; See for mini-frame config, not vertico-posframe
 ;; https://gist.github.com/rougier/126e358464e12aa28fac5b4f3dd5eb9c
 
+(defvar pkg-vertico-posframe/-posframe-setting-top-full-width
+  '(posframe
+    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)
+    (vertico-posframe-min-width . 1000)))
+
+(defvar pkg-vertico-posframe/-posframe-setting-center-fixed-width
+  '(posframe
+    (vertico-posframe-width . 100)
+    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)))
+
 (lib-util/pkg vertico-posframe
   :elpaca (:host github
            :repo "tumashu/vertico-posframe"
-           :ref "5d9604dcc3ccb3fd7d69da58382b920484f890c8")
+           :ref "c5a8b5f72a582e88a2a696a3bbc2df7af28bd229")
+  ;; Even after disabling all packages and all custom code, I couldn't get the
+  ;; cursor to be displayed.
+  :disabled t
   :defer t
   :init
   ;; NOTE: This is useful when emacs is used in both in X and terminal, for
@@ -32,6 +45,29 @@
                                       (internal-border-width . 5)))
 
   ;; Use current frame's font as fallback.
-  (setq vertico-posframe-font nil))
+  (setq vertico-posframe-font nil)
+
+  :config
+  (with-eval-after-load 'vertico
+    (setq vertico-multiform-commands
+          `(,@(seq-map (lambda (e)
+                         (cons e pkg-vertico-posframe/-posframe-setting-top-full-width))
+               '(consult-bookmark
+                 consult-line
+                 consult-ripgrep
+                 lsp-find-references
+                 pkg-consult/ripgrep-dwim))
+
+            ,@(seq-map (lambda (e)
+                         (cons e pkg-vertico-posframe/-posframe-setting-center-fixed-width))
+               '(consult-buffer
+                 consult-project-buffer
+                 find-file
+                 project-find-file
+                 pkg-tab-bar/switch-project-as-tab
+                 project-other-tab-command
+                 project-switch-project))
+
+            (t posframe)))))
 
 (provide 'pkg-vertico-posframe)

@@ -4,20 +4,10 @@
 
 (require 'lib-util)
 
-(defvar pkg-vertico/-posframe-setting-top-full-width
-  '(posframe
-    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)
-    (vertico-posframe-min-width . 1000)))
-
-(defvar pkg-vertico/-posframe-setting-center-fixed-width
-  '(posframe
-    (vertico-posframe-width . 100)
-    (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)))
-
 (lib-util/pkg vertico
   :elpaca (:host github
            :repo "minad/vertico"
-           :ref "017ff44443bad401097b9987849625cafa348d86"
+           :ref "ac82acf177a0dfc97deac8626a8a98c06bffc96c"
            :files (:defaults "extensions/*.el"))
   :defer t
   :hook (elpaca-after-init-hook . vertico-mode)
@@ -51,27 +41,6 @@
   (setq vertico-count 10)
   (setq vertico-scroll-margin 0)
   (setq vertico-count-format nil)
-
-  (setq vertico-multiform-commands
-        `(,@(seq-map (lambda (e)
-                       (cons e pkg-vertico/-posframe-setting-top-full-width))
-             '(consult-bookmark
-               consult-line
-               consult-ripgrep
-               lsp-find-references
-               pkg-consult/ripgrep-dwim))
-
-          ,@(seq-map (lambda (e)
-                       (cons e pkg-vertico/-posframe-setting-center-fixed-width))
-             '(consult-buffer
-               consult-project-buffer
-               find-file
-               project-find-file
-               pkg-tab-bar/switch-project-as-tab
-               project-other-tab-command
-               project-switch-project))
-
-          (t posframe)))
 
   (setq vertico-multiform-categories
         '(;; Operates on commands such as `consult-grep', `consult-git-grep' and
