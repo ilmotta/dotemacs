@@ -247,11 +247,7 @@
                  ("lisp/magit-section.el" "docs/magit-section.texi"
                   "magit-section-pkg.el")
                  :source "MELPA" :protocol https :inherit t :depth treeless :ref
-                 "f52dfada8fa0fa6cd70886819868d84e198773a3"))
- (llama :source #1# :recipe
-        (:package "llama" :fetcher github :repo "tarsius/llama" :files
-         ("llama.el" ".dir-locals.el") :source "MELPA" :protocol https :inherit
-         t :depth treeless :ref "27751668706838e845cee356b7299f734e1cc7dc"))
+                 "4992c3d1f64e0e983692c7a61d47069f47380dbf"))
  (annalist :source #1# :recipe
            (:package "annalist" :fetcher github :repo "noctuid/annalist.el"
             :files
@@ -461,7 +457,8 @@
  (org-roam :source #1# :recipe
            (:package "org-roam" :fetcher github :repo "org-roam/org-roam" :files
             (:defaults "extensions/*") :source "MELPA" :protocol https :inherit
-            t :depth treeless :ref "0b9fcbc97b65b349826e63bad89ca121a08fd2be"))
+            t :depth treeless :host github :ref
+            "0037daaf3eb2d1c3a1c215efb4d38a32db140224"))
  (emacsql-sqlite :source #1# :recipe
                  (:source nil :protocol https :inherit t :depth treeless :host
                   github :repo "skeeto/emacsql" :package "emacsql-sqlite" :ref
@@ -1258,7 +1255,7 @@
               (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el"
                "*-tests.el" "LICENSE" "README*" "*-pkg.el"))
              :source "MELPA" :protocol https :inherit t :depth treeless :host
-             github :ref "40f0a2dd6f545d6144c45f25633ae37c5b5608ff"))
+             github :ref "d6b52b6eb7655d538b410ae60f85fbaa4d58a608"))
  (xclip :source #1# :recipe
         (:package "xclip" :repo "emacsmirror/xclip" :branch nil :files
          ("*" (:exclude ".git")) :source "GNU ELPA" :protocol https :inherit t
@@ -1279,7 +1276,7 @@
          ("lisp/magit*.el" "lisp/git-*.el" "docs/magit.texi" "docs/AUTHORS.md"
           "LICENSE" ".dir-locals.el" (:exclude "lisp/magit-section.el"))
          :source "MELPA" :protocol https :inherit t :depth treeless :host github
-         :ref "f52dfada8fa0fa6cd70886819868d84e198773a3"))
+         :ref "4992c3d1f64e0e983692c7a61d47069f47380dbf"))
  (evil-collection :source #1# :recipe
                   (:package "evil-collection" :fetcher github :repo
                    "emacs-evil/evil-collection" :files (:defaults "modes")

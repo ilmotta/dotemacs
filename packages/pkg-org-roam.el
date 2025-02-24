@@ -29,7 +29,9 @@
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
 (lib-util/pkg org-roam
-  :elpaca (:ref "0b9fcbc97b65b349826e63bad89ca121a08fd2be")
+  :elpaca (:host github
+           :repo "org-roam/org-roam"
+           :ref "0037daaf3eb2d1c3a1c215efb4d38a32db140224")
   :defer t
 
   :init
@@ -53,12 +55,11 @@
     "R" #'org-roam-db-sync)
 
   (setq org-roam-directory (expand-file-name "~/data/repos/notes/"))
-  (setq org-roam-db-location (concat my/cache-dir "org-roam.db"))
+  (setq org-roam-db-location (file-name-concat my/cache-dir "org-roam.db"))
   (setq org-roam-list-files-commands '(rg fd find))
   (setq org-roam-db-gc-threshold most-positive-fixnum)
   (setq org-roam-verbose nil)
   (setq org-roam-link-auto-replace nil)
-  (setq org-roam-database-connector 'sqlite)
 
   ;; There's a noticeable lag after saving.
   (setq org-roam-db-update-on-save nil)
