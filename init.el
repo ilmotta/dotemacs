@@ -215,6 +215,7 @@
  pkg-magit-forge
  pkg-openwith
  pkg-pdf-tools
+ pkg-ement
  pkg-popper
  pkg-speed-type
  pkg-status-mobile
