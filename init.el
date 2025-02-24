@@ -78,6 +78,7 @@
  pkg-s
  pkg-graphql
  pkg-shrink-path
+ pkg-websocket
  pkg-ts)
 
 ;;; Completion systems
