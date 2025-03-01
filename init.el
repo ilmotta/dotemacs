@@ -113,6 +113,7 @@
  pkg-paren-face
  pkg-pulsar
  pkg-spacious-padding
+ pkg-ultra-scroll
  pkg-vertico-posframe
  pkg-xterm-color)
 
