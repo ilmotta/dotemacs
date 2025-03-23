@@ -34,8 +34,10 @@
     (let* ((kitty-theme (if (pkg-theme/dark-p)
                             "Doom One"
                           "Doom One Light"))
-           (cmd (format "kitty +kitten themes --reload-in all --config-file-name themes.conf %s"
-                        kitty-theme)))
+           (force-reload-cmd "kill -SIGUSR1 $(pidof kitty)")
+           (cmd (format "kitty +kitten themes --reload-in all --config-file-name themes.conf %s && %s"
+                        kitty-theme
+                        force-reload-cmd)))
       (start-process-shell-command "kitty" nil cmd))))
 
 (defun pkg-theme/update-tmux (theme)
