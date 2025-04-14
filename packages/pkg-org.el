@@ -414,7 +414,7 @@ unless the ID property already exists."
         '(("PROG" . org-scheduled-today)
           ("DONE" . org-done)
           ("TODO" . org-todo)
-          ("WAIT" . org-upcoming-deadline)))
+          ("WAIT" . org-priority)))
 
   ;; The exclamation mark following the shortcut letter tells Org to record to
   ;; change to the new state.
