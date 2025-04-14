@@ -190,7 +190,9 @@ minibuffer."
   :type 'string
   :group 'my)
 
-(defcustom my/face-fixed-pitch-family "JetBrainsMono:weight=light:height=14"
+(defcustom my/face-fixed-pitch-family (if my/mac?
+                                          "JetBrains Mono:weight=light:height=14"
+                                        "JetBrainsMono:weight=light:height=14")
   "Default fixed pitch font family."
   :type 'string)
 
