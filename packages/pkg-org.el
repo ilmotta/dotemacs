@@ -492,6 +492,14 @@ unless the ID property already exists."
 
 ;;;; Org capture
 
+  (defun pkg-org-capture/first-headline (file)
+    "Move cursor to beginning of first headline."
+    (with-current-buffer (find-file-noselect file)
+      (goto-char (point-min))
+      (when (re-search-forward "^\\* " nil t)
+        (beginning-of-line))
+      (point)))
+
 ;;;;; Templates
 
   (defun pkg-org-capture/note-new-path ()

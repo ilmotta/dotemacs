@@ -38,9 +38,12 @@
               :jump-to-captured t
               :no-save t))
            `(("t" ,(concat (all-the-icons-faicon "tasks") " Task")
-              entry (file "~/data/repos/notes/20200827220222.org")
+              entry (function
+                     (lambda ()
+                       (pkg-org-capture/first-headline "~/data/repos/notes/20240625094859.org")))
               ,pkg-org-capture/template-todo
-              :immediate-finish t)))))
+              :immediate-finish t
+              :prepend t)))))
 
   ;; Icons by file name.
   (add-to-list 'all-the-icons-icon-alist '("\\.ledger$" all-the-icons-faicon "money" :height 1.0 :v-adjust 0.0 :face all-the-icons-dgreen))
