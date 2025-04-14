@@ -774,8 +774,9 @@ with 'kill' as the default action instead of 'bury'."
 ;;
 ;; (setq native-compile-target-directory t)
 
-(setq native-comp-eln-load-path (append (list (file-name-concat my/cache-dir "eln"))
-                                        native-comp-eln-load-path) )
+(when (>= emacs-major-version 30)
+  (setq native-comp-eln-load-path (append (list (file-name-concat my/cache-dir "eln"))
+                                          native-comp-eln-load-path) ))
 
 ;;; Backups
 
