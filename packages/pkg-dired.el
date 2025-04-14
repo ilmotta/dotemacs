@@ -76,8 +76,11 @@
   (setq dired-auto-revert-buffer t
         dired-do-revert-buffer t
         dired-dwim-target t  ; Suggest a target for moving/copying intelligently
-        dired-hide-details-hide-symlink-targets nil
-        dired-listing-switches "-lAFh --group-directories-first")
+        dired-hide-details-hide-symlink-targets nil)
+
+  ;; In macOS --group-directories-first is not available. Install GNU ls via
+  ;; coreutils package.
+  (setq dired-listing-switches "-lAFh --group-directories-first")
 
   ;; If non-nil, kill the current buffer when selecting a new directory.
   (setq dired-kill-when-opening-new-dired-buffer t)
