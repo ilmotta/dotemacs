@@ -6,6 +6,7 @@ session.*
 .local/
 eln-cache/
 lisp/loaddefs.el
+.DS_Store
 
 # Ignore flycheck temporary files.
 */**/.flycheck_*
