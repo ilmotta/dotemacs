@@ -15,12 +15,13 @@
 
 (require 'lib-util)
 
-(lib-util/pkg jinx
-  :elpaca nil
-  :defer t
-  :init
-  (general-def
-    :keymaps 'my/keys-mode-map
-    [remap ispell-word] #'jinx-correct))
+(when (executable-find "jinx")
+  (lib-util/pkg jinx
+    :elpaca nil
+    :defer t
+    :init
+    (general-def
+      :keymaps 'my/keys-mode-map
+      [remap ispell-word] #'jinx-correct)))
 
 (provide 'pkg-jinx)
