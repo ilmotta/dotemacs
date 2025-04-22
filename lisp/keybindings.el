@@ -12,7 +12,7 @@
   (global-set-key [remap split-window-right] #'pkg-window/split-window-right)
   (global-set-key [remap split-window-below] #'pkg-window/split-window-below))
 
-(add-hook 'elpaca-after-init-hook #'my/windmove-setup-keybindings 100)
+(add-hook 'after-init-hook #'my/windmove-setup-keybindings 99)
 
 (with-eval-after-load 'general
   (general-def
