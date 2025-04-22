@@ -774,7 +774,7 @@ with 'kill' as the default action instead of 'bury'."
 ;;
 ;; (setq native-compile-target-directory t)
 
-(when (>= emacs-major-version 30)
+(unless my/mac?
   (setq native-comp-eln-load-path (append (list (file-name-concat my/cache-dir "eln"))
                                           native-comp-eln-load-path) ))
 
