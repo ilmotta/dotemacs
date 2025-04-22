@@ -27,7 +27,8 @@
                                              (let ((inhibit-message t))
                                                (message "Failed to get brightness"))))))))
 
-(lib-sys/init-brightness)
+(when (executable-find "ddcutil")
+  (lib-sys/init-brightness))
 
 (defvar lib-sys/raise-brightness-debounced
   (setf (symbol-function 'lib-sys/raise-brightness-debounced)
