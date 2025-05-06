@@ -47,11 +47,6 @@
     scheme-mode
     slime-repl-mode))
 
-(defconst my/lisp-modes-maps
-  (mapcar (lambda (mode)
-            (intern (concat (symbol-name mode) "-map")))
-          my/lisp-modes))
-
 (defconst my/lisp-modes-hooks
   (mapcar (lambda (mode)
             (intern (concat (symbol-name mode) "-hook")))
