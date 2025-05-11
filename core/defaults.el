@@ -1015,28 +1015,6 @@ reuse the same window whenever possible."
     (select-window new-window)
     (set-window-start new-window (window-start (previous-window)))))
 
-;;;; Keybindings
-
-(defvar pkg-emacs/window-command-map
-  (define-keymap
-    "+"   #'maximize-window
-    "0"   #'pkg-window/transient-resize
-    "="   #'balance-windows
-    "C-r" #'winner-redo
-    "C-w" #'evil-window-next
-    "h"   #'evil-window-left
-    "j"   #'evil-window-down
-    "k"   #'evil-window-up
-    "l"   #'evil-window-right
-    "o"   #'delete-other-windows
-    "q"   #'evil-quit
-    "u"   #'winner-undo
-    "s"   #'pkg-window/split-window-below
-    "v"   #'pkg-window/split-window-right
-    "|"   #'evil-window-set-width
-    "_"   #'evil-window-set-height))
-(fset 'pkg-emacs/window-command-map pkg-emacs/window-command-map)
-
 ;;;; Init
 
 ;; Leave the window configuration alone, i.e. don't try to even window sizes.

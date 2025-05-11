@@ -16,10 +16,6 @@
   :defer t
 
   :init
-  (general-def
-    :keymaps 'pkg-emacs/window-command-map
-    "i" #'ace-window)
-
   ;; Do not wash-out colors from windows.
   (setq aw-background nil)
 

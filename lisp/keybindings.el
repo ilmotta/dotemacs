@@ -158,10 +158,11 @@
 
   (general-def
     :keymaps 'my/keys-mode-map
-    :states '(normal insert emacs visual)
+    :states '(normal visual)
     :prefix my/leader
-    :non-normal-prefix "C-x"
-    "w" #'pkg-emacs/window-command-map)
+    "w 0" #'pkg-window/transient-resize
+    "w u" #'winner-undo
+    "C-r" #'winner-redo)
 
   (general-def
     :keymaps '(outline-mode-map outline-minor-mode-map)
