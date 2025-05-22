@@ -24,6 +24,9 @@
   (let ((inhibit-read-only t))
     (erase-buffer))
   (setq chat-ewoc (ewoc-create #'chat--format-message))
+  ;; Init with existing history (oldest first)
+  (dolist (msg (reverse chat-message-history))
+    (ewoc-enter-last chat-ewoc msg))
   (chat--add-system-message "Welcome to Emacs Chat!"))
 
 (defun chat--chat-buffer ()
@@ -50,14 +53,17 @@
      `(help-echo ,(format "Sent at: %s" timestamp)))))
 
 (defun chat--add-message (sender content)
-  "Add a message from SENDER with CONTENT."
+  "Add a message from SENDER with CONTENT. Append to bottom visually."
   (let ((msg (make-chat-message
               :id (chat--generate-id)
               :sender sender
               :content content
               :timestamp (chat--current-timestamp))))
-    (setq chat-message-history (append chat-message-history (list msg)))
+    ;; Store newest-first in memory
+    (setq chat-message-history (cons msg chat-message-history))
+    ;; Insert visually at the end of the ewoc (bottom)
     (ewoc-enter-last chat-ewoc msg)
+    (goto-char (point-max)) ;; auto-scroll to bottom
     msg))
 
 (defun chat--add-system-message (text)
