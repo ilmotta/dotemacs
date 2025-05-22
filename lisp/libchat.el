@@ -63,25 +63,48 @@
   "Generate a random ID (UUID-like)."
   (substring (md5 (format "%s%s" (random) (float-time))) 0 8))
 
+(defvar-local chat--last-sender nil
+  "Internal tracker for grouping messages visually.")
+
 (defun chat--format-message (msg)
-  "Format a single chat message for display in EWOC with styling."
+  "Format a single chat message for display in EWOC, grouped by sender."
   (let* ((sender (chat-message-sender msg))
          (content (chat-message-content msg))
          (timestamp (chat-message-timestamp msg))
+         (same-sender-as-last (equal sender chat--last-sender))
+         (icon (cond
+                ((string= sender "[System]") "🛠️ ")
+                ((string= sender "You") "💬 ")
+                (t "✉️  ")))
          (sender-face (cond
-                       ((string= sender "[System]") 'chat-system-face)
-                       ((string= sender "You") 'chat-sender-face)
-                       (t 'chat-sender-face)))
+                       ((string= sender "[System]") 'font-lock-comment-face)
+                       ((string= sender "You") 'font-lock-keyword-face)
+                       (t 'font-lock-variable-name-face)))
          (timestamp-face '(:foreground "gray60" :height 0.8 :slant italic)))
-    ;; Insert sender
-    (insert (propertize (format "%-10s" sender) 'face sender-face))
-    ;; Insert message
-    (insert ": ")
+
+    ;; Remember for the next message
+    (setq chat--last-sender sender)
+
+    ;; Insert line with or without sender
+    (if same-sender-as-last
+        ;; Indented continuation
+        (insert (propertize "            " 'face 'default)) ;; 12 spaces = icon + sender field
+      (insert icon)
+      (insert (propertize (format "%-10s" sender) 'face sender-face))
+      (insert ": "))
+
+    ;; Content
     (insert (propertize content 'face 'default))
-    ;; Insert timestamp aligned right
+    ;; Timestamp
     (let ((ts (propertize (format "  [%s]" timestamp) 'face timestamp-face)))
       (insert ts))
     (insert "\n")))
+
+(defun chat--refresh-ewoc ()
+  "Refresh the EWOC display and reset grouping state."
+  (let ((inhibit-read-only t))
+    (setq chat--last-sender nil)
+    (ewoc-refresh chat-ewoc)))
 
 (defun chat--add-message (sender content)
   "Add a message from SENDER with CONTENT, efficiently tracked and bounded."
@@ -188,6 +211,7 @@
           (setf (chat-message-content msg) new-content
                 (chat-message-timestamp msg) (chat--current-timestamp))
           (ewoc-invalidate chat-ewoc node)
+          (chat--refresh-ewoc)
           (message "Edited message."))
       (message "No message at point."))))
 
@@ -203,7 +227,8 @@
                                 (string= (chat-message-id m) id))
                               chat-message-history))
           (let ((inhibit-read-only t))
-            (ewoc-delete chat-ewoc node))
+            (ewoc-delete chat-ewoc node)
+            (chat--refresh-ewoc))
           (message "Deleted message."))
       (message "No message at point."))))
 
