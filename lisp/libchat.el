@@ -39,11 +39,15 @@
   (substring (md5 (format "%s%s" (random) (float-time))) 0 8))
 
 (defun chat--format-message (msg)
-  "Format a single chat message for display in EWOC."
-  (let ((sender (chat-message-sender msg))
-        (content (chat-message-content msg))
-        (timestamp (chat-message-timestamp msg)))
-    (insert (format "[%s] %s: %s\n" timestamp sender content))))
+  "Format a single chat message for display in EWOC with hover tooltip."
+  (let* ((sender (chat-message-sender msg))
+         (content (chat-message-content msg))
+         (timestamp (chat-message-timestamp msg))
+         (start (point)))
+    (insert (format "%s: %s\n" sender content))
+    (add-text-properties
+     start (point)
+     `(help-echo ,(format "Sent at: %s" timestamp)))))
 
 (defun chat--add-message (sender content)
   "Add a message from SENDER with CONTENT."
