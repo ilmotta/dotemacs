@@ -1,3 +1,6 @@
+;;; -*- lexical-binding: t; -*-
+
+;;; Code:
 (require 'ewoc)
 (require 'subr-x)
 (require 'cl-lib)
@@ -11,11 +14,18 @@
 (defvar-local chat-message-history nil
   "List of chat messages stored as a data structure.")
 
+(defvar-local chat-message-count 0
+  "Number of messages currently in memory.")
+
+(defvar chat-max-messages 200
+  "Maximum number of messages to keep in memory and visible in buffer.")
+
 (cl-defstruct chat-message
   id
   sender
   content
-  timestamp)
+  timestamp
+  node)
 
 (define-derived-mode chat-mode special-mode "Chat"
   "Major mode for a simple EWOC-based chat interface."
@@ -53,18 +63,44 @@
      `(help-echo ,(format "Sent at: %s" timestamp)))))
 
 (defun chat--add-message (sender content)
-  "Add a message from SENDER with CONTENT. Append to bottom visually."
-  (let ((msg (make-chat-message
-              :id (chat--generate-id)
-              :sender sender
-              :content content
-              :timestamp (chat--current-timestamp))))
-    ;; Store newest-first in memory
+  "Add a message from SENDER with CONTENT, efficiently tracked and bounded."
+  (let* ((msg (make-chat-message
+               :id (chat--generate-id)
+               :sender sender
+               :content content
+               :timestamp (chat--current-timestamp)))
+         (node (ewoc-enter-last chat-ewoc msg)))
+    (setf (chat-message-node msg) node)
+
+    ;; Insert at front
     (setq chat-message-history (cons msg chat-message-history))
-    ;; Insert visually at the end of the ewoc (bottom)
-    (ewoc-enter-last chat-ewoc msg)
-    (goto-char (point-max)) ;; auto-scroll to bottom
+    (cl-incf chat-message-count)
+
+    ;; Trim if over capacity
+    (when (> chat-message-count chat-max-messages)
+      ;; Drop the last cons cell (O(n) traversal to n-1)
+      (let ((walker chat-message-history)
+            (prev nil)
+            (i 1))
+        (while (< i chat-max-messages)
+          (setq prev walker
+                walker (cdr walker))
+          (cl-incf i))
+        (when (cdr walker)
+          (let ((node-to-delete (chat-message-node (car (cdr walker)))))
+            (chat--delete-message-node node-to-delete)))
+        ;; Cut the list
+        (setcdr walker nil)
+        (setq chat-message-count chat-max-messages)))
+
+    (goto-char (point-max))
     msg))
+
+(defun chat--delete-message-node (node)
+  "Efficiently delete a message from the EWOC using its NODE reference."
+  (when node
+    (let ((inhibit-read-only t))
+      (ewoc-delete chat-ewoc node))))
 
 (defun chat--add-system-message (text)
   "Add a system message."
@@ -168,3 +204,5 @@
 (define-key chat-mode-map (kbd "C-c m m") #'chat-read-and-send-message)
 (define-key chat-mode-map (kbd "C-c m d") #'chat-delete-message-at-point)
 (define-key chat-mode-map (kbd "C-c m e") #'chat-edit-message-at-point)
+
+(provide 'libchat)
