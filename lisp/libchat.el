@@ -1,5 +1,6 @@
 (require 'ewoc)
-(require 'subr-x) ;; for `string-blank-p` and `string-join`
+(require 'subr-x)
+(require 'cl-lib)
 
 (defvar chat-buffer-name "*Chat*"
   "Name of the chat buffer.")
@@ -52,7 +53,8 @@
               :content content
               :timestamp (chat--current-timestamp))))
     (setq chat-message-history (append chat-message-history (list msg)))
-    (ewoc-enter-last chat-ewoc msg)))
+    (ewoc-enter-last chat-ewoc msg)
+    msg))
 
 (defun chat--add-system-message (text)
   "Add a system message."
@@ -70,6 +72,74 @@
   (let ((input (read-from-minibuffer "Message: ")))
     (chat-send-message input)))
 
+(defun chat--find-message-by-id (id)
+  "Find the message struct with the given ID."
+  (cl-find-if (lambda (msg)
+                (string= (chat-message-id msg) id))
+              chat-message-history))
+
+(defun chat--find-ewoc-node-by-id (id)
+  "Find the EWOC node corresponding to message with ID."
+  (ewoc-locate chat-ewoc
+               (lambda (msg)
+                 (string= (chat-message-id msg) id))))
+
+(defun chat-delete-message-by-id (id)
+  "Delete the message with ID from the chat."
+  (interactive "sMessage ID to delete: ")
+  (let ((node (chat--find-ewoc-node-by-id id)))
+    (if node
+        (progn
+          (setq chat-message-history
+                (cl-remove-if (lambda (msg)
+                                (string= (chat-message-id msg) id))
+                              chat-message-history))
+          (ewoc-delete chat-ewoc node)
+          (message "Deleted message with id: %s" id))
+      (message "Message not found: %s" id))))
+
+(defun chat-edit-message-by-id (id)
+  "Edit the content of the message with ID."
+  (interactive "sMessage ID to edit: ")
+  (let* ((msg (chat--find-message-by-id id))
+         (node (chat--find-ewoc-node-by-id id)))
+    (if (and msg node)
+        (let ((new-content (read-from-minibuffer "New message: " (chat-message-content msg))))
+          (setf (chat-message-content msg) new-content
+                (chat-message-timestamp msg) (chat--current-timestamp))
+          (ewoc-invalidate chat-ewoc node)
+          (message "Edited message %s" id))
+      (message "Message not found: %s" id))))
+
+(defun chat-edit-message-at-point ()
+  "Edit the message at point."
+  (interactive)
+  (let* ((node (ewoc-locate chat-ewoc))
+         (msg (and node (ewoc-data node))))
+    (if (and node msg)
+        (let ((new-content (read-from-minibuffer "New message: " (chat-message-content msg))))
+          (setf (chat-message-content msg) new-content
+                (chat-message-timestamp msg) (chat--current-timestamp))
+          (ewoc-invalidate chat-ewoc node)
+          (message "Edited message."))
+      (message "No message at point."))))
+
+(defun chat-delete-message-at-point ()
+  "Delete the message at point."
+  (interactive)
+  (let* ((node (ewoc-locate chat-ewoc))
+         (msg (and node (ewoc-data node))))
+    (if (and node msg)
+        (let ((id (chat-message-id msg)))
+          (setq chat-message-history
+                (cl-remove-if (lambda (m)
+                                (string= (chat-message-id m) id))
+                              chat-message-history))
+          (let ((inhibit-read-only t))
+            (ewoc-delete chat-ewoc node))
+          (message "Deleted message."))
+      (message "No message at point."))))
+
 (defun open-chat ()
   "Open the chat buffer."
   (interactive)
@@ -86,3 +156,5 @@
   (chat-read-and-send-message))
 
 (define-key chat-mode-map (kbd "C-c m m") #'chat-read-and-send-message)
+(define-key chat-mode-map (kbd "C-c m d") #'chat-delete-message-at-point)
+(define-key chat-mode-map (kbd "C-c m e") #'chat-edit-message-at-point)
