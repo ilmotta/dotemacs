@@ -1,3 +1,6 @@
+(require 'ewoc)
+(require 'subr-x) ;; for `string-blank-p` and `string-join`
+
 (defvar chat-buffer-name "*Chat*"
   "Name of the chat buffer.")
 
@@ -8,7 +11,10 @@
   "List of chat messages stored as a data structure.")
 
 (cl-defstruct chat-message
-  sender text)
+  id
+  sender
+  content
+  timestamp)
 
 (define-derived-mode chat-mode special-mode "Chat"
   "Major mode for a simple EWOC-based chat interface."
@@ -23,15 +29,28 @@
   "Get or create the chat buffer."
   (get-buffer-create chat-buffer-name))
 
+(defun chat--current-timestamp ()
+  "Return a human-readable timestamp string."
+  (format-time-string "%Y-%m-%d %H:%M:%S"))
+
+(defun chat--generate-id ()
+  "Generate a random ID (UUID-like)."
+  (substring (md5 (format "%s%s" (random) (float-time))) 0 8))
+
 (defun chat--format-message (msg)
   "Format a single chat message for display in EWOC."
   (let ((sender (chat-message-sender msg))
-        (text (chat-message-text msg)))
-    (insert (format "%s: %s\n" sender text))))
+        (content (chat-message-content msg))
+        (timestamp (chat-message-timestamp msg)))
+    (insert (format "[%s] %s: %s\n" timestamp sender content))))
 
-(defun chat--add-message (sender text)
-  "Add a message from SENDER with TEXT to the chat."
-  (let ((msg (make-chat-message :sender sender :text text)))
+(defun chat--add-message (sender content)
+  "Add a message from SENDER with CONTENT."
+  (let ((msg (make-chat-message
+              :id (chat--generate-id)
+              :sender sender
+              :content content
+              :timestamp (chat--current-timestamp))))
     (setq chat-message-history (append chat-message-history (list msg)))
     (ewoc-enter-last chat-ewoc msg)))
 
