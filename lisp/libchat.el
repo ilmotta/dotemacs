@@ -20,6 +20,18 @@
 (defvar chat-max-messages 200
   "Maximum number of messages to keep in memory and visible in buffer.")
 
+(defface chat-sender-face
+  '((t :foreground "MediumPurple1" :weight bold))
+  "Face for chat senders.")
+
+(defface chat-system-face
+  '((t :foreground "gray" :slant italic))
+  "Face for system messages.")
+
+(defface chat-timestamp-face
+  '((t :foreground "gray60" :height 0.8 :slant italic))
+  "Face for timestamps.")
+
 (cl-defstruct chat-message
   id
   sender
@@ -52,15 +64,24 @@
   (substring (md5 (format "%s%s" (random) (float-time))) 0 8))
 
 (defun chat--format-message (msg)
-  "Format a single chat message for display in EWOC with hover tooltip."
+  "Format a single chat message for display in EWOC with styling."
   (let* ((sender (chat-message-sender msg))
          (content (chat-message-content msg))
          (timestamp (chat-message-timestamp msg))
-         (start (point)))
-    (insert (format "%s: %s\n" sender content))
-    (add-text-properties
-     start (point)
-     `(help-echo ,(format "Sent at: %s" timestamp)))))
+         (sender-face (cond
+                       ((string= sender "[System]") 'chat-system-face)
+                       ((string= sender "You") 'chat-sender-face)
+                       (t 'chat-sender-face)))
+         (timestamp-face '(:foreground "gray60" :height 0.8 :slant italic)))
+    ;; Insert sender
+    (insert (propertize (format "%-10s" sender) 'face sender-face))
+    ;; Insert message
+    (insert ": ")
+    (insert (propertize content 'face 'default))
+    ;; Insert timestamp aligned right
+    (let ((ts (propertize (format "  [%s]" timestamp) 'face timestamp-face)))
+      (insert ts))
+    (insert "\n")))
 
 (defun chat--add-message (sender content)
   "Add a message from SENDER with CONTENT, efficiently tracked and bounded."
