@@ -31,7 +31,7 @@
 (lib-util/pkg org-roam
   :elpaca (:host github
            :repo "org-roam/org-roam"
-           :ref "0037daaf3eb2d1c3a1c215efb4d38a32db140224")
+           :ref "046822b512ffecdee7d110f73dd3a511802ca590")
   :defer t
 
   :init
