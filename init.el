@@ -210,13 +210,13 @@
  pkg-dired-du
  pkg-dirvish
  pkg-eat
+ pkg-ement
  pkg-explain-pause-mode
  pkg-golden-ratio
  pkg-hnreader
  pkg-magit-forge
  pkg-openwith
  pkg-pdf-tools
- pkg-ement
  pkg-popper
  pkg-speed-type
  pkg-status-mobile
