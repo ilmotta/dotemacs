@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg battery
-  :elpaca nil
+  :ensure nil
   :init
   (setq battery-mode-line-limit 99
         battery-update-interval 60

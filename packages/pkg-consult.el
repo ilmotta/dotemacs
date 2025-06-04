@@ -52,7 +52,7 @@ Uses initial input from previous call to
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))
 
 (lib-util/pkg consult
-  :elpaca (:host github
+  :ensure (:host github
            :repo "minad/consult"
            :ref "ce38dd037769ccba93e7b854ab9b0cc0eced84ee")
   :defer t

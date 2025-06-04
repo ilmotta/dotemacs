@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg tramp
-  :elpaca nil
+  :ensure nil
   :init
   ;; Value of TERM environment variable for logging in to remote host.
   (setq tramp-terminal-type "tramp")

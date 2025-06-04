@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg isearch
-  :elpaca nil
+  :ensure nil
   :init
   ;; Isearch has been improved in Emacs 27 and can now display match numbers in
   ;; the modeline.

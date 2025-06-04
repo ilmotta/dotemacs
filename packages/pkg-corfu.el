@@ -35,7 +35,7 @@
 ;; minibuffer UI. Corfu is a small package, which relies on the Emacs completion
 ;; facilities and concentrates on providing a polished completion UI.
 (lib-util/pkg corfu
-  :elpaca (:host github
+  :ensure (:host github
            :repo "minad/corfu"
            :ref "05889f194fd044223a1ddc7cfb2f96c752df5559")
   :defer t

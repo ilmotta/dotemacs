@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg bookmark
-  :elpaca nil
+  :ensure nil
   :init
   ;; File in which to save bookmarks by default.
   (setq bookmark-default-file (file-name-concat my/cache-dir "bookmarks"))

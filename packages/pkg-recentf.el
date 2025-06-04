@@ -15,7 +15,7 @@
     file))
 
 (lib-util/pkg recentf
-  :elpaca nil
+  :ensure nil
   :hook (kill-emacs-hook . recentf-cleanup)
   :hook (dired-mode-hook . pkg-recentf/add-dired-directory)
   :hook (elpaca-after-init-hook . recentf-mode)

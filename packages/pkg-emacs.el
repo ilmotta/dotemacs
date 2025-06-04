@@ -263,7 +263,7 @@ This is particularly useful to evaluate the value of a var."
     (call-interactively #'eval-last-sexp)))
 
 (lib-util/pkg emacs
-  :elpaca nil
+  :ensure nil
 
   :hook (emacs-lisp-mode-hook . cl-font-lock-built-in-mode)
 

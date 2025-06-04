@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg autorevert
-  :elpaca nil
+  :ensure nil
   :init
   (setq auto-revert-verbose t
         auto-revert-stop-on-user-input nil

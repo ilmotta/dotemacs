@@ -26,7 +26,7 @@
   (devdocs-lookup-clojure~1.10))
 
 (lib-util/pkg devdocs-lookup
-  :elpaca (:host github :repo "skeeto/devdocs-lookup" :ref "233b9a2bac3c86a7c3d403d85848273086b4c453")
+  :ensure (:host github :repo "skeeto/devdocs-lookup" :ref "233b9a2bac3c86a7c3d403d85848273086b4c453")
   :defer t
   :commands (devdocs-lookup
              devdocs-lookup-clojure)

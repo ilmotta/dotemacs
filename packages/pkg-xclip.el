@@ -9,7 +9,7 @@
 (require 'lib-util)
 
 (lib-util/pkg xclip
-  :elpaca (:host github
+  :ensure (:host github
            :repo "emacsmirror/xclip"
            :ref "7febe164de2a881b83b9d604d3c7cf20b69f422d"
            :branch nil)

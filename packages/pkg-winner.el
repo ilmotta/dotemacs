@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg winner
-  :elpaca nil
+  :ensure nil
   :init
   (setq winner-dont-bind-my-keys t)
   (setq winner-boring-buffers

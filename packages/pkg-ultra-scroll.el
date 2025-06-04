@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg ultra-scroll
-  :elpaca (:host github
+  :ensure (:host github
            :repo "jdtsmith/ultra-scroll"
            :rev "2c517bf9b61bf432f706ff8a585ba453c7476be2")
   :hook (elpaca-after-init-hook . ultra-scroll-mode)

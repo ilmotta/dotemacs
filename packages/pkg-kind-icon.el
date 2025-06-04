@@ -8,7 +8,7 @@
 ;; SVG icons for completion backends.
 (lib-util/pkg kind-icon
   :disabled t
-  :elpaca (:ref "42d2a41874d5a61731556e53ba57547b4ef95342")
+  :ensure (:ref "42d2a41874d5a61731556e53ba57547b4ef95342")
   :defer t
 
   :init

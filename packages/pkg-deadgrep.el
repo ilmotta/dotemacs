@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg deadgrep
-  :elpaca (:ref "9da7183e60c75bacefd44025fc5e5335b7c5862a")
+  :ensure (:ref "9da7183e60c75bacefd44025fc5e5335b7c5862a")
   :defer t
   :init
   ;; Deadgrep will kill the least recently used results buffer if there are more

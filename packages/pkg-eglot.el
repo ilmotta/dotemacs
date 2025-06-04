@@ -5,7 +5,7 @@
 ;; Error due to incompatible dependency in Emacs 29
 (when (>= emacs-major-version 30)
   (lib-util/pkg eglot
-    :elpaca (:host github
+    :ensure (:host github
              :repo "joaotavora/eglot"
              :ref "8b5532dd32b25276c1857508030b207f765ef9b6")
     :init

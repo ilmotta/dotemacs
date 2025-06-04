@@ -29,7 +29,7 @@
   (call-interactively #'outline-hide-other))
 
 (lib-util/pkg outline
-  :elpaca nil
+  :ensure nil
   :init
   (setq outline-minor-mode-highlight 'override)
 

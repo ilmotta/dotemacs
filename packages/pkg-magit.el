@@ -77,14 +77,14 @@ variable.")
 ;; We get errors in Emacs 29 saying package git-commit could not be found.
 (when (< emacs-major-version 30)
   (lib-util/pkg git-commit
-    :elpaca (:host github
+    :ensure (:host github
              :repo "magit/magit"
              :ref "f44f6c14500476d918e9c01de8449edb20af4113"
              :files ("lisp/git-*.el"))))
 
 (defmacro pkg-magit/use-package ()
   `(lib-util/pkg magit
-     :elpaca ,(if (>= emacs-major-version 30)
+     :ensure ,(if (>= emacs-major-version 30)
                   '(:host github
                     :repo "magit/magit"
                     :ref "4992c3d1f64e0e983692c7a61d47069f47380dbf"

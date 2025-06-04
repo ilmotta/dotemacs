@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg popper
-  :elpaca (:ref "d7560f18350faaee8362aee16481268de3cc6457")
+  :ensure (:ref "d7560f18350faaee8362aee16481268de3cc6457")
   :defer t
   :hook (elpaca-after-init-hook . popper-mode)
   :init

@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg eldoc
-  :elpaca nil
+  :ensure nil
   :init
   (setq eldoc-idle-delay 0.25
         eldoc-minor-mode-string nil

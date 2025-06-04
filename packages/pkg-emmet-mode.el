@@ -11,7 +11,7 @@
 (require 'lib-util)
 
 (lib-util/pkg emmet-mode
-  :elpaca (:ref "63b6932603184956b5ea8919036d2b307b48d7fd")
+  :ensure (:ref "63b6932603184956b5ea8919036d2b307b48d7fd")
   :defer t
   :hook ((js-mode-hook
           typescript-tsx-mode-hook) . emmet-mode)

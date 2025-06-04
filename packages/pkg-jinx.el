@@ -17,7 +17,7 @@
 
 (when (executable-find "jinx")
   (lib-util/pkg jinx
-    :elpaca nil
+    :ensure nil
     :defer t
     :init
     (general-def

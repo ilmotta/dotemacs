@@ -56,7 +56,7 @@ respects display buffer actions."
             (xref-find-definitions-other-window thing))))))
 
 (lib-util/pkg xref
-  :elpaca nil
+  :ensure nil
 
   :hook ((xref-after-jump-hook
           xref-after-return-hook)

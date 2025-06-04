@@ -12,7 +12,7 @@
 
 (lib-util/pkg embark
   ;; We need to explicitly add embark-consult.el.
-  :elpaca (:ref "d2daad08e04090391b3221fa95000492a1f8aabe"
+  :ensure (:ref "d2daad08e04090391b3221fa95000492a1f8aabe"
            :files ("embark.el" "embark-org.el" "embark-consult.el"))
   :defer t
 

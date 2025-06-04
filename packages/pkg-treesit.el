@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg treesit
-  :elpaca nil
+  :ensure nil
   :init
   ;; Maximum amount of syntax highlighting. Level 4 can be too colorful in some
   ;; major modes.

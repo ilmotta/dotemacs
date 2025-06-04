@@ -49,7 +49,7 @@
 ;; Apheleia is a code formatting tool that can reliably and efficiently run on
 ;; every save.
 (lib-util/pkg apheleia
-  :elpaca (:ref "5ebd6bf5819fbf2adfa18162f270825e6ca4379c")
+  :ensure (:ref "5ebd6bf5819fbf2adfa18162f270825e6ca4379c")
   :defer t
 
   :hook (nix-mode-hook . apheleia-mode)

@@ -7,7 +7,7 @@
   (ledger-report "bal" nil))
 
 (lib-util/pkg ledger-mode
-  :elpaca (:ref "8bad528d43007e0310b5e72e6e021b502b30495c")
+  :ensure (:ref "8bad528d43007e0310b5e72e6e021b502b30495c")
   :defer t
   :mode ((rx ".ledger" string-end) . ledger-mode)
   :init

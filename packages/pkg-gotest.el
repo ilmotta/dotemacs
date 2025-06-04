@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg gotest
-  :elpaca (:ref "2ec82dcc70d5f6aa22f66b44f8b537be33bd7903")
+  :ensure (:ref "2ec82dcc70d5f6aa22f66b44f8b537be33bd7903")
   :defer t
   :init
   (my/general-mode-def

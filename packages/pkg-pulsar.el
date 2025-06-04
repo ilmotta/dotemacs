@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg pulsar
-  :elpaca (:host github
+  :ensure (:host github
            :repo "protesilaos/pulsar"
            :ref "77416e6076af7ab3ccfb7a91915dd036ad968155")
   :defer t

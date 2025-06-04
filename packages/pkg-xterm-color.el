@@ -20,7 +20,7 @@
   (setq xterm-color-preserve-properties t))
 
 (lib-util/pkg xterm-color
-  :elpaca (:ref "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
+  :ensure (:ref "1a4012854c69a5cdaeb5a73d2ad705011892fca3")
   :defer t
   :hook (eshell-before-prompt-hook . pkg-xterm-color/eshell-h))
 

@@ -10,7 +10,7 @@
 (require 'lib-util)
 
 (lib-util/pkg dired-du
-  :elpaca (:host github
+  :ensure (:host github
            :repo "emacsmirror/dired-du"
            :ref "f7e1593e94388b0dfb71af8e9a3d5d07edf5a159"
            :branch nil)

@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg lsp-ui
-  :elpaca (:ref "00f1fecdfb41c30428734cf27e492f26f46627fb")
+  :ensure (:ref "00f1fecdfb41c30428734cf27e492f26f46627fb")
   :defer t
   :init
   (setq lsp-ui-peek-enable nil)

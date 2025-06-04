@@ -13,7 +13,7 @@
   (require 'ob-async))
 
 (lib-util/pkg ob-async
-  :elpaca (:ref "9aac486073f5c356ada20e716571be33a350a982")
+  :ensure (:ref "9aac486073f5c356ada20e716571be33a350a982")
   :defer t
   :hook (org-mode-hook . pkg-ob-async/enable))
 

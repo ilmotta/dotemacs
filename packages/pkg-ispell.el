@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg ispell
-  :elpaca nil
+  :ensure nil
   :config
   (when-let* ((dir (getenv "ASPELL_DICT_DIR")))
     (setq ispell-extra-args `("--dict-dir" ,dir)))

@@ -45,7 +45,7 @@ automatically switch to it."
   (tab-bar-rename-tab (project-name (project-current))))
 
 (lib-util/pkg tab-bar
-  :elpaca nil
+  :ensure nil
 
   :init
   (general-def

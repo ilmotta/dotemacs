@@ -9,7 +9,7 @@
 (require 'lib-util)
 
 (lib-util/pkg tsi
-  :elpaca (:host github :repo "orzechowskid/tsi.el")
+  :ensure (:host github :repo "orzechowskid/tsi.el")
   :disabled t
   :unless my/android?
   :defer t

@@ -12,7 +12,7 @@
 ;; transient version 0.4.1 lower than minimum
 (when (>= emacs-major-version 30)
   (lib-util/pkg gptel
-    :elpaca (:host github
+    :ensure (:host github
              :repo "karthink/gptel"
              :ref "aa62573ee7b14830ffa1cdb3709e588b8fa64f2e")
     :init

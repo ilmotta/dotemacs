@@ -14,7 +14,7 @@
                              marginalia-annotator-registry)))
 
 (lib-util/pkg marginalia
-  :elpaca (:host github
+  :ensure (:host github
            :repo "minad/marginalia"
            :ref "a527fb03b76a2bce1e360c6e73a095e06922c3f3")
   :defer t

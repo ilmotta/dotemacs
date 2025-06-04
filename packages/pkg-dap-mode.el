@@ -9,7 +9,7 @@
 (require 'lib-util)
 
 (lib-util/pkg dap-mode
-  :elpaca (:ref "39bfaf1a3400b3ca4e9755f4d15e33abb0dda2c4")
+  :ensure (:ref "39bfaf1a3400b3ca4e9755f4d15e33abb0dda2c4")
   :defer t
 
   :init

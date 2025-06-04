@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg hl-line
-  :elpaca nil
+  :ensure nil
   :hook ((conf-mode-hook
           dired-mode-hook
           org-agenda-mode-hook

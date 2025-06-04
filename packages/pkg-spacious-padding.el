@@ -8,7 +8,7 @@
 (require 'lib-util)
 
 (lib-util/pkg spacious-padding
-  :elpaca (:host github
+  :ensure (:host github
            :repo "protesilaos/spacious-padding"
            :ref "a3151f3c99d6b3b2d4644da88546476b3d31f0fe")
   :demand t

@@ -47,7 +47,7 @@ Use this function to hardcode rules that can't be easily generalized."
           (t result))))
 
 (lib-util/pkg doom-modeline
-  :elpaca (:ref "65d0bd83eb7c393092e032c24b882f3ba19b4899")
+  :ensure (:ref "65d0bd83eb7c393092e032c24b882f3ba19b4899")
   :defer t
   :hook (elpaca-after-init-hook . pkg-doom-modeline/setup-mode)
 

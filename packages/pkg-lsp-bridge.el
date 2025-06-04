@@ -16,7 +16,7 @@
 (require 'lib-util)
 
 (lib-util/pkg lsp-bridge
-  :elpaca (:ref "4e751899c49f83b0bd03b2f564972fbca839137b"
+  :ensure (:ref "4e751899c49f83b0bd03b2f564972fbca839137b"
            :host github
            :repo "manateelazycat/lsp-bridge"
            :files (:defaults

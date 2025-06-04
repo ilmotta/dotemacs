@@ -195,7 +195,7 @@ unless the ID property already exists."
 
 (lib-util/pkg org
   ;; Release 9.7.9
-  :elpaca (:ref "890faae82af8795508c46966d19bd48883b5f6a0")
+  :ensure (:ref "890faae82af8795508c46966d19bd48883b5f6a0")
   :defer t
 
   :init

@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg paren
-  :elpaca nil
+  :ensure nil
   :init
   (add-hook 'prog-mode-hook #'show-paren-mode)
 

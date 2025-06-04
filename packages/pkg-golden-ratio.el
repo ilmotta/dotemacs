@@ -8,7 +8,7 @@
 (require 'lib-util)
 
 (lib-util/pkg golden-ratio
-  :elpaca (:ref "007911d8a431b72670f5fe5f0e5b4380c2777a31")
+  :ensure (:ref "007911d8a431b72670f5fe5f0e5b4380c2777a31")
   :defer t
   :hook (golden-ratio-mode-hook . golden-ratio)
   :init

@@ -15,7 +15,7 @@
     (vertico-posframe-poshandler . posframe-poshandler-frame-top-center)))
 
 (lib-util/pkg vertico-posframe
-  :elpaca (:host github
+  :ensure (:host github
            :repo "tumashu/vertico-posframe"
            :ref "c5a8b5f72a582e88a2a696a3bbc2df7af28bd229")
   ;; Even after disabling all packages and all custom code, I couldn't get the

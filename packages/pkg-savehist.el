@@ -6,7 +6,7 @@
 (require 'lib-util)
 
 (lib-util/pkg savehist
-  :elpaca nil
+  :ensure nil
   :init
   (add-hook 'elpaca-after-init-hook #'savehist-mode)
 

@@ -19,17 +19,17 @@
    (call-interactively #'org-roam-node-find)))
 
 (lib-util/pkg emacsql
-  :elpaca (:host github :repo "skeeto/emacsql")
+  :ensure (:host github :repo "skeeto/emacsql")
   :defer t)
 
 (lib-util/pkg emacsql-sqlite
-  :elpaca (:host github :repo "skeeto/emacsql")
+  :ensure (:host github :repo "skeeto/emacsql")
   :defer t)
 
 ;; Org-roam is a solution for effortless non-hierarchical note-taking with
 ;; Org-mode.
 (lib-util/pkg org-roam
-  :elpaca (:host github
+  :ensure (:host github
            :repo "org-roam/org-roam"
            :ref "046822b512ffecdee7d110f73dd3a511802ca590")
   :defer t

@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg image-dired
-  :elpaca nil
+  :ensure nil
   :init
   (setq image-dired-thumb-size 150
         image-dired-thumb-margin 2

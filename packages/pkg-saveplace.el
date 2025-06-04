@@ -13,7 +13,7 @@
    (current-buffer)))
 
 (lib-util/pkg compile
-  :elpaca nil
+  :ensure nil
   :init
   (add-hook 'elpaca-after-init-hook #'save-place-mode)
   (add-hook 'find-file-hook 'pkg-saveplace/reposition t)

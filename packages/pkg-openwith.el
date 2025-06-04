@@ -9,7 +9,7 @@
 (require 'lib-util)
 
 (lib-util/pkg openwith
-  :elpaca (:ref "1dc89670822966fab6e656f6519fdd7f01e8301a")
+  :ensure (:ref "1dc89670822966fab6e656f6519fdd7f01e8301a")
   :defer t
   :hook ((dired-mode-hook org-mode-hook) . openwith-mode)
   :init

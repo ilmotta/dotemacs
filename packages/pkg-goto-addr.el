@@ -14,7 +14,7 @@
 (require 'lib-util)
 
 (lib-util/pkg goto-addr
-  :elpaca nil
+  :ensure nil
   :hook (text-mode-hook . goto-address-mode)
   :hook (prog-mode-hook . goto-address-prog-mode))
 

@@ -10,7 +10,7 @@
 (require 'lib-util)
 
 (lib-util/pkg visual-fill-column
-  :elpaca (:ref "453d698d7fc243a547665f8ba43c55eee574e0db")
+  :ensure (:ref "453d698d7fc243a547665f8ba43c55eee574e0db")
   :defer t)
 
 (provide 'pkg-visual-fill-column)

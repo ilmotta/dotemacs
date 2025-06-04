@@ -99,7 +99,7 @@ spanning over multiple lines."
 ;;
 ;;   ((js-mode . ((eval . (lsp-deferred)))))
 (lib-util/pkg lsp-mode
-  :elpaca (:ref "5b0198457e4e6570677b3e443cda0ba73d63343b")
+  :ensure (:ref "5b0198457e4e6570677b3e443cda0ba73d63343b")
   :defer t
 
   :hook ((go-ts-mode-hook go-mode-hook) . lsp-deferred)

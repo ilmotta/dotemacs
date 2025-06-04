@@ -10,7 +10,7 @@
 (require 'lib-util)
 
 (lib-util/pkg cider-storm
-  :elpaca (:host github
+  :ensure (:host github
            :repo "jpmonettas/cider-storm"
            :ref "58b8a50406e5e6fbe2d8cdc969543246987386cd")
   :defer t)

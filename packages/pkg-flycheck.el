@@ -18,7 +18,7 @@
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
 (lib-util/pkg flycheck
-  :elpaca (:ref "10430dee428f7bab176743097d996182fac29daa")
+  :ensure (:ref "10430dee428f7bab176743097d996182fac29daa")
   :defer t
 
   :hook (prog-mode-hook . flycheck-mode)

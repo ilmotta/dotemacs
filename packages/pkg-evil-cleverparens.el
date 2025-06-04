@@ -11,7 +11,7 @@
   (evil-add-command-properties #'evil-cp-up-sexp :jump t))
 
 (lib-util/pkg evil-cleverparens
-  :elpaca (:ref "22aa03d0f50aa70ae08fbe8765a88f5020afa635")
+  :ensure (:ref "22aa03d0f50aa70ae08fbe8765a88f5020afa635")
   :defer t
 
   ;; Command properties must be added after `evil-cleverparens-mode'is enabled.

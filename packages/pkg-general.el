@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg general
-  :elpaca t
+  :ensure t
   :demand t
   :config
   (general-create-definer my/general-mode-def

@@ -64,7 +64,7 @@ argument."
     (call-interactively #'evil-record-macro)))
 
 (lib-util/pkg evil
-  :elpaca (:ref "0251080640e0da6f0eec2b7d8dd70e9c9b9915d7")
+  :ensure (:ref "0251080640e0da6f0eec2b7d8dd70e9c9b9915d7")
   :defer t
   :commands (evil-set-initial-state)
 

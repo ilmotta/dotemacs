@@ -9,7 +9,7 @@
 (require 'lib-util)
 
 (lib-util/pkg graphql
-  :elpaca (:ref "67237f284f2dfb94f3cfba672ff64a37e1cb860f"
+  :ensure (:ref "67237f284f2dfb94f3cfba672ff64a37e1cb860f"
            :fetcher github
            :repo "vermiculus/graphql.el"
            :files (:defaults))

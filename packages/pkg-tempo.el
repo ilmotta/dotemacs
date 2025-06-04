@@ -54,7 +54,7 @@
   (tempo-use-tag-list 'pkg-tempo/tags-html))
 
 (lib-util/pkg tempo
-  :elpaca nil
+  :ensure nil
   :init
   (add-hook 'emacs-lisp-mode-hook #'pkg-tempo/setup-emacs-lisp)
   (add-hook 'markdown-mode-hook #'pkg-tempo/setup-html)

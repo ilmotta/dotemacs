@@ -5,7 +5,7 @@
 (require 'lib-util)
 
 (lib-util/pkg vertico
-  :elpaca (:host github
+  :ensure (:host github
            :repo "minad/vertico"
            :ref "ac82acf177a0dfc97deac8626a8a98c06bffc96c"
            :files (:defaults "extensions/*.el"))

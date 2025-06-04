@@ -28,7 +28,7 @@ Except current buffer."
       (tab-close))))
 
 (lib-util/pkg project
-  :elpaca nil
+  :ensure nil
   :init
   (general-def
     [remap project-kill-buffers] #'pkg-project/kill-buffers)

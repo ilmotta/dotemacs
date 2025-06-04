@@ -5,7 +5,7 @@
 ;; Error: seq version 2.23 is lower than min 2.24
 (when (>= emacs-major-version 30)
   (lib-util/pkg transient
-    :elpaca (:host github
+    :ensure (:host github
              :repo "magit/transient"
              :ref "d6b52b6eb7655d538b410ae60f85fbaa4d58a608") ; 0.7.8
     :init

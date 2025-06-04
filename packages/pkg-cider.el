@@ -297,7 +297,7 @@ for example."
 
 ;; CIDER - The Clojure Interactive Development Environment that Rocks.
 (lib-util/pkg cider
-  :elpaca (:ref "c3acf55af0a8c03a2a050f66b328bba8d2402574") ; v1.14.0
+  :ensure (:ref "c3acf55af0a8c03a2a050f66b328bba8d2402574") ; v1.14.0
   :defer t
   :commands (cider
              cider-connect

@@ -83,7 +83,7 @@
     (font-lock-flush (point-min) (point-max))))
 
 (lib-util/pkg proced
-  :elpaca nil
+  :ensure nil
   :hook (proced-mode-hook . pkg-proced/extra-keywords)
   :init
   (setq-default proced-auto-update-flag t)

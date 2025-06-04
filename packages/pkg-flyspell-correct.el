@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg flyspell-correct
-  :elpaca (:ref "7d7b6b01188bd28e20a13736ac9f36c3367bd16e")
+  :ensure (:ref "7d7b6b01188bd28e20a13736ac9f36c3367bd16e")
   :disabled t
   :defer t
 

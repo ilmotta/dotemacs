@@ -129,7 +129,7 @@ working directory (`default-directory')."
 
 
 (lib-util/pkg eshell
-  :elpaca nil
+  :ensure nil
 
   :hook (eshell-post-command-hook . pkg-eshell/rename-buffer-with-last-input)
 

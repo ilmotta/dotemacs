@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg lsp-java
-  :elpaca (:ref "de2d89814fecb9bae825baa7028c5cd8b32b9b8f")
+  :ensure (:ref "de2d89814fecb9bae825baa7028c5cd8b32b9b8f")
   :defer t
   :hook (java-mode-hook . lsp-deferred)
   :init

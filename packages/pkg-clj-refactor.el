@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg clj-refactor
-  :elpaca (:ref "dc1bbc8cdaa723bdbb6669ea7d280625c370755d")
+  :ensure (:ref "dc1bbc8cdaa723bdbb6669ea7d280625c370755d")
   :defer t
   :hook (clojure-mode-hook . clj-refactor-mode)
   :init

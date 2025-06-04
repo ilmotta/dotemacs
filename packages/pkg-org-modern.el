@@ -5,7 +5,7 @@
 (require 'lib-util)
 
 (lib-util/pkg org-modern
-  :elpaca (:host github
+  :ensure (:host github
            :repo "minad/org-modern"
            :ref "33f694c57113418c7e739a824ff57dc9e7eb413c")
   :defer t

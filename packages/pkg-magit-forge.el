@@ -12,7 +12,7 @@
   ;; Disabled because I bumped over too much unexpected behavior.
   :disabled t
 
-  :elpaca (:host github
+  :ensure (:host github
            :repo "magit/forge"
            :ref "0b5571b40e544bd182e5ed76d2400fe2fa8716d1")
   :defer t
