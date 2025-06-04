@@ -7,6 +7,18 @@
 (defvar elpaca-builds-directory (file-name-concat elpaca-directory "builds/"))
 (defvar elpaca-repos-directory (file-name-concat elpaca-directory "repos/"))
 
+(defun my-nix-get-emacs-build-date ()
+  "Retrieve the build date of Emacs, needed for elpaca because
+emacs-build-time is nil when installed via nix.
+
+See issue https://github.com/progfolio/elpaca/issues/222"
+  (string-match "--prefix.*emacs.*\\([[:digit:]]\\{8\\}\\)" system-configuration-options)
+  (let ((config-date (match-string 1 system-configuration-options)))
+    (string-to-number config-date)))
+
+(unless emacs-build-time
+  (setq elpaca-core-date (list (my-nix-get-emacs-build-date))))
+
 (defvar elpaca-order
   '(elpaca
        :repo "https://github.com/progfolio/elpaca.git"
