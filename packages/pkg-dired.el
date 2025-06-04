@@ -101,30 +101,31 @@
    ls-lisp-use-insert-directory-program nil)
 
   :config
-  (transient-define-prefix pkg-dired/transient ()
-    :transient-non-suffix #'transient--do-stay
-    [[:description "UI"
-      ("(" "Toggle details" dired-hide-details-mode :transient t)
-      ("h" "Toggle hidden files" pkg-dired/toggle-hidden :transient t)
-      ("U" "Remove all marks" dired-unmark-all-marks :transient t)
-      ("m" "Mark file" dired-mark :transient t)
-      ("u" "Unmark file" dired-unmark :transient t)]
-     [:description "Permissions"
-      ("G" "Change group" dired-do-chgrp)
-      ("M" "Change mode" dired-do-chmod)
-      ("O" "Change owner" dired-do-chown)]
-     [:description "File system"
-      ("+" "Create directory" dired-create-directory)
-      ("C" "Copy" dired-do-copy)
-      ("D" "Delete" dired-do-delete)
-      ("R" "Rename" dired-do-rename)]]
-    [:description "View"
-     :pad-keys t
-     ("v"     "Examine file in view mode" dired-view-file)
-     ("M-RET" "Display file or directory in another window" dired-display-file)
-     ("!"     "Run shell command on marked files" dired-do-shell-command)
-     ("Z"     "Compress or uncompress marked files" dired-do-compress)
-     ("; e"   "Encrypt marked files" epa-dired-do-encrypt)
-     ("; d"   "Decrypt marked files" epa-dired-do-decrypt)]))
+  (with-eval-after-load 'transient
+    (transient-define-prefix pkg-dired/transient ()
+      :transient-non-suffix #'transient--do-stay
+      [[:description "UI"
+        ("(" "Toggle details" dired-hide-details-mode :transient t)
+        ("h" "Toggle hidden files" pkg-dired/toggle-hidden :transient t)
+        ("U" "Remove all marks" dired-unmark-all-marks :transient t)
+        ("m" "Mark file" dired-mark :transient t)
+        ("u" "Unmark file" dired-unmark :transient t)]
+       [:description "Permissions"
+        ("G" "Change group" dired-do-chgrp)
+        ("M" "Change mode" dired-do-chmod)
+        ("O" "Change owner" dired-do-chown)]
+       [:description "File system"
+        ("+" "Create directory" dired-create-directory)
+        ("C" "Copy" dired-do-copy)
+        ("D" "Delete" dired-do-delete)
+        ("R" "Rename" dired-do-rename)]]
+      [:description "View"
+       :pad-keys t
+       ("v"     "Examine file in view mode" dired-view-file)
+       ("M-RET" "Display file or directory in another window" dired-display-file)
+       ("!"     "Run shell command on marked files" dired-do-shell-command)
+       ("Z"     "Compress or uncompress marked files" dired-do-compress)
+       ("; e"   "Encrypt marked files" epa-dired-do-encrypt)
+       ("; d"   "Decrypt marked files" epa-dired-do-decrypt)])))
 
 (provide 'pkg-dired)

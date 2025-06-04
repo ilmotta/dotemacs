@@ -208,7 +208,7 @@ that resolves to the PID string."
          (refresh-rate "60.00")
          (device-name "HDMI-1") ; You may need to change it to HDMI1
          (connected-p (equal "connected" (lib-sys/-shell-command-to-string (format "xrandr --current | grep -i %s | cut -f2 -d' '"
-                                                                               device-name)))))
+                                                                                   device-name)))))
     (if connected-p
         (progn
           (let* ((modeline (lib-sys/-shell-command-to-string (format "cvt %s %s %s | cut -f2 -d$'\n'" width height refresh-rate)))
@@ -222,13 +222,13 @@ that resolves to the PID string."
             (shell-command-to-string (format "xrandr --output %s --mode %s" device-name modename))))
       (message "Error: Could not detect monitor"))))
 
-;;;###autoload
-(transient-define-prefix lib-sys/main-t ()
-  "System controllers."
-  :transient-non-suffix #'transient--do-quit-one
-  [["Brightness"
-    ("j" "↓5" lib-sys/-lower-brightness-5 :transient t)
-    ("k" "↑5" lib-sys/-raise-brightness-5 :transient t)]])
+(with-eval-after-load 'transient
+  (transient-define-prefix lib-sys/main-t ()
+    "System controllers."
+    :transient-non-suffix #'transient--do-quit-one
+    [["Brightness"
+      ("j" "↓5" lib-sys/-lower-brightness-5 :transient t)
+      ("k" "↑5" lib-sys/-raise-brightness-5 :transient t)]]))
 
 ;;;; Misc
 

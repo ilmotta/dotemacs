@@ -395,37 +395,38 @@
        :ok)
    nil))
 
-(transient-define-prefix smob-transient-login ()
-  :transient-non-suffix #'transient--do-quit-one
-  [:description "Session"
-   ("l" "Login" smob-login)
-   ("x" "Logout" smob-logout)
-   ("c" "Create account" smob-create-account)])
+(with-eval-after-load 'transient
+  (transient-define-prefix smob-transient-login ()
+    :transient-non-suffix #'transient--do-quit-one
+    [:description "Session"
+     ("l" "Login" smob-login)
+     ("x" "Logout" smob-logout)
+     ("c" "Create account" smob-create-account)])
 
-(transient-define-prefix smob-transient-navigation ()
-  :transient-non-suffix #'transient--do-quit-one
-  [:description "Navigation"
-   :pad-keys t
-   ("s" "Settings" smob-open-settings)
-   ("S" "Advanced settings" smob-open-advanced-settings)
-   ("F" "Feature flags" smob-open-feature-flags)
-   ("g" "Go to screen" smob-navigate-to)])
+  (transient-define-prefix smob-transient-navigation ()
+    :transient-non-suffix #'transient--do-quit-one
+    [:description "Navigation"
+     :pad-keys t
+     ("s" "Settings" smob-open-settings)
+     ("S" "Advanced settings" smob-open-advanced-settings)
+     ("F" "Feature flags" smob-open-feature-flags)
+     ("g" "Go to screen" smob-navigate-to)])
 
-(transient-define-prefix smob-transient-profile ()
-  :transient-non-suffix #'transient--do-quit-one
-  [:description "Profile"
-   ("e" "Edit profile" smob-open-edit-profile)
-   ("c" "Copy compressed key" smob-copy-compressed-key)])
+  (transient-define-prefix smob-transient-profile ()
+    :transient-non-suffix #'transient--do-quit-one
+    [:description "Profile"
+     ("e" "Edit profile" smob-open-edit-profile)
+     ("c" "Copy compressed key" smob-copy-compressed-key)])
 
-(transient-define-prefix smob-transient-main ()
-  :transient-non-suffix #'transient--do-quit-one
-  [[:description "Common operations"
-    ("l" "Login" smob-login)
-    ("x" "Logout" smob-logout)
-    ("g" "Go to screen" smob-navigate-to)]
-   [("s" "Session" smob-transient-login)
-    ("n" "Navitation" smob-transient-navigation)
-    ("p" "Profile" smob-transient-profile)
-    ("t" "Toggle feature flag" smob-toggle-feature-flag)]])
+  (transient-define-prefix smob-transient-main ()
+    :transient-non-suffix #'transient--do-quit-one
+    [[:description "Common operations"
+      ("l" "Login" smob-login)
+      ("x" "Logout" smob-logout)
+      ("g" "Go to screen" smob-navigate-to)]
+     [("s" "Session" smob-transient-login)
+      ("n" "Navitation" smob-transient-navigation)
+      ("p" "Profile" smob-transient-profile)
+      ("t" "Toggle feature flag" smob-toggle-feature-flag)]]))
 
 (provide 'pkg-status-mobile)

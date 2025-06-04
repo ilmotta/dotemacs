@@ -23,17 +23,18 @@ to zero."
   (interactive)
   (text-scale-set 0))
 
-(transient-define-prefix pkg-transient/zoom-t
-  "Control global/buffer zoom."
-  :transient-non-suffix #'transient--do-quit-one
-  [["Zoom Global"
-    ("+" "increase" default-text-scale-increase :transient t)
-    ("-" "decrease" default-text-scale-decrease :transient t)
-    ("0" "reset" default-text-scale-reset :transient t)]
-   ["Zoom Buffer"
-    ("k" "increase" pkg-text-scale/buffer-increase :transient t)
-    ("j" "decrease" pkg-text-scale/buffer-decrease :transient t)
-    ("r" "reset" pkg-text-scale/buffer-reset :transient t)]])
+(with-eval-after-load 'transient
+  (transient-define-prefix pkg-transient/zoom-t
+    "Control global/buffer zoom."
+    :transient-non-suffix #'transient--do-quit-one
+    [["Zoom Global"
+      ("+" "increase" default-text-scale-increase :transient t)
+      ("-" "decrease" default-text-scale-decrease :transient t)
+      ("0" "reset" default-text-scale-reset :transient t)]
+     ["Zoom Buffer"
+      ("k" "increase" pkg-text-scale/buffer-increase :transient t)
+      ("j" "decrease" pkg-text-scale/buffer-decrease :transient t)
+      ("r" "reset" pkg-text-scale/buffer-reset :transient t)]]))
 
 ;; Easily adjust the font size in all Emacs frames. The bindings are the same
 ;; used in web browsers.

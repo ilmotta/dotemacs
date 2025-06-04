@@ -989,13 +989,14 @@ reuse the same window whenever possible."
       (enlarge-window-horizontally arg)
     (shrink-window-horizontally arg)))
 
-(transient-define-prefix pkg-window/transient-resize ()
-  "Transients to resize windows."
-  ["Resize window"
-   [("h" "←" pkg-window/resize-left :transient t)]
-   [("j" "↓" pkg-window/resize-down :transient t)]
-   [("k" "↑" pkg-window/resize-up :transient t)]
-   [("l" "→" pkg-window/resize-right :transient t)]])
+(with-eval-after-load 'transient
+  (transient-define-prefix pkg-window/transient-resize ()
+    "Transients to resize windows."
+    ["Resize window"
+     [("h" "←" pkg-window/resize-left :transient t)]
+     [("j" "↓" pkg-window/resize-down :transient t)]
+     [("k" "↑" pkg-window/resize-up :transient t)]
+     [("l" "→" pkg-window/resize-right :transient t)]]))
 
 ;;;; Autoloads
 
