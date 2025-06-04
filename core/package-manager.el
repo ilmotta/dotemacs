@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-(defvar elpaca-installer-version 0.10)
+(defvar elpaca-installer-version 0.11)
 (defvar elpaca-directory (expand-file-name (file-name-concat my/local-dir "elpaca/")))
 (defvar elpaca-builds-directory (file-name-concat elpaca-directory "builds/"))
 (defvar elpaca-repos-directory (file-name-concat elpaca-directory "repos/"))
@@ -23,7 +23,7 @@ See issue https://github.com/progfolio/elpaca/issues/222"
   '(elpaca
        :repo "https://github.com/progfolio/elpaca.git"
        ;; Revision date: 2025-02-23
-       :ref "b5ea4254ede6126f68363c7ba352ed4869c8517d"
+       :ref "45c56a968fd5903bbcbb1fafbf3b6e50e64c4393"
        :files (:defaults "elpaca-test.el" (:exclude "extensions"))
        :build (:not elpaca--activate-package)))
 
