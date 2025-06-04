@@ -44,7 +44,7 @@
   "Duplicate file on this line."
   (interactive)
   (let* ((do-format (lambda (filename count)
-                      (if-let ((extension (file-name-extension filename)))
+                      (if-let* ((extension (file-name-extension filename)))
                           (format "%s %02d.%s" (file-name-base filename) count extension)
                         (format "%s %02d" filename count))))
          (original  (dired-get-filename t))

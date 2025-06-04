@@ -41,7 +41,7 @@
 
 (defun lib-adb/send-text-to-input ()
   (interactive)
-  (if-let ((device (lib-adb/-choose-device)))
+  (if-let* ((device (lib-adb/-choose-device)))
       (let ((input (read-string "Input: " "" 'lib-adb--history-input)))
         (lib-adb/-send-input device input))
     (message "There are no devices running")))
@@ -63,7 +63,7 @@
 If the destination file exists, the user is asked if they want to overwrite it or not."
   (interactive)
   (cl-assert (lib-adb/restart-as-root) nil "Could not restart adb daemon as root")
-  (if-let ((device (lib-adb/-choose-device)))
+  (if-let* ((device (lib-adb/-choose-device)))
       (let ((src nil)
             (dst nil))
         (setq src (read-string "Source (emulator): " "" 'lib-adb--history-paths))

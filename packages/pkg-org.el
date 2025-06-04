@@ -118,7 +118,7 @@ PDFs, HTML and Tex files."
 (defun pkg-org/rename-file-at-point ()
   "Rename file link at point."
   (interactive)
-  (if-let (path (org-element-property :path (org-element-context)))
+  (if-let* ((path (org-element-property :path (org-element-context))))
       (let* ((ext (file-name-extension path))
              (dir-path (file-name-directory path))
              (current-name (file-name-nondirectory path))
@@ -134,7 +134,7 @@ PDFs, HTML and Tex files."
         (unless (file-name-absolute-p path)
           (setq new-path (file-relative-name new-path default-directory)))
 
-        (when-let ((dir (file-name-directory new-path)))
+        (when-let* ((dir (file-name-directory new-path)))
           (cl-assert (file-exists-p dir) nil (format "Directory does not exist '%s'" new-path)))
 
         (rename-file path new-path)

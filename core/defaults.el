@@ -905,7 +905,7 @@ with 'kill' as the default action instead of 'bury'."
 (setenv "PAGER" "cat")
 
 (defun pkg-shell-mode/use-read-only-mode-in-shell-command-buffers ()
-  (when-let ((buffer (get-buffer "*Async Shell Command*")))
+  (when-let* ((buffer (get-buffer "*Async Shell Command*")))
     (with-current-buffer buffer
       (read-only-mode +1))))
 

@@ -35,7 +35,7 @@ perform the completion directly in the original buffer."
   "Search with rg using symbol at point as initial input."
   (interactive)
   (let ((thing (thing-at-point 'symbol))
-        (dir (if-let ((proj (project-current)))
+        (dir (if-let* ((proj (project-current)))
                  (project-root proj)
                default-directory)))
     (setq pkg-consult/-ripgrep-dwim-previous-query thing)
@@ -46,7 +46,7 @@ perform the completion directly in the original buffer."
 Uses initial input from previous call to
 `pkg-consult/ripgrep-dwim'."
   (interactive)
-  (let ((dir (if-let ((proj (project-current)))
+  (let ((dir (if-let* ((proj (project-current)))
                  (project-root proj)
                default-directory)))
     (consult-ripgrep dir pkg-consult/-ripgrep-dwim-previous-query)))

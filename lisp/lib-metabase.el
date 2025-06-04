@@ -27,7 +27,7 @@
 (defun lib-metabase/stop ()
   "Stop the Metabase server."
   (interactive)
-  (when-let ((pid (car (lib-utilib-metabase/process-pids "metabase.jar"))))
+  (when-let* ((pid (car (lib-utilib-metabase/process-pids "metabase.jar"))))
     (start-process-shell-command
      "metabase-kill" "*Metabase*" (concat "kill -9 " pid))))
 

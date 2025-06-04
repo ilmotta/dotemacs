@@ -5,7 +5,7 @@
 ;;;###autoload
 (defun lib-fs/symlinks-to-file ()
   (interactive)
-  (when-let ((file (buffer-file-name)))
+  (when-let* ((file (buffer-file-name)))
     (let ((cmd (format "symlinks -rv ~/ | grep '%s'" file)))
       (promise-chain (lib-sys/promise-start-process-shell-command cmd)
         (then (lambda (out)

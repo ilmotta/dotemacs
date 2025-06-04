@@ -36,7 +36,7 @@ command respects buffer display actions."
 
 (defun pkg-xref/find-references-dwim ()
   (interactive)
-  (if-let (thing (thing-at-point 'symbol))
+  (if-let* ((thing (thing-at-point 'symbol)))
       (let ((xref-prompt-for-identifier nil))
         (call-interactively #'xref-find-references))
     (let ((xref-prompt-for-identifier t))

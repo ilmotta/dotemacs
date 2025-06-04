@@ -40,7 +40,7 @@ possible, but fallback `display-buffer-same-window'."
 (defun lib-util/advice-remove-dwim ()
   (interactive)
   (let ((advised-fn (intern (thing-at-point 'symbol 'no-properties))))
-    (if-let ((fns (advice-alist advised-fn)))
+    (if-let* ((fns (advice-alist advised-fn)))
         (let ((choice  (intern (completing-read "Advice to remove: "
                                                 (map-keys fns)))))
           (advice-remove advised-fn choice))
@@ -289,7 +289,7 @@ must not have line breaks, otherwise pairs will be unbalanced."
   (let ((host (or (file-remote-p file 'host) "localhost")))
     (concat "/" (when (file-remote-p file)
                   (concat (file-remote-p file 'method) ":"
-                          (if-let (user (file-remote-p file 'user))
+                          (if-let* ((user (file-remote-p file 'user)))
                               (concat user "@" host)
                             host)
                           "|"))
@@ -546,7 +546,7 @@ symbolic links."
 (defun lib-util/yank-buffer-filename ()
   "Copy the current buffer's path to the kill ring."
   (interactive)
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+  (if-let* ((filename (or buffer-file-name (bound-and-true-p list-buffers-directory))))
       (message (kill-new (abbreviate-file-name filename)))
     (error "Couldn't find filename in current buffer")))
 
@@ -554,7 +554,7 @@ symbolic links."
 (defun lib-util/yank-buffer-absolute-path ()
   "Copy the current buffer's absolute path to the kill ring."
   (interactive)
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+  (if-let* ((filename (or buffer-file-name (bound-and-true-p list-buffers-directory))))
       (message (kill-new (expand-file-name filename)))
     (error "Couldn't find filename in current buffer")))
 
@@ -562,7 +562,7 @@ symbolic links."
 (defun lib-util/yank-buffer-absolute-dir-path ()
   "Copy the absolute buffer directory to the kill ring."
   (interactive)
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+  (if-let* ((filename (or buffer-file-name (bound-and-true-p list-buffers-directory))))
       (message (kill-new (f-dirname (expand-file-name filename))))
     (error "Couldn't find filename in current buffer")))
 
@@ -763,8 +763,8 @@ https://thoughtspile.github.io/2018/06/20/serialize-promises/"
 ;;;###autoload
 (defun lib-util/read-password (&rest props)
   "Search USERNAME in authinfo.gpg and return the password."
-  (when-let ((fn (map-elt (car (apply #'auth-source-search props))
-                          :secret)))
+  (when-let* ((fn (map-elt (car (apply #'auth-source-search props))
+                           :secret)))
     (funcall fn)))
 
 ;;;###autoload
@@ -819,8 +819,8 @@ If BUFFER-OR-NAME is omitted or nil, the current buffer is tested."
   (or (bufferp buffer-or-name)
       (stringp buffer-or-name)
       (signal 'wrong-type-argument (list '(bufferp stringp) buffer-or-name)))
-  (when-let (buf (get-buffer buffer-or-name))
-    (when-let (basebuf (buffer-base-buffer buf))
+  (when-let* ((buf (get-buffer buffer-or-name)))
+    (when-let* ((basebuf (buffer-base-buffer buf)))
       (setq buf basebuf))
     (and (buffer-live-p buf)
          (not (lib-util/temp-buffer-p buf))

@@ -193,7 +193,7 @@ too much, e.g. 1s.")
     (if (or my/mpdel-modeline-force-update-p
             (> (- (float-time) my/mpdel-modeline-last-updated)
                my/mpdel-modeline-update-frequency))
-        (when-let ((song (libmpdel-current-song)))
+        (when-let* ((song (libmpdel-current-song)))
           (setq my/mpdel-modeline-force-update-p nil)
           (setq my/mpdel-modeline-last-updated (float-time))
           (let* ((title (s-truncate 20 (or (libmpdel-entity-name song) "") "\u2026") )

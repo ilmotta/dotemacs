@@ -54,7 +54,7 @@
         clj->js
         js/JSON.stringify)
    (lambda (nrepl-response)
-     (when-let ((raw-value (nrepl-dict-get nrepl-response "value")))
+     (when-let* ((raw-value (nrepl-dict-get nrepl-response "value")))
        (let* ((json-false json-null)
               (response (json-read-from-string (json-read-from-string raw-value))))
          (funcall f response))))))
@@ -367,7 +367,7 @@
   (smob--cider-eval
    (rf/sub [:profile/compressed-key])
    (lambda (nrepl-response)
-     (when-let ((raw-val (nrepl-dict-get nrepl-response "value")))
+     (when-let* ((raw-val (nrepl-dict-get nrepl-response "value")))
        (let ((val (car (read-from-string raw-val))))
          (kill-new val)
          (message "Copied compressed key '%s'" (smob-short-compressed-key val)))))))

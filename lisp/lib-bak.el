@@ -158,7 +158,7 @@ Some of these flags were added in the 3.2.3 release (Aug 2020)."
     (unless (lib-bak/-file-remote-p src)
       (cl-assert (file-exists-p src) 'show-args)
       (cl-assert (file-directory-p src) 'show-args))
-    (if-let ((proc (get-process proc-name)))
+    (if-let* ((proc (get-process proc-name)))
         (message (propertize "Please, sync again after the current process finishes." 'face 'compilation-warning))
       (make-directory dst 'parents)
       (start-process-shell-command proc-name (get-buffer-create "*sync*") cmd))))

@@ -62,7 +62,7 @@ working directory (`default-directory')."
 
 (defun pkg-eshell/rename-buffer-with-last-input ()
   "Rename current eshell buffer with last input."
-  (when-let ((last-input (pkg-eshell/-last-input)))
+  (when-let* ((last-input (pkg-eshell/-last-input)))
     (let* ((separator pkg-eshell/buffer-name-separator)
            (separator-regexp (rx (literal separator)
                                  (group (one-or-more not-newline))

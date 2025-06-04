@@ -222,7 +222,7 @@ The token will be cached in `lib-spotify/api-token'."
                        (eq event 'record/create-pulse-audio-sink))
                   (condition-case err
                       (with-current-buffer buffer
-                        (if-let ((track (seq-first (map-elt ctx 'tracks))))
+                        (if-let* ((track (seq-first (map-elt ctx 'tracks))))
                             (progn
                               (lib-spotify/stop)
                               (map-put! ctx 'process-monitor-sink
@@ -334,7 +334,7 @@ The token will be cached in `lib-spotify/api-token'."
                        (eq event 'record/continue))
                   (condition-case err
                       (with-current-buffer buffer
-                        (when-let ((process (map-elt ctx 'process-monitor-sink)))
+                        (when-let* ((process (map-elt ctx 'process-monitor-sink)))
                           (kill-process process))
                         (delete-file (map-elt ctx 'tmp-file))
                         (map-put! ctx 'invalid-track-p nil)
@@ -352,7 +352,7 @@ The token will be cached in `lib-spotify/api-token'."
                  ((eq event 'record/error)
                   (with-current-buffer buffer
                     (insert (format "[ERROR] Error recording playlist: '%s'" (map-elt ctx 'error)))
-                    (when-let ((process (map-elt ctx 'process-monitor-sink)))
+                    (when-let* ((process (map-elt ctx 'process-monitor-sink)))
                       (kill-process process))
                     (delete-file (map-elt ctx 'new-file))
                     (delete-file (map-elt ctx 'tmp-file))
