@@ -3,7 +3,7 @@
 (require 'lib-util)
 
 (lib-util/pkg hnreader
-  :ensure (:ref "8444e177035e236e991f9ea73074c053a45426ad")
+  :ensure (:ref "b422628a272d7672cc2c7dfcef1c8bf06371afd5")
   :defer t
   :commands (hnreader-news
              hnreader-newest

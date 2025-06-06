@@ -641,7 +641,7 @@
              (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el"
               "*-tests.el" "LICENSE" "README*" "*-pkg.el"))
             :source "MELPA" :protocol https :inherit t :depth treeless :ref
-            "8444e177035e236e991f9ea73074c053a45426ad"))
+            "b422628a272d7672cc2c7dfcef1c8bf06371afd5"))
  (ht :source "elpaca-menu-lock-file" :recipe
      (:package "ht" :fetcher github :repo "Wilfred/ht.el" :files
       ("*.el" "*.el.in" "dir" "*.info" "*.texi" "*.texinfo" "doc/dir"
