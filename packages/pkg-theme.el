@@ -225,21 +225,6 @@ theme is loaded in order to correctly update all faces."
         (:default
          (load-theme my/favorite-dark-theme 'no-confirm))))
 
-;;;###autoload
-(defun pkg-theme/cycle ()
-  "Cycle over themes."
-  (interactive)
-  (let ((current-theme (car my/favorite-themes))
-        (next-theme (cadr my/favorite-themes))
-        ;; We need to define a new binding because the advised `load-theme'
-        ;; function will save a custom variable and this has the side-effect of
-        ;; resetting `my/favorite-themes' to what's persisted on custom.el.
-        (favorite-themes my/favorite-themes))
-    (load-theme next-theme 'no-confirm)
-    (customize-save-variable 'my/favorite-themes
-                             (append (cdr favorite-themes)
-                                     (list (car favorite-themes))))))
-
 ;;; Config
 
 (setq modus-themes-mode-line '(accented borderless))
@@ -252,11 +237,14 @@ theme is loaded in order to correctly update all faces."
 (setq modus-themes-org-blocks 'tinted-background)
 (setq modus-themes-scale-headings t)
 
-(add-hook 'elpaca-after-init-hook #'pkg-theme/load)
-(add-hook 'elpaca-after-init-hook #'pkg-theme/watch-theme-changed)
+(defun pkg-theme/init ()
+  ;; Advice after the theme is first loaded because `pkg-theme/load-advice' calls
+  ;; `customize-save-variable' which is pretty slow.
+  (advice-add 'load-theme :around #'pkg-theme/load-advice)
 
-;; Advice after the theme is first loaded because `pkg-theme/load-advice' calls
-;; `customize-save-variable' which is pretty slow.
-(advice-add 'load-theme :around #'pkg-theme/load-advice)
+  (pkg-theme/load)
+  (pkg-theme/watch-theme-changed))
+
+(add-hook 'elpaca-after-init-hook #'pkg-theme/init)
 
 (provide 'pkg-theme)

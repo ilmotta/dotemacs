@@ -41,7 +41,7 @@
 (let* ((theme (theme/read))
        (name (and theme (intern (alist-get 'SYSTEM_THEME theme))))
        (bg-color (if theme (alist-get 'THEME_BG_COLOR theme) my/default-dark-bg)))
-  (setq my/theme (or name 'doom-one))
+  (setq my/theme (or name 'ef-maris-dark))
   (setq default-frame-alist `((fullscreen . fullheight)
                               (menu-bar-lines . 0)
                               (tool-bar-lines . 0)
