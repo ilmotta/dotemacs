@@ -37,7 +37,11 @@
                              "mobi"
                              "pdf")
                         line-end)
-                    "setsid -w xdg-open"
+                    (if my/linux?
+                        ;; Open program in a new session and wait until the
+                        ;; program terminates.
+                        "setsid -w xdg-open"
+                      "open")
                     '(file)))))
 
 (provide 'pkg-openwith)
