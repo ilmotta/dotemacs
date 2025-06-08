@@ -22,8 +22,10 @@ See issue https://github.com/progfolio/elpaca/issues/222"
 (defvar elpaca-order
   '(elpaca
        :repo "https://github.com/progfolio/elpaca.git"
-       ;; Revision date: 2025-02-23
-       :ref "45c56a968fd5903bbcbb1fafbf3b6e50e64c4393"
+       ;; Revision date: 2025-09-27
+       :ref "8050db1d912c3b1e0f39b286ac340dbfda54ae4f"
+       :depth 1
+       :inherit ignore
        :files (:defaults "elpaca-test.el" (:exclude "extensions"))
        :build (:not elpaca--activate-package)))
 
@@ -54,7 +56,7 @@ See issue https://github.com/progfolio/elpaca/issues/222"
   (unless (require 'elpaca-autoloads nil t)
     (require 'elpaca)
     (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
+    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
