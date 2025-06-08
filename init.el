@@ -212,6 +212,7 @@
  pkg-eat
  pkg-ement
  pkg-explain-pause-mode
+ pkg-git-annex
  pkg-golden-ratio
  pkg-hnreader
  pkg-magit-forge
