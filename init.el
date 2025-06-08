@@ -8,10 +8,6 @@
 (require 'cl-lib)
 (require 'seq)
 
-;; Without this require and without loading pkg-transient I get a segmentation
-;; fault. It doesn't help to remove all usages of transient in config files.
-(require 'transient)
-
 (require 'my-globals)
 (require 'lib-elisp)
 (require 'lib-util)
