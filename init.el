@@ -194,6 +194,7 @@
  pkg-evil-org
  pkg-htmlize
  pkg-ob-async
+ pkg-org-appear
  pkg-org-cliplink
  pkg-org-download
  pkg-org-make-toc
