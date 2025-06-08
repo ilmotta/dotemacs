@@ -78,6 +78,13 @@
         dired-dwim-target t  ; Suggest a target for moving/copying intelligently
         dired-hide-details-hide-symlink-targets nil)
 
+  ;; If non-nil, and the renamed files are under version control, dired renames
+  ;; them using `vc-rename-file'.
+  ;;
+  ;; Using vc-rename-file by default is particularly useful in repos managed by
+  ;; git-annex so that it can correctly track all symlinks.
+  (setq dired-vc-rename-file t)
+
   ;; In macOS --group-directories-first is not available. Install GNU ls via
   ;; coreutils package.
   (setq dired-listing-switches "-lAFh --group-directories-first")
