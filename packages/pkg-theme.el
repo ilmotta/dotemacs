@@ -15,7 +15,7 @@
 ;;; Code:
 
 (require 'lib-util)
-(require 'dbus)
+(require 'dbus nil 'noerror)
 
 ;;; Private
 
@@ -78,13 +78,14 @@
 
 Use the command 'dbus-monitor --session' and the program d-spy to figure
 out the parameters to `dbus-register-signal'."
-  (let ((bus :session)
-        (service "org.gnome.desktop.interface")
-        (interface "org.freedesktop.portal.Settings")
-        (path "/org/freedesktop/portal/desktop")
-        (signal "SettingChanged")
-        (handler (lib-util/throttle 1000 #'pkg-theme/gtk-theme-changed-handler)))
-    (dbus-register-signal bus service path interface signal handler)))
+  (when (string-match-p "DBUS" system-configuration-features)
+    (let ((bus :session)
+          (service "org.gnome.desktop.interface")
+          (interface "org.freedesktop.portal.Settings")
+          (path "/org/freedesktop/portal/desktop")
+          (signal "SettingChanged")
+          (handler (lib-util/throttle 1000 #'pkg-theme/gtk-theme-changed-handler)))
+      (dbus-register-signal bus service path interface signal handler))))
 
 (defun pkg-theme/gtk? ()
   (equal "GNOME" (getenv "XDG_CURRENT_DESKTOP")))
